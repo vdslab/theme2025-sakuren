@@ -72,7 +72,7 @@ wordcloud = WordCloud(
 word_layout_data = []
 for (word, font_size, position, orientation, color) in wordcloud.layout_:
     word_info = {
-        "word": word,
+        "word": word[0],
         "tfidf_score": word_scores.get(word, 0),
         "font_size": font_size,
         "x": round(float(position[1]), 6),              # 高精度 → 小数第6位まで
