@@ -6,8 +6,6 @@ export const App = () => {
   const height = 1600;
   const margin = 20;
 
-  const X = wordData.map((item) => item.x);
-  const Y = wordData.map((item) => item.y);
   const F = wordData.map((item) => item.font_size);
 
   const xScale = d3
@@ -28,7 +26,7 @@ export const App = () => {
     .range([10, 60]);
 
   // MeCabのorientation→角度変換
-  const angleMap = {
+  const angleMap:{[key: string]: number;null:number,0:number,1:number,2:number,3:number} = {
     null: 0,
     0: 0,
     1: 90,
@@ -39,8 +37,8 @@ export const App = () => {
   return (
     <div style={{ backgroundColor: "white" }}>
       <svg width={width} height={height}>
-        {wordData.map((item, index) => {
-          const orientationKey =
+        {wordData.map((item:{word:string,font_size: number,x: number,y: number,orientation: number|null,color:string}, index:number) => {
+          const orientationKey:string|number =
             item.orientation === null ? "null" : item.orientation;
           const angle = angleMap[orientationKey];
           if (orientationKey == 0) {
@@ -62,7 +60,7 @@ export const App = () => {
               transform={`rotate(${angle}, ${x}, ${y})`}
               style={{ fontFamily: 'YuGothic, "游ゴシック", sans-serif' }}
             >
-              {item.word[0]}
+              {item.word}
             </text>
           );
         })}

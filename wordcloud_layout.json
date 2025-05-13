@@ -1,1334 +1,1001 @@
 [
   {
-    "word": [
-      "うどん",
-      1.0
-    ],
+    "word": "うどん",
     "tfidf_score": 0,
     "font_size": 55,
-    "x": 86.0,
-    "y": 200.0,
+    "x": 122.0,
+    "y": 197.0,
     "orientation": null,
-    "color": "rgb(241, 204, 184)"
-  },
-  {
-    "word": [
-      "本店",
-      0.2132990245394632
-    ],
-    "tfidf_score": 0,
-    "font_size": 33,
-    "x": 237.0,
-    "y": 181.0,
-    "orientation": null,
-    "color": "rgb(238, 208, 192)"
-  },
-  {
-    "word": [
-      "手打",
-      0.20774766070749448
-    ],
-    "tfidf_score": 0,
-    "font_size": 33,
-    "x": 148.0,
-    "y": 160.0,
-    "orientation": null,
-    "color": "rgb(205, 217, 236)"
-  },
-  {
-    "word": [
-      "手打ち",
-      0.2065955987225617
-    ],
-    "tfidf_score": 0,
-    "font_size": 33,
-    "x": 229.0,
-    "y": 149.0,
-    "orientation": null,
-    "color": "rgb(128, 163, 250)"
-  },
-  {
-    "word": [
-      "高松",
-      0.15219474077209613
-    ],
-    "tfidf_score": 0,
-    "font_size": 29,
-    "x": 62.0,
-    "y": 259.0,
-    "orientation": null,
-    "color": "rgb(133, 168, 252)"
-  },
-  {
-    "word": [
-      "讃岐",
-      0.14572455620718988
-    ],
-    "tfidf_score": 0,
-    "font_size": 28,
-    "x": 344.0,
-    "y": 200.0,
-    "orientation": null,
-    "color": "rgb(247, 180, 151)"
-  },
-  {
-    "word": [
-      "食堂",
-      0.08781405706080374
-    ],
-    "tfidf_score": 0,
-    "font_size": 22,
-    "x": 250.0,
-    "y": 215.0,
-    "orientation": null,
-    "color": "rgb(209, 73, 63)"
-  },
-  {
-    "word": [
-      "めん",
-      0.08636381185697307
-    ],
-    "tfidf_score": 0,
-    "font_size": 22,
-    "x": 171.0,
-    "y": 246.0,
-    "orientation": null,
-    "color": "rgb(140, 175, 254)"
-  },
-  {
-    "word": [
-      "丸亀",
-      0.08504950442391467
-    ],
-    "tfidf_score": 0,
-    "font_size": 22,
-    "x": 299.0,
-    "y": 206.0,
-    "orientation": null,
-    "color": "rgb(158, 190, 255)"
-  },
-  {
-    "word": [
-      "料理",
-      0.0780146283718607
-    ],
-    "tfidf_score": 0,
-    "font_size": 21,
-    "x": 60.0,
-    "y": 238.0,
-    "orientation": null,
-    "color": "rgb(128, 163, 250)"
-  },
-  {
-    "word": [
-      "本格",
-      0.0733427012926973
-    ],
-    "tfidf_score": 0,
-    "font_size": 20,
-    "x": 116.0,
-    "y": 244.0,
-    "orientation": null,
-    "color": "rgb(129, 164, 251)"
-  },
-  {
-    "word": [
-      "海鮮",
-      0.07130717071657953
-    ],
-    "tfidf_score": 0,
-    "font_size": 20,
-    "x": 127.0,
-    "y": 167.0,
-    "orientation": 2,
-    "color": "rgb(190, 36, 46)"
-  },
-  {
-    "word": [
-      "カフェ",
-      0.0665151432909082
-    ],
-    "tfidf_score": 0,
-    "font_size": 19,
-    "x": 189.0,
-    "y": 131.0,
-    "orientation": null,
-    "color": "rgb(247, 176, 147)"
-  },
-  {
-    "word": [
-      "セルフ",
-      0.0584653699443978
-    ],
-    "tfidf_score": 0,
-    "font_size": 18,
-    "x": 330.0,
-    "y": 43.0,
-    "orientation": null,
-    "color": "rgb(103, 136, 238)"
-  },
-  {
-    "word": [
-      "むら",
-      0.05374777039259612
-    ],
-    "tfidf_score": 0,
-    "font_size": 17,
-    "x": 58.0,
-    "y": 294.0,
-    "orientation": null,
-    "color": "rgb(174, 201, 252)"
-  },
-  {
-    "word": [
-      "珈琲",
-      0.05085738479994553
-    ],
-    "tfidf_score": 0,
-    "font_size": 17,
-    "x": 253.0,
-    "y": 242.0,
-    "orientation": null,
-    "color": "rgb(189, 31, 45)"
-  },
-  {
-    "word": [
-      "大島",
-      0.04685290883292277
-    ],
-    "tfidf_score": 0,
-    "font_size": 16,
-    "x": 337.0,
-    "y": 178.0,
-    "orientation": null,
-    "color": "rgb(246, 191, 166)"
-  },
-  {
-    "word": [
-      "寿司",
-      0.046389410578880366
-    ],
-    "tfidf_score": 0,
-    "font_size": 16,
-    "x": 199.0,
-    "y": 264.0,
-    "orientation": null,
-    "color": "rgb(61, 80, 195)"
-  },
-  {
-    "word": [
-      "活魚",
-      0.045705351980319976
-    ],
-    "tfidf_score": 0,
-    "font_size": 16,
-    "x": 82.0,
-    "y": 223.0,
-    "orientation": null,
-    "color": "rgb(223, 219, 217)"
-  },
-  {
-    "word": [
-      "居酒屋",
-      0.04509883944260784
-    ],
-    "tfidf_score": 0,
-    "font_size": 15,
-    "x": 342.0,
-    "y": 25.0,
-    "orientation": null,
-    "color": "rgb(100, 133, 236)"
-  },
-  {
-    "word": [
-      "そば",
-      0.04277679441984012
-    ],
-    "tfidf_score": 0,
-    "font_size": 15,
-    "x": 301.0,
-    "y": 177.0,
-    "orientation": null,
-    "color": "rgb(231, 116, 91)"
-  },
-  {
-    "word": [
-      "ぬき",
-      0.04135180875370246
-    ],
-    "tfidf_score": 0,
-    "font_size": 15,
-    "x": 169.0,
-    "y": 224.0,
-    "orientation": null,
-    "color": "rgb(226, 105, 82)"
-  },
-  {
-    "word": [
-      "山下",
-      0.040827117512466385
-    ],
-    "tfidf_score": 0,
-    "font_size": 15,
-    "x": 192.0,
-    "y": 147.0,
-    "orientation": null,
-    "color": "rgb(174, 201, 252)"
-  },
-  {
-    "word": [
-      "瀬戸",
-      0.04049814255184404
-    ],
-    "tfidf_score": 0,
-    "font_size": 15,
-    "x": 127.0,
-    "y": 209.0,
-    "orientation": null,
-    "color": "rgb(239, 136, 107)"
-  },
-  {
-    "word": [
-      "食事",
-      0.03930734375466144
-    ],
-    "tfidf_score": 0,
-    "font_size": 15,
-    "x": 138.0,
-    "y": 146.0,
-    "orientation": null,
-    "color": "rgb(200, 56, 54)"
-  },
-  {
-    "word": [
-      "むぎ",
-      0.03850491359023928
-    ],
-    "tfidf_score": 0,
-    "font_size": 15,
-    "x": 214.0,
-    "y": 244.0,
-    "orientation": null,
-    "color": "rgb(204, 64, 58)"
-  },
-  {
-    "word": [
-      "ラーメン",
-      0.03649145229112144
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 152.0,
-    "y": 189.0,
-    "orientation": null,
-    "color": "rgb(200, 56, 54)"
-  },
-  {
-    "word": [
-      "香川",
-      0.03618920748629008
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 208.0,
-    "y": 181.0,
-    "orientation": null,
-    "color": "rgb(174, 201, 252)"
-  },
-  {
-    "word": [
-      "茶屋",
-      0.03564363721021823
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 270.0,
-    "y": 132.0,
-    "orientation": null,
-    "color": "rgb(75, 100, 213)"
-  },
-  {
-    "word": [
-      "ちゃん",
-      0.03492529943845454
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 54.0,
-    "y": 210.0,
-    "orientation": null,
-    "color": "rgb(150, 183, 255)"
-  },
-  {
-    "word": [
-      "本舗",
-      0.03476986585651652
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 120.0,
-    "y": 263.0,
-    "orientation": null,
-    "color": "rgb(234, 213, 201)"
-  },
-  {
-    "word": [
-      "清水屋",
-      0.034332027956516555
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 174.0,
-    "y": 119.0,
-    "orientation": 2,
-    "color": "rgb(206, 218, 235)"
-  },
-  {
-    "word": [
-      "兵庫",
-      0.033949853525145825
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 316.0,
-    "y": 145.0,
-    "orientation": null,
-    "color": "rgb(72, 95, 209)"
-  },
-  {
-    "word": [
-      "市場",
-      0.032997916165192424
-    ],
-    "tfidf_score": 0,
-    "font_size": 13,
-    "x": 400.0,
-    "y": 218.0,
-    "orientation": null,
-    "color": "rgb(223, 219, 217)"
-  },
-  {
-    "word": [
-      "三太郎",
-      0.03260088769227277
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 310.0,
-    "y": 192.0,
-    "orientation": null,
-    "color": "rgb(207, 69, 60)"
-  },
-  {
-    "word": [
-      "上田",
-      0.031343632629495764
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 59.0,
-    "y": 224.0,
-    "orientation": null,
-    "color": "rgb(245, 160, 129)"
-  },
-  {
-    "word": [
-      "食品",
-      0.03129685218458186
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 100.0,
-    "y": 179.0,
-    "orientation": null,
-    "color": "rgb(247, 179, 150)"
-  },
-  {
-    "word": [
-      "はな",
-      0.03116540323681117
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 44.0,
-    "y": 198.0,
-    "orientation": null,
-    "color": "rgb(222, 97, 77)"
-  },
-  {
-    "word": [
-      "春日",
-      0.031010084060726993
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 126.0,
-    "y": 230.0,
-    "orientation": null,
-    "color": "rgb(225, 218, 214)"
-  },
-  {
-    "word": [
-      "大川",
-      0.03065824735082675
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 398.0,
-    "y": 207.0,
-    "orientation": null,
-    "color": "rgb(95, 127, 232)"
-  },
-  {
-    "word": [
-      "もん",
-      0.030383187044592322
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 212.0,
-    "y": 168.0,
-    "orientation": null,
-    "color": "rgb(247, 177, 148)"
-  },
-  {
-    "word": [
-      "饂飩",
-      0.030045492872568382
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 82.0,
-    "y": 196.0,
-    "orientation": null,
-    "color": "rgb(110, 144, 242)"
-  },
-  {
-    "word": [
-      "問屋",
-      0.03004139193585962
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 228.0,
-    "y": 206.0,
-    "orientation": null,
-    "color": "rgb(207, 69, 60)"
-  },
-  {
-    "word": [
-      "ふじ",
-      0.029296248918442888
-    ],
-    "tfidf_score": 0,
-    "font_size": 11,
-    "x": 202.0,
-    "y": 196.0,
-    "orientation": 2,
     "color": "rgb(151, 184, 255)"
   },
   {
-    "word": [
-      "焼肉",
-      0.02925779869117146
-    ],
+    "word": "本店",
     "tfidf_score": 0,
-    "font_size": 11,
-    "x": 369.0,
-    "y": 188.0,
+    "font_size": 33,
+    "x": 264.0,
+    "y": 192.0,
     "orientation": null,
-    "color": "rgb(85, 114, 223)"
+    "color": "rgb(190, 36, 46)"
   },
   {
-    "word": [
-      "寿し",
-      0.02917526788847315
-    ],
+    "word": "手打",
     "tfidf_score": 0,
-    "font_size": 11,
-    "x": 306.0,
-    "y": 39.0,
+    "font_size": 33,
+    "x": 197.0,
+    "y": 165.0,
     "orientation": null,
-    "color": "rgb(247, 179, 150)"
+    "color": "rgb(86, 115, 224)"
   },
   {
-    "word": [
-      "大喜多",
-      0.027384745661509124
-    ],
+    "word": "手打ち",
     "tfidf_score": 0,
-    "font_size": 8,
-    "x": 52.0,
-    "y": 285.0,
+    "font_size": 33,
+    "x": 64.0,
+    "y": 243.0,
     "orientation": null,
     "color": "rgb(215, 220, 227)"
   },
   {
-    "word": [
-      "こだわり",
-      0.02617602028874302
-    ],
+    "word": "高松",
     "tfidf_score": 0,
-    "font_size": 8,
-    "x": 241.0,
-    "y": 258.0,
-    "orientation": null,
-    "color": "rgb(94, 125, 231)"
-  },
-  {
-    "word": [
-      "ぁめん",
-      0.02608071015381821
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 83.0,
-    "y": 286.0,
-    "orientation": null,
-    "color": "rgb(213, 80, 66)"
-  },
-  {
-    "word": [
-      "こん",
-      0.02574340254184132
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 234.0,
-    "y": 178.0,
-    "orientation": null,
-    "color": "rgb(221, 95, 75)"
-  },
-  {
-    "word": [
-      "まつ",
-      0.025319008550016474
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 256.0,
-    "y": 137.0,
-    "orientation": 2,
-    "color": "rgb(187, 27, 44)"
-  },
-  {
-    "word": [
-      "屋敷",
-      0.025195479671925494
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 295.0,
-    "y": 54.0,
-    "orientation": null,
-    "color": "rgb(231, 116, 91)"
-  },
-  {
-    "word": [
-      "精肉",
-      0.024948952652679327
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 335.0,
-    "y": 55.0,
-    "orientation": null,
-    "color": "rgb(98, 130, 234)"
-  },
-  {
-    "word": [
-      "観光",
-      0.024922635848129735
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
+    "font_size": 29,
     "x": 328.0,
-    "y": 165.0,
+    "y": 197.0,
+    "orientation": null,
+    "color": "rgb(230, 215, 207)"
+  },
+  {
+    "word": "讃岐",
+    "tfidf_score": 0,
+    "font_size": 28,
+    "x": 273.0,
+    "y": 162.0,
+    "orientation": null,
+    "color": "rgb(244, 154, 123)"
+  },
+  {
+    "word": "食堂",
+    "tfidf_score": 0,
+    "font_size": 22,
+    "x": 53.0,
+    "y": 283.0,
+    "orientation": null,
+    "color": "rgb(247, 166, 136)"
+  },
+  {
+    "word": "めん",
+    "tfidf_score": 0,
+    "font_size": 22,
+    "x": 198.0,
+    "y": 140.0,
+    "orientation": null,
+    "color": "rgb(230, 215, 207)"
+  },
+  {
+    "word": "丸亀",
+    "tfidf_score": 0,
+    "font_size": 22,
+    "x": 198.0,
+    "y": 245.0,
     "orientation": null,
     "color": "rgb(195, 213, 244)"
   },
   {
-    "word": [
-      "くま",
-      0.024776674646127303
-    ],
+    "word": "料理",
     "tfidf_score": 0,
-    "font_size": 8,
-    "x": 189.0,
-    "y": 119.0,
-    "orientation": null,
-    "color": "rgb(162, 193, 255)"
-  },
-  {
-    "word": [
-      "酒場",
-      0.024588141946013074
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 159.0,
-    "y": 247.0,
-    "orientation": 2,
-    "color": "rgb(230, 114, 89)"
-  },
-  {
-    "word": [
-      "長田",
-      0.024557306946214667
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 150.0,
-    "y": 263.0,
-    "orientation": null,
-    "color": "rgb(247, 170, 140)"
-  },
-  {
-    "word": [
-      "通り",
-      0.024089409107681977
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 395.0,
-    "y": 195.0,
-    "orientation": null,
-    "color": "rgb(240, 139, 110)"
-  },
-  {
-    "word": [
-      "三谷",
-      0.023512228685206547
-    ],
-    "tfidf_score": 0,
-    "font_size": 8,
-    "x": 229.0,
-    "y": 218.0,
-    "orientation": null,
-    "color": "rgb(119, 154, 247)"
-  },
-  {
-    "word": [
-      "grandmaisonlowe",
-      0.02347263913843639
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 209.0,
-    "y": 192.0,
-    "orientation": null,
-    "color": "rgb(158, 190, 255)"
-  },
-  {
-    "word": [
-      "琴平",
-      0.02347263913843639
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 146.0,
-    "y": 218.0,
-    "orientation": null,
-    "color": "rgb(245, 193, 169)"
-  },
-  {
-    "word": [
-      "野口",
-      0.02347263913843639
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 260.0,
-    "y": 53.0,
-    "orientation": 2,
-    "color": "rgb(199, 54, 53)"
-  },
-  {
-    "word": [
-      "綿谷",
-      0.02320191067696928
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 172.0,
-    "y": 264.0,
-    "orientation": null,
-    "color": "rgb(188, 210, 247)"
-  },
-  {
-    "word": [
-      "屋島",
-      0.023041715626312572
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 359.0,
-    "y": 40.0,
-    "orientation": null,
-    "color": "rgb(190, 210, 246)"
-  },
-  {
-    "word": [
-      "専門",
-      0.022893583311625505
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 74.0,
-    "y": 309.0,
-    "orientation": 2,
-    "color": "rgb(221, 95, 75)"
-  },
-  {
-    "word": [
-      "商店",
-      0.022890342174243145
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 229.0,
-    "y": 257.0,
-    "orientation": 2,
-    "color": "rgb(178, 204, 251)"
-  },
-  {
-    "word": [
-      "サロン",
-      0.02279342902141375
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 135.0,
-    "y": 160.0,
-    "orientation": null,
-    "color": "rgb(141, 176, 254)"
-  },
-  {
-    "word": [
-      "綾川",
-      0.02258792154595243
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 104.0,
-    "y": 252.0,
-    "orientation": null,
-    "color": "rgb(189, 31, 45)"
-  },
-  {
-    "word": [
-      "レストラン",
-      0.022203037410267523
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 208.0,
-    "y": 278.0,
-    "orientation": null,
-    "color": "rgb(183, 13, 40)"
-  },
-  {
-    "word": [
-      "はる",
-      0.02216860363074548
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 264.0,
-    "y": 180.0,
-    "orientation": null,
-    "color": "rgb(241, 143, 113)"
-  },
-  {
-    "word": [
-      "瀬戸内",
-      0.021839939125840473
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 375.0,
-    "y": 16.0,
-    "orientation": null,
-    "color": "rgb(196, 48, 50)"
-  },
-  {
-    "word": [
-      "くつ",
-      0.021771318586087236
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 288.0,
-    "y": 115.0,
-    "orientation": null,
-    "color": "rgb(137, 172, 253)"
-  },
-  {
-    "word": [
-      "津田",
-      0.02162028232270706
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 115.0,
-    "y": 171.0,
-    "orientation": null,
-    "color": "rgb(243, 148, 117)"
-  },
-  {
-    "word": [
-      "いりこ",
-      0.021584817863794934
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 373.0,
-    "y": 67.0,
-    "orientation": null,
-    "color": "rgb(227, 108, 85)"
-  },
-  {
-    "word": [
-      "焼き",
-      0.021427292959743813
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 111.0,
-    "y": 109.0,
-    "orientation": null,
-    "color": "rgb(245, 157, 126)"
-  },
-  {
-    "word": [
-      "松原",
-      0.021410771056647022
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 54.0,
-    "y": 272.0,
-    "orientation": null,
-    "color": "rgb(245, 192, 167)"
-  },
-  {
-    "word": [
-      "空港",
-      0.020874920095472427
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 379.0,
-    "y": 225.0,
-    "orientation": null,
-    "color": "rgb(208, 71, 61)"
-  },
-  {
-    "word": [
-      "松下",
-      0.020864568123054567
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 355.0,
-    "y": 193.0,
-    "orientation": null,
-    "color": "rgb(62, 81, 197)"
-  },
-  {
-    "word": [
-      "中華",
-      0.020859096097761206
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 343.0,
-    "y": 63.0,
-    "orientation": null,
-    "color": "rgb(215, 84, 69)"
-  },
-  {
-    "word": [
-      "センター",
-      0.020779441550006276
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 79.0,
-    "y": 118.0,
-    "orientation": null,
-    "color": "rgb(199, 215, 240)"
-  },
-  {
-    "word": [
-      "洋食",
-      0.020734544766606685
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 139.0,
-    "y": 223.0,
-    "orientation": null,
-    "color": "rgb(218, 220, 224)"
-  },
-  {
-    "word": [
-      "渡辺",
-      0.020411936159722612
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 288.0,
-    "y": 161.0,
-    "orientation": null,
-    "color": "rgb(102, 135, 237)"
-  },
-  {
-    "word": [
-      "揚げ",
-      0.020349919624451394
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 90.0,
-    "y": 297.0,
-    "orientation": null,
-    "color": "rgb(121, 156, 248)"
-  },
-  {
-    "word": [
-      "名物",
-      0.020320090709121514
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 251.0,
-    "y": 136.0,
-    "orientation": 2,
-    "color": "rgb(165, 195, 254)"
-  },
-  {
-    "word": [
-      "牟礼",
-      0.02021255036920911
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 173.0,
-    "y": 181.0,
-    "orientation": null,
-    "color": "rgb(180, 4, 38)"
-  },
-  {
-    "word": [
-      "柳川",
-      0.02019908803309563
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 378.0,
-    "y": 55.0,
-    "orientation": null,
-    "color": "rgb(188, 210, 247)"
-  },
-  {
-    "word": [
-      "元祖",
-      0.02012057188643014
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 146.0,
-    "y": 199.0,
-    "orientation": null,
-    "color": "rgb(111, 146, 243)"
-  },
-  {
-    "word": [
-      "ベーカリー",
-      0.019840464211379465
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 107.0,
-    "y": 190.0,
-    "orientation": null,
-    "color": "rgb(247, 185, 158)"
-  },
-  {
-    "word": [
-      "れんげ",
-      0.019785436906306225
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 252.0,
+    "font_size": 21,
+    "x": 134.0,
     "y": 169.0,
     "orientation": null,
-    "color": "rgb(147, 181, 254)"
+    "color": "rgb(196, 213, 243)"
   },
   {
-    "word": [
-      "うた",
-      0.019560532615363654
-    ],
+    "word": "本格",
     "tfidf_score": 0,
-    "font_size": 4,
-    "x": 189.0,
-    "y": 214.0,
+    "font_size": 20,
+    "x": 90.0,
+    "y": 218.0,
     "orientation": null,
-    "color": "rgb(247, 188, 161)"
+    "color": "rgb(231, 116, 91)"
   },
   {
-    "word": [
-      "カレンズ",
-      0.019560532615363654
-    ],
+    "word": "海鮮",
     "tfidf_score": 0,
-    "font_size": 4,
-    "x": 313.0,
-    "y": 50.0,
+    "font_size": 20,
+    "x": 163.0,
+    "y": 207.0,
+    "orientation": 2,
+    "color": "rgb(247, 169, 139)"
+  },
+  {
+    "word": "カフェ",
+    "tfidf_score": 0,
+    "font_size": 19,
+    "x": 141.0,
+    "y": 149.0,
+    "orientation": null,
+    "color": "rgb(202, 59, 55)"
+  },
+  {
+    "word": "セルフ",
+    "tfidf_score": 0,
+    "font_size": 18,
+    "x": 329.0,
+    "y": 140.0,
+    "orientation": 2,
+    "color": "rgb(98, 130, 234)"
+  },
+  {
+    "word": "むら",
+    "tfidf_score": 0,
+    "font_size": 17,
+    "x": 248.0,
+    "y": 244.0,
+    "orientation": null,
+    "color": "rgb(81, 109, 219)"
+  },
+  {
+    "word": "珈琲",
+    "tfidf_score": 0,
+    "font_size": 17,
+    "x": 348.0,
+    "y": 37.0,
+    "orientation": null,
+    "color": "rgb(232, 118, 92)"
+  },
+  {
+    "word": "大島",
+    "tfidf_score": 0,
+    "font_size": 16,
+    "x": 251.0,
+    "y": 143.0,
+    "orientation": null,
+    "color": "rgb(143, 177, 254)"
+  },
+  {
+    "word": "寿司",
+    "tfidf_score": 0,
+    "font_size": 16,
+    "x": 106.0,
+    "y": 190.0,
+    "orientation": null,
+    "color": "rgb(95, 127, 232)"
+  },
+  {
+    "word": "活魚",
+    "tfidf_score": 0,
+    "font_size": 16,
+    "x": 159.0,
+    "y": 250.0,
+    "orientation": null,
+    "color": "rgb(81, 109, 219)"
+  },
+  {
+    "word": "居酒屋",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 305.0,
+    "y": 40.0,
     "orientation": null,
     "color": "rgb(247, 169, 139)"
   },
   {
-    "word": [
-      "マルタニ",
-      0.019560532615363654
-    ],
+    "word": "そば",
     "tfidf_score": 0,
-    "font_size": 4,
-    "x": 289.0,
-    "y": 170.0,
-    "orientation": null,
-    "color": "rgb(233, 122, 95)"
-  },
-  {
-    "word": [
-      "多田",
-      0.019560532615363654
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 285.0,
-    "y": 120.0,
-    "orientation": null,
-    "color": "rgb(247, 180, 151)"
-  },
-  {
-    "word": [
-      "飯野",
-      0.019560532615363654
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 246.0,
-    "y": 224.0,
-    "orientation": 2,
-    "color": "rgb(158, 190, 255)"
-  },
-  {
-    "word": [
-      "ステーキ",
-      0.01921040693858431
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 204.0,
-    "y": 126.0,
-    "orientation": null,
-    "color": "rgb(244, 198, 175)"
-  },
-  {
-    "word": [
-      "鶴丸",
-      0.01913450177191062
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 123.0,
-    "y": 281.0,
-    "orientation": null,
-    "color": "rgb(205, 217, 236)"
-  },
-  {
-    "word": [
-      "真里",
-      0.019125854112800017
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 301.0,
-    "y": 192.0,
-    "orientation": null,
-    "color": "rgb(73, 97, 210)"
-  },
-  {
-    "word": [
-      "ショップ",
-      0.01893633539674663
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 216.0,
-    "y": 156.0,
-    "orientation": null,
-    "color": "rgb(63, 83, 198)"
-  },
-  {
-    "word": [
-      "根っこ",
-      0.018896720743836866
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 171.0,
-    "y": 197.0,
-    "orientation": 2,
-    "color": "rgb(174, 201, 252)"
-  },
-  {
-    "word": [
-      "サン",
-      0.018881939417059287
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 83.0,
-    "y": 310.0,
-    "orientation": null,
-    "color": "rgb(246, 190, 164)"
-  },
-  {
-    "word": [
-      "エコ",
-      0.018256497107672742
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 327.0,
-    "y": 31.0,
-    "orientation": null,
-    "color": "rgb(236, 211, 197)"
-  },
-  {
-    "word": [
-      "トイトイトイ",
-      0.018256497107672742
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 302.0,
-    "y": 226.0,
-    "orientation": null,
-    "color": "rgb(219, 220, 222)"
-  },
-  {
-    "word": [
-      "味庄",
-      0.018256497107672742
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 287.0,
-    "y": 108.0,
-    "orientation": null,
-    "color": "rgb(227, 108, 85)"
-  },
-  {
-    "word": [
-      "武蔵",
-      0.018256497107672742
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 221.0,
-    "y": 161.0,
-    "orientation": null,
-    "color": "rgb(128, 163, 250)"
-  },
-  {
-    "word": [
-      "美人",
-      0.018256497107672742
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 54.0,
-    "y": 261.0,
-    "orientation": null,
-    "color": "rgb(173, 201, 253)"
-  },
-  {
-    "word": [
-      "喫茶",
-      0.017821818605109105
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 326.0,
-    "y": 38.0,
-    "orientation": null,
-    "color": "rgb(227, 217, 211)"
-  },
-  {
-    "word": [
-      "明神",
-      0.017608688742712233
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 107.0,
+    "font_size": 13,
+    "x": 56.0,
     "y": 206.0,
     "orientation": null,
-    "color": "rgb(206, 218, 235)"
+    "color": "rgb(197, 214, 242)"
   },
   {
-    "word": [
-      "寺岡",
-      0.01759273104237404
-    ],
+    "word": "ぬき",
     "tfidf_score": 0,
-    "font_size": 4,
-    "x": 225.0,
-    "y": 196.0,
-    "orientation": null,
-    "color": "rgb(133, 168, 252)"
+    "font_size": 13,
+    "x": 176.0,
+    "y": 177.0,
+    "orientation": 2,
+    "color": "rgb(198, 214, 241)"
   },
   {
-    "word": [
-      "ばい",
-      0.017519754657529397
-    ],
+    "word": "山下",
     "tfidf_score": 0,
-    "font_size": 4,
-    "x": 150.0,
-    "y": 179.0,
-    "orientation": null,
-    "color": "rgb(134, 169, 252)"
-  },
-  {
-    "word": [
-      "堂本",
-      0.017519754657529397
-    ],
-    "tfidf_score": 0,
-    "font_size": 4,
-    "x": 196.0,
-    "y": 224.0,
+    "font_size": 13,
+    "x": 61.0,
+    "y": 225.0,
     "orientation": null,
     "color": "rgb(193, 43, 48)"
   },
   {
-    "word": [
-      "うち",
-      0.017387140102545467
-    ],
+    "word": "瀬戸",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 351.0,
+    "y": 22.0,
+    "orientation": null,
+    "color": "rgb(188, 210, 247)"
+  },
+  {
+    "word": "食事",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 391.0,
+    "y": 211.0,
+    "orientation": null,
+    "color": "rgb(239, 136, 107)"
+  },
+  {
+    "word": "むぎ",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 178.0,
+    "y": 127.0,
+    "orientation": null,
+    "color": "rgb(148, 182, 255)"
+  },
+  {
+    "word": "ラーメン",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 69.0,
+    "y": 272.0,
+    "orientation": null,
+    "color": "rgb(192, 40, 47)"
+  },
+  {
+    "word": "香川",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 387.0,
+    "y": 198.0,
+    "orientation": null,
+    "color": "rgb(80, 107, 218)"
+  },
+  {
+    "word": "茶屋",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 344.0,
+    "y": 176.0,
+    "orientation": null,
+    "color": "rgb(126, 161, 250)"
+  },
+  {
+    "word": "ちゃん",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 286.0,
+    "y": 118.0,
+    "orientation": 2,
+    "color": "rgb(188, 210, 247)"
+  },
+  {
+    "word": "本舗",
+    "tfidf_score": 0,
+    "font_size": 13,
+    "x": 208.0,
+    "y": 219.0,
+    "orientation": null,
+    "color": "rgb(246, 162, 131)"
+  },
+  {
+    "word": "清水屋",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 92.0,
+    "y": 204.0,
+    "orientation": null,
+    "color": "rgb(210, 219, 232)"
+  },
+  {
+    "word": "兵庫",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 64.0,
+    "y": 304.0,
+    "orientation": null,
+    "color": "rgb(147, 181, 254)"
+  },
+  {
+    "word": "市場",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 132.0,
+    "y": 217.0,
+    "orientation": null,
+    "color": "rgb(247, 180, 151)"
+  },
+  {
+    "word": "三太郎",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 201.0,
+    "y": 267.0,
+    "orientation": null,
+    "color": "rgb(216, 86, 70)"
+  },
+  {
+    "word": "上田",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 109.0,
+    "y": 177.0,
+    "orientation": null,
+    "color": "rgb(224, 219, 216)"
+  },
+  {
+    "word": "食品",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 176.0,
+    "y": 141.0,
+    "orientation": null,
+    "color": "rgb(123, 159, 249)"
+  },
+  {
+    "word": "はな",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 177.0,
+    "y": 168.0,
+    "orientation": null,
+    "color": "rgb(247, 168, 137)"
+  },
+  {
+    "word": "春日",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 233.0,
+    "y": 134.0,
+    "orientation": null,
+    "color": "rgb(210, 75, 64)"
+  },
+  {
+    "word": "大川",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 303.0,
+    "y": 148.0,
+    "orientation": null,
+    "color": "rgb(229, 112, 88)"
+  },
+  {
+    "word": "もん",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 290.0,
+    "y": 222.0,
+    "orientation": null,
+    "color": "rgb(115, 150, 245)"
+  },
+  {
+    "word": "饂飩",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 229.0,
+    "y": 195.0,
+    "orientation": null,
+    "color": "rgb(242, 202, 181)"
+  },
+  {
+    "word": "問屋",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 258.0,
+    "y": 173.0,
+    "orientation": 2,
+    "color": "rgb(213, 219, 229)"
+  },
+  {
+    "word": "ふじ",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 337.0,
+    "y": 54.0,
+    "orientation": null,
+    "color": "rgb(190, 210, 246)"
+  },
+  {
+    "word": "焼肉",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 208.0,
+    "y": 128.0,
+    "orientation": null,
+    "color": "rgb(211, 219, 231)"
+  },
+  {
+    "word": "寿し",
+    "tfidf_score": 0,
+    "font_size": 11,
+    "x": 126.0,
+    "y": 264.0,
+    "orientation": 2,
+    "color": "rgb(167, 197, 254)"
+  },
+  {
+    "word": "大喜多",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 147.0,
+    "y": 187.0,
+    "orientation": null,
+    "color": "rgb(72, 95, 209)"
+  },
+  {
+    "word": "こだわり",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 186.0,
+    "y": 180.0,
+    "orientation": 2,
+    "color": "rgb(115, 150, 245)"
+  },
+  {
+    "word": "ぁめん",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 241.0,
+    "y": 158.0,
+    "orientation": null,
+    "color": "rgb(66, 87, 201)"
+  },
+  {
+    "word": "こん",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 39.0,
+    "y": 198.0,
+    "orientation": null,
+    "color": "rgb(104, 138, 239)"
+  },
+  {
+    "word": "まつ",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 408.0,
+    "y": 225.0,
+    "orientation": null,
+    "color": "rgb(210, 219, 232)"
+  },
+  {
+    "word": "屋敷",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 227.0,
+    "y": 207.0,
+    "orientation": null,
+    "color": "rgb(245, 157, 126)"
+  },
+  {
+    "word": "精肉",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 85.0,
+    "y": 193.0,
+    "orientation": null,
+    "color": "rgb(117, 151, 246)"
+  },
+  {
+    "word": "観光",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 115.0,
+    "y": 165.0,
+    "orientation": null,
+    "color": "rgb(223, 99, 78)"
+  },
+  {
+    "word": "くま",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 131.0,
+    "y": 228.0,
+    "orientation": null,
+    "color": "rgb(247, 185, 158)"
+  },
+  {
+    "word": "酒場",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 381.0,
+    "y": 18.0,
+    "orientation": 2,
+    "color": "rgb(216, 86, 70)"
+  },
+  {
+    "word": "長田",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 250.0,
+    "y": 54.0,
+    "orientation": null,
+    "color": "rgb(196, 48, 50)"
+  },
+  {
+    "word": "通り",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 54.0,
+    "y": 263.0,
+    "orientation": 2,
+    "color": "rgb(185, 208, 249)"
+  },
+  {
+    "word": "三谷",
+    "tfidf_score": 0,
+    "font_size": 9,
+    "x": 195.0,
+    "y": 157.0,
+    "orientation": null,
+    "color": "rgb(202, 216, 239)"
+  },
+  {
+    "word": "grandmaisonlowe",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 361.0,
+    "y": 190.0,
+    "orientation": null,
+    "color": "rgb(75, 100, 213)"
+  },
+  {
+    "word": "琴平",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 211.0,
+    "y": 243.0,
+    "orientation": null,
+    "color": "rgb(78, 104, 216)"
+  },
+  {
+    "word": "野口",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 375.0,
+    "y": 224.0,
+    "orientation": null,
+    "color": "rgb(151, 184, 255)"
+  },
+  {
+    "word": "綿谷",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 123.0,
+    "y": 255.0,
+    "orientation": null,
+    "color": "rgb(64, 85, 200)"
+  },
+  {
+    "word": "屋島",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 287.0,
+    "y": 188.0,
+    "orientation": null,
+    "color": "rgb(210, 75, 64)"
+  },
+  {
+    "word": "専門",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 277.0,
+    "y": 237.0,
+    "orientation": null,
+    "color": "rgb(210, 75, 64)"
+  },
+  {
+    "word": "商店",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 334.0,
+    "y": 31.0,
+    "orientation": null,
+    "color": "rgb(204, 217, 237)"
+  },
+  {
+    "word": "サロン",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 373.0,
+    "y": 57.0,
+    "orientation": null,
+    "color": "rgb(91, 122, 229)"
+  },
+  {
+    "word": "綾川",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 96.0,
+    "y": 285.0,
+    "orientation": null,
+    "color": "rgb(247, 168, 137)"
+  },
+  {
+    "word": "レストラン",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 248.0,
+    "y": 259.0,
+    "orientation": null,
+    "color": "rgb(76, 102, 214)"
+  },
+  {
+    "word": "はる",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 230.0,
+    "y": 157.0,
+    "orientation": null,
+    "color": "rgb(242, 201, 180)"
+  },
+  {
+    "word": "瀬戸内",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 108.0,
+    "y": 237.0,
+    "orientation": null,
+    "color": "rgb(247, 179, 150)"
+  },
+  {
+    "word": "くつ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 194.0,
+    "y": 190.0,
+    "orientation": null,
+    "color": "rgb(237, 209, 194)"
+  },
+  {
+    "word": "津田",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 108.0,
+    "y": 259.0,
+    "orientation": null,
+    "color": "rgb(118, 153, 246)"
+  },
+  {
+    "word": "いりこ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 57.0,
+    "y": 239.0,
+    "orientation": null,
+    "color": "rgb(247, 175, 145)"
+  },
+  {
+    "word": "焼き",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 377.0,
+    "y": 61.0,
+    "orientation": null,
+    "color": "rgb(246, 162, 131)"
+  },
+  {
+    "word": "松原",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 206.0,
+    "y": 193.0,
+    "orientation": null,
+    "color": "rgb(69, 92, 206)"
+  },
+  {
+    "word": "空港",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 417.0,
+    "y": 211.0,
+    "orientation": 2,
+    "color": "rgb(108, 143, 241)"
+  },
+  {
+    "word": "松下",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 126.0,
+    "y": 237.0,
+    "orientation": null,
+    "color": "rgb(217, 88, 71)"
+  },
+  {
+    "word": "中華",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 358.0,
+    "y": 52.0,
+    "orientation": null,
+    "color": "rgb(193, 43, 48)"
+  },
+  {
+    "word": "センター",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 185.0,
+    "y": 242.0,
+    "orientation": null,
+    "color": "rgb(227, 108, 85)"
+  },
+  {
+    "word": "洋食",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 248.0,
+    "y": 237.0,
+    "orientation": null,
+    "color": "rgb(205, 66, 59)"
+  },
+  {
+    "word": "渡辺",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 199.0,
+    "y": 228.0,
+    "orientation": null,
+    "color": "rgb(224, 101, 79)"
+  },
+  {
+    "word": "揚げ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 56.0,
+    "y": 246.0,
+    "orientation": null,
+    "color": "rgb(247, 181, 153)"
+  },
+  {
+    "word": "名物",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 81.0,
+    "y": 113.0,
+    "orientation": null,
+    "color": "rgb(236, 211, 197)"
+  },
+  {
+    "word": "牟礼",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 50.0,
+    "y": 304.0,
+    "orientation": null,
+    "color": "rgb(237, 131, 102)"
+  },
+  {
+    "word": "柳川",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 58.0,
+    "y": 200.0,
+    "orientation": null,
+    "color": "rgb(69, 92, 206)"
+  },
+  {
+    "word": "元祖",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 129.0,
+    "y": 204.0,
+    "orientation": null,
+    "color": "rgb(137, 172, 253)"
+  },
+  {
+    "word": "ベーカリー",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 62.0,
+    "y": 218.0,
+    "orientation": null,
+    "color": "rgb(204, 64, 58)"
+  },
+  {
+    "word": "れんげ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 270.0,
+    "y": 135.0,
+    "orientation": null,
+    "color": "rgb(244, 198, 175)"
+  },
+  {
+    "word": "うた",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 189.0,
+    "y": 120.0,
+    "orientation": null,
+    "color": "rgb(247, 168, 137)"
+  },
+  {
+    "word": "カレンズ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 312.0,
+    "y": 225.0,
+    "orientation": null,
+    "color": "rgb(195, 213, 244)"
+  },
+  {
+    "word": "マルタニ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 336.0,
+    "y": 189.0,
+    "orientation": null,
+    "color": "rgb(88, 117, 225)"
+  },
+  {
+    "word": "多田",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 220.0,
+    "y": 232.0,
+    "orientation": null,
+    "color": "rgb(232, 214, 204)"
+  },
+  {
+    "word": "飯野",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 131.0,
+    "y": 158.0,
+    "orientation": null,
+    "color": "rgb(247, 183, 155)"
+  },
+  {
+    "word": "ステーキ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 163.0,
+    "y": 264.0,
+    "orientation": null,
+    "color": "rgb(171, 200, 253)"
+  },
+  {
+    "word": "鶴丸",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 248.0,
+    "y": 229.0,
+    "orientation": null,
+    "color": "rgb(78, 104, 216)"
+  },
+  {
+    "word": "真里",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 91.0,
+    "y": 264.0,
+    "orientation": 2,
+    "color": "rgb(203, 216, 238)"
+  },
+  {
+    "word": "ショップ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 283.0,
+    "y": 216.0,
+    "orientation": 2,
+    "color": "rgb(239, 207, 191)"
+  },
+  {
+    "word": "根っこ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 74.0,
+    "y": 314.0,
+    "orientation": null,
+    "color": "rgb(212, 78, 65)"
+  },
+  {
+    "word": "サン",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 77.0,
+    "y": 121.0,
+    "orientation": null,
+    "color": "rgb(128, 163, 250)"
+  },
+  {
+    "word": "エコ",
+    "tfidf_score": 0,
+    "font_size": 5,
+    "x": 213.0,
+    "y": 70.0,
+    "orientation": null,
+    "color": "rgb(177, 203, 252)"
+  },
+  {
+    "word": "トイトイトイ",
     "tfidf_score": 0,
     "font_size": 4,
-    "x": 418.0,
-    "y": 231.0,
+    "x": 205.0,
+    "y": 279.0,
     "orientation": null,
-    "color": "rgb(246, 163, 133)"
+    "color": "rgb(199, 215, 240)"
+  },
+  {
+    "word": "味庄",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 220.0,
+    "y": 184.0,
+    "orientation": null,
+    "color": "rgb(150, 183, 255)"
+  },
+  {
+    "word": "武蔵",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 159.0,
+    "y": 197.0,
+    "orientation": null,
+    "color": "rgb(222, 220, 219)"
+  },
+  {
+    "word": "美人",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 91.0,
+    "y": 237.0,
+    "orientation": null,
+    "color": "rgb(247, 168, 137)"
+  },
+  {
+    "word": "喫茶",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 192.0,
+    "y": 256.0,
+    "orientation": null,
+    "color": "rgb(235, 211, 198)"
+  },
+  {
+    "word": "明神",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 289.0,
+    "y": 232.0,
+    "orientation": null,
+    "color": "rgb(72, 95, 209)"
+  },
+  {
+    "word": "寺岡",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 243.0,
+    "y": 248.0,
+    "orientation": 2,
+    "color": "rgb(68, 90, 204)"
+  },
+  {
+    "word": "ばい",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 235.0,
+    "y": 241.0,
+    "orientation": null,
+    "color": "rgb(211, 219, 231)"
+  },
+  {
+    "word": "堂本",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 213.0,
+    "y": 157.0,
+    "orientation": null,
+    "color": "rgb(206, 218, 235)"
+  },
+  {
+    "word": "うち",
+    "tfidf_score": 0,
+    "font_size": 4,
+    "x": 240.0,
+    "y": 182.0,
+    "orientation": null,
+    "color": "rgb(214, 82, 68)"
   }
 ]
