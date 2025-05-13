@@ -1,0 +1,72 @@
+import * as d3 from "d3";
+import wordData from "./../wordcloud_layout.json";
+
+export const App = () => {
+  const width = 1600;
+  const height = 1600;
+  const margin = 20;
+
+  const X = wordData.map((item) => item.x);
+  const Y = wordData.map((item) => item.y);
+  const F = wordData.map((item) => item.font_size);
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, 800])
+    .range([margin, width - margin])
+    .nice();
+
+  const yScale = d3
+    .scaleLinear()
+    .domain([0, 800])
+    .range([margin, height - margin])
+    .nice();
+
+  const fontScale = d3
+    .scaleLinear()
+    .domain([Math.min(...F), Math.max(...F)])
+    .range([10, 60]);
+
+  // MeCabのorientation→角度変換
+  const angleMap = {
+    null: 0,
+    0: 0,
+    1: 90,
+    2: -90,
+    3: 270,
+  };
+
+  return (
+    <div style={{ backgroundColor: "white" }}>
+      <svg width={width} height={height}>
+        {wordData.map((item, index) => {
+          const orientationKey =
+            item.orientation === null ? "null" : item.orientation;
+          const angle = angleMap[orientationKey];
+          if (orientationKey == 0) {
+            return;
+          }
+          const x = xScale(item.x);
+          const y = yScale(item.y);
+          const fontSize = fontScale(item.font_size);
+
+          return (
+            <text
+              key={index}
+              x={x}
+              y={y}
+              fontSize={fontSize}
+              fill={item.color}
+              textAnchor="start"
+              dominantBaseline="hanging"
+              transform={`rotate(${angle}, ${x}, ${y})`}
+              style={{ fontFamily: 'YuGothic, "游ゴシック", sans-serif' }}
+            >
+              {item.word[0]}
+            </text>
+          );
+        })}
+      </svg>
+    </div>
+  );
+};
