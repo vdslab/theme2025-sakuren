@@ -4,7 +4,7 @@ import wordData from "./../wordcloud_layout.json";
 export const App = () => {
   const width = 1600;
   const height = 1600;
-  const margin = 20;
+  const margin = 0;
 
   const F = wordData.map((item) => item.font_size);
 
@@ -23,14 +23,14 @@ export const App = () => {
   const fontScale = d3
     .scaleLinear()
     .domain([Math.min(...F), Math.max(...F)])
-    .range([10, 60]);
+    .range([10, 112]);
 
   // MeCabのorientation→角度変換
   const angleMap:{[key: string]: number;null:number,0:number,1:number,2:number,3:number} = {
     null: 0,
     0: 0,
     1: 90,
-    2: -90,
+    2:-90,
     3: 270,
   };
 
@@ -45,7 +45,7 @@ export const App = () => {
             return;
           }
           const x = xScale(item.x);
-          const y = yScale(item.y);
+          const y = yScale(angle==0?item.y:item.y+item.word.length*item.font_size);
           const fontSize = fontScale(item.font_size);
 
           return (
@@ -58,7 +58,7 @@ export const App = () => {
               textAnchor="start"
               dominantBaseline="hanging"
               transform={`rotate(${angle}, ${x}, ${y})`}
-              style={{ fontFamily: 'YuGothic, "游ゴシック", sans-serif' }}
+              style={{ fontFamily: '"游ゴシック"' }}
             >
               {item.word}
             </text>
