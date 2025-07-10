@@ -33,7 +33,7 @@ if height_diff > 0:
     maxy += height_diff / 2
 
 # --- ズーム倍率（小さいほどズームイン）---
-zoom_factor = 1  # 50%範囲にズームイン
+zoom_factor = 1  # 1ならそのまま
 
 # --- ズーム後の共通表示範囲 ---
 center_x = (minx + maxx) / 2
@@ -46,8 +46,8 @@ miny_zoom = center_y - zoom_height / 2
 maxy_zoom = center_y + zoom_height / 2
 
 # --- 共通の描画サイズとDPI ---
-figsize = (100, 100)  # inch
-dpi = 30
+figsize = (10, 10)  # inch, 実務的に縮小
+dpi = 300
 
 # --- ピクセルサイズ ---
 width_px = int(figsize[0] * dpi)
@@ -95,8 +95,20 @@ for _, row in gdf.iterrows():
         "ylim": [py_min, py_max]
     }
 
-# --- JSONファイルにピクセル座標のバウンディングボックスを保存 ---
-with open("prefecture_pixel_bounds.json", "w", encoding="utf-8") as f:
+# --- 共通ズーム範囲をJSONに保存 ---
+common_bounds = {
+    "minx_zoom": minx_zoom,
+    "maxx_zoom": maxx_zoom,
+    "miny_zoom": miny_zoom,
+    "maxy_zoom": maxy_zoom,
+    "width_px": width_px,
+    "height_px": height_px,
+}
+with open("map_common_bounds.json", "w", encoding="utf-8") as f:
+    json.dump(common_bounds, f, ensure_ascii=False, indent=2)
+
+# --- 都道府県のピクセル範囲JSON保存 ---
+with open("prefecture_pixel_map_bounds.json", "w", encoding="utf-8") as f:
     json.dump(pixel_bounds_dict, f, ensure_ascii=False, indent=2)
 
 print("✅ 全ての都道府県画像とピクセル座標データを保存しました。")

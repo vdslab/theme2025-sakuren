@@ -4,6 +4,7 @@ interface WordTextProps {
   yScale: d3.ScaleLinear<number, number>;
   fontScale: d3.ScaleLinear<number, number>;
   selectedWord: string | null;
+  findword:boolean;
   onWordClick: (word: string) => void;
 }
 
@@ -21,14 +22,13 @@ const WordText = ({
   yScale,
   fontScale,
   selectedWord,
+  findword,
   onWordClick,
 }: WordTextProps) => {
   const angle = angleMap[item.orientation?.toString() ?? "0"] ?? 0;
-  const x = xScale(item.x) - 500;
-  const y = yScale(item.y) - 400;
+  const x = xScale(item.x) 
+  const y = yScale(item.y) 
   const fontSize = fontScale(item.font_size);
-
-  const isVisible = !selectedWord || item.word.includes(selectedWord);
 
   return (
     <text
@@ -36,7 +36,7 @@ const WordText = ({
       y={y}
       fontSize={fontSize}
       fill={item.color}
-      opacity={isVisible ? 1 : 0.25}
+      opacity={findword||!selectedWord ? 1 : 0.25}
       textAnchor="start"
       dominantBaseline="hanging"
       transform={`rotate(${angle}, ${x}, ${y})`}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Select from "react-select";
 import CanvasWordCloud from "./components/WordCloudCanvas";
-import word_bounds from "./data/prefecture_pixel_bounds.json";
+import word_bounds from "./data/prefecture_pixel_map_bounds.json";
 import wordData from "./data/wordcloud_layout.json";
 
 const uniqueWords = Array.from(
