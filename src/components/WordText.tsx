@@ -1,10 +1,9 @@
 interface WordTextProps {
   item: any;
-  xScale: d3.ScaleLinear<number, number>;
-  yScale: d3.ScaleLinear<number, number>;
+  groupBounds: { xlim: [number, number]; ylim: [number, number] };
   fontScale: d3.ScaleLinear<number, number>;
   selectedWord: string | null;
-  findword:boolean;
+  findword: boolean;
   onWordClick: (word: string) => void;
 }
 
@@ -18,16 +17,22 @@ const angleMap: Record<string, number> = {
 
 const WordText = ({
   item,
-  xScale,
-  yScale,
+  groupBounds,
   fontScale,
   selectedWord,
   findword,
   onWordClick,
 }: WordTextProps) => {
   const angle = angleMap[item.orientation?.toString() ?? "0"] ?? 0;
-  const x = xScale(item.x) 
-  const y = yScale(item.y) 
+
+  const x =
+    groupBounds.xlim[0] +
+    (groupBounds.xlim[1] - groupBounds.xlim[0]) * item.norm_x;
+
+  const y =
+    groupBounds.ylim[0] +
+    (groupBounds.ylim[1] - groupBounds.ylim[0]) * item.norm_y;
+
   const fontSize = fontScale(item.font_size);
 
   return (
@@ -36,7 +41,7 @@ const WordText = ({
       y={y}
       fontSize={fontSize}
       fill={item.color}
-      opacity={findword||!selectedWord ? 1 : 0.25}
+      opacity={findword || !selectedWord ? 1 : 0.25}
       textAnchor="start"
       dominantBaseline="hanging"
       transform={`rotate(${angle}, ${x}, ${y})`}

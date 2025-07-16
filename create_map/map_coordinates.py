@@ -2,6 +2,9 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import os
 import json
+from PIL import Image
+import numpy as np
+
 
 # --- 日本全体のGeoJSONデータを読み込む ---
 geojson_url = "https://github.com/dataofjapan/land/raw/master/japan.geojson"
@@ -75,25 +78,30 @@ for _, row in gdf.iterrows():
 
     # 画像保存
     filename = os.path.join(output_dir, f"{pref_name}.png")
-    plt.savefig(filename, format='png', dpi=dpi, bbox_inches='tight', pad_inches=0, transparent=False)
+    plt.savefig(filename, format='png', dpi=dpi, bbox_inches=None, pad_inches=0, transparent=False)
     plt.close(fig)
 
     # 都道府県の経度緯度バウンディングボックス
     minx_pref, miny_pref, maxx_pref, maxy_pref = row.geometry.bounds
+    
+    # 保存した画像をマスクとして読み込む
+    mask_image = Image.open(filename).convert("L")  # グレースケール
+    mask_array = np.array(mask_image)
+    mask_indices = np.where(mask_array < 128)  # 黒い領域
 
-    # 経度→ピクセルX変換
-    px_min = (minx_pref - minx_zoom) / (maxx_zoom - minx_zoom) * width_px
-    px_max = (maxx_pref - minx_zoom) / (maxx_zoom - minx_zoom) * width_px
+    if mask_indices[0].size == 0 or mask_indices[1].size == 0:
+        raise ValueError("マスク画像に有効な形状領域が見つかりません")
 
-    # 緯度→ピクセルY変換（上下反転に注意）
-    py_min = (maxy_zoom - maxy_pref) / (maxy_zoom - miny_zoom) * height_px
-    py_max = (maxy_zoom - miny_pref) / (maxy_zoom - miny_zoom) * height_px
+    min_y_offset = int(np.min(mask_indices[0]))
+    min_x_offset = int(np.min(mask_indices[1]))
+    max_y_offset = int(np.max(mask_indices[0]))
+    max_x_offset = int(np.max(mask_indices[1]))
 
-    # ピクセル座標として辞書に保存
     pixel_bounds_dict[pref_name] = {
-        "xlim": [px_min, px_max],
-        "ylim": [py_min, py_max]
+        "xlim": [min_x_offset, max_x_offset],
+        "ylim": [min_y_offset, max_y_offset]
     }
+
 
 # --- 共通ズーム範囲をJSONに保存 ---
 common_bounds = {

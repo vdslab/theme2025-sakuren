@@ -79,6 +79,7 @@ const WordCloudCanvas = ({
                 [groupBounds.xlim[1], groupBounds.ylim[1]],
               ],
               geoFeature
+              
             );
 
           const pathGenerator = d3geo.geoPath().projection(projection);
@@ -108,6 +109,7 @@ const WordCloudCanvas = ({
             <g key={gIdx}>
               {/* 都道府県の外枠パス */}
               <path
+                opacity={!selectedWord||findword? 1 : 0.25}
                 d={pathGenerator(geoFeature) || ""}
                 fill="none"
                 stroke="#333"
@@ -118,6 +120,7 @@ const WordCloudCanvas = ({
                 <WordText
                   key={`${gIdx}-${iIdx}`}
                   item={item}
+                  groupBounds={groupBounds}
                   xScale={xScale}
                   yScale={yScale}
                   fontScale={fontScale}
