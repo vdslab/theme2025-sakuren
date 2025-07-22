@@ -89,19 +89,17 @@ const WordCloudCanvas = ({
           const xScale = d3
             .scaleLinear()
             .domain(group.data[0].print_area_x)
-            .range([groupBounds.xlim[0]+10,groupBounds.xlim[1]-10])
-            .nice();
+            .range([groupBounds.xlim[0],groupBounds.xlim[1]])
 
           const yScale = d3
             .scaleLinear()
             .domain(group.data[0].print_area_y)
             .range(groupBounds.ylim)
-            .nice();
 
           const fontScale = d3
             .scaleLinear()
             .domain(d3.extent(allFontSizes) as [number, number])
-            .range(group.name === "北海道" ? [1, 40] : [1, 10]);
+            .range([1, 25]);
 
           const findword = group.data.some((item) => item.word === selectedWord);
 

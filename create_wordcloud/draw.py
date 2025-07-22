@@ -70,7 +70,7 @@ for i in range(len(search_words)):
     word_scores = dict(sorted(zip(words, scores), key=lambda x: x[1], reverse=True))
 
     # マスク画像読み込み
-    mask_path = f'./prefecture_layer_closeup/{search_word}.png'
+    mask_path = f'./prefecture_layer/{search_word}.png'
     mask_image = Image.open(mask_path).convert("L")
     mask_array = np.array(mask_image)
 

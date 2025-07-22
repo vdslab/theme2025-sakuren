@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 # GeoJSONを読み込み
-geojson_url = "https://github.com/dataofjapan/land/raw/master/japan.geojson"
-gdf = gpd.read_file(geojson_url)
+gdf = gpd.read_file("C:/Users/lotus/theme2025-sakuren/public/prefecture_single.geojson")
 
 # 出力ディレクトリ
 output_dir = "./prefecture_layer_closeup/"
@@ -17,7 +16,7 @@ zoom_margin = 0.05  # 少し余白をつける（5%）
 
 # 各都道府県ごとに処理
 for _, row in gdf.iterrows():
-    pref_name = row['nam_ja']
+    pref_name = row["prefecture"]
 
     # 単一都道府県のGeoDataFrame
     gdf_single = gpd.GeoDataFrame([row], crs=gdf.crs)

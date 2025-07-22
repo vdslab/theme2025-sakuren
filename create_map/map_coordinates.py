@@ -7,8 +7,7 @@ import numpy as np
 
 
 # --- 日本全体のGeoJSONデータを読み込む ---
-geojson_url = "https://github.com/dataofjapan/land/raw/master/japan.geojson"
-gdf = gpd.read_file(geojson_url)
+gdf = gpd.read_file("C:/Users/lotus/theme2025-sakuren/public/prefecture_single.geojson")
 
 # --- 出力ディレクトリ作成 ---
 output_dir = "./prefecture_layer/"
@@ -18,8 +17,8 @@ os.makedirs(output_dir, exist_ok=True)
 minx, miny, maxx, maxy = gdf.total_bounds
 
 # --- 余白追加（全体サイズの5%）---
-x_margin = (maxx - minx) * 0.05
-y_margin = (maxy - miny) * 0.05
+x_margin = (maxx - minx) * 0.0
+y_margin = (maxy - miny) * 0.0
 minx -= x_margin
 maxx += x_margin
 miny -= y_margin
@@ -61,7 +60,7 @@ pixel_bounds_dict = {}
 
 # --- 各都道府県を描画 ---
 for _, row in gdf.iterrows():
-    pref_name = row['nam_ja']
+    pref_name = row["prefecture"]
     print(f"Rendering {pref_name}...")
 
     fig, ax = plt.subplots(figsize=figsize)
