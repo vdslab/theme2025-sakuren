@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 # GeoJSONを読み込み
-gdf = gpd.read_file("C:/Users/lotus/theme2025-sakuren/public/prefecture_single.geojson")
+gdf = gpd.read_file("./public/prefecture_single.geojson")
 
 # 出力ディレクトリ
 output_dir = "./prefecture_layer_closeup/"

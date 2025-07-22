@@ -1,0 +1,13 @@
+.word-text {
+  font-family: "游ゴシック", YuGothic, sans-serif;
+  cursor: pointer;
+  transition: text-shadow 0.2s;
+}
+
+.word-text:hover {
+  text-shadow: 1px 1px 2px black;
+}
+
+.word-text.selected {
+  text-shadow: 1px 1px 2px black;
+}

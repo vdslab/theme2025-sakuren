@@ -7,7 +7,7 @@ import numpy as np
 
 
 # --- 日本全体のGeoJSONデータを読み込む ---
-gdf = gpd.read_file("C:/Users/lotus/theme2025-sakuren/public/prefecture_single.geojson")
+gdf = gpd.read_file("./public/prefecture_single.geojson")
 
 # --- 出力ディレクトリ作成 ---
 output_dir = "./prefecture_layer/"

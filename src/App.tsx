@@ -1,15 +1,14 @@
 import { useState } from "react";
-import Select from "react-select";
 import CanvasWordCloud from "./components/WordCloudCanvas";
 import word_bounds from "./data/prefecture_pixel_map_bounds.json";
 import wordData from "./data/wordcloud_layout.json";
-
+import WordSearch from "./components/WordSearch";
 const uniqueWords = Array.from(
   new Set(wordData.flatMap((g) => g.data.map((d) => d.word)))
 ).map((w) => ({ value: w, label: w }));
-
 export const App = () => {
   const [selected, setSelected] = useState<string | null>(null);
+  console.log(selected);
 
   return (
     <>
@@ -22,11 +21,10 @@ export const App = () => {
           width: 300,
         }}
       >
-        <Select
-          options={uniqueWords}
-          onChange={(opt) => setSelected(opt?.value ?? null)}
-          isClearable
-          placeholder="キーワードを検索"
+        <WordSearch
+          uniqueWords={uniqueWords}
+          selected={selected}
+          onChange={(opt) => setSelected(opt)}
         />
       </div>
       <CanvasWordCloud

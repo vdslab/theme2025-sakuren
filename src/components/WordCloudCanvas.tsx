@@ -19,7 +19,7 @@ const WordCloudCanvas = ({
   const gRef = useRef<SVGGElement>(null);
 
   const [geoFeatures, setGeoFeatures] = useState<any[]>([]);
-  const [commonBounds, setCommonBounds] = useState<any>( bounds);
+  const [commonBounds, setCommonBounds] = useState<any>(bounds);
 
   const allFontSizes = wordData.flatMap((group) =>
     group.data.map((d) => d.font_size)
@@ -27,11 +27,10 @@ const WordCloudCanvas = ({
 
   // GeoJSONをfetch
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/dataofjapan/land/master/japan.geojson")
+    fetch("/prefecture_single.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatures(data.features));
   }, []);
-
 
   // Zoom設定
   useEffect(() => {
@@ -66,7 +65,7 @@ const WordCloudCanvas = ({
           if (!groupBounds) return null;
 
           const geoFeature = geoFeatures.find(
-            (f) => f.properties.nam_ja === group.name
+            (f) => f.properties.prefecture === group.name
           );
           if (!geoFeature) return null;
 
@@ -79,35 +78,35 @@ const WordCloudCanvas = ({
                 [groupBounds.xlim[1], groupBounds.ylim[1]],
               ],
               geoFeature
-              
             );
 
           const pathGenerator = d3geo.geoPath().projection(projection);
-
 
           // 座標スケールはpixel_bounds_dict（bounds[group.name]）に基づく
           const xScale = d3
             .scaleLinear()
             .domain(group.data[0].print_area_x)
-            .range([groupBounds.xlim[0],groupBounds.xlim[1]])
+            .range([groupBounds.xlim[0], groupBounds.xlim[1]]);
 
           const yScale = d3
             .scaleLinear()
             .domain(group.data[0].print_area_y)
-            .range(groupBounds.ylim)
+            .range(groupBounds.ylim);
 
           const fontScale = d3
             .scaleLinear()
             .domain(d3.extent(allFontSizes) as [number, number])
-            .range([1, 25]);
+            .range([1, 50]);
 
-          const findword = group.data.some((item) => item.word === selectedWord);
+          const findword = group.data.some(
+            (item) => item.word === selectedWord
+          );
 
           return (
             <g key={gIdx}>
               {/* 都道府県の外枠パス */}
               <path
-                opacity={!selectedWord||findword? 1 : 0.25}
+                opacity={!selectedWord || findword ? 1 : 0.25}
                 d={pathGenerator(geoFeature) || ""}
                 fill="none"
                 stroke="#333"

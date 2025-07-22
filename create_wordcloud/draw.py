@@ -3,6 +3,8 @@ import glob
 import unicodedata
 import re
 import numpy as np
+import ctypes
+ctypes.cdll.LoadLibrary(r"C:\Program Files\MeCab\bin\libmecab.dll")
 import MeCab
 import ipadic
 from sklearn.feature_extraction.text import TfidfVectorizer
