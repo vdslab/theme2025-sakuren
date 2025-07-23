@@ -9,9 +9,10 @@ interface WordSearchProps {
   uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
   selected: string | null;
   onChange: (value: string | null) => void;
+  onMode:() => void;
 }
 
-const WordSearch = ({ uniqueWords, selected, onChange }: WordSearchProps) => {
+const WordSearch = ({ uniqueWords, selected, onChange,onMode }: WordSearchProps) => {
   // selected が null でなければ、options から該当するものを探す
   const selectedOption =
     uniqueWords.find((opt) => opt.value === selected) ?? null;
@@ -29,6 +30,7 @@ const WordSearch = ({ uniqueWords, selected, onChange }: WordSearchProps) => {
         placeholder="単語を検索..."
         styles={{ container: (base) => ({ ...base, width: 300 }) }}
       />
+      <button onClick={()=>onMode()}>Mode Change</button>
     </div>
   );
 };

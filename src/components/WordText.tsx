@@ -2,10 +2,13 @@ import "../css/WordCloudCanvas.css";
 interface WordTextProps {
   item: any;
   groupBounds: { xlim: [number, number]; ylim: [number, number] };
-  fontScale: d3.ScaleLinear<number, number>;
+  mode:boolean;
   selectedWord: string | null;
   findword: boolean;
   onWordClick: (word: string) => void;
+  onHover:(word:object)=>void;
+  hoveredPref: object|null;
+  groupName:object
 }
 
 const angleMap: Record<string, number> = {
@@ -19,10 +22,13 @@ const angleMap: Record<string, number> = {
 const WordText = ({
   item,
   groupBounds,
-  fontScale,
+  mode,
   selectedWord,
   findword,
   onWordClick,
+  hoveredPref,
+  onHover,
+  groupName
 }: WordTextProps) => {
   const angle = angleMap[item.orientation?.toString() ?? "0"] ?? 0;
 
@@ -33,10 +39,9 @@ const WordText = ({
   const y =
     groupBounds.ylim[0] +
     (groupBounds.ylim[1] - groupBounds.ylim[0]) * item.norm_y;
-
   return (
     <text
-      className="word-text"
+      className={mode?"word-text":hoveredPref==groupName?"word-texts":""}
       x={x}
       y={item.orientation == "2" ? y - (item.font_size / 2) * 1.6 : y}
       fontSize={item.font_size}
@@ -45,7 +50,9 @@ const WordText = ({
       textAnchor="start"
       dominantBaseline="hanging"
       transform={`rotate(${angle}, ${x}, ${y})`}
-      onClick={() => onWordClick(item.word)}
+      onClick={() => mode&&onWordClick(item.word)}
+      onMouseEnter={()=>{onHover(groupName)}}
+      onMouseLeave={()=>{onHover({})}}
       style={
         selectedWord == item.word
           ? {

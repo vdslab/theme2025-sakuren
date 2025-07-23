@@ -1,12 +1,14 @@
 import * as d3 from "d3";
-import * as d3geo from "d3-geo";
 import { useEffect, useRef, useState } from "react";
-import WordText from "./WordText";
+import wordcloudDraw from "./WordCloudDraw";
+import MunicipalityMap from "./MunicipalityMap"
+
 interface CanvasWordCloudProps {
   wordData: any[];
-  bounds: Record<string, any>;
+  bounds: Record<string, any>; // bounds[prefCode].bbox = [x0, y0, x1, y1]
   selectedWord: string | null;
   onWordClick: (word: string) => void;
+  mode: boolean;
 }
 
 const WordCloudCanvas = ({
@@ -14,25 +16,31 @@ const WordCloudCanvas = ({
   bounds,
   selectedWord,
   onWordClick,
+  mode,
 }: CanvasWordCloudProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
+  const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
+  const [hoveredPref, setHoveredPref] = useState({});
   const [geoFeatures, setGeoFeatures] = useState<any[]>([]);
-  const [commonBounds, setCommonBounds] = useState<any>(bounds);
+  const [selectedMap,setSelectedMap]=useState<object|null>(null)
+  const commonBounds = bounds;
+  console.log(selectedMap)
 
-  const allFontSizes = wordData.flatMap((group) =>
-    group.data.map((d) => d.font_size)
-  );
+  // --- Hoverイベント ---
+  const onHover = (value: object) => {
+    setHoveredPref(value);
+  };
 
-  // GeoJSONをfetch
+  // --- GeoJSONの読み込み ---
   useEffect(() => {
     fetch("/prefecture_single.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatures(data.features));
   }, []);
 
-  // Zoom設定
+  // --- 初期ズーム設定 ---
   useEffect(() => {
     const svg = d3.select(svgRef.current);
     const g = d3.select(gRef.current);
@@ -45,13 +53,52 @@ const WordCloudCanvas = ({
       });
 
     svg.call(zoom);
+    zoomRef.current = zoom;
   }, []);
+
+  // --- Prefectureにズームする関数 ---
+  const handleZoomToPrefecture = (prefName: string) => {
+    const svg = d3.select(svgRef.current);
+    const bound = bounds[prefName];
+    if (!bound || !svgRef.current || !zoomRef.current) return;
+
+    const [x0, x1] = bound.xlim;
+    const [y0, y1] = bound.ylim;
+
+    const width = svgRef.current.clientWidth;
+    const height = svgRef.current.clientHeight;
+
+    const prefWidth = x1 - x0;
+    const prefHeight = y1 - y0;
+
+    const scale = Math.min(width / prefWidth, height / prefHeight) * 0.8;
+
+    const tx = width / 2 - scale * (x0 + prefWidth / 2);
+    const ty = height / 2 - scale * (y0 + prefHeight / 2);
+
+    svg
+      .transition()
+      .duration(750)
+      .call(
+        zoomRef.current.transform,
+        d3.zoomIdentity.translate(tx, ty).scale(scale)
+      );
+  };
+
+
+  // --- onWordClickとズーム処理を合わせるラッパー ---
+  const handleWordClick = (value:object) => {
+    setSelectedMap(value)
+    handleZoomToPrefecture(value.name); // クリックでズーム
+  };
 
   if (!commonBounds) return <div>Loading...</div>;
 
   return (
     <svg
       ref={svgRef}
+      width={3000}          // 明示的な数値に変更
+      height={3000}
       style={{
         border: "1px solid #ccc",
         width: "calc(100vw - 40px)",
@@ -59,77 +106,59 @@ const WordCloudCanvas = ({
         display: "block",
       }}
     >
-      <g ref={gRef}>
-        {wordData.map((group, gIdx) => {
-          const groupBounds = bounds[group.name];
-          if (!groupBounds) return null;
-
-          const geoFeature = geoFeatures.find(
-            (f) => f.properties.prefecture === group.name
-          );
-          if (!geoFeature) return null;
-
-          const projection = d3geo
-            .geoIdentity()
-            .reflectY(true)
-            .fitExtent(
-              [
-                [groupBounds.xlim[0], groupBounds.ylim[0]],
-                [groupBounds.xlim[1], groupBounds.ylim[1]],
-              ],
-              geoFeature
-            );
-
-          const pathGenerator = d3geo.geoPath().projection(projection);
-
-          // 座標スケールはpixel_bounds_dict（bounds[group.name]）に基づく
-          const xScale = d3
-            .scaleLinear()
-            .domain(group.data[0].print_area_x)
-            .range([groupBounds.xlim[0], groupBounds.xlim[1]]);
-
-          const yScale = d3
-            .scaleLinear()
-            .domain(group.data[0].print_area_y)
-            .range(groupBounds.ylim);
-
-          const fontScale = d3
-            .scaleLinear()
-            .domain(d3.extent(allFontSizes) as [number, number])
-            .range([1, 50]);
-
-          const findword = group.data.some(
-            (item) => item.word === selectedWord
-          );
-
-          return (
-            <g key={gIdx}>
-              {/* 都道府県の外枠パス */}
-              <path
-                opacity={!selectedWord || findword ? 1 : 0.25}
-                d={pathGenerator(geoFeature) || ""}
-                fill="none"
-                stroke="#333"
-                strokeWidth={1}
-              />
-              {/* WordCloud 単語描画 */}
-              {group.data.map((item, iIdx) => (
-                <WordText
-                  key={`${gIdx}-${iIdx}`}
-                  item={item}
-                  groupBounds={groupBounds}
-                  xScale={xScale}
-                  yScale={yScale}
-                  fontScale={fontScale}
-                  selectedWord={selectedWord}
-                  findword={findword}
-                  onWordClick={onWordClick}
-                />
-              ))}
-            </g>
-          );
+      <defs>
+        <filter id="shadow">
+          <feDropShadow
+            dx="2"
+            dy="2"
+            stdDeviation="3"
+            floodColor="#000"
+            floodOpacity="0.7"
+          />
+        </filter>
+      </defs>
+      {selectedMap==null?(
+      <g ref={gRef}>  
+        {wordData.map((group, gIdx) =>
+          wordcloudDraw({
+            bounds,
+            group,
+            geoFeatures,
+            gIdx,
+            selectedWord,
+            hoveredPref,
+            mode,
+            onHover,
+            onWordClick,
+            handleWordClick, 
+          })
+        )}
+        {wordcloudDraw({
+          bounds,
+          group: hoveredPref,
+          geoFeatures,
+          gIdx: 48,
+          selectedWord,
+          hoveredPref,
+          mode,
+          onHover,
+          onWordClick,
+          handleWordClick, 
         })}
+      </g>)
+      :
+      (
+      <g ref={gRef}>  
+        <MunicipalityMap
+          bounds={bounds}
+          group={selectedMap}
+          geoFeatures={geoFeatures}
+          gIdx={48}
+          onHover={onHover}
+          handleWordClick={handleWordClick}
+        />
       </g>
+      )}
     </svg>
   );
 };

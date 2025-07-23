@@ -8,7 +8,7 @@ const uniqueWords = Array.from(
 ).map((w) => ({ value: w, label: w }));
 export const App = () => {
   const [selected, setSelected] = useState<string | null>(null);
-  console.log(selected);
+  const [mode,setMode]=useState<boolean>(true)
 
   return (
     <>
@@ -25,6 +25,7 @@ export const App = () => {
           uniqueWords={uniqueWords}
           selected={selected}
           onChange={(opt) => setSelected(opt)}
+          onMode={()=>setMode(!mode?true:false)}
         />
       </div>
       <CanvasWordCloud
@@ -32,6 +33,7 @@ export const App = () => {
         bounds={word_bounds}
         selectedWord={selected}
         onWordClick={(word) => setSelected(word)}
+        mode={mode}
       />
     </>
   );
