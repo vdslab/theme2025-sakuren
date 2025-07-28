@@ -33,6 +33,18 @@ def mecab_tokenizer(text):
 
     return ' '.join(token_list)
 
+# stopwords 定義
+stopwords = set([
+    "讃岐", "居酒屋", "店", "円", "味", "料理", "さん", "ラーメン", "肉", "ランチ", "最高", "そば", "麺",
+    "雰囲気", "丼", "定食", "メニュー", "満足", "注文", "人", "蕎麦", "感じ", "店員", "普通", "セット",
+    "2", "時", "酒", "方", "利用", "うどん", "値段", "ご飯", "的", "時間", "カレー", "スープ", "ボリューム",
+    "量", "中", "屋", "こと", "訪問", "1", "コース", "放題", "店内", "牛", "一", "刺身", "ー", "接客",
+    "ここ", "どれ", "日", "好き", "焼き", "味噌", "野菜", "種類", "パ", "天ぷら", "何", "感", "予約",
+    "カツ", "コス", "よう", "食事", "残念", "揚げ", "対応", "目", "餃子", "寿司", "3", "気", "豚",
+    "個室", "そう", "席", "塩", "前", "豊富", "もの", "魚", "唐", "チャーシュー", "おすすめ", "パン",
+    "駅", "今日", "醤油", "中華", "提供", "笑", "これ", "丁寧", "サービス", "今回", "コスパ", "サラダ"
+])
+
 # 都道府県リスト
 search_words = [
     "愛知県", "秋田県", "青森県", "千葉県", "愛媛県", "福井県", "福岡県", "福島県", "岐阜県", "群馬県", "広島県", "北海道", "兵庫県",
@@ -64,19 +76,23 @@ for i in range(len(search_words)):
     print(f"読み込んだテキストファイル数: {len(documents)}")
     print(search_word, search_word_roma)
 
-    # TF-IDF 計算
+    # TF-IDF 計算（+ stopwords 除去）
     vectorizer = TfidfVectorizer(max_features=200)
     X = vectorizer.fit_transform(documents)
     words = vectorizer.get_feature_names_out()
     scores = np.asarray(X.mean(axis=0)).ravel()
-    word_scores = dict(sorted(zip(words, scores), key=lambda x: x[1], reverse=True))
+    word_scores_raw = dict(zip(words, scores))
+
+    word_scores = {
+        word: score for word, score in word_scores_raw.items()
+        if word not in stopwords
+    }
 
     # マスク画像読み込み
     mask_path = f'./prefecture_layer/{search_word}.png'
     mask_image = Image.open(mask_path).convert("L")
     mask_array = np.array(mask_image)
 
-    # マスクの黒い部分（形状）から描画範囲を算出
     mask_indices = np.where(mask_array < 128)
     if mask_indices[0].size == 0 or mask_indices[1].size == 0:
         raise ValueError(f"マスク画像に有効な領域がありません: {search_word}")
@@ -95,17 +111,7 @@ for i in range(len(search_words)):
         font_path=font_path,
         colormap="coolwarm",
         max_words=200,
-        mask=mask_array,
-        stopwords=set([
-            "讃岐", "居酒屋", "店", "円", "味", "料理", "さん", "ラーメン", "肉", "ランチ", "最高", "そば", "麺",
-            "雰囲気", "丼", "定食", "メニュー", "満足", "注文", "人", "蕎麦", "感じ", "店員", "普通", "セット",
-            "2", "時", "酒", "方", "利用", "うどん", "値段", "ご飯", "的", "時間", "カレー", "スープ", "ボリューム",
-            "量", "中", "屋", "こと", "訪問", "1", "コース", "放題", "店内", "牛", "一", "刺身", "ー", "接客",
-            "ここ", "どれ", "日", "好き", "焼き", "味噌", "野菜", "種類", "パ", "天ぷら", "何", "感", "予約",
-            "カツ", "コス", "よう", "食事", "残念", "揚げ", "対応", "目", "餃子", "寿司", "3", "気", "豚",
-            "個室", "そう", "席", "塩", "前", "豊富", "もの", "魚", "唐", "チャーシュー", "おすすめ", "パン",
-            "駅", "今日", "醤油", "中華", "提供", "笑", "これ", "丁寧", "サービス", "今回", "コスパ", "サラダ"
-        ])
+        mask=mask_array
     ).generate_from_frequencies(word_scores)
 
     # JSONレイアウトデータ作成

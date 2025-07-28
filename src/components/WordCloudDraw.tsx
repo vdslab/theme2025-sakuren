@@ -11,7 +11,10 @@ interface WordCloudDrawProps {
   mode: boolean;
   onWordClick: (word: string) => void;
   onHover: (value: object) => void;
-  handleWordClick: (value:object)=>void;
+  handleWordClick: (value: object) => void;
+  temperatureScale;
+  precipitationScale;
+  weatherData: Record<string, { temperature: number; precipitation: number }>;
 }
 
 const WordCloudDraw = ({
@@ -24,7 +27,10 @@ const WordCloudDraw = ({
   mode,
   onWordClick,
   onHover,
-  handleWordClick
+  handleWordClick,
+  temperatureScale,
+  precipitationScale,
+  weatherData,
 }: WordCloudDrawProps) => {
   const groupBounds = bounds[group.name];
   if (!groupBounds) return null;
@@ -46,13 +52,17 @@ const WordCloudDraw = ({
     );
 
   const pathGenerator = d3geo.geoPath().projection(projection);
-  const findword = group.data.some(
-    (item: any) => item.word === selectedWord
-  );
+  const findword = group.data.some((item: any) => item.word === selectedWord);
 
   const centroid = pathGenerator.centroid(geoFeature);
   const centerX = centroid[0];
   const centerY = centroid[1];
+
+  // 天気データ取得
+  const weather = weatherData[group.name];
+  const tempColor = weather ? temperatureScale(weather.temperature) : "#ffffff";
+  console.log(weather);
+
   return (
     <g
       key={gIdx}
@@ -61,12 +71,12 @@ const WordCloudDraw = ({
           ? `translate(${centerX}, ${centerY}) scale(1.1) translate(${-centerX}, ${-centerY})`
           : `translate(0, 0) scale(1)`
       }
-      onClick={()=>!mode&&handleWordClick(hoveredPref)}
+      onClick={() => !mode && handleWordClick(hoveredPref)}
     >
       <path
         opacity={!selectedWord || findword ? 1 : 0.25}
         d={pathGenerator(geoFeature) || ""}
-        fill="rgba(255,255,255,1)"
+        fill={tempColor}
         stroke="#333"
         strokeWidth={1}
         pointerEvents="visibleFill"
@@ -85,8 +95,10 @@ const WordCloudDraw = ({
           findword={findword}
           onWordClick={onWordClick}
           hoveredPref={hoveredPref}
-          onHover={(value: object) => onHover(value)}
+          onHover={onHover}
           groupName={group}
+          precipitationScale={precipitationScale}
+          precipitationValue={weather?.precipitation}
         />
       ))}
     </g>
