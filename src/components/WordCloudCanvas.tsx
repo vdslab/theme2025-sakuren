@@ -94,7 +94,7 @@ const WordCloudCanvas = ({
 
   // --- GeoJSONの読み込み ---
   useEffect(() => {
-    fetch("/prefecture_single.geojson")
+    fetch("/municipalities_tuning_merged.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatures(data.features));
   }, []);
@@ -120,6 +120,7 @@ const WordCloudCanvas = ({
     const svg = d3.select(svgRef.current);
     const bound = bounds[prefName];
     if (!bound || !svgRef.current || !zoomRef.current) return;
+    console.log(bound)
 
     const [x0, x1] = bound.xlim;
     const [y0, y1] = bound.ylim;
@@ -214,10 +215,7 @@ const WordCloudCanvas = ({
           <MunicipalityMap
             bounds={bounds}
             group={selectedMap}
-            geoFeatures={geoFeatures}
             gIdx={48}
-            onHover={onHover}
-            handleWordClick={handleWordClick}
           />
         </g>
       )}

@@ -36,7 +36,7 @@ const WordCloudDraw = ({
   if (!groupBounds) return null;
 
   const geoFeature = geoFeatures.find(
-    (f) => f.properties.prefecture === group.name
+    (f) => f.properties.N03_001 === group.name
   );
   if (!geoFeature) return null;
 
@@ -60,8 +60,7 @@ const WordCloudDraw = ({
 
   // 天気データ取得
   const weather = weatherData[group.name];
-  const tempColor = weather ? temperatureScale(weather.temperature) : "#ffffff";
-  console.log(weather);
+  const tempColor = weather && temperatureScale!=null ? temperatureScale(weather.temperature) : "#ffffff";
 
   return (
     <g

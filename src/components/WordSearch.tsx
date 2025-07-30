@@ -23,7 +23,6 @@ const WordSearch = ({ uniqueWords, selected, onChange,onMode }: WordSearchProps)
         options={uniqueWords}
         value={selectedOption} // ←ここ
         onChange={(select) => {
-          console.log(select);
           onChange(select ? select.value : null);
         }}
         isClearable
