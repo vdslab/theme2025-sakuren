@@ -44,7 +44,9 @@ stopwords = set([
     "個室", "そう", "席", "塩", "前", "豊富", "もの", "魚", "唐", "チャーシュー", "おすすめ", "パン",
     "駅", "今日", "醤油", "中華", "提供", "笑", "これ", "丁寧", "サービス", "今回", "コスパ", "サラダ"
 ])
-
+# 画像保存ディレクトリ
+image_output_dir = "./wordcloud_images"
+os.makedirs(image_output_dir, exist_ok=True)
 # 都道府県リスト
 search_words = [
     "愛知県", "秋田県", "青森県", "千葉県", "愛媛県", "福井県", "福岡県", "福島県", "岐阜県", "群馬県", "広島県", "北海道", "兵庫県",
@@ -89,7 +91,7 @@ for i in range(len(search_words)):
     }
 
     # マスク画像読み込み
-    mask_path = f'./prefecture_layer/{search_word}.png'
+    mask_path = f'./prefecture_layer/{search_word}/{search_word}.png'
     mask_image = Image.open(mask_path).convert("L")
     mask_array = np.array(mask_image)
 
@@ -113,6 +115,11 @@ for i in range(len(search_words)):
         max_words=200,
         mask=mask_array
     ).generate_from_frequencies(word_scores)
+    
+    output_img_path = os.path.join(image_output_dir, f"{search_word}.png")
+    wordcloud.to_file(output_img_path)
+    print(f"🖼️ {search_word} のワードクラウド画像を保存: {output_img_path}")
+
 
     # JSONレイアウトデータ作成
     word_layout_data = {"name": search_word, "data": []}
