@@ -5,117 +5,123 @@ import json
 from PIL import Image
 import numpy as np
 
+# --- GeoJSON読み込み ---
+gdf = gpd.read_file("./public/municipalities_full.geojson")
 
-# --- 日本全体のGeoJSONデータを読み込む ---
-gdf = gpd.read_file("./public/prefecture_single.geojson")
+# --- 出力ディレクトリ ---
+output_image_base = "./prefecture_layer/"
+output_json_base = "./pixel_map/"
+os.makedirs(output_image_base, exist_ok=True)
+os.makedirs(output_json_base, exist_ok=True)
 
-# --- 出力ディレクトリ作成 ---
-output_dir = "./prefecture_layer/"
-os.makedirs(output_dir, exist_ok=True)
+# --- 全体ズーム調整用の係数 ---
+MAX_PX = 512  # 画像の最大辺(px)
 
-# --- 日本全体のバウンディングボックス取得 ---
-minx, miny, maxx, maxy = gdf.total_bounds
-
-# --- 余白追加（全体サイズの5%）---
-x_margin = (maxx - minx) * 0.0
-y_margin = (maxy - miny) * 0.0
-minx -= x_margin
-maxx += x_margin
-miny -= y_margin
-maxy += y_margin
-
-# --- 縦横比調整（日本は縦長）---
-width = maxx - minx
-height = maxy - miny
-target_aspect = 1.3
-desired_height = width * target_aspect
-height_diff = desired_height - height
-if height_diff > 0:
-    miny -= height_diff / 2
-    maxy += height_diff / 2
-
-# --- ズーム倍率（小さいほどズームイン）---
-zoom_factor = 1  # 1ならそのまま
-
-# --- ズーム後の共通表示範囲 ---
-center_x = (minx + maxx) / 2
-center_y = (miny + maxy) / 2
-zoom_width = (maxx - minx) * zoom_factor
-zoom_height = (maxy - miny) * zoom_factor
-minx_zoom = center_x - zoom_width / 2
-maxx_zoom = center_x + zoom_width / 2
-miny_zoom = center_y - zoom_height / 2
-maxy_zoom = center_y + zoom_height / 2
-
-# --- 共通の描画サイズとDPI ---
-figsize = (10, 10)  # inch, 実務的に縮小
-dpi = 300
-
-# --- ピクセルサイズ ---
-width_px = int(figsize[0] * dpi)
-height_px = int(figsize[1] * dpi)
-
-# --- 都道府県ごとのピクセル座標バウンディングボックス記録用辞書 ---
+# --- 出力辞書 ---
 pixel_bounds_dict = {}
 
-# --- 各都道府県を描画 ---
-for _, row in gdf.iterrows():
-    pref_name = row["prefecture"]
-    print(f"Rendering {pref_name}...")
+# --- 都道府県ごとにループ ---
+for pref_name, pref_gdf in gdf.groupby("N03_001"):
+    print(f"▶ {pref_name}")
 
+    # 出力先フォルダ作成
+    pref_image_dir = os.path.join(output_image_base, pref_name)
+    pref_json_dir = os.path.join(output_json_base, pref_name)
+    os.makedirs(pref_image_dir, exist_ok=True)
+    os.makedirs(pref_json_dir, exist_ok=True)
+
+    # 描画範囲取得
+    minx, miny, maxx, maxy = pref_gdf.total_bounds
+    width = maxx - minx
+    height = maxy - miny
+
+    # 縦横比と解像度調整
+    if width > height:
+        figsize = (10, 10 * (height / width))
+    else:
+        figsize = (10 * (width / height), 10)
+
+    dpi = MAX_PX / max(figsize)
+
+    # 辞書初期化
+    pixel_bounds_dict[pref_name] = {}
+
+    # --- 都道府県全体画像（ズームなし）描画 ---
     fig, ax = plt.subplots(figsize=figsize)
-    ax.axis('off')
-
-    # 該当都道府県のみ描画
-    gdf_single = gpd.GeoDataFrame([row], crs=gdf.crs)
-    gdf_single.plot(ax=ax, color='black', edgecolor='none')
-
-    # 共通のズーム範囲をセットして中央ドアップ的に表示
-    ax.set_xlim(minx_zoom, maxx_zoom)
-    ax.set_ylim(miny_zoom, maxy_zoom)
+    ax.axis("off")
+    pref_gdf.plot(ax=ax, color='black', edgecolor='none')
+    ax.set_xlim(minx, maxx)
+    ax.set_ylim(miny, maxy)
     ax.set_aspect('equal')
 
-    # 画像保存
-    filename = os.path.join(output_dir, f"{pref_name}.png")
-    plt.savefig(filename, format='png', dpi=dpi, bbox_inches=None, pad_inches=0, transparent=False)
+    pref_all_path = os.path.join(pref_image_dir, "_all.png")
+    plt.savefig(pref_all_path, dpi=dpi, bbox_inches='tight', pad_inches=0, transparent=False)
     plt.close(fig)
 
-    # 都道府県の経度緯度バウンディングボックス
-    minx_pref, miny_pref, maxx_pref, maxy_pref = row.geometry.bounds
-    
-    # 保存した画像をマスクとして読み込む
-    mask_image = Image.open(filename).convert("L")  # グレースケール
-    mask_array = np.array(mask_image)
-    mask_indices = np.where(mask_array < 128)  # 黒い領域
+    # --- 全体画像のマスク情報を取得 ---
+    try:
+        mask_image = Image.open(pref_all_path).convert("L")
+        mask_array = np.array(mask_image)
+        mask_indices = np.where(mask_array < 128)
 
-    if mask_indices[0].size == 0 or mask_indices[1].size == 0:
-        raise ValueError("マスク画像に有効な形状領域が見つかりません")
+        if mask_indices[0].size > 0 and mask_indices[1].size > 0:
+            pixel_bounds_dict[pref_name]["_all"] = {
+                "xlim": [int(np.min(mask_indices[1])), int(np.max(mask_indices[1]))],
+                "ylim": [int(np.min(mask_indices[0])), int(np.max(mask_indices[0]))],
+            }
+        else:
+            print(f"⚠️ {pref_name} 全体画像に有効なピクセルがありません")
 
-    min_y_offset = int(np.min(mask_indices[0]))
-    min_x_offset = int(np.min(mask_indices[1]))
-    max_y_offset = int(np.max(mask_indices[0]))
-    max_x_offset = int(np.max(mask_indices[1]))
+    except Exception as e:
+        print(f"⚠️ {pref_name} 全体画像読み込み失敗: {e}")
 
-    pixel_bounds_dict[pref_name] = {
-        "xlim": [min_x_offset, max_x_offset],
-        "ylim": [min_y_offset, max_y_offset]
-    }
+    # --- 市区町村ごとにループ ---
+    for _, row in pref_gdf.iterrows():
+        city_name = row["N03_003"]
+        if city_name[-1] != "市" and city_name[-1] != "群":
+            city_name = row["N03_004"]
+        if not city_name:
+            continue
 
+        print(f"  - {city_name}")
 
-# --- 共通ズーム範囲をJSONに保存 ---
-common_bounds = {
-    "minx_zoom": minx_zoom,
-    "maxx_zoom": maxx_zoom,
-    "miny_zoom": miny_zoom,
-    "maxy_zoom": maxy_zoom,
-    "width_px": width_px,
-    "height_px": height_px,
-}
-with open("map_common_bounds.json", "w", encoding="utf-8") as f:
-    json.dump(common_bounds, f, ensure_ascii=False, indent=2)
+        # 市区町村単位のGeoDataFrame
+        gdf_single = gpd.GeoDataFrame([row], crs=gdf.crs)
 
-# --- 都道府県のピクセル範囲JSON保存 ---
-with open("prefecture_pixel_map_bounds.json", "w", encoding="utf-8") as f:
-    json.dump(pixel_bounds_dict, f, ensure_ascii=False, indent=2)
+        # 描画
+        fig, ax = plt.subplots(figsize=figsize)
+        ax.axis("off")
+        gdf_single.plot(ax=ax, color='black', edgecolor='none')
+        ax.set_xlim(minx, maxx)
+        ax.set_ylim(miny, maxy)
+        ax.set_aspect('equal')
 
-print("✅ 全ての都道府県画像とピクセル座標データを保存しました。")
+        filename = os.path.join(pref_image_dir, f"{city_name}.png")
+        plt.savefig(filename, dpi=dpi, bbox_inches='tight', pad_inches=0, transparent=False)
+        plt.close(fig)
+
+        # マスク画像からピクセル座標取得
+        try:
+            mask_image = Image.open(filename).convert("L")
+            mask_array = np.array(mask_image)
+            mask_indices = np.where(mask_array < 128)
+
+            if mask_indices[0].size == 0 or mask_indices[1].size == 0:
+                print(f"⚠️ {city_name} は空の画像です（スキップ）")
+                continue
+
+            pixel_bounds_dict[pref_name][city_name] = {
+                "xlim": [int(np.min(mask_indices[1])), int(np.max(mask_indices[1]))],
+                "ylim": [int(np.min(mask_indices[0])), int(np.max(mask_indices[0]))]
+            }
+
+        except Exception as e:
+            print(f"⚠️ マスク画像処理失敗: {city_name}: {e}")
+            continue
+
+    # --- 都道府県単位でJSON保存 ---
+    with open(os.path.join(pref_json_dir, "municipality_pixel_map_bounds.json"), "w", encoding="utf-8") as f:
+        json.dump({pref_name: pixel_bounds_dict[pref_name]}, f, ensure_ascii=False, indent=2)
+
+# --- 完了メッセージ ---
+print("✅ 完了: 各市区町村と都道府県全体画像、およびピクセル座標データを保存しました。")
