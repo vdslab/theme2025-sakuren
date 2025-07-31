@@ -5,22 +5,26 @@ import json
 from PIL import Image
 import numpy as np
 
-# GeoJSON読み込み
-gdf = gpd.read_file("./public/municipalities_full.geojson")
 
-# 出力ベースディレクトリ
-base_output_dir = "./prefecture_layer/"
-os.makedirs(base_output_dir, exist_ok=True)
+# --- 日本全体のGeoJSONデータを読み込む ---
+gdf = gpd.read_file("./public/prefecture_single.geojson")
 
-# 画像サイズとDPI
-figsize = (10, 10)
-dpi = 300
+# --- 出力ディレクトリ作成 ---
+output_dir = "./prefecture_layer/"
+os.makedirs(output_dir, exist_ok=True)
 
-# 日本全体の共通バウンディングボックスを取得
+# --- 日本全体のバウンディングボックス取得 ---
 minx, miny, maxx, maxy = gdf.total_bounds
-print(f"日本全体bounds: minx={minx}, maxx={maxx}, miny={miny}, maxy={maxy}")
 
-# 縦横比補正（必要なら）
+# --- 余白追加（全体サイズの5%）---
+x_margin = (maxx - minx) * 0.0
+y_margin = (maxy - miny) * 0.0
+minx -= x_margin
+maxx += x_margin
+miny -= y_margin
+maxy += y_margin
+
+# --- 縦横比調整（日本は縦長）---
 width = maxx - minx
 height = maxy - miny
 target_aspect = 1.3
@@ -29,63 +33,89 @@ height_diff = desired_height - height
 if height_diff > 0:
     miny -= height_diff / 2
     maxy += height_diff / 2
-print(f"補正後bounds: minx={minx}, maxx={maxx}, miny={miny}, maxy={maxy}")
 
-# 都道府県ごとに処理
+# --- ズーム倍率（小さいほどズームイン）---
+zoom_factor = 1  # 1ならそのまま
+
+# --- ズーム後の共通表示範囲 ---
+center_x = (minx + maxx) / 2
+center_y = (miny + maxy) / 2
+zoom_width = (maxx - minx) * zoom_factor
+zoom_height = (maxy - miny) * zoom_factor
+minx_zoom = center_x - zoom_width / 2
+maxx_zoom = center_x + zoom_width / 2
+miny_zoom = center_y - zoom_height / 2
+maxy_zoom = center_y + zoom_height / 2
+
+# --- 共通の描画サイズとDPI ---
+figsize = (10, 10)  # inch, 実務的に縮小
+dpi = 300
+
+# --- ピクセルサイズ ---
+width_px = int(figsize[0] * dpi)
+height_px = int(figsize[1] * dpi)
+
+# --- 都道府県ごとのピクセル座標バウンディングボックス記録用辞書 ---
 pixel_bounds_dict = {}
 
-for pref_name, gdf_group in gdf.groupby("N03_001"):
-    print(f"Processing {pref_name} ...")
+# --- 各都道府県を描画 ---
+for _, row in gdf.iterrows():
+    pref_name = row["prefecture"]
+    print(f"Rendering {pref_name}...")
 
-    # 保存先フォルダ作成
-    pref_dir = os.path.join(base_output_dir, pref_name)
-    os.makedirs(pref_dir, exist_ok=True)
-
-    # プロット作成
-    fig, ax = plt.subplots(figsize=figsize, dpi=dpi)
+    fig, ax = plt.subplots(figsize=figsize)
     ax.axis('off')
 
-    # 都道府県全体を黒塗り
-    gdf_group.plot(ax=ax, color='black', edgecolor='none')
+    # 該当都道府県のみ描画
+    gdf_single = gpd.GeoDataFrame([row], crs=gdf.crs)
+    gdf_single.plot(ax=ax, color='black', edgecolor='none')
 
-    # 共通座標範囲設定（ズームなし）
-    ax.set_xlim(minx, maxx)
-    ax.set_ylim(miny, maxy)
+    # 共通のズーム範囲をセットして中央ドアップ的に表示
+    ax.set_xlim(minx_zoom, maxx_zoom)
+    ax.set_ylim(miny_zoom, maxy_zoom)
     ax.set_aspect('equal')
 
-    # レイアウト調整は一旦コメントアウト（bbox_inches='tight'と競合しやすいため）
-    # plt.tight_layout()
-
     # 画像保存
-    filename = os.path.join(pref_dir, f"{pref_name}.png")
+    filename = os.path.join(output_dir, f"{pref_name}.png")
     plt.savefig(filename, format='png', dpi=dpi, bbox_inches=None, pad_inches=0, transparent=False)
     plt.close(fig)
-    print(f"  Saved image: {filename}")
 
-    # 画像をグレースケール読み込み
-    mask_image = Image.open(filename).convert("L")
+    # 都道府県の経度緯度バウンディングボックス
+    minx_pref, miny_pref, maxx_pref, maxy_pref = row.geometry.bounds
+    
+    # 保存した画像をマスクとして読み込む
+    mask_image = Image.open(filename).convert("L")  # グレースケール
     mask_array = np.array(mask_image)
+    mask_indices = np.where(mask_array < 128)  # 黒い領域
 
-    # 黒領域のピクセル位置検出
-    mask_indices = np.where(mask_array < 128)
     if mask_indices[0].size == 0 or mask_indices[1].size == 0:
-        print(f"⚠️ {pref_name} は空画像のためスキップ")
-        continue
+        raise ValueError("マスク画像に有効な形状領域が見つかりません")
 
-    # ピクセル範囲取得
-    min_y, max_y = int(np.min(mask_indices[0])), int(np.max(mask_indices[0]))
-    min_x, max_x = int(np.min(mask_indices[1])), int(np.max(mask_indices[1]))
-    print(f"  Pixel bounds: x={min_x}-{max_x}, y={min_y}-{max_y}")
+    min_y_offset = int(np.min(mask_indices[0]))
+    min_x_offset = int(np.min(mask_indices[1]))
+    max_y_offset = int(np.max(mask_indices[0]))
+    max_x_offset = int(np.max(mask_indices[1]))
 
-    # 辞書に追加
     pixel_bounds_dict[pref_name] = {
-        "xlim": [min_x, max_x],
-        "ylim": [min_y, max_y]
+        "xlim": [min_x_offset, max_x_offset],
+        "ylim": [min_y_offset, max_y_offset]
     }
 
-# JSONファイル保存
-json_path = os.path.join("prefecture_pixel_map_bounds.json")
-with open(json_path, "w", encoding="utf-8") as f:
+
+# --- 共通ズーム範囲をJSONに保存 ---
+common_bounds = {
+    "minx_zoom": minx_zoom,
+    "maxx_zoom": maxx_zoom,
+    "miny_zoom": miny_zoom,
+    "maxy_zoom": maxy_zoom,
+    "width_px": width_px,
+    "height_px": height_px,
+}
+with open("map_common_bounds.json", "w", encoding="utf-8") as f:
+    json.dump(common_bounds, f, ensure_ascii=False, indent=2)
+
+# --- 都道府県のピクセル範囲JSON保存 ---
+with open("prefecture_pixel_map_bounds.json", "w", encoding="utf-8") as f:
     json.dump(pixel_bounds_dict, f, ensure_ascii=False, indent=2)
 
-print(f"✅ 全て完了しました。 JSONを保存しました: {json_path}")
+print("✅ 全ての都道府県画像とピクセル座標データを保存しました。")
