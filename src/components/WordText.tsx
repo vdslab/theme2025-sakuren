@@ -1,3 +1,4 @@
+import type { MouseEvent } from "react";
 import "../css/WordCloudCanvas.css";
 import type { WordLayoutDetailData } from "../types/wordLayoutData";
 interface WordTextProps {
@@ -44,6 +45,14 @@ const WordText = ({
   const y =
     groupBounds.ylim[0] +
     (groupBounds.ylim[1] - groupBounds.ylim[0]) * item.norm_y;
+
+  const onClick = (e: MouseEvent<SVGTextElement>) => {
+    if (mode) {
+      onWordClick(item.word);
+      e.stopPropagation();
+    }
+  };
+
   return (
     <text
       className={
@@ -61,7 +70,7 @@ const WordText = ({
       textAnchor="start"
       dominantBaseline="hanging"
       transform={`rotate(${angle}, ${x}, ${y})`}
-      onClick={() => mode && onWordClick(item.word)}
+      onClick={onClick}
       onMouseEnter={() => {
         onHover(groupName);
       }}

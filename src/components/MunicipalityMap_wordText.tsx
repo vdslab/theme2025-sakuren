@@ -49,6 +49,11 @@ const MunicipalityMap_wordText = ({
           ((word.font_size / word.print_area_x[1]) * boundsWidth) / 1.1;
         console.log(x, y, word, fontSize);
 
+        const onClick = (e: React.MouseEvent<SVGTextElement>) => {
+          onWordClick(word.word);
+          e.stopPropagation();
+        };
+
         return (
           <text
             className="word-text"
@@ -57,12 +62,12 @@ const MunicipalityMap_wordText = ({
             y={word.orientation == 2 ? y - fontSize : y}
             fontSize={fontSize}
             transform={`rotate(${angle}, ${x}, ${y})`}
-            fill={"#3a6fa1"}
+            fill="#3a6fa1"
             textAnchor="start"
             alignmentBaseline="text-before-edge"
             onMouseEnter={() => onHover(groupName)}
             onMouseLeave={() => onHover(null)}
-            onClick={() => onWordClick(word.word)}
+            onClick={onClick}
             style={{
               fontFamily: '"游ゴシック", YuGothic, sans-serif',
               cursor: "pointer",

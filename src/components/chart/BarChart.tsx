@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { useEffect, useMemo, type FC } from "react";
 
-const labelWidth = 70;
+const labelWidth = 120;
 
 type ScaleProps = {
   xScale: d3.ScaleLinear<number, number>;

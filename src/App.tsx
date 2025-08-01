@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useToggle } from "react-use";
 import { Aside } from "./components/aside/Aside";
@@ -31,8 +32,29 @@ export const App = () => {
     ).map((w) => ({ value: w, label: w }));
   }, [wordData]);
 
+  const onWordClick = (word: string) => {
+    if (word === selectedWord) {
+      setSelectedWord(null);
+    } else {
+      setSelectedWord(word);
+    }
+  };
+
   return (
-    <>
+    <Box
+      onClick={() => {
+        setSelectedWord(null);
+      }}
+    >
+      <Box
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 10,
+          zIndex: 10,
+          width: 300,
+        }}
+      ></Box>
       {wordData && wordBounds && (
         <CanvasWordCloud
           wordData={wordData}
@@ -42,21 +64,19 @@ export const App = () => {
           setHoveredPref={setHoveredPref}
           bounds={wordBounds}
           selectedWord={selectedWord}
-          onWordClick={(word) => setSelectedWord(word)}
+          onWordClick={onWordClick}
           mode={mode}
           setMode={(boo) => setMode(boo)}
           setSelectedWord={(opt) => setSelectedWord(opt)}
           uniqueWords={uniqueWords}
         />
       )}
-      {selectedWord && (
-        <Aside
-          selectedWord={selectedWord}
-          selectedPref={selectedMap ?? ""}
-          setHoveredPref={setHoveredPref}
-        />
-      )}
-    </>
+      <Aside
+        selectedWord={selectedWord}
+        selectedPref={selectedMap ?? ""}
+        setHoveredPref={setHoveredPref}
+      />
+    </Box>
   );
 };
 
