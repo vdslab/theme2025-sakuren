@@ -209,6 +209,7 @@ const WordCloudCanvas = ({
   // --- onWordClickとズーム処理を合わせるラッパー ---
   const handleWordClick = (name: string | null) => {
     onHover(null);
+    setSelectedWord(null);
     setSelectedMap(name);
     handleZoomToPrefecture(name);
   };

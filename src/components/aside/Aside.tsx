@@ -2,6 +2,7 @@ import { Box, Paper, Typography } from "@mui/material";
 import { type FC } from "react";
 import { AsideDetailOnPrefecture } from "./AsideDetailOnPrefecture";
 import { AsideDetailOnWord } from "./AsideDetailOnWord";
+import { CoOccurrenceViewr } from "./CoOccurrenceViewr";
 
 type AsideProps = {
   selectedWord: string | null;
@@ -40,11 +41,18 @@ export const Aside: FC<AsideProps> = ({
           <Typography variant="h6">選択中の都道府県：{selectedPref}</Typography>
         )}
         {selectedWord ? (
-          <AsideDetailOnWord
-            selectedWord={selectedWord}
-            selectedPref={selectedPref}
-            setHoveredPref={setHoveredPref}
-          />
+          <>
+            <AsideDetailOnWord
+              selectedWord={selectedWord}
+              selectedPref={selectedPref}
+              setHoveredPref={setHoveredPref}
+            />
+            <CoOccurrenceViewr
+              selectedWord={selectedWord}
+              selectedPref={selectedPref}
+              setHoveredPref={setHoveredPref}
+            />
+          </>
         ) : (
           selectedPref && (
             <AsideDetailOnPrefecture
