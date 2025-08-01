@@ -1,5 +1,5 @@
-import * as d3geo from "d3-geo";
 import * as d3 from "d3";
+import * as d3geo from "d3-geo";
 import { useEffect, useState } from "react";
 import MunicipalityMap_wordText from "./MunicipalityMap_wordText";
 
@@ -9,11 +9,7 @@ interface MunicipalityMapProps {
   gIdx: number;
 }
 
-const MunicipalityMap = ({
-  bounds,
-  group,
-  gIdx,
-}: MunicipalityMapProps) => {
+const MunicipalityMap = ({ bounds, group, gIdx }: MunicipalityMapProps) => {
   const [geoFeatureParts, setGeoFeatureParts] = useState<any[]>([]);
   const [filteredFeatures, setFilteredFeatures] = useState<any[]>([]);
 
@@ -77,11 +73,13 @@ const MunicipalityMap = ({
               stroke="#444"
               strokeWidth={0.5}
             />
-            <MunicipalityMap_wordText groupName={feature} boundsArray={boundsArray}/>
+            <MunicipalityMap_wordText
+              groupName={feature}
+              boundsArray={boundsArray}
+            />
           </g>
         );
       })}
-
     </g>
   );
 };
