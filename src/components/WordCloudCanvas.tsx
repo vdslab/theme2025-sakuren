@@ -31,7 +31,7 @@ const WordCloudCanvas = ({
 
   const [hoveredPref, setHoveredPref] = useState<WordLayoutData | null>(null);
   const [geoFeatures, setGeoFeatures] = useState<any[]>([]);
-  const [selectedMap, setSelectedMap] = useState<object | null>(null);
+  const [selectedMap, setSelectedMap] = useState<WordLayoutData | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData>({});
   const [temperatureScale, setTemperatureScale] = useState<
     d3.ScaleLinear<string, string, never> | undefined

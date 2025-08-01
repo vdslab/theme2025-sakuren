@@ -61,7 +61,7 @@ const MunicipalityMap = ({ bounds, group, gIdx }: MunicipalityMapProps) => {
     return null;
 
   return (
-    <g key={gIdx}>
+    <g key={gIdx} className="municipality-map">
       {filteredFeatures.map((feature, idx) => {
         const boundsArray = pathGenerator?.bounds(feature); // [[minX,minY],[maxX,maxY]]
 
