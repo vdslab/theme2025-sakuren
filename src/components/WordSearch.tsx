@@ -39,7 +39,12 @@ const WordSearch = ({
   );
   return (
     <Box
-      style={{ position: "absolute", zIndex: 10, padding: "10px" }}
+      sx={{
+        position: "absolute",
+        zIndex: 10,
+        paddingX: "10px",
+        paddingY: "16px",
+      }}
       onClick={(e) => {
         e.stopPropagation();
       }}

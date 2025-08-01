@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useToggle } from "react-use";
 import { Aside } from "./components/aside/Aside";
+import { Header } from "./components/Header/Header";
 import CanvasWordCloud from "./components/WordCloudCanvas";
 import type { WordBoundsData } from "./types/wordBoundsData";
 import type { WordLayoutData } from "./types/wordLayoutData";
@@ -46,6 +47,7 @@ export const App = () => {
         setSelectedWord(null);
       }}
     >
+      <Header />
       <Box
         style={{
           position: "absolute",
