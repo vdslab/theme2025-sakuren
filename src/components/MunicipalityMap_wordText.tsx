@@ -1,18 +1,16 @@
 import * as d3 from "d3";
 import "../css/WordCloudCanvas.css";
-import type {
-  WordLayoutData,
-  WordLayoutDetailData,
-} from "../types/wordLayoutData";
+import type { WordLayoutDetailData } from "../types/wordLayoutData";
 
 interface MunicipalityMapWordTextProps {
   selectedWord: string | null;
-  groupName: any;
-  boundsArray: any;
+  groupName: string;
+  boundsArray: [[number, number], [number, number]];
   onWordClick: (word: string) => void;
-  onHover: (word: WordLayoutData | null) => void;
+  onHover: (word: string | null) => void;
   targetParts: WordLayoutDetailData[];
 }
+
 const angleMap: Record<string, number> = {
   null: 0,
   "0": 0,
@@ -20,6 +18,7 @@ const angleMap: Record<string, number> = {
   "2": 90,
   "3": 180,
 };
+
 const MunicipalityMap_wordText = ({
   selectedWord,
   groupName,

@@ -13,6 +13,6 @@ export type WordLayoutDetailData = {
   y: number;
   norm_x: number;
   norm_y: number;
-  orientation: number;
+  orientation: number | null;
   color: string;
 };

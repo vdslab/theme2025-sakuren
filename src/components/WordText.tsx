@@ -1,15 +1,15 @@
 import "../css/WordCloudCanvas.css";
-import type { WordLayoutData } from "../types/wordLayoutData";
+import type { WordLayoutDetailData } from "../types/wordLayoutData";
 interface WordTextProps {
-  item: any;
+  item: WordLayoutDetailData;
   groupBounds: { xlim: [number, number]; ylim: [number, number] };
   mode: boolean;
   selectedWord: string | null;
   findword: boolean;
   onWordClick: (word: string) => void;
-  onHover: (word: WordLayoutData | null) => void;
-  hoveredPref: WordLayoutData | null;
-  groupName: WordLayoutData | null;
+  onHover: (word: string | null) => void;
+  hoveredPref: string | null;
+  groupName: string | null;
   precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
   precipitationValue: number | undefined;
 }
@@ -50,7 +50,7 @@ const WordText = ({
         mode ? "word-text" : hoveredPref == groupName ? "word-texts" : ""
       }
       x={x}
-      y={item.orientation == "2" ? y - (item.font_size / 2) * 1.6 : y}
+      y={item.orientation == 2 ? y - (item.font_size / 2) * 1.6 : y}
       fontSize={item.font_size}
       fill={
         precipitationScale != null

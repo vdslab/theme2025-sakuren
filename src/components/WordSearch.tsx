@@ -6,6 +6,7 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
+import { useMemo } from "react";
 
 interface Option {
   value: string;
@@ -27,13 +28,15 @@ const WordSearch = ({
 }: WordSearchProps) => {
   console.log(selected);
   // selected が null でなければ、options から該当するものを探す
-  const selectedOption =
-    uniqueWords.find((opt) => opt.value === selected) ?? null;
+  const selectedOption = useMemo(
+    () => uniqueWords.find((opt) => opt.value === selected) ?? null,
+    [uniqueWords, selected]
+  );
 
   return (
     <Box style={{ position: "absolute", zIndex: 10, padding: "10px" }}>
       <Autocomplete
-        options={uniqueWords.sort((a, b) => a.label.localeCompare(b.label))}
+        options={uniqueWords}
         getOptionLabel={(option) => option.label}
         value={selectedOption ?? null}
         onChange={(_, newValue) => {

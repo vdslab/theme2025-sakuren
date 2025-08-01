@@ -1,18 +1,22 @@
 import * as d3geo from "d3-geo";
-import type { WordLayoutData } from "../types/wordLayoutData";
+import type { WordBoundsData } from "../types/wordBoundsData";
+import type {
+  WordLayoutData,
+  WordLayoutDetailData,
+} from "../types/wordLayoutData";
 import WordText from "./WordText";
 
 interface WordCloudDrawProps {
-  bounds: Record<string, any>;
+  bounds: WordBoundsData;
   group: WordLayoutData | null;
-  geoFeatures: any[];
+  geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { prefecture: string }>[];
   gIdx: number;
   selectedWord: string | null;
-  hoveredPref: WordLayoutData | null;
+  hoveredPref: string | null;
   mode: boolean;
   onWordClick: (word: string) => void;
-  onHover: (value: WordLayoutData | null) => void;
-  handleWordClick: (value: WordLayoutData | null) => void;
+  onHover: (value: string | null) => void;
+  handleWordClick: (value: string | null) => void;
   temperatureScale: d3.ScaleLinear<string, string, never> | undefined;
   precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
   weatherData: Record<string, { temperature: number; precipitation: number }>;
@@ -38,7 +42,7 @@ const WordCloudDraw = ({
   if (!groupBounds) return null;
 
   const geoFeature = geoFeatures.find(
-    (f) => f.properties.prefecture === group.name
+    (f) => f.properties?.prefecture === group.name
   );
   if (!geoFeature) return null;
 
@@ -54,7 +58,9 @@ const WordCloudDraw = ({
     );
 
   const pathGenerator = d3geo.geoPath().projection(projection);
-  const findword = group.data.some((item: any) => item.word === selectedWord);
+  const findword = group.data.some(
+    (item: WordLayoutDetailData) => item.word === selectedWord
+  );
 
   const centroid = pathGenerator.centroid(geoFeature);
   const centerX = centroid[0];
@@ -71,11 +77,11 @@ const WordCloudDraw = ({
     <g
       key={gIdx}
       transform={
-        hoveredPref?.name === group.name && !mode
+        hoveredPref === group.name && !mode
           ? `translate(${centerX}, ${centerY}) scale(1.1) translate(${-centerX}, ${-centerY})`
           : `translate(0, 0) scale(1)`
       }
-      onClick={() => !mode && handleWordClick(hoveredPref)}
+      onClick={() => !mode && handleWordClick(hoveredPref ?? null)}
     >
       <path
         opacity={!selectedWord || findword ? 1 : 0.25}
@@ -84,12 +90,12 @@ const WordCloudDraw = ({
         stroke="#333"
         strokeWidth={1}
         pointerEvents="visibleFill"
-        onMouseEnter={() => onHover(group)}
+        onMouseEnter={() => onHover(group.name)}
         onMouseLeave={() => onHover(null)}
-        filter={hoveredPref?.name === group.name ? "url(#shadow)" : undefined}
+        filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />
 
-      {group.data.map((item: any, iIdx: number) => (
+      {group.data.map((item: WordLayoutDetailData, iIdx: number) => (
         <WordText
           key={`${gIdx}-${iIdx}`}
           item={item}
@@ -100,7 +106,7 @@ const WordCloudDraw = ({
           onWordClick={onWordClick}
           hoveredPref={hoveredPref}
           onHover={onHover}
-          groupName={group}
+          groupName={group.name}
           precipitationScale={precipitationScale}
           precipitationValue={weather?.precipitation}
         />

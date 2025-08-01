@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { useToggle } from "react-use";
+import { Aside } from "./components/aside/Aside";
 import CanvasWordCloud from "./components/WordCloudCanvas";
 import WordSearch from "./components/WordSearch";
 import type { WordBoundsData } from "./types/wordBoundsData";
 import type { WordLayoutData } from "./types/wordLayoutData";
 
 export const App = () => {
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [mode, setMode] = useToggle(true);
-
+  const [selectedMap, setSelectedMap] = useState<string | null>(null);
+  const [hoveredPref, setHoveredPref] = useState<string | null>(null);
   const [wordData, setWordData] = useState<WordLayoutData[] | undefined>(
     undefined
   );
@@ -43,18 +45,29 @@ export const App = () => {
       >
         <WordSearch
           uniqueWords={uniqueWords}
-          selected={selected}
-          onChange={(opt) => setSelected(opt)}
+          selected={selectedWord}
+          onChange={(opt) => setSelectedWord(opt)}
           onMode={() => setMode(!mode ? true : false)}
         />
       </div>
       {wordData && wordBounds && (
         <CanvasWordCloud
           wordData={wordData}
+          selectedMap={selectedMap}
+          setSelectedMap={setSelectedMap}
+          hoveredPref={hoveredPref}
+          setHoveredPref={setHoveredPref}
           bounds={wordBounds}
-          selectedWord={selected}
-          onWordClick={(word) => setSelected(word)}
+          selectedWord={selectedWord}
+          onWordClick={(word) => setSelectedWord(word)}
           mode={mode}
+        />
+      )}
+      {selectedWord && (
+        <Aside
+          selectedWord={selectedWord}
+          selectedPref={selectedMap ?? ""}
+          setHoveredPref={setHoveredPref}
         />
       )}
     </>
