@@ -23,9 +23,9 @@ export const Aside: FC<AsideProps> = ({
       sx={{
         zIndex: 10,
         position: "absolute",
-        top: 0,
+        top: 64,
         right: 0,
-        height: "100%",
+        height: "calc(100% - 64px)",
         width: 500,
         padding: 2,
         boxShadow: "-5px 0 10px rgba(0, 0, 0, 0.2)",
