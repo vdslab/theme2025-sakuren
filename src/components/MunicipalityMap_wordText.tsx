@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import { useEffect, useState } from "react";
 import type {
   WordLayoutData,
@@ -26,7 +27,7 @@ const MunicipalityMap_wordText = ({
   useEffect(() => {
     if (!groupName) return;
     const prefName = groupName.properties.N03_001;
-    const filepath = `/wordcloud_map_layer/${prefName}/wordcloud_layout_detail.json`;
+    const filepath = `/data/wordcloud_map_layer/${prefName}/wordcloud_layout_detail.json`;
 
     fetch(filepath)
       .then((res) => res.json())
@@ -60,20 +61,35 @@ const MunicipalityMap_wordText = ({
   return (
     <>
       {targetParts.map((word: any, idx: number) => {
+        console.log(targetParts);
+        const xScale = d3
+          .scaleLinear<number, number>()
+          .domain(word["print_area_x"])
+          .range([boundsArray[0][0], boundsArray[1][0] - 0.5]);
+
+        const yScale = d3
+          .scaleLinear<number, number>()
+          .domain(word["print_area_y"])
+          .range([boundsArray[0][1] + 1, boundsArray[1][1]]);
         const angle = angleMap[word.orientation?.toString() ?? "0"] ?? 0;
-        const x =
-          boundsArray[0][0] +
-          (boundsArray[1][0] - boundsArray[0][0]) * word.norm_x;
-        const y =
-          boundsArray[0][1] +
-          (boundsArray[1][1] - boundsArray[0][1]) * word.norm_y;
+        const x = xScale(word.x);
+        const y = yScale(word.y);
         console.log(x, y);
         return (
           <text
             key={idx}
-            x={word.orientation == "2" ? x + 2 : x}
-            y={word.orientation == "2" ? y - word.font_size / 2.1 / 2 : y + 2}
-            fontSize={word.font_size / 2.1}
+            x={x}
+            y={
+              word.orientation == "2"
+                ? y -
+                  (word.font_size / word["print_area_x"][1]) *
+                    (boundsArray[1][0] - boundsArray[0][0] - 3)
+                : y
+            }
+            fontSize={
+              (word.font_size / word["print_area_x"][1]) *
+              (boundsArray[1][0] - boundsArray[0][0] - 4)
+            }
             transform={`rotate(${angle}, ${x}, ${y})`}
             fill={word.color ?? "#000"}
             textAnchor="start"
