@@ -234,13 +234,26 @@ const WordCloudCanvas = ({
       >
         <defs>
           <filter id="shadow">
-            <feDropShadow
-              dx="2"
-              dy="2"
-              stdDeviation="3"
-              floodColor="#000"
-              floodOpacity="0.7"
-            />
+            {hoveredPref?.endsWith("都") ||
+            hoveredPref?.endsWith("県") ||
+            hoveredPref?.endsWith("府") ||
+            hoveredPref?.endsWith("道") ? (
+              <feDropShadow
+                dx="2"
+                dy="2"
+                stdDeviation="5"
+                floodColor="#000"
+                floodOpacity="0.7"
+              />
+            ) : (
+              <feDropShadow
+                dx="0.1"
+                dy="0.1"
+                stdDeviation="1"
+                floodColor="#000"
+                floodOpacity="1"
+              />
+            )}
           </filter>
         </defs>
         <g transform="translate(-900, -500)">
