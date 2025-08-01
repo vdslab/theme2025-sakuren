@@ -111,7 +111,7 @@ const WordCloudCanvas = ({
 
   // --- GeoJSONの読み込み ---
   useEffect(() => {
-    fetch("/municipalities_tuning_merged.geojson")
+    fetch("/prefecture_single.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatures(data.features));
   }, []);
@@ -151,8 +151,8 @@ const WordCloudCanvas = ({
     const prefHeight = y1 - y0;
 
     const scale = Math.min(width / prefWidth, height / prefHeight) * 0.8;
-    const tx = width / 2 - scale * (x0 + prefWidth / 2);
-    const ty = height / 2 - scale * (y0 + prefHeight / 2);
+    const tx = width - scale * (x0 + prefWidth / 2);
+    const ty = height - scale * (y0 + prefHeight / 2);
 
     svg
       .transition()
@@ -198,14 +198,31 @@ const WordCloudCanvas = ({
           />
         </filter>
       </defs>
-      {selectedMap == null ? (
-        <g ref={gRef}>
-          {wordData.map((group, gIdx) =>
-            wordcloudDraw({
+      <g transform="translate(-900, -500)">
+        {selectedMap == null ? (
+          <g ref={gRef}>
+            {wordData.map((group, gIdx) =>
+              wordcloudDraw({
+                bounds,
+                group,
+                geoFeatures,
+                gIdx,
+                selectedWord,
+                hoveredPref,
+                mode,
+                onHover,
+                onWordClick,
+                handleWordClick,
+                temperatureScale,
+                precipitationScale,
+                weatherData,
+              })
+            )}
+            {wordcloudDraw({
               bounds,
-              group,
+              group: hoveredPref,
               geoFeatures,
-              gIdx,
+              gIdx: 48,
               selectedWord,
               hoveredPref,
               mode,
@@ -215,29 +232,14 @@ const WordCloudCanvas = ({
               temperatureScale,
               precipitationScale,
               weatherData,
-            })
-          )}
-          {wordcloudDraw({
-            bounds,
-            group: hoveredPref,
-            geoFeatures,
-            gIdx: 48,
-            selectedWord,
-            hoveredPref,
-            mode,
-            onHover,
-            onWordClick,
-            handleWordClick,
-            temperatureScale,
-            precipitationScale,
-            weatherData,
-          })}
-        </g>
-      ) : (
-        <g ref={gRef}>
-          <MunicipalityMap bounds={bounds} group={selectedMap} gIdx={48} />
-        </g>
-      )}
+            })}
+          </g>
+        ) : (
+          <g ref={gRef}>
+            <MunicipalityMap bounds={bounds} group={selectedMap} gIdx={48} />
+          </g>
+        )}
+      </g>
     </svg>
   );
 };

@@ -62,7 +62,8 @@ pixel_bounds_dict = {}
 for _, row in gdf.iterrows():
     pref_name = row["prefecture"]
     print(f"Rendering {pref_name}...")
-
+    pref_dir = os.path.join(output_dir, pref_name)
+    os.makedirs(pref_dir, exist_ok=True)
     fig, ax = plt.subplots(figsize=figsize)
     ax.axis('off')
 
@@ -76,7 +77,7 @@ for _, row in gdf.iterrows():
     ax.set_aspect('equal')
 
     # 画像保存
-    filename = os.path.join(output_dir, f"{pref_name}.png")
+    filename = os.path.join(pref_dir, f"{pref_name}.png")
     plt.savefig(filename, format='png', dpi=dpi, bbox_inches=None, pad_inches=0, transparent=False)
     plt.close(fig)
 
