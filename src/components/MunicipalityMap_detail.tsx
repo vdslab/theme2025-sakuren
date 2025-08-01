@@ -66,7 +66,7 @@ const MunicipalityMap_detail = ({
         d={pathGenerator(feature) || ""}
         fill="#fff"
         stroke="#444"
-        strokeWidth={0.5}
+        strokeWidth={feature.properties.N03_001 != "東京都" ? 0.5 : 0.05}
         filter={hoverdPref === name ? "url(#shadow)" : undefined}
         onMouseEnter={() => {
           onHover(name);

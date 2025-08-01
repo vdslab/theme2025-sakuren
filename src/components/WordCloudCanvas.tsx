@@ -7,7 +7,12 @@ import type { WordLayoutData } from "../types/wordLayoutData";
 import { HoveredTooltip } from "./HoveredTooltip";
 import MunicipalityMap from "./MunicipalityMap";
 import wordcloudDraw from "./WordCloudDraw";
+import WordSearch from "./WordSearch";
 
+interface Option {
+  value: string;
+  label: string;
+}
 interface CanvasWordCloudProps {
   wordData: WordLayoutData[];
   bounds: WordBoundsData; // bounds[prefCode].bbox = [x0, y0, x1, y1]
@@ -18,6 +23,9 @@ interface CanvasWordCloudProps {
   setHoveredPref: (value: string | null) => void;
   onWordClick: (word: string) => void;
   mode: boolean;
+  setMode: (boo: boolean) => void;
+  setSelectedWord: (value: string | null) => void;
+  uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
 }
 
 type WeatherData = Record<
@@ -35,6 +43,9 @@ const WordCloudCanvas = ({
   selectedWord,
   onWordClick,
   mode,
+  setMode,
+  setSelectedWord,
+  uniqueWords,
 }: CanvasWordCloudProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
@@ -118,7 +129,7 @@ const WordCloudCanvas = ({
     const precipitationScales = d3
       .scaleLinear<string>()
       .domain(precipitationExtent)
-      .range(["#6baed6", "#08306b"]);
+      .range(["#3a6fa1", "#3a6fa1"]);
 
     setTemperatureScale(() => temperatureScales);
     setPrecipitationScale(() => precipitationScales);
@@ -140,7 +151,7 @@ const WordCloudCanvas = ({
 
     const zoom = d3
       .zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.5, 10])
+      .scaleExtent([0.5, 30])
       .on("zoom", (event) => {
         g.attr("transform", event.transform);
       });
@@ -149,12 +160,19 @@ const WordCloudCanvas = ({
     zoomRef.current = zoom;
   }, []);
 
-  // --- Prefectureにズームする関数 ---
   const handleZoomToPrefecture = (prefName: string | null) => {
-    if (!prefName) return;
     const svg = d3.select(svgRef.current);
+    if (!svgRef.current || !zoomRef.current) return;
+
+    if (!prefName) {
+      // 👇 初期位置に戻す（全体ビュー）
+      zoomRef.current.transform(d3.select(svgRef.current), d3.zoomIdentity);
+
+      return;
+    }
+
     const bound = bounds[prefName];
-    if (!bound || !svgRef.current || !zoomRef.current) return;
+    if (!bound) return;
 
     const [x0, x1] = bound.xlim;
     const [y0, y1] = bound.ylim;
@@ -191,7 +209,7 @@ const WordCloudCanvas = ({
   const handleWordClick = (name: string | null) => {
     onHover(null);
     setSelectedMap(name);
-    handleZoomToPrefecture(name ?? "");
+    handleZoomToPrefecture(name);
   };
 
   if (!commonBounds) return <div>Loading...</div>;
@@ -260,6 +278,25 @@ const WordCloudCanvas = ({
           )}
         </g>
       </svg>
+      <div
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 10,
+          zIndex: 10,
+          width: 300,
+        }}
+      >
+        <WordSearch
+          uniqueWords={uniqueWords}
+          selected={selectedWord}
+          onChange={(opt) => setSelectedWord(opt)}
+          mode={mode}
+          onMode={() => setMode(!mode ? true : false)}
+          handleWordClick={(opt) => handleWordClick(opt)}
+          selectedMap={selectedMap}
+        />
+      </div>
       {tooltipValue && (
         <HoveredTooltip value={tooltipValue} mousePos={mousePos} />
       )}
