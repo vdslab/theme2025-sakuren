@@ -130,7 +130,7 @@ for pref_name_jp, pref_name_en in search_word.items():
 
         word_scores = {
             word: score for word, score in word_scores_raw.items()
-            if word not in stopwords
+            if word not in stopwords and not word.isdigit()
         }
 
         # マスク画像読み込み
