@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { GeoProperty } from "../types/geoProperty";
 import type {
   WordLayoutData,
   WordLayoutDetailData,
@@ -6,10 +7,10 @@ import type {
 import MunicipalityMap_wordText from "./MunicipalityMap_wordText";
 type MunicipalityMapDetailProps = {
   idx: number | string;
-  feature: any; // GeoJSONの各形状
-  pathGenerator: any;
-  hoverdPref: WordLayoutData | any | null;
-  onHover: (word: WordLayoutData | null) => void;
+  feature: GeoJSON.Feature<GeoJSON.Geometry, GeoProperty>;
+  pathGenerator: d3.GeoPath<void, d3.GeoPermissibleObjects>;
+  hoverdPref: string | null;
+  onHover: (word: string | null) => void;
   selectedWord: string | null;
   onWordClick: (word: string) => void;
 };
@@ -55,28 +56,29 @@ const MunicipalityMap_detail = ({
   }, [feature, wordcloud]);
 
   if (!targetParts) return null;
-  const findword = targetParts.some((item: any) => item.word === selectedWord);
+  const findword = targetParts.some(
+    (item: WordLayoutDetailData) => item.word === selectedWord
+  );
+  const name = feature.properties.N03_004;
   return (
-    <g
-      key={feature["N03_004"] + idx}
-      opacity={findword || !selectedWord ? 1 : 0.25}
-    >
+    <g key={name + idx} opacity={findword || !selectedWord ? 1 : 0.25}>
       <path
         d={pathGenerator(feature) || ""}
         fill="#fff"
         stroke="#444"
         strokeWidth={0.5}
-        filter={hoverdPref === feature ? "url(#shadow)" : undefined}
+        filter={hoverdPref === name ? "url(#shadow)" : undefined}
         onMouseEnter={() => {
-          onHover(feature);
+          onHover(name);
         }}
         onMouseLeave={() => {
           onHover(null);
         }}
+        style={{ zIndex: hoverdPref === name ? 1 : 0 }}
       />
       <MunicipalityMap_wordText
         selectedWord={selectedWord}
-        groupName={feature}
+        groupName={name}
         boundsArray={boundsArray}
         onHover={onHover}
         onWordClick={onWordClick}

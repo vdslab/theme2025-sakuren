@@ -1,14 +1,19 @@
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
 import type { WeatherDataRaw } from "../types/weatherData";
+import type { WordBoundsData } from "../types/wordBoundsData";
 import type { WordLayoutData } from "../types/wordLayoutData";
 import MunicipalityMap from "./MunicipalityMap";
 import wordcloudDraw from "./WordCloudDraw";
 
 interface CanvasWordCloudProps {
   wordData: WordLayoutData[];
-  bounds: Record<string, any>; // bounds[prefCode].bbox = [x0, y0, x1, y1]
+  bounds: WordBoundsData; // bounds[prefCode].bbox = [x0, y0, x1, y1]
+  selectedMap: string | null;
+  setSelectedMap: (value: string | null) => void;
   selectedWord: string | null;
+  hoveredPref: string | null;
+  setHoveredPref: (value: string | null) => void;
   onWordClick: (word: string) => void;
   mode: boolean;
 }
@@ -21,6 +26,10 @@ type WeatherData = Record<
 const WordCloudCanvas = ({
   wordData,
   bounds,
+  selectedMap,
+  setSelectedMap,
+  hoveredPref,
+  setHoveredPref,
   selectedWord,
   onWordClick,
   mode,
@@ -29,9 +38,9 @@ const WordCloudCanvas = ({
   const gRef = useRef<SVGGElement>(null);
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
-  const [hoveredPref, setHoveredPref] = useState<WordLayoutData | null>(null);
-  const [geoFeatures, setGeoFeatures] = useState<any[]>([]);
-  const [selectedMap, setSelectedMap] = useState<WordLayoutData | null>(null);
+  const [geoFeatures, setGeoFeatures] = useState<
+    GeoJSON.Feature<GeoJSON.Geometry, { prefecture: string }>[]
+  >([]);
   const [weatherData, setWeatherData] = useState<WeatherData>({});
   const [temperatureScale, setTemperatureScale] = useState<
     d3.ScaleLinear<string, string, never> | undefined
@@ -42,7 +51,7 @@ const WordCloudCanvas = ({
   const commonBounds = bounds;
 
   // --- Hoverイベント ---
-  const onHover = (value: WordLayoutData | null) => {
+  const onHover = (value: string | null) => {
     setHoveredPref(value);
   };
 
@@ -85,14 +94,14 @@ const WordCloudCanvas = ({
 
     const values = Object.values(weatherData);
 
-    const temperatureExtent = d3.extent(values, (d: any) => d.temperature) as [
-      number,
-      number
-    ];
+    const temperatureExtent = d3.extent(
+      values,
+      (d: { temperature: number; precipitation: number }) => d.temperature
+    ) as [number, number];
 
     const precipitationExtent = d3.extent(
       values,
-      (d: any) => d.precipitation
+      (d: { temperature: number; precipitation: number }) => d.precipitation
     ) as [number, number];
 
     const temperatureScales = d3
@@ -135,7 +144,8 @@ const WordCloudCanvas = ({
   }, []);
 
   // --- Prefectureにズームする関数 ---
-  const handleZoomToPrefecture = (prefName: string) => {
+  const handleZoomToPrefecture = (prefName: string | null) => {
+    if (!prefName) return;
     const svg = d3.select(svgRef.current);
     const bound = bounds[prefName];
     if (!bound || !svgRef.current || !zoomRef.current) return;
@@ -159,7 +169,12 @@ const WordCloudCanvas = ({
       .call(
         (transition) =>
           zoomRef.current?.transform(
-            transition as any,
+            transition as d3.Transition<
+              SVGSVGElement,
+              unknown,
+              null,
+              undefined
+            >,
             d3.zoomIdentity.translate(tx, ty).scale(scale)
           ),
         d3.zoomIdentity.translate(tx, ty).scale(scale)
@@ -167,10 +182,10 @@ const WordCloudCanvas = ({
   };
 
   // --- onWordClickとズーム処理を合わせるラッパー ---
-  const handleWordClick = (value: WordLayoutData | null) => {
+  const handleWordClick = (name: string | null) => {
     onHover(null);
-    setSelectedMap(value);
-    handleZoomToPrefecture(value?.name ?? "");
+    setSelectedMap(name);
+    handleZoomToPrefecture(name ?? "");
   };
 
   if (!commonBounds) return <div>Loading...</div>;
@@ -182,8 +197,8 @@ const WordCloudCanvas = ({
       height={3000}
       style={{
         border: "1px solid #ccc",
-        width: "calc(100vw - 40px)",
-        height: "calc(100vh - 20px)",
+        width: "calc(100vw)",
+        height: "calc(100vh)",
         display: "block",
       }}
     >
@@ -218,21 +233,6 @@ const WordCloudCanvas = ({
                 weatherData,
               })
             )}
-            {wordcloudDraw({
-              bounds,
-              group: hoveredPref,
-              geoFeatures,
-              gIdx: 48,
-              selectedWord,
-              hoveredPref,
-              mode,
-              onHover,
-              onWordClick,
-              handleWordClick,
-              temperatureScale,
-              precipitationScale,
-              weatherData,
-            })}
           </g>
         ) : (
           <g ref={gRef}>

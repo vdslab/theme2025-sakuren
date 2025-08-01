@@ -1,16 +1,17 @@
 import * as d3 from "d3";
 import * as d3geo from "d3-geo";
 import { useEffect, useState } from "react";
-import type { WordLayoutData } from "../types/wordLayoutData";
+import type { GeoProperty } from "../types/geoProperty";
+import type { WordBoundsData } from "../types/wordBoundsData";
 import MunicipalityMap_detail from "./MunicipalityMap_detail";
 
 interface MunicipalityMapProps {
   selectedWord: string | null;
-  bounds: Record<string, any>;
-  group: any;
+  bounds: WordBoundsData;
+  group: string;
   gIdx: number;
-  hoverdPref: WordLayoutData | any | null;
-  onHover: (word: WordLayoutData | null) => void;
+  hoverdPref: string | null;
+  onHover: (word: string | null) => void;
   onWordClick: (word: string) => void;
 }
 
@@ -23,8 +24,12 @@ const MunicipalityMap = ({
   onHover,
   onWordClick,
 }: MunicipalityMapProps) => {
-  const [geoFeatureParts, setGeoFeatureParts] = useState<any[]>([]);
-  const [filteredFeatures, setFilteredFeatures] = useState<any[]>([]);
+  const [geoFeatureParts, setGeoFeatureParts] = useState<
+    GeoJSON.Feature<GeoJSON.Geometry, GeoProperty>[]
+  >([]);
+  const [filteredFeatures, setFilteredFeatures] = useState<
+    GeoJSON.Feature<GeoJSON.Geometry, GeoProperty>[]
+  >([]);
 
   // GeoJSON読み込み
   useEffect(() => {
@@ -35,17 +40,17 @@ const MunicipalityMap = ({
 
   // 都道府県に対応する地物だけ抽出
   useEffect(() => {
-    if (!group?.name || geoFeatureParts.length === 0) {
+    if (!group || geoFeatureParts.length === 0) {
       setFilteredFeatures([]);
       return;
     }
     const filtered = geoFeatureParts.filter(
-      (f) => f.properties.N03_001 === group.name
+      (f) => f.properties?.N03_001 === group
     );
     setFilteredFeatures(filtered);
   }, [group, geoFeatureParts]);
 
-  const groupBounds = group?.name ? bounds[group.name] : null;
+  const groupBounds = group ? bounds[group] : null;
 
   const projection = groupBounds
     ? d3geo
@@ -63,14 +68,10 @@ const MunicipalityMap = ({
         )
     : null;
 
-  const pathGenerator = projection ? d3.geoPath().projection(projection) : null;
+  const pathGenerator: d3.GeoPath<void, d3.GeoPermissibleObjects> | null =
+    projection ? d3.geoPath().projection(projection) : null;
 
-  if (
-    !group?.name ||
-    !groupBounds ||
-    !pathGenerator ||
-    filteredFeatures.length === 0
-  )
+  if (!group || !groupBounds || !pathGenerator || filteredFeatures.length === 0)
     return null;
 
   return (
@@ -86,17 +87,6 @@ const MunicipalityMap = ({
           onWordClick={onWordClick}
         />
       ))}
-      {hoverdPref != null && (
-        <MunicipalityMap_detail
-          idx={"hoverPref"}
-          feature={hoverdPref}
-          pathGenerator={pathGenerator}
-          hoverdPref={hoverdPref}
-          onHover={onHover}
-          selectedWord={selectedWord}
-          onWordClick={onWordClick}
-        />
-      )}
     </g>
   );
 };
