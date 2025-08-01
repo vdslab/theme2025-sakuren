@@ -1,5 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
-import { useState, type FC } from "react";
+import { type FC } from "react";
+import { AsideDetailOnPrefecture } from "./AsideDetailOnPrefecture";
 import { AsideDetailOnWord } from "./AsideDetailOnWord";
 
 type AsideProps = {
@@ -13,7 +14,10 @@ export const Aside: FC<AsideProps> = ({
   selectedPref,
   setHoveredPref,
 }) => {
-  const [isWordMode, setIsWordMode] = useState<boolean>(true);
+  if (!selectedWord && !selectedPref) {
+    return null;
+  }
+
   return (
     <Paper
       sx={{
@@ -22,23 +26,32 @@ export const Aside: FC<AsideProps> = ({
         top: 0,
         right: 0,
         height: "100%",
-        width: 450,
+        width: 500,
         padding: 2,
         boxShadow: "-5px 0 10px rgba(0, 0, 0, 0.2)",
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
       }}
     >
       <Box>
         <Typography variant="h5">詳細</Typography>
-        {isWordMode ? (
-          selectedWord && (
-            <AsideDetailOnWord
-              selectedWord={selectedWord}
+        {selectedPref && (
+          <Typography variant="h6">選択中の都道府県：{selectedPref}</Typography>
+        )}
+        {selectedWord ? (
+          <AsideDetailOnWord
+            selectedWord={selectedWord}
+            selectedPref={selectedPref}
+            setHoveredPref={setHoveredPref}
+          />
+        ) : (
+          selectedPref && (
+            <AsideDetailOnPrefecture
               selectedPref={selectedPref}
               setHoveredPref={setHoveredPref}
             />
           )
-        ) : (
-          <Typography variant="body1">Preference Details</Typography>
         )}
       </Box>
     </Paper>

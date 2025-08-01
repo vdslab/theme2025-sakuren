@@ -38,7 +38,12 @@ const WordSearch = ({
     [uniqueWords, selected]
   );
   return (
-    <Box style={{ position: "absolute", zIndex: 10, padding: "10px" }}>
+    <Box
+      style={{ position: "absolute", zIndex: 10, padding: "10px" }}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <Autocomplete
         options={uniqueWords}
         getOptionLabel={(option) => option.label}
@@ -56,7 +61,11 @@ const WordSearch = ({
           />
         )}
         isOptionEqualToValue={(option, value) => option.value === value.value}
-        renderOption={(props, option) => <li {...props}>{option.label}</li>}
+        renderOption={(props, option) => (
+          <li {...props} key={props.key}>
+            {option.label}
+          </li>
+        )}
       />
       <Box>
         <FormControl>

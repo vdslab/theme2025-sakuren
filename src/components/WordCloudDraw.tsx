@@ -1,4 +1,5 @@
 import * as d3geo from "d3-geo";
+import type { MouseEvent } from "react";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import type {
   WordLayoutData,
@@ -73,6 +74,14 @@ const WordCloudDraw = ({
       ? temperatureScale(weather.temperature)
       : "#ffffff";
 
+  const onClick = (e: MouseEvent<SVGTextElement>) => {
+    console.log(hoveredPref);
+    if (!mode) {
+      handleWordClick(hoveredPref ?? null);
+      e.stopPropagation();
+    }
+  };
+
   return (
     <g
       key={gIdx}
@@ -81,7 +90,7 @@ const WordCloudDraw = ({
           ? `translate(${centerX}, ${centerY}) scale(1.1) translate(${-centerX}, ${-centerY})`
           : `translate(0, 0) scale(1)`
       }
-      onClick={() => !mode && handleWordClick(hoveredPref ?? null)}
+      onClick={onClick}
       onMouseEnter={() => onHover(group.name)}
       onMouseLeave={() => onHover(null)}
     >

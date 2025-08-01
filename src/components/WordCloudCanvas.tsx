@@ -172,7 +172,8 @@ const WordCloudCanvas = ({
     }
 
     const bound = bounds[prefName];
-    if (!bound) return;
+
+    if (!bound || !svgRef.current || !zoomRef.current) return;
 
     const [x0, x1] = bound.xlim;
     const [y0, y1] = bound.ylim;
