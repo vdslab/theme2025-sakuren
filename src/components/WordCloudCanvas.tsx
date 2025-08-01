@@ -134,7 +134,7 @@ const WordCloudCanvas = ({
 
     const zoom = d3
       .zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.5, 10])
+      .scaleExtent([0.5, 30])
       .on("zoom", (event) => {
         g.attr("transform", event.transform);
       });

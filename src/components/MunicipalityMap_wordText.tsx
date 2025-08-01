@@ -35,25 +35,26 @@ const MunicipalityMap_wordText = ({
         const xScale = d3
           .scaleLinear<number>()
           .domain(word.print_area_x)
-          .range([boundsArray[0][0] + 1, boundsArray[1][0] - 1]);
+          .range([boundsArray[0][0], boundsArray[1][0]]);
         const yScale = d3
           .scaleLinear<number>()
           .domain(word.print_area_y)
-          .range([boundsArray[0][1] + 1, boundsArray[1][1]]);
+          .range([boundsArray[0][1], boundsArray[1][1]]);
 
         const angle = angleMap[word.orientation?.toString() ?? "0"] ?? 0;
         const x = xScale(word.x);
         const y = yScale(word.y);
 
         const fontSize =
-          (word.font_size / word.print_area_x[1]) * (boundsWidth - 4);
+          ((word.font_size / word.print_area_x[1]) * boundsWidth) / 1.1;
+        console.log(x, y, word, fontSize);
 
         return (
           <text
             className="word-text"
             key={`${word.word}-${idx}`} // ← 修正
             x={x}
-            y={y}
+            y={word.orientation == 2 ? y - fontSize / 2 : y}
             fontSize={fontSize}
             transform={`rotate(${angle}, ${x}, ${y})`}
             fill={word.color ?? "#000"}
