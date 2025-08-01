@@ -1,15 +1,28 @@
 import * as d3 from "d3";
 import * as d3geo from "d3-geo";
 import { useEffect, useState } from "react";
-import MunicipalityMap_wordText from "./MunicipalityMap_wordText";
+import type { WordLayoutData } from "../types/wordLayoutData";
+import MunicipalityMap_detail from "./MunicipalityMap_detail";
 
 interface MunicipalityMapProps {
+  selectedWord: string | null;
   bounds: Record<string, any>;
   group: any;
   gIdx: number;
+  hoverdPref: WordLayoutData | any | null;
+  onHover: (word: WordLayoutData | null) => void;
+  onWordClick: (word: string) => void;
 }
 
-const MunicipalityMap = ({ bounds, group, gIdx }: MunicipalityMapProps) => {
+const MunicipalityMap = ({
+  selectedWord,
+  bounds,
+  group,
+  gIdx,
+  hoverdPref,
+  onHover,
+  onWordClick,
+}: MunicipalityMapProps) => {
   const [geoFeatureParts, setGeoFeatureParts] = useState<any[]>([]);
   const [filteredFeatures, setFilteredFeatures] = useState<any[]>([]);
 
@@ -62,24 +75,28 @@ const MunicipalityMap = ({ bounds, group, gIdx }: MunicipalityMapProps) => {
 
   return (
     <g key={gIdx} className="municipality-map">
-      {filteredFeatures.map((feature, idx) => {
-        const boundsArray = pathGenerator?.bounds(feature); // [[minX,minY],[maxX,maxY]]
-
-        return (
-          <g key={idx}>
-            <path
-              d={pathGenerator(feature) || ""}
-              fill="#fff"
-              stroke="#444"
-              strokeWidth={0.5}
-            />
-            <MunicipalityMap_wordText
-              groupName={feature}
-              boundsArray={boundsArray}
-            />
-          </g>
-        );
-      })}
+      {filteredFeatures.map((feature, idx) => (
+        <MunicipalityMap_detail
+          idx={idx}
+          feature={feature}
+          pathGenerator={pathGenerator}
+          hoverdPref={hoverdPref}
+          onHover={onHover}
+          selectedWord={selectedWord}
+          onWordClick={onWordClick}
+        />
+      ))}
+      {hoverdPref != null && (
+        <MunicipalityMap_detail
+          idx={"hoverPref"}
+          feature={hoverdPref}
+          pathGenerator={pathGenerator}
+          hoverdPref={hoverdPref}
+          onHover={onHover}
+          selectedWord={selectedWord}
+          onWordClick={onWordClick}
+        />
+      )}
     </g>
   );
 };

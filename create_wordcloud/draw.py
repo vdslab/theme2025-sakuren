@@ -89,7 +89,7 @@ for i in range(len(search_words)):
 
     word_scores = {
         word: score for word, score in word_scores_raw.items()
-        if word not in stopwords
+        if word not in stopwords and not word.isdigit()
     }
 
     # マスク画像読み込み

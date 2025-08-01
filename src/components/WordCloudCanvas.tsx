@@ -139,7 +139,6 @@ const WordCloudCanvas = ({
     const svg = d3.select(svgRef.current);
     const bound = bounds[prefName];
     if (!bound || !svgRef.current || !zoomRef.current) return;
-    console.log(bound);
 
     const [x0, x1] = bound.xlim;
     const [y0, y1] = bound.ylim;
@@ -169,6 +168,7 @@ const WordCloudCanvas = ({
 
   // --- onWordClickとズーム処理を合わせるラッパー ---
   const handleWordClick = (value: WordLayoutData | null) => {
+    onHover(null);
     setSelectedMap(value);
     handleZoomToPrefecture(value?.name ?? "");
   };
@@ -236,7 +236,15 @@ const WordCloudCanvas = ({
           </g>
         ) : (
           <g ref={gRef}>
-            <MunicipalityMap bounds={bounds} group={selectedMap} gIdx={48} />
+            <MunicipalityMap
+              selectedWord={selectedWord}
+              bounds={bounds}
+              group={selectedMap}
+              gIdx={48}
+              hoverdPref={hoveredPref}
+              onHover={onHover}
+              onWordClick={onWordClick}
+            />
           </g>
         )}
       </g>

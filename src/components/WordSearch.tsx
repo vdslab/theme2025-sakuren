@@ -25,6 +25,7 @@ const WordSearch = ({
   onChange,
   onMode,
 }: WordSearchProps) => {
+  console.log(selected);
   // selected が null でなければ、options から該当するものを探す
   const selectedOption =
     uniqueWords.find((opt) => opt.value === selected) ?? null;
@@ -34,7 +35,7 @@ const WordSearch = ({
       <Autocomplete
         options={uniqueWords.sort((a, b) => a.label.localeCompare(b.label))}
         getOptionLabel={(option) => option.label}
-        value={selectedOption ?? undefined}
+        value={selectedOption ?? null}
         onChange={(_, newValue) => {
           onChange(newValue ? newValue.value : null);
         }}
