@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import type { FC } from "react";
 import useSWR from "swr";
-import type { WordListData } from "../../types/wordListData";
+import type { WordLayoutData } from "../../types/wordLayoutData";
 import { BarChart } from "../chart/BarChart";
 
 type Props = {
@@ -15,10 +15,32 @@ export const AsideDetailOnWord: FC<Props> = ({
   selectedPref,
   setHoveredPref,
 }) => {
-  const { data, isLoading } = useSWR<WordListData>(
+  const calcChartDataObject = (data: WordLayoutData[]) => {
+    const obj = {} as Record<string, Record<string, number>>;
+    data.forEach((item) => {
+      const { name, data: value } = item;
+      obj[name] = value.reduce((acc, cur) => {
+        acc[cur.word] = cur.tfidf_score;
+        return acc;
+      }, {} as Record<string, number>);
+    });
+    return obj;
+  };
+
+  const { data, isLoading } = useSWR<Record<string, Record<string, number>>>(
     selectedPref || "all",
     async (key: string) => {
-      return fetch(`/word_lists/${key}.json`).then((res) => res.json());
+      if (key === "all") {
+        return fetch(`/data/wordcloud_layout.json`)
+          .then((res) => res.json())
+          .then((data) => calcChartDataObject(data));
+      } else {
+        return fetch(
+          `/data/wordcloud_map_layer/${key}/wordcloud_layout_detail.json`
+        )
+          .then((res) => res.json())
+          .then((data) => calcChartDataObject(data));
+      }
     }
   );
 
@@ -26,15 +48,10 @@ export const AsideDetailOnWord: FC<Props> = ({
     return <Box>Loading...</Box>;
   }
 
-  const prefScore = Object.entries(data).reduce((acc, [pref, obj]) => {
-    acc[pref] = obj[selectedWord] || 0;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const chartData = Object.entries(prefScore)
-    .map(([pref, score]) => ({
-      label: pref,
-      value: score * 100,
+  const chartData = Object.entries(data)
+    .map(([label, value]) => ({
+      label,
+      value: value[selectedWord] || 0,
       color: "#4CAF50",
     }))
     .sort((a, b) => b.value - a.value);
@@ -52,7 +69,7 @@ export const AsideDetailOnWord: FC<Props> = ({
         <BarChart
           data={chartData}
           width={350}
-          unit="Score"
+          unit={"TF-IDF\nScore"}
           onHover={(label) => setHoveredPref(label)}
         />
       </Box>

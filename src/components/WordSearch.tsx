@@ -32,7 +32,6 @@ const WordSearch = ({
   handleWordClick,
   selectedMap,
 }: WordSearchProps) => {
-  console.log(selected);
   // selected が null でなければ、options から該当するものを探す
   const selectedOption = useMemo(
     () => uniqueWords.find((opt) => opt.value === selected) ?? null,

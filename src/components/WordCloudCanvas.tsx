@@ -1,8 +1,10 @@
+import { Box } from "@mui/material";
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
 import type { WeatherDataRaw } from "../types/weatherData";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import type { WordLayoutData } from "../types/wordLayoutData";
+import { HoveredTooltip } from "./HoveredTooltip";
 import MunicipalityMap from "./MunicipalityMap";
 import wordcloudDraw from "./WordCloudDraw";
 import WordSearch from "./WordSearch";
@@ -61,9 +63,13 @@ const WordCloudCanvas = ({
   >(undefined);
   const commonBounds = bounds;
 
+  const [tooltipValue, setTooltipValue] = useState<string | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
   // --- Hoverイベント ---
   const onHover = (value: string | null) => {
     setHoveredPref(value);
+    setTooltipValue(value);
   };
 
   // --- JSONデータ読み込み ---
@@ -209,7 +215,11 @@ const WordCloudCanvas = ({
   if (!commonBounds) return <div>Loading...</div>;
 
   return (
-    <>
+    <Box
+      onMouseMove={(e) => {
+        setMousePos({ x: e.clientX + 10, y: e.clientY + 10 });
+      }}
+    >
       <svg
         ref={svgRef}
         width={3000}
@@ -287,7 +297,10 @@ const WordCloudCanvas = ({
           selectedMap={selectedMap}
         />
       </div>
-    </>
+      {tooltipValue && (
+        <HoveredTooltip value={tooltipValue} mousePos={mousePos} />
+      )}
+    </Box>
   );
 };
 
