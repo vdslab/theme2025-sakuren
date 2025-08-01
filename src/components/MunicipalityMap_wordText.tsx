@@ -53,7 +53,6 @@ const MunicipalityMap_wordText = ({
   if (!targetParts) return null;
 
   const boundsWidth = boundsArray[1][0] - boundsArray[0][0];
-  const boundsHeight = boundsArray[1][1] - boundsArray[0][1];
 
   return (
     <>
