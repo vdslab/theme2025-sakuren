@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import type {
+  WordLayoutData,
+  WordLayoutDetailData,
+} from "../types/wordLayoutData";
 interface MunicipalityMapWordTextProps {
   groupName: any; // GeoJSON Feature
   boundsArray: any;
@@ -15,8 +19,8 @@ const MunicipalityMap_wordText = ({
   groupName,
   boundsArray,
 }: MunicipalityMapWordTextProps) => {
-  const [wordcloud, setWordcloud] = useState<any[]>([]);
-  const [targetParts, setTargetParts] = useState<any[]>([]);
+  const [wordcloud, setWordcloud] = useState<WordLayoutData[]>([]);
+  const [targetParts, setTargetParts] = useState<WordLayoutDetailData[]>([]);
 
   // --- 1. WordCloud JSON 読み込み ---
   useEffect(() => {

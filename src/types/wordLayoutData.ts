@@ -3,7 +3,7 @@ export type WordLayoutData = {
   data: WordLayoutDetailData[];
 };
 
-type WordLayoutDetailData = {
+export type WordLayoutDetailData = {
   word: string;
   tfidf_score: number;
   font_size: number;
