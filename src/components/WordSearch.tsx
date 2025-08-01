@@ -37,10 +37,6 @@ const WordSearch = ({
     () => uniqueWords.find((opt) => opt.value === selected) ?? null,
     [uniqueWords, selected]
   );
-  if (mode) {
-    handleWordClick(null);
-  }
-
   return (
     <Box style={{ position: "absolute", zIndex: 10, padding: "10px" }}>
       <Autocomplete
@@ -65,7 +61,17 @@ const WordSearch = ({
       <Box>
         <FormControl>
           <FormControlLabel
-            control={<Switch onChange={onMode} color="primary" />}
+            control={
+              <Switch
+                onChange={(_, checked: boolean) => {
+                  onMode();
+                  if (!checked) {
+                    handleWordClick(null);
+                  }
+                }}
+                color="primary"
+              />
+            }
             label="都道府県選択モード"
           />
           {!mode && (
