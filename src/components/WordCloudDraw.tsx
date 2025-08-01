@@ -75,7 +75,6 @@ const WordCloudDraw = ({
       : "#ffffff";
 
   const onClick = (e: MouseEvent<SVGTextElement>) => {
-    console.log(hoveredPref);
     if (!mode) {
       handleWordClick(hoveredPref ?? null);
       e.stopPropagation();
