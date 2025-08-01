@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useToggle } from "react-use";
 import CanvasWordCloud from "./components/WordCloudCanvas";
 import WordSearch from "./components/WordSearch";
 import type { WordBoundsData } from "./types/wordBoundsData";
@@ -6,7 +7,7 @@ import type { WordLayoutData } from "./types/wordLayoutData";
 
 export const App = () => {
   const [selected, setSelected] = useState<string | null>(null);
-  const [mode, setMode] = useState<boolean>(true);
+  const [mode, setMode] = useToggle(true);
 
   const [wordData, setWordData] = useState<WordLayoutData[] | undefined>(
     undefined
@@ -25,7 +26,6 @@ export const App = () => {
   const uniqueWords = useMemo(() => {
     if (!wordData) return [];
     return Array.from(
-      // new Set(wordData.flatMap((g) => g.data.map((d) => d.word)))
       new Set(wordData.map((d) => d.data.map((item) => item.word)).flat())
     ).map((w) => ({ value: w, label: w }));
   }, [wordData]);
