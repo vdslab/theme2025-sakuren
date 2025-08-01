@@ -47,7 +47,6 @@ const MunicipalityMap_wordText = ({
 
         const fontSize =
           ((word.font_size / word.print_area_x[1]) * boundsWidth) / 1.1;
-        console.log(x, y, word, fontSize);
 
         const onClick = (e: React.MouseEvent<SVGTextElement>) => {
           onWordClick(word.word);
