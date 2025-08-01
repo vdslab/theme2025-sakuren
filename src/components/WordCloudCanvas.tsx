@@ -170,7 +170,7 @@ const WordCloudCanvas = ({
   // --- onWordClickとズーム処理を合わせるラッパー ---
   const handleWordClick = (value: WordLayoutData | null) => {
     setSelectedMap(value);
-    handleZoomToPrefecture((value as any).name);
+    handleZoomToPrefecture(value?.name ?? "");
   };
 
   if (!commonBounds) return <div>Loading...</div>;
