@@ -1,4 +1,5 @@
 import "../css/WordCloudCanvas.css";
+import type { WordLayoutData } from "../types/wordLayoutData";
 interface WordTextProps {
   item: any;
   groupBounds: { xlim: [number, number]; ylim: [number, number] };
@@ -6,9 +7,11 @@ interface WordTextProps {
   selectedWord: string | null;
   findword: boolean;
   onWordClick: (word: string) => void;
-  onHover: (word: object) => void;
-  hoveredPref: object | null;
-  groupName: object;
+  onHover: (word: WordLayoutData | null) => void;
+  hoveredPref: WordLayoutData | null;
+  groupName: WordLayoutData | null;
+  precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
+  precipitationValue: number | undefined;
 }
 
 const angleMap: Record<string, number> = {
@@ -49,7 +52,11 @@ const WordText = ({
       x={x}
       y={item.orientation == "2" ? y - (item.font_size / 2) * 1.6 : y}
       fontSize={item.font_size}
-      fill={precipitationScale!=null?precipitationScale(precipitationValue ?? "#ffffff"):"#ffffff"}
+      fill={
+        precipitationScale != null
+          ? precipitationScale(precipitationValue ?? 0)
+          : "#ffffff"
+      }
       opacity={findword || !selectedWord ? 1 : 0.25}
       textAnchor="start"
       dominantBaseline="hanging"
@@ -59,7 +66,7 @@ const WordText = ({
         onHover(groupName);
       }}
       onMouseLeave={() => {
-        onHover({});
+        onHover(null);
       }}
       style={
         selectedWord == item.word

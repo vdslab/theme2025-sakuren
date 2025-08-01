@@ -1,4 +1,5 @@
 import * as d3geo from "d3-geo";
+import type { WordLayoutData } from "../types/wordLayoutData";
 import WordText from "./WordText";
 
 interface WordCloudDrawProps {
@@ -7,13 +8,13 @@ interface WordCloudDrawProps {
   geoFeatures: any[];
   gIdx: number;
   selectedWord: string | null;
-  hoveredPref: object;
+  hoveredPref: WordLayoutData | null;
   mode: boolean;
   onWordClick: (word: string) => void;
-  onHover: (value: object) => void;
-  handleWordClick: (value: object) => void;
-  temperatureScale;
-  precipitationScale;
+  onHover: (value: WordLayoutData | null) => void;
+  handleWordClick: (value: WordLayoutData | null) => void;
+  temperatureScale: d3.ScaleLinear<string, string, never> | undefined;
+  precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
   weatherData: Record<string, { temperature: number; precipitation: number }>;
 }
 
@@ -60,7 +61,10 @@ const WordCloudDraw = ({
 
   // 天気データ取得
   const weather = weatherData[group.name];
-  const tempColor = weather && temperatureScale!=null ? temperatureScale(weather.temperature) : "#ffffff";
+  const tempColor =
+    weather && temperatureScale != null
+      ? temperatureScale(weather.temperature)
+      : "#ffffff";
 
   return (
     <g
@@ -80,7 +84,7 @@ const WordCloudDraw = ({
         strokeWidth={1}
         pointerEvents="visibleFill"
         onMouseEnter={() => onHover(group)}
-        onMouseLeave={() => onHover({})}
+        onMouseLeave={() => onHover(null)}
         filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />
 
