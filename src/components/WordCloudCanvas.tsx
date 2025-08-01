@@ -5,7 +5,12 @@ import type { WordBoundsData } from "../types/wordBoundsData";
 import type { WordLayoutData } from "../types/wordLayoutData";
 import MunicipalityMap from "./MunicipalityMap";
 import wordcloudDraw from "./WordCloudDraw";
+import WordSearch from "./WordSearch";
 
+interface Option {
+  value: string;
+  label: string;
+}
 interface CanvasWordCloudProps {
   wordData: WordLayoutData[];
   bounds: WordBoundsData; // bounds[prefCode].bbox = [x0, y0, x1, y1]
@@ -16,6 +21,9 @@ interface CanvasWordCloudProps {
   setHoveredPref: (value: string | null) => void;
   onWordClick: (word: string) => void;
   mode: boolean;
+  setMode: (boo: boolean) => void;
+  setSelectedWord: (value: string | null) => void;
+  uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
 }
 
 type WeatherData = Record<
@@ -33,6 +41,9 @@ const WordCloudCanvas = ({
   selectedWord,
   onWordClick,
   mode,
+  setMode,
+  setSelectedWord,
+  uniqueWords,
 }: CanvasWordCloudProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
@@ -143,12 +154,19 @@ const WordCloudCanvas = ({
     zoomRef.current = zoom;
   }, []);
 
-  // --- Prefectureにズームする関数 ---
   const handleZoomToPrefecture = (prefName: string | null) => {
-    if (!prefName) return;
     const svg = d3.select(svgRef.current);
+    if (!svgRef.current || !zoomRef.current) return;
+
+    if (!prefName) {
+      // 👇 初期位置に戻す（全体ビュー）
+      zoomRef.current.transform(d3.select(svgRef.current), d3.zoomIdentity);
+
+      return;
+    }
+
     const bound = bounds[prefName];
-    if (!bound || !svgRef.current || !zoomRef.current) return;
+    if (!bound) return;
 
     const [x0, x1] = bound.xlim;
     const [y0, y1] = bound.ylim;
@@ -185,70 +203,91 @@ const WordCloudCanvas = ({
   const handleWordClick = (name: string | null) => {
     onHover(null);
     setSelectedMap(name);
-    handleZoomToPrefecture(name ?? "");
+    handleZoomToPrefecture(name);
   };
 
   if (!commonBounds) return <div>Loading...</div>;
 
   return (
-    <svg
-      ref={svgRef}
-      width={3000}
-      height={3000}
-      style={{
-        border: "1px solid #ccc",
-        width: "calc(100vw)",
-        height: "calc(100vh)",
-        display: "block",
-      }}
-    >
-      <defs>
-        <filter id="shadow">
-          <feDropShadow
-            dx="2"
-            dy="2"
-            stdDeviation="3"
-            floodColor="#000"
-            floodOpacity="0.7"
-          />
-        </filter>
-      </defs>
-      <g transform="translate(-900, -500)">
-        {selectedMap == null ? (
-          <g ref={gRef}>
-            {wordData.map((group, gIdx) =>
-              wordcloudDraw({
-                bounds,
-                group,
-                geoFeatures,
-                gIdx,
-                selectedWord,
-                hoveredPref,
-                mode,
-                onHover,
-                onWordClick,
-                handleWordClick,
-                temperatureScale,
-                precipitationScale,
-                weatherData,
-              })
-            )}
-          </g>
-        ) : (
-          <g ref={gRef}>
-            <MunicipalityMap
-              selectedWord={selectedWord}
-              bounds={bounds}
-              group={selectedMap}
-              gIdx={48}
-              hoverdPref={hoveredPref}
-              onHover={onHover}
-              onWordClick={onWordClick}
+    <>
+      <svg
+        ref={svgRef}
+        width={3000}
+        height={3000}
+        style={{
+          border: "1px solid #ccc",
+          width: "calc(100vw)",
+          height: "calc(100vh)",
+          display: "block",
+        }}
+      >
+        <defs>
+          <filter id="shadow">
+            <feDropShadow
+              dx="2"
+              dy="2"
+              stdDeviation="3"
+              floodColor="#000"
+              floodOpacity="0.7"
             />
-          </g>
-        )}
-      </g>
-    </svg>
+          </filter>
+        </defs>
+        <g transform="translate(-900, -500)">
+          {selectedMap == null ? (
+            <g ref={gRef}>
+              {wordData.map((group, gIdx) =>
+                wordcloudDraw({
+                  bounds,
+                  group,
+                  geoFeatures,
+                  gIdx,
+                  selectedWord,
+                  hoveredPref,
+                  mode,
+                  onHover,
+                  onWordClick,
+                  handleWordClick,
+                  temperatureScale,
+                  precipitationScale,
+                  weatherData,
+                })
+              )}
+            </g>
+          ) : (
+            <g ref={gRef}>
+              <MunicipalityMap
+                selectedWord={selectedWord}
+                bounds={bounds}
+                group={selectedMap}
+                gIdx={48}
+                hoverdPref={hoveredPref}
+                onHover={onHover}
+                onWordClick={onWordClick}
+              />
+            </g>
+          )}
+        </g>
+      </svg>
+      <div
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 10,
+          zIndex: 10,
+          width: 300,
+        }}
+      >
+        <WordSearch
+          uniqueWords={uniqueWords}
+          selected={selectedWord}
+          onChange={(opt) => setSelectedWord(opt)}
+          mode={mode}
+          onMode={() => setMode(!mode ? true : false)}
+          handleWordClick={(opt) => handleWordClick(opt)}
+          selectedMap={selectedMap}
+        />
+      </div>
+    </>
   );
 };
 

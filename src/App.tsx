@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useToggle } from "react-use";
 import { Aside } from "./components/aside/Aside";
 import CanvasWordCloud from "./components/WordCloudCanvas";
-import WordSearch from "./components/WordSearch";
 import type { WordBoundsData } from "./types/wordBoundsData";
 import type { WordLayoutData } from "./types/wordLayoutData";
 
@@ -34,22 +33,6 @@ export const App = () => {
 
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          zIndex: 10,
-          width: 300,
-        }}
-      >
-        <WordSearch
-          uniqueWords={uniqueWords}
-          selected={selectedWord}
-          onChange={(opt) => setSelectedWord(opt)}
-          onMode={() => setMode(!mode ? true : false)}
-        />
-      </div>
       {wordData && wordBounds && (
         <CanvasWordCloud
           wordData={wordData}
@@ -61,6 +44,9 @@ export const App = () => {
           selectedWord={selectedWord}
           onWordClick={(word) => setSelectedWord(word)}
           mode={mode}
+          setMode={(boo) => setMode(boo)}
+          setSelectedWord={(opt) => setSelectedWord(opt)}
+          uniqueWords={uniqueWords}
         />
       )}
       {selectedWord && (
