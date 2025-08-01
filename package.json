@@ -10,12 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.2.0",
     "@types/d3": "^7.4.3",
     "d3": "^7.9.0",
     "eslint-plugin-react": "^7.37.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-select": "^5.10.2"
+    "react-select": "^5.10.2",
+    "react-use": "^17.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

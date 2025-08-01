@@ -1,4 +1,11 @@
-import Select from "react-select";
+import {
+  Autocomplete,
+  Box,
+  FormControl,
+  FormControlLabel,
+  Switch,
+  TextField,
+} from "@mui/material";
 
 interface Option {
   value: string;
@@ -23,19 +30,35 @@ const WordSearch = ({
     uniqueWords.find((opt) => opt.value === selected) ?? null;
 
   return (
-    <div style={{ position: "absolute", zIndex: 10, padding: "10px" }}>
-      <Select
-        options={uniqueWords}
-        value={selectedOption} // ←ここ
-        onChange={(select) => {
-          onChange(select ? select.value : null);
+    <Box style={{ position: "absolute", zIndex: 10, padding: "10px" }}>
+      <Autocomplete
+        options={uniqueWords.sort((a, b) => a.label.localeCompare(b.label))}
+        getOptionLabel={(option) => option.label}
+        value={selectedOption ?? undefined}
+        onChange={(_, newValue) => {
+          onChange(newValue ? newValue.value : null);
         }}
-        isClearable
-        placeholder="単語を検索..."
-        styles={{ container: (base) => ({ ...base, width: 300 }) }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="単語を選択..."
+            variant="outlined"
+            style={{ width: 300 }}
+            size="small"
+          />
+        )}
+        isOptionEqualToValue={(option, value) => option.value === value.value}
+        renderOption={(props, option) => <li {...props}>{option.label}</li>}
       />
-      <button onClick={() => onMode()}>Mode Change</button>
-    </div>
+      <Box>
+        <FormControl>
+          <FormControlLabel
+            control={<Switch onChange={onMode} color="primary" />}
+            label="都道府県選択モード"
+          />
+        </FormControl>
+      </Box>
+    </Box>
   );
 };
 
