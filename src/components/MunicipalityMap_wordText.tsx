@@ -15,7 +15,6 @@ const angleMap: Record<string, number> = {
   "2": 90,
   "3": 180,
 };
-
 const MunicipalityMap_wordText = ({
   groupName,
   boundsArray,
@@ -23,7 +22,6 @@ const MunicipalityMap_wordText = ({
   const [wordcloud, setWordcloud] = useState<WordLayoutData[]>([]);
   const [targetParts, setTargetParts] = useState<WordLayoutDetailData[]>([]);
 
-  // --- 1. WordCloud JSON 読み込み ---
   useEffect(() => {
     if (!groupName) return;
     const prefName = groupName.properties.N03_001;
@@ -31,14 +29,10 @@ const MunicipalityMap_wordText = ({
 
     fetch(filepath)
       .then((res) => res.json())
-      .then((data) => {
-        setWordcloud(data);
-        console.log("Wordcloud data loaded:", data);
-      })
+      .then((data) => setWordcloud(data))
       .catch((err) => console.error("Wordcloud fetch error:", err));
   }, [groupName]);
 
-  // --- 2. 表示対象の市区町村名に合致するワードクラウドの抽出 ---
   useEffect(() => {
     if (!groupName || wordcloud.length === 0) return;
 
@@ -48,7 +42,6 @@ const MunicipalityMap_wordText = ({
     const partsName = partsNameRaw?.trim();
 
     const matched = wordcloud.find((item) => item.name.trim() === partsName);
-
     if (matched) {
       setTargetParts(matched.data);
     } else {
@@ -58,38 +51,34 @@ const MunicipalityMap_wordText = ({
 
   if (!targetParts) return null;
 
+  const boundsWidth = boundsArray[1][0] - boundsArray[0][0];
+  const boundsHeight = boundsArray[1][1] - boundsArray[0][1];
+
   return (
     <>
-      {targetParts.map((word: any, idx: number) => {
-        console.log(targetParts);
+      {targetParts.map((word, idx) => {
         const xScale = d3
-          .scaleLinear<number, number>()
+          .scaleLinear()
           .domain(word["print_area_x"])
-          .range([boundsArray[0][0], boundsArray[1][0] - 0.5]);
-
+          .range([boundsArray[0][0] + 1, boundsArray[1][0] - 1]);
         const yScale = d3
-          .scaleLinear<number, number>()
+          .scaleLinear()
           .domain(word["print_area_y"])
           .range([boundsArray[0][1] + 1, boundsArray[1][1]]);
+
         const angle = angleMap[word.orientation?.toString() ?? "0"] ?? 0;
         const x = xScale(word.x);
         const y = yScale(word.y);
-        console.log(x, y);
+
+        const fontSize =
+          (word.font_size / word["print_area_x"][1]) * (boundsWidth - 4);
+
         return (
           <text
             key={idx}
             x={x}
-            y={
-              word.orientation == "2"
-                ? y -
-                  (word.font_size / word["print_area_x"][1]) *
-                    (boundsArray[1][0] - boundsArray[0][0] - 3)
-                : y
-            }
-            fontSize={
-              (word.font_size / word["print_area_x"][1]) *
-              (boundsArray[1][0] - boundsArray[0][0] - 4)
-            }
+            y={y}
+            fontSize={fontSize}
             transform={`rotate(${angle}, ${x}, ${y})`}
             fill={word.color ?? "#000"}
             textAnchor="start"
@@ -102,5 +91,4 @@ const MunicipalityMap_wordText = ({
     </>
   );
 };
-
 export default MunicipalityMap_wordText;
