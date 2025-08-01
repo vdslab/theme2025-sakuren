@@ -46,9 +46,8 @@ export const BarChart: FC<BarChartProps> = ({
   const rectHeight = 20;
   const marginY = 8;
   const headerHeight = 30;
-
-  const height =
-    data.length * rectHeight + (data.length - 1) * marginY + headerHeight;
+  const length = data.filter((item) => item.value > 0).length;
+  const height = length * rectHeight + (length - 1) * marginY + headerHeight;
 
   const maxValue = useMemo(() => {
     if (_maxValue !== undefined) return _maxValue;
@@ -67,13 +66,18 @@ export const BarChart: FC<BarChartProps> = ({
   return (
     <svg width={width + 50} height={height + 40}>
       {data.length !== 0 && (
-        <g transform="translate(5,20)">
+        <g transform="translate(3,20)">
           <Scale xScale={xScale} />
           <text x={width + 3} y={10} fontSize="12">
-            {unit}
+            {unit.split("\n").map((line, index) => (
+              <tspan key={index} x={width + 3} dy={index === 0 ? 0 : "1.2em"}>
+                {line}
+              </tspan>
+            ))}
           </text>
           <g transform={`translate(0, ${headerHeight})`}>
             {data.map((item, index) => {
+              if (item.value === 0) return null;
               const x = labelWidth;
               const y = index * (rectHeight + marginY);
               return (
