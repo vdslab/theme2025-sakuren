@@ -82,6 +82,8 @@ const WordCloudDraw = ({
           : `translate(0, 0) scale(1)`
       }
       onClick={() => !mode && handleWordClick(hoveredPref ?? null)}
+      onMouseEnter={() => onHover(group.name)}
+      onMouseLeave={() => onHover(null)}
     >
       <path
         opacity={!selectedWord || findword ? 1 : 0.25}
@@ -90,8 +92,6 @@ const WordCloudDraw = ({
         stroke="#333"
         strokeWidth={1}
         pointerEvents="visibleFill"
-        onMouseEnter={() => onHover(group.name)}
-        onMouseLeave={() => onHover(null)}
         filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />
 

@@ -79,6 +79,7 @@ const MunicipalityMap = ({
       {filteredFeatures.map((feature, idx) => (
         <MunicipalityMap_detail
           idx={idx}
+          key={idx}
           feature={feature}
           pathGenerator={pathGenerator}
           hoverdPref={hoverdPref}
