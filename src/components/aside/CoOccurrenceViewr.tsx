@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Help } from "@mui/icons-material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState, type FC } from "react";
 import useSWR from "swr";
 import { wordCloudDataFetcher } from "./wordCloudDataFetcher";
@@ -76,7 +77,18 @@ export const CoOccurrenceViewr: FC<Props> = ({
 
   return (
     <>
-      <Typography variant="subtitle1">共起度上位単語</Typography>
+      <Box display="flex" alignItems="center" gap={1}>
+        <Typography variant="h6" marginTop={1}>
+          共起度上位単語
+        </Typography>
+        <Tooltip
+          title="その言葉と同時に表示されやすい単語"
+          arrow
+          placement="top"
+        >
+          <Help />
+        </Tooltip>
+      </Box>
       <Box
         height={350}
         sx={{

@@ -28,8 +28,10 @@ export const Aside: FC<AsideProps> = ({
         right: 0,
         height: "calc(100% - 64px)",
         width: 500,
-        padding: 2,
+        paddingX: 2,
+        paddingY: 1,
         boxShadow: "-5px 0 10px rgba(0, 0, 0, 0.2)",
+        overflowY: "hidden",
       }}
       onClick={(e) => {
         e.stopPropagation();

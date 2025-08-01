@@ -77,18 +77,12 @@ const WordText = ({
       onMouseLeave={() => {
         onHover(null);
       }}
-      style={
-        selectedWord == item.word
-          ? {
-              fontFamily: '"游ゴシック", YuGothic, sans-serif',
-              cursor: "pointer",
-              textShadow: "1px 1px 2px black",
-            }
-          : {
-              fontFamily: '"游ゴシック", YuGothic, sans-serif',
-              cursor: "pointer",
-            }
-      }
+      style={{
+        fontFamily: '"游ゴシック", YuGothic, sans-serif',
+        cursor: "pointer",
+        textShadow: selectedWord == item.word ? "1px 1px 2px black" : "none",
+        userSelect: "none",
+      }}
     >
       {item.word}
     </text>

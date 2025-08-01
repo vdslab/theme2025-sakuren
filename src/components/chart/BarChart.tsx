@@ -64,13 +64,13 @@ export const BarChart: FC<BarChartProps> = ({
   );
 
   return (
-    <svg width={width + 50} height={height + 40}>
+    <svg width={width + 75} height={height + 40}>
       {data.length !== 0 && (
         <g transform="translate(3,20)">
           <Scale xScale={xScale} />
-          <text x={width + 3} y={10} fontSize="12">
+          <text x={width} y={10} fontSize="12">
             {unit.split("\n").map((line, index) => (
-              <tspan key={index} x={width + 3} dy={index === 0 ? 0 : "1.2em"}>
+              <tspan key={index} x={width + 10} dy={index === 0 ? 0 : "1.2em"}>
                 {line}
               </tspan>
             ))}
