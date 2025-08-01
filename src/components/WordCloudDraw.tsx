@@ -4,7 +4,7 @@ import WordText from "./WordText";
 
 interface WordCloudDrawProps {
   bounds: Record<string, any>;
-  group: any;
+  group: WordLayoutData | null;
   geoFeatures: any[];
   gIdx: number;
   selectedWord: string | null;
@@ -33,6 +33,7 @@ const WordCloudDraw = ({
   precipitationScale,
   weatherData,
 }: WordCloudDrawProps) => {
+  if (!group) return null;
   const groupBounds = bounds[group.name];
   if (!groupBounds) return null;
 
@@ -85,7 +86,7 @@ const WordCloudDraw = ({
         pointerEvents="visibleFill"
         onMouseEnter={() => onHover(group)}
         onMouseLeave={() => onHover(null)}
-        filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
+        filter={hoveredPref?.name === group.name ? "url(#shadow)" : undefined}
       />
 
       {group.data.map((item: any, iIdx: number) => (
