@@ -54,12 +54,12 @@ const MunicipalityMap_wordText = ({
             className="word-text"
             key={`${word.word}-${idx}`} // ← 修正
             x={x}
-            y={word.orientation == 2 ? y - fontSize / 2 : y}
+            y={word.orientation == 2 ? y - fontSize : y}
             fontSize={fontSize}
             transform={`rotate(${angle}, ${x}, ${y})`}
-            fill={word.color ?? "#000"}
+            fill={"#3a6fa1"}
             textAnchor="start"
-            alignmentBaseline="central"
+            alignmentBaseline="text-before-edge"
             onMouseEnter={() => onHover(groupName)}
             onMouseLeave={() => onHover(null)}
             onClick={() => onWordClick(word.word)}
