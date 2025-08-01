@@ -43,7 +43,7 @@ const MunicipalityMap_wordText = ({
 
     const { N03_003, N03_004 } = groupName.properties;
     const partsNameRaw =
-      N03_003?.endsWith("市") || N03_003?.endsWith("群") ? N03_003 : N03_004;
+      N03_003?.endsWith("市") || N03_003?.endsWith("郡") ? N03_003 : N03_004;
     const partsName = partsNameRaw?.trim();
 
     const matched = wordcloud.find((item) => item.name.trim() === partsName);
