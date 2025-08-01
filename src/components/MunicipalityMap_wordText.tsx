@@ -4,6 +4,7 @@ import type {
   WordLayoutData,
   WordLayoutDetailData,
 } from "../types/wordLayoutData";
+
 interface MunicipalityMapWordTextProps {
   groupName: any; // GeoJSON Feature
   boundsArray: any;
