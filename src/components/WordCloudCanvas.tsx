@@ -26,6 +26,7 @@ interface CanvasWordCloudProps {
   setMode: (boo: boolean) => void;
   setSelectedWord: (value: string | null) => void;
   uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
+  crossHighlightPrefs: Set<string>;
 }
 
 type WeatherData = Record<
@@ -46,6 +47,7 @@ const WordCloudCanvas = ({
   setMode,
   setSelectedWord,
   uniqueWords,
+  crossHighlightPrefs,
 }: CanvasWordCloudProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
@@ -297,6 +299,7 @@ const WordCloudCanvas = ({
                   temperatureScale,
                   precipitationScale,
                   weatherData,
+                  isCrossHighlight: crossHighlightPrefs.has(group.name),
                 })
               )}
             </g>

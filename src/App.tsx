@@ -16,6 +16,10 @@ export const App = () => {
     undefined
   );
   const [wordBounds, setWordBounds] = useState<WordBoundsData>({});
+  const [crossHighlightPrefs, setCrossHighlightPrefs] = useState<Set<string>>(
+    new Set()
+  );
+
   useEffect(() => {
     fetch("/data/wordcloud_layout.json")
       .then((res) => res.json())
@@ -39,12 +43,14 @@ export const App = () => {
     } else {
       setSelectedWord(word);
     }
+    setCrossHighlightPrefs(new Set());
   };
 
   return (
     <Box
       onClick={() => {
         setSelectedWord(null);
+        setCrossHighlightPrefs(new Set());
       }}
     >
       <Header />
@@ -71,12 +77,14 @@ export const App = () => {
           setMode={(boo) => setMode(boo)}
           setSelectedWord={(opt) => setSelectedWord(opt)}
           uniqueWords={uniqueWords}
+          crossHighlightPrefs={crossHighlightPrefs}
         />
       )}
       <Aside
         selectedWord={selectedWord}
         selectedPref={selectedMap ?? ""}
         setHoveredPref={setHoveredPref}
+        setCrossHighlightPrefs={setCrossHighlightPrefs}
       />
     </Box>
   );

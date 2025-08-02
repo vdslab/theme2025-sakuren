@@ -8,12 +8,14 @@ type AsideProps = {
   selectedWord: string | null;
   selectedPref?: string;
   setHoveredPref: (value: string | null) => void;
+  setCrossHighlightPrefs: (prefs: Set<string>) => void;
 };
 
 export const Aside: FC<AsideProps> = ({
   selectedWord,
   selectedPref,
   setHoveredPref,
+  setCrossHighlightPrefs,
 }) => {
   if (!selectedWord && !selectedPref) {
     return null;
@@ -49,11 +51,13 @@ export const Aside: FC<AsideProps> = ({
               selectedPref={selectedPref}
               setHoveredPref={setHoveredPref}
             />
-            <CoOccurrenceViewr
-              selectedWord={selectedWord}
-              selectedPref={selectedPref}
-              setHoveredPref={setHoveredPref}
-            />
+            {selectedPref || (
+              <CoOccurrenceViewr
+                selectedWord={selectedWord}
+                setHoveredPref={setHoveredPref}
+                setCrossHighlightPrefs={setCrossHighlightPrefs}
+              />
+            )}
           </>
         ) : (
           selectedPref && (
