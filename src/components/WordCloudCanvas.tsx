@@ -124,7 +124,7 @@ const WordCloudCanvas = ({
     const temperatureScales = d3
       .scaleLinear<string>()
       .domain(temperatureExtent)
-      .range(["#fee5d9", "#fc9272"]);
+      .range(["#ffffff", "#fc9272"]);
 
     const precipitationScales = d3
       .scaleLinear<string>()
