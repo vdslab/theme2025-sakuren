@@ -10,18 +10,18 @@ interface CooccurrenceData {
 }
 
 type Props = {
-  selectedWord: string;
-  selectedPref?: string;
+  selectedWord: string | null;
   setHoveredPref: (value: string | null) => void;
+  setCrossHighlightPrefs: (prefs: Set<string>) => void;
 };
 
 export const CoOccurrenceViewr: FC<Props> = ({
   selectedWord,
-  selectedPref,
   setHoveredPref,
+  setCrossHighlightPrefs,
 }) => {
   const { data, isLoading } = useSWR<Record<string, Record<string, number>>>(
-    selectedPref || "all",
+    "all",
     wordCloudDataFetcher
   );
 
@@ -29,6 +29,8 @@ export const CoOccurrenceViewr: FC<Props> = ({
   const [matrixData, setMatrixData] = useState<CooccurrenceData | null>(null);
   const [loadingMatrix, setLoadingMatrix] = useState(true);
   const [errorMatrix, setErrorMatrix] = useState<string | null>(null);
+
+  const [crossSelectWord, setCrossSelectWord] = useState<string | null>(null);
 
   // 共起行列JSONをfetchしてセット
   useEffect(() => {
@@ -47,6 +49,10 @@ export const CoOccurrenceViewr: FC<Props> = ({
         setLoadingMatrix(false);
       });
   }, []);
+
+  if (!selectedWord) {
+    return;
+  }
 
   // 読み込み状態・エラー処理
   if (loadingMatrix) {
@@ -74,6 +80,25 @@ export const CoOccurrenceViewr: FC<Props> = ({
     .map((word, idx) => ({ word, score: cooccurRow[idx] }))
     .filter(({ word, score }) => word !== selectedWord && score > 0)
     .sort((a, b) => b.score - a.score);
+
+  const prefCount = Object.values(data).reduce(
+    (acc, cur) => acc + (cur[selectedWord] ? 1 : 0),
+    0
+  );
+
+  const calcCrossHighlightPrefs = (word: string) => {
+    if (crossSelectWord === word) {
+      setCrossHighlightPrefs(new Set());
+      setCrossSelectWord(null);
+      return;
+    }
+
+    const prefs = Object.entries(data)
+      .filter((values) => values[1][word] > 0 && values[1][selectedWord] > 0)
+      .map(([pref]) => pref);
+    setCrossSelectWord(word);
+    setCrossHighlightPrefs(new Set(prefs));
+  };
 
   return (
     <>
@@ -103,8 +128,16 @@ export const CoOccurrenceViewr: FC<Props> = ({
               key={word}
               onMouseEnter={() => setHoveredPref(word)}
               onMouseLeave={() => setHoveredPref(null)}
+              onClick={() => calcCrossHighlightPrefs(word)}
+              style={{
+                cursor: "pointer",
+                padding: "2px 8px",
+                borderBottom: "1px solid #eee",
+                backgroundColor:
+                  crossSelectWord === word ? "#f0f0f0" : "transparent",
+              }}
             >
-              {word}（共起回数: {score}）
+              {word}（共起回数: {score}/{prefCount}）
             </li>
           ))}
         </ul>

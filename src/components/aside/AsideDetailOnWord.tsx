@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Help } from "@mui/icons-material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import type { FC } from "react";
 import useSWR from "swr";
 import { BarChart } from "../chart/BarChart";
@@ -34,7 +35,22 @@ export const AsideDetailOnWord: FC<Props> = ({
 
   return (
     <Box>
-      <Typography variant="h6">検索ワード：{selectedWord}</Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        gap={1}
+      >
+        <Typography variant="h6">検索ワード：{selectedWord}</Typography>
+        <Tooltip
+          title={`各地域の口コミ総数に対する${selectedWord}のTF-IDFスコア`}
+          arrow
+          placement="top"
+          sx={{ marginRight: 2 }}
+        >
+          <Help />
+        </Tooltip>
+      </Box>
       <Box
         height={400}
         sx={{
