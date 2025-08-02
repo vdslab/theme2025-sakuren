@@ -160,6 +160,28 @@ const WordCloudCanvas = ({
     zoomRef.current = zoom;
   }, []);
 
+  useEffect(() => {
+    if (selectedWord != null && selectedMap == null) {
+      const svg = d3.select(svgRef.current);
+      svg
+        .transition()
+        .duration(750)
+        .call(
+          (transition) =>
+            zoomRef.current?.transform(
+              transition as d3.Transition<
+                SVGSVGElement,
+                unknown,
+                null,
+                undefined
+              >,
+              d3.zoomIdentity.translate(900, 400).scale(0.5)
+            ),
+          d3.zoomIdentity.translate(900, 400).scale(0.5)
+        );
+    }
+  }, [selectedWord]);
+
   const handleZoomToPrefecture = (prefName: string | null) => {
     const svg = d3.select(svgRef.current);
     if (!svgRef.current || !zoomRef.current) return;
