@@ -87,10 +87,14 @@ for i in range(len(search_words)):
     scores = np.asarray(X.mean(axis=0)).ravel()
     word_scores_raw = dict(zip(words, scores))
 
-    word_scores = {
+    # stopwords除去
+    filtered_scores = {
         word: score for word, score in word_scores_raw.items()
         if word not in stopwords and not word.isdigit()
     }
+
+    # 上位10語だけを選択
+    top_words = dict(sorted(filtered_scores.items(), key=lambda x: x[1], reverse=True)[:5])
 
     # マスク画像読み込み
     mask_path = f'./prefecture_layer/{search_word}/{search_word}.png'
@@ -114,9 +118,13 @@ for i in range(len(search_words)):
         height=mask_array.shape[0],
         font_path=font_path,
         colormap="coolwarm",
-        max_words=200,
-        mask=mask_array
-    ).generate_from_frequencies(word_scores)
+        max_words=10,
+        mask=mask_array,
+        scale=10,                   # 高解像度で詰めやすく
+        relative_scaling=0.4,      # サイズ差を控えめにして詰まりやすく
+        prefer_horizontal=1,    # 横方向配置を優先
+    ).generate_from_frequencies(top_words)
+    
 
     # JSONレイアウトデータ作成
     word_layout_data = {"name": search_word, "data": []}
@@ -131,7 +139,7 @@ for i in range(len(search_words)):
 
         word_info = {
             "word": word[0],
-            "tfidf_score": word_scores.get(word[0], 0),
+            "tfidf_score": top_words.get(word[0], 0),
             "font_size": font_size,
             "print_area_x": [min_x_offset, max_x_offset],
             "print_area_y": [min_y_offset, max_y_offset],
@@ -145,7 +153,7 @@ for i in range(len(search_words)):
         word_layout_data["data"].append(word_info)
 
     # JSONファイルに追記保存
-    json_path = "wordcloud_layout_detail.json"
+    json_path = "wordcloud_layout.json"
     if os.path.exists(json_path):
         with open(json_path, "r", encoding="utf-8") as f:
             existing_data = json.load(f)

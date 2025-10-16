@@ -15,6 +15,7 @@ interface Option {
 }
 interface CanvasWordCloudProps {
   wordData: WordLayoutData[];
+  wordDataDetail: WordLayoutData[];
   bounds: WordBoundsData; // bounds[prefCode].bbox = [x0, y0, x1, y1]
   selectedMap: string | null;
   setSelectedMap: (value: string | null) => void;
@@ -36,6 +37,7 @@ type WeatherData = Record<
 
 const WordCloudCanvas = ({
   wordData,
+  wordDataDetail,
   bounds,
   selectedMap,
   setSelectedMap,
@@ -49,6 +51,7 @@ const WordCloudCanvas = ({
   uniqueWords,
   crossHighlightPrefs,
 }: CanvasWordCloudProps) => {
+  const [useWordData, setUseWordData] = useState(wordData);
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
@@ -156,11 +159,27 @@ const WordCloudCanvas = ({
       .scaleExtent([0.5, 30])
       .on("zoom", (event) => {
         g.attr("transform", event.transform);
+
+        // ✅ ズーム倍率に応じてデータを切り替え
+        if (event.transform.k >= 2) {
+          setUseWordData(wordDataDetail);
+        } else {
+          setUseWordData(wordData);
+        }
       });
 
     svg.call(zoom);
     zoomRef.current = zoom;
-  }, []);
+
+    // 初期位置とスケール設定
+    const initialTransform = d3.zoomIdentity.translate(100, -100).scale(0.5);
+    svg.call(zoom.transform, initialTransform);
+
+    // cleanup
+    return () => {
+      svg.on(".zoom", null);
+    };
+  }, [wordData, wordDataDetail]);
 
   useEffect(() => {
     if (selectedWord != null && selectedMap == null) {
@@ -177,9 +196,9 @@ const WordCloudCanvas = ({
                 null,
                 undefined
               >,
-              d3.zoomIdentity.translate(900, 400).scale(0.5)
+              d3.zoomIdentity.translate(100, -100).scale(0.5)
             ),
-          d3.zoomIdentity.translate(900, 400).scale(0.5)
+          d3.zoomIdentity.translate(100, -100).scale(0.5)
         );
     }
   }, [selectedWord]);
@@ -189,8 +208,26 @@ const WordCloudCanvas = ({
     if (!svgRef.current || !zoomRef.current) return;
 
     if (!prefName) {
-      // 👇 初期位置に戻す（全体ビュー）
-      zoomRef.current.transform(d3.select(svgRef.current), d3.zoomIdentity);
+      if (selectedMap != null) {
+        // 👇 初期位置に戻す（全体ビュー）
+        zoomRef.current.transform(d3.select(svgRef.current), d3.zoomIdentity);
+        svg
+          .transition()
+          .duration(750)
+          .call(
+            (transition) =>
+              zoomRef.current?.transform(
+                transition as d3.Transition<
+                  SVGSVGElement,
+                  unknown,
+                  null,
+                  undefined
+                >,
+                d3.zoomIdentity.translate(100, -100).scale(0.5)
+              ),
+            d3.zoomIdentity.translate(100, -100).scale(0.5)
+          );
+      }
 
       return;
     }
@@ -208,9 +245,9 @@ const WordCloudCanvas = ({
     const prefWidth = x1 - x0;
     const prefHeight = y1 - y0;
 
-    const scale = Math.min(width / prefWidth, height / prefHeight) * 0.8;
-    const tx = width - scale * (x0 + prefWidth / 2);
-    const ty = height - scale * (y0 + prefHeight / 2);
+    const scale = Math.min(width / prefWidth, height / prefHeight);
+    const tx = width - scale * x1;
+    const ty = height - scale * y1;
 
     svg
       .transition()
@@ -281,10 +318,10 @@ const WordCloudCanvas = ({
             )}
           </filter>
         </defs>
-        <g transform="translate(-900, -500)">
+        <g>
           {selectedMap == null ? (
             <g ref={gRef}>
-              {wordData.map((group, gIdx) =>
+              {useWordData.map((group, gIdx) =>
                 wordcloudDraw({
                   bounds,
                   group,
