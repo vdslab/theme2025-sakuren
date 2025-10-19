@@ -3,6 +3,8 @@ import "../css/WordCloudCanvas.css";
 import type { WordLayoutDetailData } from "../types/wordLayoutData";
 interface WordTextProps {
   item: WordLayoutDetailData;
+  iIdx: number;
+  useWordData: number;
   groupBounds: { xlim: [number, number]; ylim: [number, number] };
   mode: boolean;
   selectedWord: string | null;
@@ -25,6 +27,8 @@ const angleMap: Record<string, number> = {
 
 const WordText = ({
   item,
+  iIdx,
+  useWordData,
   groupBounds,
   mode,
   selectedWord,
@@ -52,7 +56,11 @@ const WordText = ({
       e.stopPropagation();
     }
   };
-
+  if (useWordData == 0) {
+    if (item.font_size < 13) {
+      return <></>;
+    }
+  }
   return (
     <text
       className={

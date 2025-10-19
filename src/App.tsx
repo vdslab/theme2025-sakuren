@@ -15,9 +15,6 @@ export const App = () => {
   const [wordData, setWordData] = useState<WordLayoutData[] | undefined>(
     undefined
   );
-  const [wordDataDetail, setWordDataDetail] = useState<
-    WordLayoutData[] | undefined
-  >(undefined);
   const [wordBounds, setWordBounds] = useState<WordBoundsData>({});
   const [crossHighlightPrefs, setCrossHighlightPrefs] = useState<Set<string>>(
     new Set()
@@ -27,9 +24,6 @@ export const App = () => {
     fetch("/data/wordcloud_layout.json")
       .then((res) => res.json())
       .then((data) => setWordData(data));
-    fetch("/data/wordcloud_layout_detail.json")
-      .then((res) => res.json())
-      .then((data) => setWordDataDetail(data));
 
     fetch("/data/prefecture_pixel_map_bounds.json")
       .then((res) => res.json())
@@ -69,10 +63,9 @@ export const App = () => {
           width: 300,
         }}
       ></Box>
-      {wordData && wordBounds && wordDataDetail && (
+      {wordData && wordBounds && (
         <CanvasWordCloud
           wordData={wordData}
-          wordDataDetail={wordDataDetail}
           selectedMap={selectedMap}
           setSelectedMap={setSelectedMap}
           hoveredPref={hoveredPref}

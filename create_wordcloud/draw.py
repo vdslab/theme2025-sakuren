@@ -7,7 +7,8 @@ import ctypes
 ctypes.cdll.LoadLibrary(r"C:\Program Files\MeCab\bin\libmecab.dll")
 import MeCab
 import ipadic
-from sklearn.feature_extraction.text import TfidfVectorizer
+from collections import Counter
+from sklearn.feature_extraction.text import CountVectorizer
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -44,11 +45,9 @@ prefectures = [
     "福岡", "佐賀", "長崎", "熊本", "大分", "宮崎", "鹿児島", "沖縄",
 ]
 # stopwords 定義
-stopwords = set( ["店","円","味","料理","さん","ラーメン","肉","ランチ","最高","そば","麺","雰囲気","丼","定食","メニュー","満足","注文","人","蕎麦","感じ","店員","普通","セット","2","時","酒","方","利用","うどん","値段","ご飯","的","時間","カレー","スープ","ボリューム","量","中","屋","こと","訪問","1","コース","放題","店内","牛","一","刺身","ー","接客","ここ","どれ","日","好き","焼き","味噌","野菜","種類","パ","天ぷら","何","感","予約","カツ","コス","よう","食事","残念","揚げ","対応","目","餃子","寿司","3","気","豚","個室","そう","席","塩","前","豊富","もの","魚","唐","チャーシュー","おすすめ","パン","駅","今日","醤油","中華","提供","笑","これ","丁寧","サービス","今回","コスパ","サラダ","日本","温泉", "お昼", "ごちそうさま", "隠岐", "来店", "近江", "琵琶湖", "購入", "綺麗", "ゴルフ", "会津", "白河", "限定", "仕事", "新鮮","お腹", "来店", "久しぶり", "台湾", "いっぱい", "ごちそうさま", "食堂", "購入", "家族", "絶品", "オーダー", "越前", "駐車", "300", "郡山", "飛騨", "500", "みたい", "好み", "100", "人気", "レストラン", "淡路島", "直島", "三盆", "奄美", "天草", "伊勢", "信州", "軽井沢", "大変", "平日", "五島", "佐世保", "島原", "替玉", "無料", "中津", "別府", "スタッフ", "安定", "一一", "佐野", "伊豆", "阿波", "鳴門", "素材", "リーズナブル", "親切", "オススメ", "韓国", "価格", "居心地", "全部", "大山", "氷見", ] + prefectures)
+stopwords = set( ["ーー","店","円","味","料理","さん","ラーメン","肉","ランチ","最高","そば","麺","雰囲気","丼","定食","メニュー","満足","注文","人","蕎麦","感じ","店員","普通","セット","2","時","酒","方","利用","うどん","値段","ご飯","的","時間","カレー","スープ","ボリューム","量","中","屋","こと","訪問","1","コース","放題","店内","牛","一","刺身","ー","接客","ここ","どれ","日","好き","焼き","味噌","野菜","種類","パ","天ぷら","何","感","予約","カツ","コス","よう","食事","残念","揚げ","対応","目","餃子","寿司","3","気","豚","個室","そう","席","塩","前","豊富","もの","魚","唐","チャーシュー","おすすめ","パン","駅","今日","醤油","中華","提供","笑","これ","丁寧","サービス","今回","コスパ","サラダ","日本","温泉", "お昼", "ごちそうさま", "隠岐", "来店", "近江", "琵琶湖", "購入", "綺麗", "ゴルフ", "会津", "白河", "限定", "仕事", "新鮮","お腹", "来店", "久しぶり", "台湾", "いっぱい", "ごちそうさま", "食堂", "購入", "家族", "絶品", "オーダー", "越前", "駐車", "300", "郡山", "飛騨", "500", "みたい", "好み", "100", "人気", "レストラン", "淡路島", "直島", "三盆", "奄美", "天草", "伊勢", "信州", "軽井沢", "大変", "平日", "五島", "佐世保", "島原", "替玉", "無料", "中津", "別府", "スタッフ", "安定", "一一", "佐野", "伊豆", "阿波", "鳴門", "素材", "リーズナブル", "親切", "オススメ", "韓国", "価格", "居心地", "全部", "大山", "氷見", ] + prefectures)
 
 # 画像保存ディレクトリ
-image_output_dir = "./wordcloud_images"
-os.makedirs(image_output_dir, exist_ok=True)
 # 都道府県リスト
 search_words = [
     "愛知県", "秋田県", "青森県", "千葉県", "愛媛県", "福井県", "福岡県", "福島県", "岐阜県", "群馬県", "広島県", "北海道", "兵庫県",
@@ -64,99 +63,109 @@ search_words_roma = [
 ]
 
 # 全都道府県ループ
-for i in range(len(search_words)):
-    search_word = search_words[i]
-    search_word_roma = search_words_roma[i]
+# 出力ディレクトリ
+image_output_dir = "./wordcloud_images"
+os.makedirs(image_output_dir, exist_ok=True)
 
+# JSON保存先
+json_path = "wordcloud_layout.json"
+if os.path.exists(json_path):
+    with open(json_path, "r", encoding="utf-8") as f:
+        existing_data = json.load(f)
+else:
+    existing_data = []
+
+for i, search_word in enumerate(search_words):
+    search_word_roma = search_words_roma[i]
     txt_dir = f'./create_wordcloud/tabelog_results/{search_word_roma}'
 
     documents = []
     for filepath in glob.glob(os.path.join(txt_dir, '*.txt')):
         with open(filepath, encoding='utf-8') as f:
-            text = f.read()
-            tokenized = mecab_tokenizer(text)
-            documents.append(tokenized)
+            documents.append(mecab_tokenizer(f.read()))
 
-    print(f"読み込んだテキストファイル数: {len(documents)}")
-    print(search_word, search_word_roma)
+    print(f"{search_word}: 読み込んだファイル数 {len(documents)}")
 
-    # TF-IDF 計算（+ stopwords 除去）
-    vectorizer = TfidfVectorizer(max_features=200)
+    if not documents:
+        print(f"{search_word} の文章が0件。スキップします。")
+        continue
+
+    # 出現回数カウント
+    vectorizer = CountVectorizer(max_features=100)
     X = vectorizer.fit_transform(documents)
     words = vectorizer.get_feature_names_out()
-    scores = np.asarray(X.mean(axis=0)).ravel()
-    word_scores_raw = dict(zip(words, scores))
+    counts = np.asarray(X.sum(axis=0)).ravel()
+    word_counts = {w: int(c) for w, c in zip(words, counts) if w not in stopwords and not w.isdigit()}
 
-    word_scores = {
-        word: score for word, score in word_scores_raw.items()
-        if word not in stopwords and not word.isdigit()
-    }
+    if not word_counts:
+        print(f"{search_word} の単語が0件。スキップします。")
+        continue
 
-    # マスク画像読み込み
+    # マスク画像
     mask_path = f'./prefecture_layer/{search_word}/{search_word}.png'
     mask_image = Image.open(mask_path).convert("L")
     mask_array = np.array(mask_image)
 
     mask_indices = np.where(mask_array < 128)
     if mask_indices[0].size == 0 or mask_indices[1].size == 0:
-        raise ValueError(f"マスク画像に有効な領域がありません: {search_word}")
+        print(f"{search_word} のマスク画像に描画可能領域がありません。スキップします。")
+        continue
 
-    min_y_offset = int(np.min(mask_indices[0]))
-    max_y_offset = int(np.max(mask_indices[0]))
-    min_x_offset = int(np.min(mask_indices[1]))
-    max_x_offset = int(np.max(mask_indices[1]))
+    min_y, max_y = int(np.min(mask_indices[0])), int(np.max(mask_indices[0]))
+    min_x, max_x = int(np.min(mask_indices[1])), int(np.max(mask_indices[1]))
 
-    # WordCloud 描画
     font_path = "C:/Windows/Fonts/YuGothR.ttc"
+
     wordcloud = WordCloud(
         background_color="white",
         width=mask_array.shape[1],
         height=mask_array.shape[0],
         font_path=font_path,
         colormap="coolwarm",
-        max_words=200,
-        mask=mask_array
-    ).generate_from_frequencies(word_scores)
+        max_words=min(50, len(word_counts)),  # 単語数に応じて制限
+        include_numbers=False,
+        mask=mask_array,
+        relative_scaling=1
+    )
 
-    # JSONレイアウトデータ作成
+    try:
+        wordcloud.generate_from_frequencies(word_counts)
+    except ValueError:
+        print(f"{search_word} のワードクラウド生成に失敗。単語数やマスクを確認してください。")
+        continue
+
+    # 保存
+    output_img_path = os.path.join(image_output_dir, f"{search_word}.png")
+    wordcloud.to_file(output_img_path)
+    print(f"{search_word} のワードクラウド画像保存: {output_img_path}")
+
+    # JSON レイアウト
     word_layout_data = {"name": search_word, "data": []}
-
     for (word, font_size, position, orientation, color) in wordcloud.layout_:
         abs_x = float(position[1])
         abs_y = float(position[0])
-        rel_x = abs_x - min_x_offset
-        rel_y = abs_y - min_y_offset
-        norm_x = rel_x / (max_x_offset - min_x_offset)
-        norm_y = rel_y / (max_y_offset - min_y_offset)
-
-        word_info = {
+        rel_x = abs_x - min_x
+        rel_y = abs_y - min_y
+        norm_x = rel_x / (max_x - min_x)
+        norm_y = rel_y / (max_y - min_y)
+        word_layout_data["data"].append({
             "word": word[0],
-            "tfidf_score": word_scores.get(word[0], 0),
+            "count": word_counts.get(word[0], 0),
             "font_size": font_size,
-            "print_area_x": [min_x_offset, max_x_offset],
-            "print_area_y": [min_y_offset, max_y_offset],
             "x": round(rel_x, 2),
             "y": round(rel_y, 2),
             "norm_x": round(norm_x, 6),
             "norm_y": round(norm_y, 6),
             "orientation": orientation,
-            "color": color
-        }
-        word_layout_data["data"].append(word_info)
-
-    # JSONファイルに追記保存
-    json_path = "wordcloud_layout_detail.json"
-    if os.path.exists(json_path):
-        with open(json_path, "r", encoding="utf-8") as f:
-            existing_data = json.load(f)
-    else:
-        existing_data = []
+            "color": color,
+            "print_area_x": [min_x, max_x],
+            "print_area_y": [min_y, max_y]
+        })
 
     existing_data.append(word_layout_data)
 
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(existing_data, f, ensure_ascii=False, indent=2)
+# JSON 保存
+with open(json_path, "w", encoding="utf-8") as f:
+    json.dump(existing_data, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ {search_word} のレイアウトデータを保存しました。")
-
-print("🎉 全都道府県のワードクラウドレイアウト生成完了")
+print("🎉 全都道府県ワードクラウド生成完了")

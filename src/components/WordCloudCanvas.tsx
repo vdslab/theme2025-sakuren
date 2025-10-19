@@ -15,7 +15,6 @@ interface Option {
 }
 interface CanvasWordCloudProps {
   wordData: WordLayoutData[];
-  wordDataDetail: WordLayoutData[];
   bounds: WordBoundsData; // bounds[prefCode].bbox = [x0, y0, x1, y1]
   selectedMap: string | null;
   setSelectedMap: (value: string | null) => void;
@@ -37,7 +36,6 @@ type WeatherData = Record<
 
 const WordCloudCanvas = ({
   wordData,
-  wordDataDetail,
   bounds,
   selectedMap,
   setSelectedMap,
@@ -51,7 +49,7 @@ const WordCloudCanvas = ({
   uniqueWords,
   crossHighlightPrefs,
 }: CanvasWordCloudProps) => {
-  const [useWordData, setUseWordData] = useState(wordData);
+  const [useWordData, setUseWordData] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
@@ -142,7 +140,7 @@ const WordCloudCanvas = ({
 
   // --- GeoJSONの読み込み ---
   useEffect(() => {
-    fetch("/prefecture_single.geojson")
+    fetch("/municipalities_tuning_merged.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatures(data.features));
   }, []);
@@ -162,9 +160,9 @@ const WordCloudCanvas = ({
 
         // ✅ ズーム倍率に応じてデータを切り替え
         if (event.transform.k >= 2) {
-          setUseWordData(wordDataDetail);
+          setUseWordData(1);
         } else {
-          setUseWordData(wordData);
+          setUseWordData(0);
         }
       });
 
@@ -179,7 +177,7 @@ const WordCloudCanvas = ({
     return () => {
       svg.on(".zoom", null);
     };
-  }, [wordData, wordDataDetail]);
+  }, [wordData]);
 
   useEffect(() => {
     if (selectedWord != null && selectedMap == null) {
@@ -321,9 +319,10 @@ const WordCloudCanvas = ({
         <g>
           {selectedMap == null ? (
             <g ref={gRef}>
-              {useWordData.map((group, gIdx) =>
+              {wordData.map((group, gIdx) =>
                 wordcloudDraw({
                   bounds,
+                  useWordData,
                   group,
                   geoFeatures,
                   gIdx,

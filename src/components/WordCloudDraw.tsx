@@ -9,6 +9,7 @@ import WordText from "./WordText";
 
 interface WordCloudDrawProps {
   bounds: WordBoundsData;
+  useWordData: number;
   group: WordLayoutData | null;
   geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { prefecture: string }>[];
   gIdx: number;
@@ -26,6 +27,7 @@ interface WordCloudDrawProps {
 
 const WordCloudDraw = ({
   bounds,
+  useWordData,
   group,
   geoFeatures,
   gIdx,
@@ -45,7 +47,7 @@ const WordCloudDraw = ({
   if (!groupBounds) return null;
 
   const geoFeature = geoFeatures.find(
-    (f) => f.properties?.prefecture === group.name
+    (f) => f["properties"]["N03_001"] === group.name
   );
   if (!geoFeature) return null;
 
@@ -108,6 +110,8 @@ const WordCloudDraw = ({
       {group.data.map((item: WordLayoutDetailData, iIdx: number) => (
         <WordText
           key={`${gIdx}-${iIdx}`}
+          iIdx={iIdx}
+          useWordData={useWordData}
           item={item}
           groupBounds={groupBounds}
           mode={mode}
