@@ -130,6 +130,9 @@ for i, search_word in enumerate(search_words):
     if not documents:
         print(f"{search_word} の文章が0件。スキップ")
         continue
+    for doc in documents:
+        print(repr(doc))  # 空文字列や1文字の文字列をはっきり確認
+
 
     # 出現回数カウント
     vectorizer = CountVectorizer(max_features=100)
@@ -140,6 +143,7 @@ for i, search_word in enumerate(search_words):
     if not word_counts:
         print(f"{search_word} の単語が0件。スキップ")
         continue
+    print(word_counts)
 
     # マスク画像
     mask_path = f"./prefecture_layer/{search_word}/{search_word}.png"
@@ -164,7 +168,7 @@ for i, search_word in enumerate(search_words):
         colormap="coolwarm",
         max_words=min(50, len(word_counts)),
         mask=mask_array,
-        relative_scaling=1,
+        relative_scaling=0.5,
     )
     wordcloud.generate_from_frequencies(word_counts)
 
