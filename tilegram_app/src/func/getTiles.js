@@ -17,7 +17,8 @@ export const getTiles = (
   tileEdge,
   tileSize,
   tileCounts,
-  features
+  features,
+  options = {}
 ) => {
   console.log("[getTiles] called", {
     idealHexArea,
@@ -36,7 +37,7 @@ export const getTiles = (
     console.log("[getTiles] processing column", { x });
     for (let y = TILE_OFFSET - 2; y < tileCounts.height + 3; y++) {
       const center = calcCenter(tileSize, x, y);
-      const feature = getFeatureAtPoint(center, features);
+      const feature = getFeatureAtPoint(center, features, options);
       if (feature) {
         const tile = {
           id: feature.id,

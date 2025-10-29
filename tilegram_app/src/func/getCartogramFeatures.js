@@ -1,13 +1,12 @@
-import * as d3 from "d3";
-import { topology as topojsonTopology } from "topojson-server";
-import { feature as topojsonFeature } from "topojson-client";
 import cartogram from "cartogram-chart";
+import * as d3 from "d3";
 import { cartogram as topogramCartogram } from "topogram";
+import { feature as topojsonFeature } from "topojson-client";
+import { topology as topojsonTopology } from "topojson-server";
 
 const resolveId = (props) => {
   const id =
     props?.pref || props?.name_ja || props?.name || props?.id || props?.code;
-  console.log("[getCartogramFeatures] resolveId", { props, id });
   return id;
 };
 
@@ -20,28 +19,21 @@ const buildManualPath = (feat) => {
       const result = geom.coordinates
         .map((ring) => "M" + coordStr(ring) + "Z")
         .join(" ");
-      console.log("[getCartogramFeatures] buildManualPath Polygon", result);
       return result;
     }
     if (geom.type === "MultiPolygon") {
       const result = geom.coordinates
         .map((poly) => poly.map((ring) => "M" + coordStr(ring) + "Z").join(" "))
         .join(" ");
-      console.log(
-        "[getCartogramFeatures] buildManualPath MultiPolygon",
-        result
-      );
       return result;
     }
     if (geom.type === "LineString") {
       const result = "M" + coordStr(geom.coordinates);
-      console.log("[getCartogramFeatures] buildManualPath LineString", result);
       return result;
     }
     if (geom.type === "Point") {
       const p = geom.coordinates;
       const result = `M${+p[0]},${+p[1]} l0,0`;
-      console.log("[getCartogramFeatures] buildManualPath Point", result);
       return result;
     }
   } catch (e) {
@@ -64,7 +56,6 @@ const sampleCoord = (feat) => {
     return null;
   };
   const result = dive(geom.coordinates);
-  console.log("[getCartogramFeatures] sampleCoord", result);
   return result;
 };
 
@@ -84,24 +75,15 @@ const interp = (a, b, t) => {
  * Produce the same GeoJSON FeatureCollection that "Export GeoJSON (lon/lat)" copies to the clipboard.
  */
 export const getCartogramFeatures = async (geojson, data, options = {}) => {
-  console.log("[getCartogramFeatures] called", { geojson, data, options });
   if (!geojson || !Array.isArray(geojson.features)) {
-    console.error("[getCartogramFeatures] Invalid geojson", geojson);
     throw new Error("Invalid geojson");
   }
 
   if (typeof document === "undefined") {
-    console.error("[getCartogramFeatures] No document environment");
     throw new Error(
       "getCartogramFeatures requires a DOM (document) environment"
     );
   }
-
-  console.log("[getCartogramFeatures] start", {
-    featureCount: geojson.features.length,
-    dataKeys: data ? Object.keys(data).length : 0,
-    options,
-  });
 
   const width = options.width || 1100;
   const height = options.height || 1100;
@@ -111,13 +93,8 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
     options.distortionBlend === undefined ? 0.35 : options.distortionBlend;
 
   const projection = d3.geoMercator().fitSize([width, height], geojson);
-  console.log("[getCartogramFeatures] projection prepared", { width, height });
 
   const topo = topojsonTopology({ prefectures: geojson }, quantize);
-  console.log("[getCartogramFeatures] topology created", {
-    quantize,
-    geometryCount: topo.objects.prefectures.geometries.length,
-  });
 
   // Determine value multiplier similarly to App.jsx
   let valueMultiplier = 1;
@@ -134,11 +111,6 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
     const vMin = Math.min(...mappedValues);
     const vMax = Math.max(...mappedValues);
     const ratio = vMax / Math.max(1, vMin);
-    console.log("[getCartogramFeatures] valueMultiplier decision", {
-      vMin,
-      vMax,
-      ratio,
-    });
     if (ratio < 2) valueMultiplier = 4;
     else if (ratio < 10) valueMultiplier = 2;
     else if (ratio < 50) valueMultiplier = 1.5;
@@ -161,17 +133,12 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
     .height(height)
     .value(valueFn);
 
-  console.log("[getCartogramFeatures] running cartogram-chart", {
-    valueMultiplier,
-    iterations,
-  });
   chart(container, {
     topoJson: topo,
     topoObjectName: "prefectures",
     iterations,
     value: valueFn,
   });
-  console.log("[getCartogramFeatures] cartogram-chart applied", { iterations });
 
   const makeRunner = (withProjection) => {
     const runner = topogramCartogram().properties((d) => d.properties);
@@ -179,7 +146,6 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
     runner.value((d) => {
       const id = resolveId(d.properties || d);
       const v = (data[id] || 1) * valueMultiplier;
-      console.log("[getCartogramFeatures] topogram value", { id, v });
       return v;
     });
     return runner;
@@ -189,10 +155,6 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
     topo,
     topo.objects.prefectures.geometries
   ).features;
-  console.log("[getCartogramFeatures] topogram run (with projection)", {
-    features: distorted.length,
-    sample: distorted[0],
-  });
 
   const sample = sampleCoord(distorted && distorted[0]);
   const coordIsFinite = (c) =>
@@ -213,15 +175,8 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
     distorted = distortedNoProj;
     const sample2 = sampleCoord(distorted && distorted[0]);
     useProjectionForPath = coordIsGeographic(sample2);
-    console.log("[getCartogramFeatures] fallback to no-projection", {
-      features: distorted.length,
-      useProjectionForPath,
-    });
   } else {
     useProjectionForPath = coordIsGeographic(sample);
-    console.log("[getCartogramFeatures] projection usage decision", {
-      useProjectionForPath,
-    });
   }
 
   const originalFeatures = (() => {
@@ -231,9 +186,6 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
       return null;
     }
   })();
-  console.log("[getCartogramFeatures] original features ready", {
-    originalCount: originalFeatures ? originalFeatures.length : 0,
-  });
 
   const pathGen = d3
     .geoPath()
@@ -274,10 +226,6 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
     return { feat: blendedFeat, dStr };
   });
 
-  console.log("[getCartogramFeatures] prepared features", {
-    preparedCount: prepared.length,
-  });
-
   const invertCoords = (coords, fallback) => {
     if (!Array.isArray(coords))
       return Array.isArray(fallback) ? fallback : coords;
@@ -313,7 +261,6 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
       const fallbackCoords = orig?.geometry?.coordinates;
       const inverted = invertCoords(feat.geometry.coordinates, fallbackCoords);
       feat.geometry.coordinates = sanitizeCoords(inverted);
-      console.log("[getCartogramFeatures] feature processed", { idx, feat });
     }
     return feat;
   });
@@ -321,9 +268,6 @@ export const getCartogramFeatures = async (geojson, data, options = {}) => {
   const validFeatures = features.filter(
     (f) => f && f.geometry && Array.isArray(f.geometry.coordinates)
   );
-  console.log("[getCartogramFeatures] return FeatureCollection", {
-    validFeatures: validFeatures.length,
-  });
 
   return { type: "FeatureCollection", features: validFeatures };
 };

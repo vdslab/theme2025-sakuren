@@ -1,18 +1,11 @@
-import * as d3 from "d3";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { calcHex } from "./func/calcHex";
-import { getCartogramFeatures } from "./func/getCartogramFeatures";
-import { getTiles } from "./func/getTiles";
+import { calcHex, gridUnit } from "./func/calcHex";
 
-const DEFAULT_SCALE = 1;
-const DEFAULT_TRANSLATE = { x: 0, y: 0 };
-const createDefaultTransform = () =>
-  d3.zoomIdentity
-    .scale(DEFAULT_SCALE)
-    .translate(DEFAULT_TRANSLATE.x, DEFAULT_TRANSLATE.y);
+import * as d3 from "d3";
+import { buildHexBackgroundCanvas } from "./func/buildHexBackgroundCanvas";
+import { getCartogramFeatures } from "./func/getCartogramFeatures";
 
 const fetchData = async (path) => {
-  console.log(`[fetchData] Fetching: ${path}`);
   try {
     const response = await fetch(path);
     const json = await response.json();
@@ -23,14 +16,40 @@ const fetchData = async (path) => {
   }
 };
 
-export const App = () => {
+const DEFAULT_SCALE = 1;
+const DEFAULT_TRANSLATE = { x: 0, y: 0 };
+const createDefaultTransform = () =>
+  d3.zoomIdentity
+    .scale(DEFAULT_SCALE)
+    .translate(DEFAULT_TRANSLATE.x, DEFAULT_TRANSLATE.y);
+
+const getMaxPolygon = (polygons) => {
+  let maxArea = -Infinity;
+  let maxPolygon = null;
+  polygons.forEach((polygon) => {
+    try {
+      const area = Math.abs(d3.polygonArea(polygon));
+      if (area > maxArea) {
+        maxArea = area;
+        maxPolygon = polygon;
+      }
+    } catch {
+      // ignore errors
+    }
+  });
+  return maxPolygon;
+};
+
+export const TilegramApp = () => {
+  const canvasRef = useRef(null);
+  const transformRef = useRef(createDefaultTransform());
+  const backgroundCanvasRef = useRef(null);
+
   const [geojson, setGeojson] = useState(null);
   const [population, setPopulation] = useState(null);
   const [cartogram, setCartogram] = useState(null);
 
   const [size, setSize] = useState({ width: 0, height: 0 });
-  const canvasRef = useRef(null);
-  const transformRef = useRef(createDefaultTransform());
 
   const tileProjection = useMemo(() => {
     if (!cartogram || !size.width || !size.height) return null;
@@ -40,7 +59,7 @@ export const App = () => {
       console.warn("[App] failed to build tile projection", error);
       return null;
     }
-  }, [cartogram, size.height, size.width]);
+  }, [cartogram, size.width, size.height]);
 
   const { idealHexArea, tileEdge, tileSize, tileCounts } = useMemo(() => {
     if (!cartogram) return {};
@@ -53,62 +72,17 @@ export const App = () => {
     return result;
   }, [cartogram, population]);
 
-  const tiles = useMemo(() => {
-    if (!cartogram?.features || !tileProjection) return [];
-    const t = getTiles(
-      idealHexArea,
-      tileEdge,
-      tileSize,
-      tileCounts,
-      cartogram.features,
-      {
-        projection: tileProjection,
-        transform: transformRef.current,
-        devicePixelRatio:
-          typeof window !== "undefined" && window.devicePixelRatio
-            ? window.devicePixelRatio
-            : 1,
-      }
-    );
-    console.log("[App] getTiles result", t);
-    return t;
-  }, [
-    cartogram?.features,
-    idealHexArea,
-    tileCounts,
-    tileEdge,
-    tileProjection,
-    tileSize,
-  ]);
-
-  // keep canvas sized to viewport
   useEffect(() => {
     if (typeof window === "undefined") return;
     const updateSize = () => {
       const next = { width: window.innerWidth, height: window.innerHeight };
+      console.log("[App] viewport size ->", next);
       setSize(next);
     };
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   }, []);
-
-  const getMaxPolygon = (polygons) => {
-    let maxArea = -Infinity;
-    let maxPolygon = null;
-    polygons.forEach((polygon) => {
-      try {
-        const area = Math.abs(d3.polygonArea(polygon));
-        if (area > maxArea) {
-          maxArea = area;
-          maxPolygon = polygon;
-        }
-      } catch {
-        // ignore errors
-      }
-    });
-    return maxPolygon;
-  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -148,7 +122,7 @@ export const App = () => {
 
   const drawCartogram = useCallback(() => {
     const { width, height } = size;
-    if (!cartogram || !canvasRef.current || !width || !height) {
+    if (!canvasRef.current || !width || !height) {
       return;
     }
 
@@ -177,18 +151,36 @@ export const App = () => {
 
     ctx.clearRect(0, 0, width, height);
 
-    const projection = d3.geoMercator().fitSize([width, height], cartogram);
-    const path = d3.geoPath().projection(projection).context(ctx);
-
-    ctx.save();
     const transform = transformRef.current || d3.zoomIdentity;
+    ctx.save();
     ctx.translate(transform.x, transform.y);
     ctx.scale(transform.k, transform.k);
 
-    console.log("[drawCartogram] Drawing features", {
-      featureCount: cartogram.features.length,
-      transform,
-    });
+    const background = backgroundCanvasRef.current;
+    if (background) {
+      const logicalWidth = background.width / dpr;
+      const logicalHeight = background.height / dpr;
+      ctx.drawImage(
+        background,
+        0,
+        0,
+        background.width,
+        background.height,
+        0,
+        0,
+        logicalWidth,
+        logicalHeight
+      );
+    }
+
+    if (!cartogram) {
+      ctx.restore();
+      return;
+    }
+
+    const projection = d3.geoMercator().fitSize([width, height], cartogram);
+    const path = d3.geoPath().projection(projection).context(ctx);
+
     cartogram.features.forEach((feature) => {
       ctx.beginPath();
       path(feature);
@@ -197,29 +189,55 @@ export const App = () => {
       ctx.stroke();
     });
     ctx.restore();
-    console.log("[drawCartogram] Finished drawing");
   }, [cartogram, size]);
 
   useEffect(() => {
-    console.log("[App] useEffect(drawCartogram)");
+    if (!tileEdge || !size.width || !size.height) return;
+
+    const { width, height } = size;
+    const dpr = window.devicePixelRatio || 1;
+    const off = buildHexBackgroundCanvas(width * dpr, height * dpr, tileEdge, {
+      tileCounts,
+      gridUnit,
+    });
+    backgroundCanvasRef.current = off;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(off, 0, 0, off.width, off.height, 0, 0, width, height);
+    if (cartogram) {
+      drawCartogram();
+    }
+  }, [tileEdge, tileCounts, size, cartogram, drawCartogram]);
+
+  useEffect(() => {
+    if (!geojson || !population) return;
+    getCartogramFeatures(geojson, population).then((fc) => {
+      setCartogram(fc);
+    });
+  }, [geojson, population]);
+
+  useEffect(() => {
     drawCartogram();
   }, [drawCartogram]);
 
   useEffect(() => {
     const { width, height } = size;
     if (!cartogram || !canvasRef.current || !width || !height) {
-      console.log(
-        "[App] useEffect(zoom) skipped: missing cartogram, canvas, or size"
-      );
       return;
     }
 
     const canvas = canvasRef.current;
     if (!(canvas instanceof HTMLCanvasElement)) {
-      console.warn(
-        "[App] useEffect(zoom): canvas ref is not a canvas element",
-        canvas
-      );
       return;
     }
 
@@ -228,7 +246,6 @@ export const App = () => {
       .scaleExtent([0.5, 20])
       .on("zoom", (event) => {
         transformRef.current = event.transform;
-        console.log("[App] zoom event", event.transform);
         drawCartogram();
       });
 
@@ -239,31 +256,49 @@ export const App = () => {
     selection.call(zoom.transform, initialTransform);
     selection.on("dblclick.zoom", null);
 
-    console.log("[App] zoom initialized", { initialTransform });
-
     return () => {
       selection.on(".zoom", null);
-      console.log("[App] zoom cleaned up");
     };
   }, [cartogram, size, drawCartogram]);
 
+  // const tiles = useMemo(() => {
+  //   if (!cartogram?.features || !tileProjection) return [];
+  //   const t = getTiles(
+  //     idealHexArea,
+  //     tileEdge,
+  //     tileSize,
+  //     tileCounts,
+  //     cartogram.features,
+  //     {
+  //       projection: tileProjection,
+  //       transform: transformRef.current,
+  //       devicePixelRatio:
+  //         typeof window !== "undefined" && window.devicePixelRatio
+  //           ? window.devicePixelRatio
+  //           : 1,
+  //     }
+  //   );
+  //   console.log("[App] getTiles result", t);
+  //   return t;
+  // }, [
+  //   cartogram?.features,
+  //   idealHexArea,
+  //   tileCounts,
+  //   tileEdge,
+  //   tileProjection,
+  //   tileSize,
+  // ]);
+
+  // useEffect(() => {
+  //   console.log("[App] tiles", tiles);
+  // }, [tiles]);
+
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        margin: 0,
-        padding: 0,
-        overflow: "hidden",
-      }}
+    <canvas
       id="canvas"
-    >
-      <canvas
-        ref={canvasRef}
-        width={size.width}
-        height={size.height}
-        style={{ display: "block", width: "100%", height: "100%" }}
-      />
-    </div>
+      ref={canvasRef}
+      width={size.width}
+      height={size.height}
+    />
   );
 };

@@ -8,19 +8,18 @@ const getTileEdgeFromGridUnit = ({ width, height }) => {
   return Math.min(width / Math.sqrt(3.0), (height / 3.0) * 2.0);
 };
 
+const getTileEdgeFromArea = (area) => {
+  return Math.sqrt((area * 2) / (Math.sqrt(3) * 3));
+};
+
 export const calcHex = (features, metricPerTile, SumMetrics) => {
-  console.log("[calcHex] called", {
-    featuresCount: features.length,
-    metricPerTile,
-    SumMetrics,
-  });
   const cartogramArea = features.reduce(
     (acc, feature) => acc + geoPath().area(feature),
     0
   );
-  console.log("[calcHex] cartogramArea", cartogramArea);
 
   const idealHexArea = (cartogramArea * metricPerTile) / SumMetrics;
+  // const tileEdge = getTileEdgeFromArea(idealHexArea);
   const tileEdge = 5;
 
   const tileSize = {
@@ -51,10 +50,13 @@ export const calcHex = (features, metricPerTile, SumMetrics) => {
     "canvasDimensions",
     canvasDimensions,
     "tileCounts",
+    tileCounts,
+    "idealHexArea",
+    idealHexArea,
+    "tileCounts",
     tileCounts
   );
 
   const result = { idealHexArea, tileEdge, tileSize, tileCounts };
-  console.log("[calcHex] return", result);
   return result;
 };

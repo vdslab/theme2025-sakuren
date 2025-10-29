@@ -4,6 +4,47 @@ import inside from "point-in-polygon";
 
 const MIN_PATH_AREA = 0.5;
 
+const normalizePointToFeatureSpace = (point, options = {}) => {
+  const { projection, transform, devicePixelRatio: optionDpr } = options;
+  const fallback = [point.x, point.y];
+
+  if (!projection || typeof projection.invert !== "function") {
+    return fallback;
+  }
+
+  const dpr =
+    typeof optionDpr === "number" && optionDpr > 0
+      ? optionDpr
+      : typeof window !== "undefined" && window.devicePixelRatio
+      ? window.devicePixelRatio
+      : 1;
+
+  let px = point.x;
+  let py = point.y;
+
+  if (transform) {
+    const k = typeof transform.k === "number" ? transform.k : 1;
+    const tx = typeof transform.x === "number" ? transform.x : 0;
+    const ty = typeof transform.y === "number" ? transform.y : 0;
+    px = (px - tx) / k;
+    py = (py - ty) / k;
+  }
+
+  const cssX = px / dpr;
+  const cssY = py / dpr;
+  const inverted = projection.invert([cssX, cssY]);
+
+  if (
+    Array.isArray(inverted) &&
+    Number.isFinite(inverted[0]) &&
+    Number.isFinite(inverted[1])
+  ) {
+    return inverted;
+  }
+
+  return fallback;
+};
+
 const checkWithinBounds = (point, bounds) => {
   for (let lim = 0; lim < 2; lim++) {
     for (let dim = 0; dim < 2; dim++) {
@@ -44,19 +85,19 @@ const getGeneralBounds = (features) => {
   return { generalBounds, projectedStates };
 };
 
-export const getFeatureAtPoint = (point, features) => {
+export const getFeatureAtPoint = (point, features, options = {}) => {
   const { generalBounds, projectedStates } = getGeneralBounds(features);
-  const pointDimensions = [point.x, point.y];
+  const pointDimensions = normalizePointToFeatureSpace(point, options);
 
-  if (!checkWithinBounds(pointDimensions, generalBounds)) {
-    return null;
-  }
+  // if (!checkWithinBounds(pointDimensions, generalBounds)) {
+  //   return null;
+  // }
 
   const found = features.find((feature, featureIndex) => {
     const bounds = projectedStates[featureIndex].bounds;
-    if (!checkWithinBounds(pointDimensions, bounds || generalBounds)) {
-      return false;
-    }
+    // if (!checkWithinBounds(pointDimensions, bounds || generalBounds)) {
+    //   return false;
+    // }
     const matchingPath = projectedStates[featureIndex].paths.find((path) =>
       inside(pointDimensions, path[0])
     );
@@ -65,7 +106,7 @@ export const getFeatureAtPoint = (point, features) => {
   if (found) {
     console.log("[getFeatureAtPoint] found feature", found);
   } else {
-    console.log("[getFeatureAtPoint] no feature found", { point });
+    // console.log("[getFeatureAtPoint] no feature found", { point });
   }
   return found;
 };

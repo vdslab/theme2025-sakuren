@@ -20,8 +20,10 @@ export function buildHexBackgroundCanvas(
   options = {}
 ) {
   const tileScale = options.tileScale !== undefined ? options.tileScale : 0.95;
-  const fillColor = options.fillColor || "#fff";
+  const fillColor = options.fillColor || "#ddd";
   const tileOffset = options.tileOffset !== undefined ? options.tileOffset : 1;
+  const gridUnit = options.gridUnit || { width: 0.75, height: 1.0 };
+  const providedTileCounts = options.tileCounts;
   const extraMargin =
     options.extraMargin !== undefined ? options.extraMargin : 2;
 
@@ -33,29 +35,32 @@ export function buildHexBackgroundCanvas(
 
   const tileSizeWidth = Math.sqrt(3) * tileEdge;
   const tileSizeHeight = 2 * tileEdge;
-  const gridUnitWidth = 1.0;
-  const gridUnitHeight = 0.75;
+  const tileCountsWidth =
+    providedTileCounts?.width !== undefined
+      ? providedTileCounts.width
+      : Math.floor(
+          canvasWidthPx / (tileSizeWidth * gridUnit.width) - tileOffset * 2
+        );
+  const tileCountsHeight =
+    providedTileCounts?.height !== undefined
+      ? providedTileCounts.height
+      : Math.floor(
+          canvasHeightPx / (tileSizeHeight * gridUnit.height) - tileOffset * 2
+        );
 
-  const tileCountsWidth = Math.floor(
-    canvasWidthPx / (tileSizeWidth * gridUnitWidth) - tileOffset * 2
-  );
-  const tileCountsHeight = Math.floor(
-    canvasHeightPx / (tileSizeHeight * gridUnitHeight) - tileOffset * 2
-  );
-
-  const xStart = tileOffset - extraMargin;
-  const xEnd = tileCountsWidth + extraMargin + 3;
-  const yStart = tileOffset - extraMargin;
-  const yEnd = tileCountsHeight + extraMargin + 3;
+  const xStart = -extraMargin;
+  const xEnd = tileCountsWidth + extraMargin;
+  const yStart = -extraMargin;
+  const yEnd = tileCountsHeight + extraMargin;
 
   ctx.fillStyle = fillColor;
   for (let x = xStart; x < xEnd; x++) {
     for (let y = yStart; y < yEnd; y++) {
       const drawOffsetX = y % 2 === 0 ? 0.5 : 0.0;
       const centerX =
-        tileSizeWidth * ((x + tileOffset) * gridUnitWidth + drawOffsetX);
+        tileSizeWidth * ((x + tileOffset) * gridUnit.width + drawOffsetX);
       const centerY =
-        tileSizeHeight * ((y + tileOffset) * gridUnitHeight + 0.0);
+        tileSizeHeight * ((y + tileOffset) * gridUnit.height + 0.0);
       const sw = tileSizeWidth * tileScale;
       const sh = tileSizeHeight * tileScale;
       const p1x = centerX - sw * 0.5,
@@ -81,5 +86,7 @@ export function buildHexBackgroundCanvas(
       ctx.fill();
     }
   }
+  console.log(`tiles (計算): ${tileCountsWidth} x ${tileCountsHeight}`);
+  console.log(`tiles (描画): ${xEnd - xStart} x ${yEnd - yStart}`);
   return off;
 }
