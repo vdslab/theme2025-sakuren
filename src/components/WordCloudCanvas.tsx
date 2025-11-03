@@ -140,7 +140,7 @@ const WordCloudCanvas = ({
 
   // --- GeoJSONの読み込み ---
   useEffect(() => {
-    fetch("/prefecture_single.geojson")
+    fetch("/pref_hex_merged.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatures(data.features));
   }, []);

@@ -56,11 +56,11 @@ const WordText = ({
       e.stopPropagation();
     }
   };
-  if (useWordData == 0) {
-    if (item.font_size < 13) {
-      return <></>;
-    }
-  }
+  // if (useWordData == 0) {
+  //   if (item.font_size < 13) {
+  //     return <></>;
+  //   }
+  // }
   return (
     <text
       className={
