@@ -7,12 +7,11 @@ import json
 import matplotlib.pyplot as plt
 
 # === 1. GeoJSONを読み込む ===
-gdf = gpd.read_file("./public/prefecture_single.geojson")
-pref_col = "prefecture"  # 都道府県名の列名
+gdf = gpd.read_file("./public/cartogram_lonlat.geojson")
+pref_col = "name"  # 都道府県名の列名
 
 # === 2. 投影座標系に変換（緯度経度を平面座標に） ===
 gdf = gdf.to_crs("EPSG:3857")
-
 # === 3. MultiPolygonをPolygon単位に分解 ===
 polygons, names = [], []
 for _, row in gdf.iterrows():
@@ -29,7 +28,7 @@ for _, row in gdf.iterrows():
 gdf_polygons = gpd.GeoDataFrame({"pref_name": names}, geometry=polygons, crs=gdf.crs)
 
 # === 4. 六角形タイル設定 ===
-tile_area = 1e9  # タイル1枚あたりの面積
+tile_area = 5e7  # タイル1枚あたりの面積
 a = math.sqrt(2 * tile_area / (3 * math.sqrt(3)))  # 六角形の1辺の長さ
 tile_spacingX = 3 * a / 2
 tile_spacingY = math.sqrt(3) * a
