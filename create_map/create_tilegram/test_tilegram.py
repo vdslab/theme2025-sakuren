@@ -28,7 +28,7 @@ for _, row in gdf.iterrows():
 gdf_polygons = gpd.GeoDataFrame({"pref_name": names}, geometry=polygons, crs=gdf.crs)
 
 # === 4. 六角形タイル設定 ===
-tile_area = 7e7  # タイル1枚あたりの面積
+tile_area = 5e7  # タイル1枚あたりの面積
 a = math.sqrt(2 * tile_area / (3 * math.sqrt(3)))  # 六角形の1辺の長さ
 tile_spacingX = 3 * a / 2
 tile_spacingY = math.sqrt(3) * a
