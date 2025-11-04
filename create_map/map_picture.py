@@ -7,7 +7,7 @@ import numpy as np
 
 
 # --- 日本全体のGeoJSONデータを読み込む ---
-gdf = gpd.read_file("./public/prefecture_single.geojson")
+gdf = gpd.read_file("./public/pref_hex_merged.geojson")
 
 # --- 出力ディレクトリ作成 ---
 output_dir = "./prefecture_layer/"
@@ -60,30 +60,37 @@ pixel_bounds_dict = {}
 
 # --- 各都道府県を描画 ---
 for _, row in gdf.iterrows():
-    pref_name = row["prefecture"]
+    pref_name = row["pref_name"]
     print(f"Rendering {pref_name}...")
     pref_dir = os.path.join(output_dir, pref_name)
     os.makedirs(pref_dir, exist_ok=True)
     fig, ax = plt.subplots(figsize=figsize)
-    ax.axis('off')
+    ax.axis("off")
 
     # 該当都道府県のみ描画
     gdf_single = gpd.GeoDataFrame([row], crs=gdf.crs)
-    gdf_single.plot(ax=ax, color='black', edgecolor='none')
+    gdf_single.plot(ax=ax, color="black", edgecolor="none")
 
     # 共通のズーム範囲をセットして中央ドアップ的に表示
     ax.set_xlim(minx_zoom, maxx_zoom)
     ax.set_ylim(miny_zoom, maxy_zoom)
-    ax.set_aspect('equal')
+    ax.set_aspect("equal")
 
     # 画像保存
     filename = os.path.join(pref_dir, f"{pref_name}.png")
-    plt.savefig(filename, format='png', dpi=dpi, bbox_inches=None, pad_inches=0, transparent=False)
+    plt.savefig(
+        filename,
+        format="png",
+        dpi=dpi,
+        bbox_inches=None,
+        pad_inches=0,
+        transparent=False,
+    )
     plt.close(fig)
 
     # 都道府県の経度緯度バウンディングボックス
     minx_pref, miny_pref, maxx_pref, maxy_pref = row.geometry.bounds
-    
+
     # 保存した画像をマスクとして読み込む
     mask_image = Image.open(filename).convert("L")  # グレースケール
     mask_array = np.array(mask_image)
@@ -99,7 +106,7 @@ for _, row in gdf.iterrows():
 
     pixel_bounds_dict[pref_name] = {
         "xlim": [min_x_offset, max_x_offset],
-        "ylim": [min_y_offset, max_y_offset]
+        "ylim": [min_y_offset, max_y_offset],
     }
 
 
