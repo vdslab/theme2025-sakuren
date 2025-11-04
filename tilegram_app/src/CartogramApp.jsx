@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import * as d3 from "d3";
 import cartogram from "cartogram-chart";
+import * as d3 from "d3";
+import { useEffect, useRef, useState } from "react";
 import { cartogram as topogramCartogram } from "topogram";
-import { topology as topojsonTopology } from "topojson-server";
 import { feature as topojsonFeature } from "topojson-client";
+import { topology as topojsonTopology } from "topojson-server";
 
 const fetchData = async (path) => {
   console.log(`[CartogramApp] fetchData: ${path}`);
@@ -16,7 +16,22 @@ const fetchData = async (path) => {
     console.error(`[CartogramApp] fetchData error: ${path}`, error);
   }
 };
-
+const getMaxPolygon = (polygons) => {
+  let maxArea = -Infinity;
+  let maxPolygon = null;
+  polygons.forEach((polygon) => {
+    try {
+      const area = Math.abs(d3.polygonArea(polygon));
+      if (area > maxArea) {
+        maxArea = area;
+        maxPolygon = polygon;
+      }
+    } catch {
+      // ignore errors
+    }
+  });
+  return maxPolygon;
+};
 export const CartogramApp = () => {
   const [geojson, setGeojson] = useState(null);
   const [population, setPopulation] = useState(null);
@@ -24,15 +39,29 @@ export const CartogramApp = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      console.log("[CartogramApp] start loading data");
-      const geojsonData = await fetchData("/data/prefecture.geojson");
+      const geojsonData = await fetchData("/data/prefecture_old.geojson");
+      const filteredGeojsonData = {
+        type: geojsonData.type,
+        features: geojsonData.features.map((feature) => ({
+          type: feature.type,
+          properties: feature.properties,
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              getMaxPolygon(
+                feature.geometry.coordinates.length
+                  ? Array.isArray(feature.geometry.coordinates[0][0])
+                    ? feature.geometry.coordinates.map((p) => p[0])
+                    : feature.geometry.coordinates
+                  : []
+              ),
+            ],
+          },
+        })),
+      };
       const populationData = await fetchData("/data/population.json");
-      setGeojson(geojsonData);
+      setGeojson(filteredGeojsonData);
       setPopulation(populationData);
-      console.log("[CartogramApp] data loaded", {
-        geojsonFeatures: geojsonData?.features?.length,
-        populationKeys: populationData ? Object.keys(populationData).length : 0,
-      });
     };
     loadData();
   }, []);
