@@ -5,9 +5,10 @@ import math
 import os
 import json
 import matplotlib.pyplot as plt
+from shapely.geometry import Point, Polygon
 
 # === 1. GeoJSONを読み込む ===
-gdf = gpd.read_file("./public/cartogram_lonlat2.geojson")
+gdf = gpd.read_file("./public/cartogram_lonlat.geojson")
 pref_col = "name"  # 都道府県名の列名
 
 # === 2. 投影座標系に変換（緯度経度を平面座標に） ===
@@ -55,14 +56,27 @@ def hexagon_coords(cx, cy, a):
 
 # === 7. 各六角形がどの都道府県に属するか判定 ===
 hexes, owners = [], []
+
+radius = a * 0.8  # 半径をタイルサイズに合わせて調整
+
 for cx, cy in centers:
     p = Point(cx, cy)
+    circle = p.buffer(radius)  # 円形領域（bufferで生成）
+    
+    best_pref = None
+    best_overlap_area = 0
+    
     for idx, geom in enumerate(gdf_polygons.geometry):
-        if geom.contains(p):
-            coords = hexagon_coords(cx, cy, a)
-            hexes.append(Polygon(coords))
-            owners.append(gdf_polygons.iloc[idx]["pref_name"])
-            break
+        overlap_area = geom.intersection(circle).area
+        if overlap_area > best_overlap_area:
+            best_overlap_area = overlap_area
+            best_pref = gdf_polygons.iloc[idx]["pref_name"]
+    
+    # 最も多く円にかぶっている県に所属させる
+    if best_pref is not None:
+        coords = hexagon_coords(cx, cy, a)
+        hexes.append(Polygon(coords))
+        owners.append(best_pref)
 
 hex_gdf = gpd.GeoDataFrame({"pref_name": owners}, geometry=hexes, crs="EPSG:3857")
 
