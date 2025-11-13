@@ -169,7 +169,10 @@ export const CartogramApp = () => {
       .height(height)
       .value((d) => {
         const name =
-          d.properties.name_ja || d.properties.name || d.properties.pref;
+          d.properties.N03_003?.endsWith("市") ||
+          d.properties.N03_003?.endsWith("郡")
+            ? d.properties.N03_003
+            : d.properties.N03_004;
         return population[name] || 1;
       });
     console.log(geojson);
@@ -183,8 +186,11 @@ export const CartogramApp = () => {
     let valueMultiplier = 1;
     let valueFn = (d) => {
       const name =
-        d.properties?.name_ja || d.properties?.name || d.properties?.pref;
-      return Math.sqrt(population[name] || 1);
+        d.properties.N03_003?.endsWith("市") ||
+        d.properties.N03_003?.endsWith("郡")
+          ? d.properties.N03_003
+          : d.properties.N03_004;
+      return population[name] || 1;
     };
     try {
       const mappedValues = topo.objects.prefectures.geometries.map((g) => {
