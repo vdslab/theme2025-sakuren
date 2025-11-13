@@ -7,7 +7,7 @@ import numpy as np
 
 
 # --- 日本全体のGeoJSONデータを読み込む ---
-gdf = gpd.read_file("./public/pref_hex_merged.geojson")
+gdf = gpd.read_file("./public/prefecture_single.geojson")
 
 # --- 出力ディレクトリ作成 ---
 output_dir = "./prefecture_layer/"
@@ -60,7 +60,7 @@ pixel_bounds_dict = {}
 
 # --- 各都道府県を描画 ---
 for _, row in gdf.iterrows():
-    pref_name = row["pref_name"]
+    pref_name = row["prefecture"]
     print(f"Rendering {pref_name}...")
     pref_dir = os.path.join(output_dir, pref_name)
     os.makedirs(pref_dir, exist_ok=True)
