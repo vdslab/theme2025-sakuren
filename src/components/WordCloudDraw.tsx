@@ -47,7 +47,7 @@ const WordCloudDraw = ({
   if (!groupBounds) return null;
 
   const geoFeature = geoFeatures.find(
-    (f) => f["properties"]["pref_name"] === group.name
+    (f) => f["properties"]["prefecture"] === group.name
   );
   if (!geoFeature) return null;
 
