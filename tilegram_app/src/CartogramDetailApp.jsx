@@ -34,7 +34,7 @@ export const CartogramApp = () => {
   const [geojson, setGeojson] = useState(null);
   const [population, setPopulation] = useState(null);
   const containerRef = useRef(null);
-  const [prepared, setPrepared] = useState({}); // 都道府県ごとの投影済みデータ
+  const [prepared, setPrepared] = useState({}); // 投影済みデータ
 
   const prefectureMap = {
     1: "北海道",
@@ -86,101 +86,128 @@ export const CartogramApp = () => {
     47: "沖縄県",
   };
 
+  // データ読み込み
   useEffect(() => {
     const loadData = async () => {
       const geo = await fetchData("/data/N03-21_210101.json");
       const pop = await fetchData("/data/population_detail.json");
       if (!geo || !pop) return;
 
-      const filtered = {
-        type: "FeatureCollection",
-        features: geo.features.map((f) => ({
-          type: "Feature",
-          properties: f.properties,
-          geometry: {
-            type: "Polygon",
-            coordinates: [getMaxPolygon(f.geometry.coordinates)],
-          },
-        })),
-      };
-
-      setGeojson(filtered);
+      setGeojson(geo);
       setPopulation(pop);
     };
     loadData();
   }, []);
 
+  // カルトグラム生成と逆投影
   useEffect(() => {
-    if (!geojson || !population || !containerRef.current) return;
+    if (!geojson || !population) return;
 
     containerRef.current.innerHTML = "";
     const tempPrepared = {};
 
-    Object.values(prefectureMap).forEach((prefName) => {
+    const generateCartogram = async (prefName) => {
+      const popData = population.find((f) => f.N001 === prefName)?.data || {};
+
       const geojson_detail = {
         type: "FeatureCollection",
         features: geojson.features.filter(
-          (f) => f.properties.N03_001 === prefName
+          (f) =>
+            f.properties.N03_001 === prefName &&
+            (popData[f.properties.N03_003] != undefined ||
+              popData[f.properties.N03_004] != undefined)
         ),
       };
-      if (!geojson_detail.features.length) return;
+      const filteredGeojsonData = {
+        type: geojson_detail.type,
+        features: geojson_detail.features
+          .map((feature) => {
+            const geom = feature.geometry;
+            if (!geom || !geom.coordinates || geom.coordinates.length === 0)
+              return null;
 
-      const popData = population.find((f) => f.N001 === prefName)?.data || {};
-      console.log(popData);
+            // Polygon の場合
+            if (geom.type === "Polygon") {
+              return feature;
+            }
+
+            // MultiPolygon の場合 → 面積最大の Polygon に変換
+            if (geom.type === "MultiPolygon") {
+              const maxPoly = getMaxPolygon(geom.coordinates);
+              return {
+                type: feature.type,
+                properties: feature.properties,
+                geometry: {
+                  type: "Polygon",
+                  coordinates: [maxPoly], // Polygon は [[]] の形
+                },
+              };
+            }
+
+            return null; // Polygon/MultiPolygon 以外は捨てる
+          })
+          .filter(Boolean), // null を除外
+      };
+
+      if (!filteredGeojsonData.features.length) return;
+
+      console.log(filteredGeojsonData);
       const div = document.createElement("div");
       div.style.width = "400px";
       div.style.height = "400px";
       div.style.display = "inline-block";
       div.style.margin = "4px";
       containerRef.current.appendChild(div);
+      const projection = d3
+        .geoMercator()
+        .fitSize([400, 400], filteredGeojsonData);
 
-      const projection = d3.geoMercator().fitSize([400, 400], geojson_detail);
+      const topo = topojsonTopology({ prefectures: filteredGeojsonData }, 1e5);
 
-      const valueFn = (d) => {
-        const name =
-          d.properties.N03_003?.endsWith("市") ||
-          d.properties.N03_003?.endsWith("郡")
-            ? d.properties.N03_003
-            : d.properties.N03_004;
-        return Math.sqrt(popData[name] || 1);
-      };
-
+      console.log(topo);
       const chart = cartogram().projection(projection).width(400).height(400);
-      const topo = topojsonTopology({ prefectures: geojson_detail }, 1e5);
+
       chart(div, {
         topoJson: topo,
         topoObjectName: "prefectures",
         iterations: 60,
-        value: valueFn,
+        value: () => 1000, // 固定値でテスト
       });
+      console.log(div);
 
-      // 投影済み topo.features を保存
-      setTimeout(() => {
-        try {
-          const svgNode = div.querySelector("svg");
-          if (!svgNode) return;
-          const paths = svgNode.querySelectorAll("path.feature");
-          const features = Array.from(paths).map((p) => {
-            const feat = JSON.parse(p.dataset.feature); // cartogram が data-feature に持っている
-            // 逆投影
-            const invertCoords = (coords) => {
-              if (!Array.isArray(coords)) return coords;
-              if (typeof coords[0] === "number") {
-                const lonlat = projection.invert([coords[0], coords[1]]);
-                return lonlat || [NaN, NaN];
-              }
-              return coords.map((c) => invertCoords(c));
-            };
-            feat.geometry.coordinates = invertCoords(feat.geometry.coordinates);
-            return feat;
-          });
-          tempPrepared[prefName] = { type: "FeatureCollection", features };
-          setPrepared({ ...tempPrepared });
-        } catch (e) {
-          console.warn(prefName, e);
-        }
-      }, 1000);
-    });
+      // 投影済み SVG から逆投影
+      const svgNode = div.querySelector("svg");
+      if (!svgNode) return;
+      console.log(svgNode);
+      const paths = svgNode.querySelectorAll("path.feature");
+      const features = Array.from(paths).map((p) => {
+        const feat = JSON.parse(p.dataset.feature);
+        const invertCoords = (coords) => {
+          if (!Array.isArray(coords)) return coords;
+          if (typeof coords[0] === "number") {
+            const lonlat = projection.invert([coords[0], coords[1]]);
+            console.log(lonlat);
+            return lonlat || [NaN, NaN];
+          }
+          console.log(coords.map(invertCoords));
+          return coords.map(invertCoords);
+        };
+        feat.geometry.coordinates = invertCoords(feat.geometry.coordinates);
+
+        console.log(svgNode);
+        return feat;
+      });
+      tempPrepared[prefName] = { type: "FeatureCollection", features };
+      setPrepared({ ...tempPrepared });
+    };
+    // 1県ずつ順に処理（非同期安全）
+    (async () => {
+      for (const prefName of Object.values(prefectureMap)) {
+        console.log("begin", prefName);
+        await generateCartogram(prefName);
+        console.log("finish", prefName);
+      }
+    })();
   }, [geojson, population]);
 
   const downloadGeoJSON = (pref) => {

@@ -94,8 +94,14 @@ export const CartogramApp = () => {
           d.properties.name_ja || d.properties.name || d.properties.pref;
         return population[name] || 1;
       });
+    console.log(geojson);
     const topo = topojsonTopology({ prefectures: geojson }, 1e5);
-
+    console.log("topo.objects:", Object.keys(topo.objects));
+    console.log(
+      "geometries count:",
+      topo.objects.prefectures.geometries.length
+    );
+    console.log("first geometry:", topo.objects.prefectures.geometries[0]);
     let valueMultiplier = 1;
     let valueFn = (d) => {
       const name =
@@ -132,6 +138,7 @@ export const CartogramApp = () => {
 
     const topoIterations = 60;
     console.log("[CartogramApp] chart rendering", { topoIterations });
+    console.log(container.node());
     chart(container.node(), {
       topoJson: topo,
       topoObjectName: "prefectures",
@@ -403,6 +410,7 @@ export const CartogramApp = () => {
       });
     console.log("[CartogramApp] render finished");
   }, [geojson, population]);
+  console.log("A");
 
   return (
     <div style={{ textAlign: "center" }}>
