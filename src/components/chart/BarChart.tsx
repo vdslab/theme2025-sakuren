@@ -122,7 +122,7 @@ export const BarChart: FC<BarChartProps> = ({
                       userSelect: "none",
                     }}
                   >
-                    {item.value.toLocaleString()}
+                    {(item.value ?? 0).toLocaleString()}
                   </text>
                 </g>
               );
