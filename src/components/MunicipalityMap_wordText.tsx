@@ -56,7 +56,7 @@ const MunicipalityMap_wordText = ({
         return (
           <text
             className="word-text"
-            key={`${word.word}-${idx}`} // ← 修正
+            key={`${word.word}-${idx}`}
             x={x}
             y={word.orientation == 2 ? y - fontSize : y}
             fontSize={fontSize}
