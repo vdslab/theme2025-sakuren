@@ -9,24 +9,28 @@ from shapely.geometry import Point, Polygon
 
 # === 1. GeoJSONを読み込む ===
 gdf = gpd.read_file("./public/cartogram_lonlat.geojson")
-pref_col = "name"  # 都道府県名の列名
 
 # === 2. 投影座標系に変換（緯度経度を平面座標に） ===
 gdf = gdf.to_crs("EPSG:3857")
 # === 3. MultiPolygonをPolygon単位に分解 ===
-polygons, names = [], []
+polygons, name01, name03 = [], []
+
 for _, row in gdf.iterrows():
     geom = row.geometry
-    name = row[pref_col]
+    name01 = row["N03_001"]
+    name03 = row["N03_003"]
     if isinstance(geom, Polygon):
         polygons.append(geom)
-        names.append(name)
+        name01.append(name01)
+        name03.append(name03)
     elif isinstance(geom, MultiPolygon):
         for poly in geom.geoms:
             polygons.append(poly)
-            names.append(name)
-
-gdf_polygons = gpd.GeoDataFrame({"pref_name": names}, geometry=polygons, crs=gdf.crs)
+            name01.append(name01)
+            name03.append(name03)
+gdf_polygons = gpd.GeoDataFrame(
+    {"N03_001": name01, "N03_003": name03}, geometry=polygons, crs=gdf.crs
+)
 
 # === 4. 六角形タイル設定 ===
 tile_area = 5e7  # タイル1枚あたりの面積
@@ -55,55 +59,58 @@ def hexagon_coords(cx, cy, a):
 
 
 # === 7. 各六角形がどの都道府県に属するか判定 ===
-hexes, owners = [], []
+hexes, owners01, owners03 = [], [], []
 
 radius = a * 0.8  # 半径をタイルサイズに合わせて調整
 
 for cx, cy in centers:
     p = Point(cx, cy)
     circle = p.buffer(radius)  # 円形領域（bufferで生成）
-    
-    best_pref = None
+
+    best_pref01 = None
+    best_pref03 = None
     best_overlap_area = 0
-    
+
     for idx, geom in enumerate(gdf_polygons.geometry):
         overlap_area = geom.intersection(circle).area
         if overlap_area > best_overlap_area:
             best_overlap_area = overlap_area
-            best_pref = gdf_polygons.iloc[idx]["pref_name"]
-    
+            best_pref01 = gdf_polygons.iloc[idx]["N03_001"]
+            best_pref03 = gdf_polygons.iloc[idx]["N03_003"]
+
     # 最も多く円にかぶっている県に所属させる
-    if best_pref is not None:
+    if best_pref01 is not None:
         coords = hexagon_coords(cx, cy, a)
         hexes.append(Polygon(coords))
-        owners.append(best_pref)
+        owners01.append(best_pref01)
+        owners03.append(best_pref03)
 
-hex_gdf = gpd.GeoDataFrame({"pref_name": owners}, geometry=hexes, crs="EPSG:3857")
+hex_gdf = gpd.GeoDataFrame(
+    {"N03_001": owners01, "N03_003": owners03}, geometry=hexes, crs="EPSG:3857"
+)
 
-# === 8. 都道府県ごとに六角形を結合 ===
-merged_gdf = hex_gdf.dissolve(by="pref_name").reset_index()
+# === 8. 市区町村ごとに六角形を結合 ===
+sikutyoson_gdf = hex_gdf.dissolve(by="N0_001").reset_index()
+todouhuken_gdf = hex_gdf.dissolve(by="N0_003").reset_index()
 
 # === 9. GeoJSONとして出力 ===
 os.makedirs("./public", exist_ok=True)
-output_path = "./public/pref_hex_merged.geojson"
-merged_gdf.to_file(output_path, driver="GeoJSON", encoding="utf-8")
+sikutyoson_gdf.to_file(
+    "./public/pref_hex_merged_todouhuken.geojson", driver="GeoJSON", encoding="utf-8"
+)
+todouhuken_gdf.to_file(
+    "./public/pref_hex_merged_todouhuken.geojson", driver="GeoJSON", encoding="utf-8"
+)
 
-# === 10. idを都道府県名に設定 ===
-with open(output_path, encoding="utf-8") as f:
-    data = json.load(f)
-
-for feature in data["features"]:
-    pref_name = feature["properties"]["pref_name"]
-    feature["id"] = pref_name
-
-with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
-
-print(f"✅ 出力完了: {output_path}")
 
 # === 11. 描画 ===
 fig, ax = plt.subplots(figsize=(10, 10))
-merged_gdf.plot(column="pref_name", ax=ax, edgecolor="black", linewidth=0.8, alpha=0.7)
+todouhuken_gdf.plot(
+    column="N03_001", ax=ax, edgecolor="black", linewidth=0.8, alpha=0.7
+)
+sikutyoson_gdf.plot(
+    column="N03_003", ax=ax, edgecolor="black", linewidth=0.8, alpha=0.7
+)
 plt.title("都道府県ごとに結合された六角形タイル図", fontsize=14)
 plt.axis("off")
 plt.show()
