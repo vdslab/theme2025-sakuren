@@ -34,7 +34,7 @@ prefectureMapRoma = {
 # ================================
 # 元の GeoJSON 読み込み
 # ================================
-json_path = "./tilegram_app/public/data/N03-21_210101.json"
+json_path = "./public/municipality_largest_polygon.geojson.geojson"
 
 with open(json_path, "r", encoding="utf-8") as f:
     existing_data = json.load(f)
@@ -45,13 +45,12 @@ features = existing_data["features"]
 # feature を名前で検索（N03_004 / N03_003）
 # ================================
 def get_feature_by_name(features, name):
-    candidate_keys = ["N03_004", "N03_003"]
+    candidate_keys = "N03_003"
 
     for f in features:
         props = f["properties"]
-        for key in candidate_keys:
-            if key in props and props[key] == name:
-                return f
+        if candidate_keys in props and props[candidate_keys] == name:
+            return f
     return None
 
 
@@ -71,6 +70,8 @@ for i in range(1, 48):
 
     for filepath in glob.glob(os.path.join(txt_dir, "*.txt")):
         filename_name = os.path.basename(filepath).replace(".txt", "")
+        if filename_name[-1]!="郡" and filename_name[-1]!="市" and filename_name[-1]!="区" and filename_name!="利島村" and filename_name!="大島町" and filename_name!="小笠原村" and filename_name!="御蔵島村" and filename_name!="新島村" and filename_name!="神津島村" and filename_name!="青ヶ島村":
+            filename_name=filename_name.split("郡")[0]+"郡"
 
         # ファイル名と一致する feature を探す
         feature = get_feature_by_name(features, filename_name)
@@ -80,7 +81,7 @@ for i in range(1, 48):
             continue
 
         # JISコード
-        jis_code = feature["properties"]["N03_007"]
+        jis_code = feature["properties"]["N03_003"]
         population_data[jis_code] = 0
 
         try:
