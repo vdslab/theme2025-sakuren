@@ -30,7 +30,8 @@ const MunicipalityMap_detail = ({
 
   useEffect(() => {
     if (!feature) return;
-    const filepath = `/data/wordcloud_layout_detail.json`;
+    const prefName = feature.properties.N03_001;
+    const filepath = `/data/wordcloud_map_layer/${prefName}/wordcloud_layout_detail.json`;
 
     fetch(filepath)
       .then((res) => res.json())

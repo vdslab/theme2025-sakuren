@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 
 # GeoJSON読み込み
-gdf = gpd.read_file("./public/pref_hex_merged_todouhuken.geojson")
+gdf = gpd.read_file("./public/pref_hex_merged_sikutyoson.geojson")
 
 # 出力ベースディレクトリ
 base_output_dir = "./prefecture_layer/"
@@ -33,7 +33,7 @@ print(f"補正後bounds: minx={minx}, maxx={maxx}, miny={miny}, maxy={maxy}")
 
 # 都道府県ごとに処理
 pixel_bounds_dict = {}
-
+print(gdf)
 for pref_name, gdf_group in gdf.groupby("N03_003"):
     print(f"Processing {pref_name} ...")
     print(gdf_group.iloc[-1])
@@ -47,7 +47,7 @@ for pref_name, gdf_group in gdf.groupby("N03_003"):
     ax.axis('off')
 
     # 都道府県全体を黒塗り
-    gdf_group.plot(ax=ax, color='black', edgecolor='none')
+    gdf_group.plot(ax=ax, color='black', edgecolor='none', aspect='equal')
 
     # 共通座標範囲設定（ズームなし）
     ax.set_xlim(minx, maxx)

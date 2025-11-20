@@ -1,7 +1,7 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-files = ["./public/pref_hex_merged_todouhuken.geojson"]
+files = ["./create_map"]
 
 fig, axes = plt.subplots(1, len(files), figsize=(5 * len(files), 8))
 axes = [axes] if len(files) == 1 else axes

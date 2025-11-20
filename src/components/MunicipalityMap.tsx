@@ -33,7 +33,7 @@ const MunicipalityMap = ({
 
   // GeoJSON読み込み
   useEffect(() => {
-    fetch("/pref_hex_merged_todouhuken.geojson")
+    fetch("/pref_hex_merged_sikutyoson.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatureParts(data.features));
   }, []);
