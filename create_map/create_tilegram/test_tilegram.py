@@ -33,7 +33,7 @@ gdf_polygons = gpd.GeoDataFrame(
 )
 
 # === 4. 六角形タイル設定 ===
-tile_area = 1e7  # タイル1枚あたりの面積
+tile_area = 1e8  # タイル1枚あたりの面積
 a = math.sqrt(2 * tile_area / (3 * math.sqrt(3)))  # 六角形の1辺の長さ
 tile_spacingX = 3 * a / 2
 tile_spacingY = math.sqrt(3) * a
@@ -99,8 +99,13 @@ fixed2["geometry"] = fixed2.buffer(0.5)
 todouhuken_gdf = fixed1.groupby("N03_001")["geometry"].apply(unary_union)
 todouhuken_gdf = gpd.GeoDataFrame(todouhuken_gdf, geometry="geometry").reset_index()
 
+# groupby で作成した GeoDataFrame
 sikutyoson_gdf = fixed2.groupby("N03_003")["geometry"].apply(unary_union)
-sikutyoson_gdf = gpd.GeoDataFrame(sikutyoson_gdf, geometry="geometry").reset_index()
+sikutyoson_gdf = gpd.GeoDataFrame(
+    sikutyoson_gdf, geometry="geometry"
+).reset_index()
+pref_map = hex_gdf.groupby("N03_003")["N03_001"].first().to_dict()
+sikutyoson_gdf["N03_001"] = sikutyoson_gdf["N03_003"].map(pref_map)
 
 # === 9. GeoJSONとして出力 ===
 os.makedirs("./public", exist_ok=True)

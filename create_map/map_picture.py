@@ -69,7 +69,8 @@ for _, row in gdf.iterrows():
 
     # 該当都道府県のみ描画
     gdf_single = gpd.GeoDataFrame([row], crs=gdf.crs)
-    gdf_single.plot(ax=ax, color="black", edgecolor="none")
+    gdf_single.plot(ax=ax, color="black", edgecolor="none", aspect="equal")
+
 
     # 共通のズーム範囲をセットして中央ドアップ的に表示
     ax.set_xlim(minx_zoom, maxx_zoom)

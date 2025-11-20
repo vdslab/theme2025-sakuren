@@ -1,23 +1,15 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-# 比較したい GeoJSON ファイルをリストで指定
-search_words = [
-     "千葉県", "愛媛県", 
-    
-]
-files = []
-for word in search_words:
-    files.append(f"./{word}_cartogram.geojson")
+files = ["./public/pref_hex_merged_todouhuken.geojson"]
 
-# サブプロットを作成（横並び）
 fig, axes = plt.subplots(1, len(files), figsize=(5 * len(files), 8))
+axes = [axes] if len(files) == 1 else axes
 
 for i, path in enumerate(files):
     gdf = gpd.read_file(path)
-    gdf = gdf.to_crs(epsg=3857)
     gdf.plot(ax=axes[i], color="lightblue", edgecolor="black")
-    axes[i].axis("off")  # 軸ラベルは非表示
+    axes[i].axis("off")
 
 plt.tight_layout()
 plt.show()
