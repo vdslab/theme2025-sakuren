@@ -35,7 +35,7 @@ def has_neighbor(i, gdf):
 # =========================
 # 1. GeoJSON 読み込み
 # =========================
-geojson_path = "./create_map/create_cartgram/N03_merged_city_no_islands.geojson"
+geojson_path = "./create_map/create_cartgram/N03_merged_city.geojson"
 with open(geojson_path, "r", encoding="utf-8") as f:
     geojson_data = json.load(f)
 # =========================
@@ -52,13 +52,22 @@ gdf = gpd.GeoDataFrame.from_features(geojson_data["features"], crs="EPSG:4326").
 mask = [has_neighbor(i, gdf) for i in range(len(gdf))]
 gdf = gdf[mask]
 
+# --- population をセット ---
 gdf["population"] = gdf["N03_003"].map(population_data).fillna(0)
+
+# --- population = 0 を削除 ---
+gdf = gdf[gdf["population"] > 0].copy()
+
+# --- index が飛ぶので振り直す ---
+gdf = gdf.reset_index(drop=True)
+
+gdf["population"]=gdf["population"]
 
 
 # =========================
 # 3. カルトグラム作成
 # =========================
-c = Cartogram(gdf, cartogram_attribute="population", max_iterations=1, verbose=True)
+c = Cartogram(gdf, cartogram_attribute="population", verbose=True)
 carto_gdf = c
 
 
@@ -67,7 +76,11 @@ carto_gdf = c
 # =========================
 carto_gdf.to_crs(epsg=4326).to_file("./jp_cartogram.geojson", driver="GeoJSON", encoding="utf-8")
 
-print(gdf)
+print(gdf["population"].describe())
+
+print(gdf["population"].nlargest(10))
+print(gdf["population"].nsmallest(10))
+
 # =========================
 # 5. 描画
 # =========================
