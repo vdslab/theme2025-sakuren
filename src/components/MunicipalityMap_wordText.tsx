@@ -28,22 +28,21 @@ const MunicipalityMap_wordText = ({
   targetParts,
 }: MunicipalityMapWordTextProps) => {
   const boundsWidth = boundsArray[1][0] - boundsArray[0][0];
-
   return (
     <>
       {targetParts.map((word, idx) => {
         const xScale = d3
           .scaleLinear<number>()
-          .domain(word.print_area_x)
-          .range([boundsArray[0][0], boundsArray[1][0]]);
+          .domain([0, 3000])
+          .range([0, 3000]);
         const yScale = d3
           .scaleLinear<number>()
-          .domain(word.print_area_y)
-          .range([boundsArray[0][1], boundsArray[1][1]]);
+          .domain([0, 3000])
+          .range([0, 3000]);
 
         const angle = angleMap[word.orientation?.toString() ?? "0"] ?? 0;
-        const x = xScale(word.x);
-        const y = yScale(word.y);
+        const x = xScale(word.x + word.print_area_x[0]);
+        const y = yScale(word.y + word.print_area_y[0]);
 
         const fontSize =
           ((word.font_size / word.print_area_x[1]) * boundsWidth) / 1.1;

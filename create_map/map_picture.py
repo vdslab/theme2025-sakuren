@@ -7,7 +7,7 @@ import numpy as np
 
 
 # --- 日本全体のGeoJSONデータを読み込む ---
-gdf = gpd.read_file("./public/prefecture_single.geojson")
+gdf = gpd.read_file("./public/pref_hex_merged_todouhuken.geojson")
 
 # --- 出力ディレクトリ作成 ---
 output_dir = "./prefecture_layer/"
@@ -60,7 +60,7 @@ pixel_bounds_dict = {}
 
 # --- 各都道府県を描画 ---
 for _, row in gdf.iterrows():
-    pref_name = row["prefecture"]
+    pref_name = row["N03_001"]
     print(f"Rendering {pref_name}...")
     pref_dir = os.path.join(output_dir, pref_name)
     os.makedirs(pref_dir, exist_ok=True)
@@ -123,7 +123,7 @@ with open("map_common_bounds.json", "w", encoding="utf-8") as f:
     json.dump(common_bounds, f, ensure_ascii=False, indent=2)
 
 # --- 都道府県のピクセル範囲JSON保存 ---
-with open("prefecture_pixel_map_bounds.json", "w", encoding="utf-8") as f:
+with open("prefecture_pixel_map_bounds_all.json", "w", encoding="utf-8") as f:
     json.dump(pixel_bounds_dict, f, ensure_ascii=False, indent=2)
 
 print("✅ 全ての都道府県画像とピクセル座標データを保存しました。")

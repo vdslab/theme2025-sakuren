@@ -6,14 +6,14 @@ import os
 import json
 import matplotlib.pyplot as plt
 from shapely.geometry import Point, Polygon
-
+from shapely.ops import unary_union
 # === 1. GeoJSONを読み込む ===
-gdf = gpd.read_file("./public/cartogram_lonlat.geojson")
+gdf = gpd.read_file("./create_map/create_tilegram/jp_cartogram.geojson")
 
 # === 2. 投影座標系に変換（緯度経度を平面座標に） ===
 gdf = gdf.to_crs("EPSG:3857")
 # === 3. MultiPolygonをPolygon単位に分解 ===
-polygons, name01, name03 = [], []
+polygons, names01, names03 = [], [],[]
 
 for _, row in gdf.iterrows():
     geom = row.geometry
@@ -21,19 +21,19 @@ for _, row in gdf.iterrows():
     name03 = row["N03_003"]
     if isinstance(geom, Polygon):
         polygons.append(geom)
-        name01.append(name01)
-        name03.append(name03)
+        names01.append(name01)
+        names03.append(name03)
     elif isinstance(geom, MultiPolygon):
         for poly in geom.geoms:
             polygons.append(poly)
-            name01.append(name01)
-            name03.append(name03)
+            names01.append(name01)
+            names03.append(name03)
 gdf_polygons = gpd.GeoDataFrame(
-    {"N03_001": name01, "N03_003": name03}, geometry=polygons, crs=gdf.crs
+    {"N03_001": names01, "N03_003": names03}, geometry=polygons, crs=gdf.crs
 )
 
 # === 4. 六角形タイル設定 ===
-tile_area = 5e7  # タイル1枚あたりの面積
+tile_area = 1e7  # タイル1枚あたりの面積
 a = math.sqrt(2 * tile_area / (3 * math.sqrt(3)))  # 六角形の1辺の長さ
 tile_spacingX = 3 * a / 2
 tile_spacingY = math.sqrt(3) * a
@@ -90,13 +90,22 @@ hex_gdf = gpd.GeoDataFrame(
 )
 
 # === 8. 市区町村ごとに六角形を結合 ===
-sikutyoson_gdf = hex_gdf.dissolve(by="N0_001").reset_index()
-todouhuken_gdf = hex_gdf.dissolve(by="N0_003").reset_index()
+fixed1 = hex_gdf.copy()
+fixed2 = hex_gdf.copy()
+
+fixed1["geometry"] = fixed1.buffer(0.5)
+fixed2["geometry"] = fixed2.buffer(0.5)
+
+todouhuken_gdf = fixed1.groupby("N03_001")["geometry"].apply(unary_union)
+todouhuken_gdf = gpd.GeoDataFrame(todouhuken_gdf, geometry="geometry").reset_index()
+
+sikutyoson_gdf = fixed2.groupby("N03_003")["geometry"].apply(unary_union)
+sikutyoson_gdf = gpd.GeoDataFrame(sikutyoson_gdf, geometry="geometry").reset_index()
 
 # === 9. GeoJSONとして出力 ===
 os.makedirs("./public", exist_ok=True)
 sikutyoson_gdf.to_file(
-    "./public/pref_hex_merged_todouhuken.geojson", driver="GeoJSON", encoding="utf-8"
+    "./public/pref_hex_merged_sikutyoson.geojson", driver="GeoJSON", encoding="utf-8"
 )
 todouhuken_gdf.to_file(
     "./public/pref_hex_merged_todouhuken.geojson", driver="GeoJSON", encoding="utf-8"

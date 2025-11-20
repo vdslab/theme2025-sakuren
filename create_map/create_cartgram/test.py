@@ -1,12 +1,23 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-# GeoJSON 読み込み
-geojson_path = "./create_map/create_cartgram/N03_merged_city.geojson"
-gdf = gpd.read_file(geojson_path)
+# 比較したい GeoJSON ファイルをリストで指定
+search_words = [
+     "千葉県", "愛媛県", 
+    
+]
+files = []
+for word in search_words:
+    files.append(f"./{word}_cartogram.geojson")
 
-# 描画
-fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-gdf.plot(ax=ax, color="lightblue", edgecolor="black")
-ax.set_title("Akita Cartogram")
+# サブプロットを作成（横並び）
+fig, axes = plt.subplots(1, len(files), figsize=(5 * len(files), 8))
+
+for i, path in enumerate(files):
+    gdf = gpd.read_file(path)
+    gdf = gdf.to_crs(epsg=3857)
+    gdf.plot(ax=axes[i], color="lightblue", edgecolor="black")
+    axes[i].axis("off")  # 軸ラベルは非表示
+
+plt.tight_layout()
 plt.show()

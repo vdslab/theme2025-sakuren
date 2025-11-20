@@ -30,8 +30,7 @@ const MunicipalityMap_detail = ({
 
   useEffect(() => {
     if (!feature) return;
-    const prefName = feature.properties.N03_001;
-    const filepath = `/data/wordcloud_map_layer/${prefName}/wordcloud_layout_detail.json`;
+    const filepath = `/data/wordcloud_layout_detail.json`;
 
     fetch(filepath)
       .then((res) => res.json())
@@ -46,7 +45,6 @@ const MunicipalityMap_detail = ({
     const partsNameRaw =
       N03_003?.endsWith("市") || N03_003?.endsWith("郡") ? N03_003 : N03_004;
     const partsName = partsNameRaw?.trim();
-
     const matched = wordcloud.find((item) => item.name.trim() === partsName);
     if (matched) {
       setTargetParts(matched.data);

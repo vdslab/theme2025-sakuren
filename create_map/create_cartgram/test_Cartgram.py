@@ -22,26 +22,35 @@ def drop_islands_keep_largest(geom):
 
     return None  # 変なジオメトリは削除
 
+# 隣接しているかどうかを判定
+def has_neighbor(i, gdf):
+    geom = gdf.geometry.iloc[i]
+    return any(
+        geom.touches(other) or geom.intersects(other)
+        for j, other in enumerate(gdf.geometry)
+        if i != j
+    )
+
 
 # =========================
 # 1. GeoJSON 読み込み
 # =========================
-geojson_path = "./create_map/create_cartgram/N03_merged_city.geojson"
+geojson_path = "./create_map/create_cartgram/N03_merged_city_no_islands.geojson"
 with open(geojson_path, "r", encoding="utf-8") as f:
     geojson_data = json.load(f)
-
-gdf = gpd.GeoDataFrame.from_features(geojson_data["features"], crs="EPSG:4326")
-
-# カルトグラム用に平面座標系へ
-gdf = gdf.to_crs(epsg=3857)
-
-
 # =========================
 # 2. 人口データ読み込み
 # =========================
 population_path = "./create_map/create_cartgram/population_detail.json"
 with open(population_path, "r", encoding="utf-8") as f:
     population_data = json.load(f)
+
+
+# カルトグラム用に平面座標系へ
+gdf = gpd.GeoDataFrame.from_features(geojson_data["features"], crs="EPSG:4326").to_crs(3857)
+# 隣接のない市区町村を削除
+mask = [has_neighbor(i, gdf) for i in range(len(gdf))]
+gdf = gdf[mask]
 
 gdf["population"] = gdf["N03_003"].map(population_data).fillna(0)
 
@@ -56,9 +65,9 @@ carto_gdf = c
 # =========================
 # 4. GeoJSON 保存
 # =========================
-carto_gdf.to_crs(epsg=4326).to_file("./kyoto_cartogram.geojson", driver="GeoJSON", encoding="utf-8")
+carto_gdf.to_crs(epsg=4326).to_file("./jp_cartogram.geojson", driver="GeoJSON", encoding="utf-8")
 
-
+print(gdf)
 # =========================
 # 5. 描画
 # =========================

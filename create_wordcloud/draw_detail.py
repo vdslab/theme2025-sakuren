@@ -7,7 +7,7 @@ import ctypes
 ctypes.cdll.LoadLibrary(r"C:\Program Files\MeCab\bin\libmecab.dll")
 import MeCab
 import ipadic
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -15,7 +15,8 @@ import json
 
 # MeCabの設定
 mecab = MeCab.Tagger(ipadic.MECAB_ARGS)
-
+# JSON保存先
+json_path = "wordcloud_layout_detail.json"
 # 形態素解析＋前処理関数
 def mecab_tokenizer(text):
     replaced_text = unicodedata.normalize("NFKC", text)
@@ -32,6 +33,7 @@ def mecab_tokenizer(text):
     token_list = [t for t, p in zip(surfaces, pos) if p in target_pos]
 
     return ' '.join(token_list)
+
 prefectures = [
     "北海道", "青森", "岩手", "宮城", "秋田", "山形", "福島",
     "茨城", "栃木", "群馬", "埼玉", "千葉", "東京", "神奈川",
@@ -96,9 +98,11 @@ search_word = {
 }
 
 output_base_dir = './wordcloud_map_layer'
-
+all_word_counts={}
+wordcloud_datas={}
 # 全都道府県ループ
 for pref_name_jp, pref_name_en in search_word.items():
+    wordcloud_datas[pref_name_jp]=[]
 
     png_dir = f'./prefecture_layer/{pref_name_jp}'
     for filepath in glob.glob(os.path.join(png_dir, '*.png')):
@@ -114,95 +118,101 @@ for pref_name_jp, pref_name_en in search_word.items():
         texts = []
         for txt_file in matched_txt_files:
             with open(txt_file, encoding='utf-8') as f:
-                texts.append(f.read())
+                texts.append(mecab_tokenizer(f.read()))
+            if texts[0]=="":
+                continue
+            # TF-IDF 計算（+ stopwords 除去）
+            vectorizer = CountVectorizer(max_features=100)
+            print(txt_file)
+            X = vectorizer.fit_transform(texts)
+            words = vectorizer.get_feature_names_out()
+            counts = np.asarray(X.sum(axis=0)).ravel()
+            word_counts = {w: int(c) for w, c in zip(words, counts) if w not in stopwords and not w.isdigit()}
 
-        text = "\n".join(texts)  # 複数テキストを連結
-
+            if not word_counts:
+                continue    
+            txt_name=txt_file.split("/")[-1].split(".txt")[0]
+            if txt_name[-1]!="区" and txt_name[-1]!="市" and txt_name[-1]!="郡":
+                txt_name=txt_name.split("郡")[0]+"郡"
+            search_txt=pref_name_jp+"_"+txt_name
+            all_word_counts[search_txt] = word_counts
         
-        tokenized = mecab_tokenizer(text)
 
-        # TF-IDF 計算（+ stopwords 除去）
-        vectorizer = TfidfVectorizer(max_features=200)
-        X = vectorizer.fit_transform([tokenized])
-        words = vectorizer.get_feature_names_out()
-        scores = np.asarray(X.mean(axis=0)).ravel()
-        word_scores_raw = dict(zip(words, scores))
+global_max = max(c for wc in all_word_counts.values() for c in wc.values())
+for search_txt, word_counts in all_word_counts.items():
+    normalized_word_counts = {w: c / global_max for w, c in word_counts.items()}
+    print(search_txt.split("_")[0],search_txt.split("_")[1].split("\\")[1])
+    mask_path = f'./prefecture_layer/{search_txt.split("_")[0]}/{search_txt.split("_")[1].split("\\")[1]}.png'
+    if not os.path.exists(mask_path):
+        print(f"❌ マスク画像がありません: {mask_path}")
+        continue
+    mask_image = Image.open(mask_path).convert("L")
+    mask_array = np.array(mask_image)
+    mask_indices = np.where(mask_array < 128)
+    if mask_indices[0].size == 0 or mask_indices[1].size == 0:
+        raise ValueError(f"マスク画像に有効な領域がありません: {pref_name_jp}")
+    min_y_offset = int(np.min(mask_indices[0]))
+    max_y_offset = int(np.max(mask_indices[0]))
+    min_x_offset = int(np.min(mask_indices[1]))
+    max_x_offset = int(np.max(mask_indices[1]))
+    
+    font_path = "C:/Windows/Fonts/YuGothR.ttc"
+    wordcloud = WordCloud(
+        background_color="white",
+        width=mask_array.shape[1],
+        height=mask_array.shape[0],
+        font_path=font_path,
+        colormap="coolwarm",
+        max_words=min(50, len(normalized_word_counts)),
+        max_font_size=200,
+        include_numbers=False,
+        mask=mask_array,
+        relative_scaling=1
+    )
 
-        word_scores = {
-            word: score for word, score in word_scores_raw.items()
-            if word not in stopwords and not word.isdigit()
-        }
+    try:
+        wordcloud.generate_from_frequencies(normalized_word_counts)
+    except ValueError:
+        continue
 
-        # マスク画像読み込み
-        mask_path = f'./prefecture_layer/{pref_name_jp}/{path_parts}.png'
-        mask_image = Image.open(mask_path).convert("L")
-        mask_array = np.array(mask_image)
 
-        mask_indices = np.where(mask_array < 128)
-        if mask_indices[0].size == 0 or mask_indices[1].size == 0:
-            raise ValueError(f"マスク画像に有効な領域がありません: {pref_name_jp}")
+    # JSON レイアウト
+    word_layout_data = {"name": search_txt.split("_")[1].split("\\")[1], "data": []}
+    for (word, font_size, position, orientation, color) in wordcloud.layout_:
+        abs_x = float(position[1])
+        abs_y = float(position[0])
+        rel_x = abs_x - min_x_offset
+        rel_y = abs_y - min_y_offset
+        norm_x = rel_x / (max_x_offset - min_x_offset)
+        norm_y = rel_y / (max_y_offset - min_y_offset)
+        word_layout_data["data"].append({
+            "word": word[0],
+            "count": word_counts.get(word[0], 0),
+            "font_size": font_size,
+            "x": round(rel_x, 2),
+            "y": round(rel_y, 2),
+            "norm_x": round(norm_x, 6),
+            "norm_y": round(norm_y, 6),
+            "orientation": orientation,
+            "color": color,
+            "print_area_x": [0, mask_array.shape[1]],
+            "print_area_y": [0, mask_array.shape[0]]
+        })
 
-        min_y_offset = int(np.min(mask_indices[0]))
-        max_y_offset = int(np.max(mask_indices[0]))
-        min_x_offset = int(np.min(mask_indices[1]))
-        max_x_offset = int(np.max(mask_indices[1]))
+    wordcloud_datas[search_txt.split("_")[0]].append(word_layout_data)
 
-        # WordCloud 描画
-        font_path = "C:/Windows/Fonts/YuGothR.ttc"
-        wordcloud = WordCloud(
-            background_color="white",
-            width=mask_array.shape[1],
-            height=mask_array.shape[0],
-            font_path=font_path,
-            colormap="coolwarm",
-            max_words=20,
-            mask=mask_array
-        ).generate_from_frequencies(word_scores)
+for pref_name_jp, datas in wordcloud_datas.items():
+    # ① 保存先フォルダのパス
+    output_dir = f"./public/data/wordcloud_map_layer/{pref_name_jp}/"
 
-        # JSONレイアウトデータ作成
-        word_layout_data = {"name": path_parts, "data": []}
-        for (word, font_size, position, orientation, color) in wordcloud.layout_:
-            abs_x = float(position[1])
-            abs_y = float(position[0])
-            rel_x = abs_x - min_x_offset
-            rel_y = abs_y - min_y_offset
-            norm_x = rel_x / (max_x_offset - min_x_offset)
-            norm_y = rel_y / (max_y_offset - min_y_offset)
+    # ② フォルダがなければ作成
+    os.makedirs(output_dir, exist_ok=True)
 
-            word_info = {
-                "word": word[0],
-                "tfidf_score": word_scores.get(word[0], 0),
-                "font_size": font_size,
-                "print_area_x": [0, mask_array.shape[1]],
-                "print_area_y": [0,mask_array.shape[0]],
-                "x": round(rel_x, 2),
-                "y": round(rel_y, 2),
-                "norm_x": round(norm_x, 6),
-                "norm_y": round(norm_y, 6),
-                "orientation": orientation,
-                "color": color
-            }
-            word_layout_data["data"].append(word_info)
+    # ③ JSON 保存
+    with open(os.path.join(output_dir, json_path), "w", encoding="utf-8") as f:
+        json.dump(datas, f, ensure_ascii=False, indent=2)
 
-        # JSONファイルに追記保存
-        pref_output_dir = os.path.join(output_base_dir, pref_name_jp)
-        os.makedirs(pref_output_dir, exist_ok=True)
+    print(f"✅ {pref_name_jp} のレイアウトデータを {json_path} に保存しました。")
 
-        json_path = os.path.join(pref_output_dir, 'wordcloud_layout_detail.json')
-
-        if os.path.exists(json_path):
-            with open(json_path, "r", encoding="utf-8") as f:
-                existing_data = json.load(f)
-        else:
-            existing_data = []
-
-        existing_data.append(word_layout_data)
-
-        with open(json_path, "w", encoding="utf-8") as f:
-            json.dump(existing_data, f, ensure_ascii=False, indent=2)
-
-        print(f"✅ {path_parts} のレイアウトデータを {json_path} に保存しました。")
-
-    print(f"🎉 {pref_name_jp}のワードクラウドレイアウト生成完了")
 
 print("🎉 全都道府県のワードクラウドレイアウト生成完了")
