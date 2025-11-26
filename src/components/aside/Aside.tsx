@@ -17,9 +17,7 @@ export const Aside: FC<AsideProps> = ({
   setHoveredPref,
   setCrossHighlightPrefs,
 }) => {
-  if (!selectedWord && !selectedPref) {
-    return null;
-  }
+  const desiredOpen = Boolean(selectedWord || selectedPref);
 
   return (
     <Paper
@@ -29,45 +27,51 @@ export const Aside: FC<AsideProps> = ({
         top: 64,
         right: 0,
         height: "calc(100% - 64px)",
-        width: 500,
-        paddingX: 2,
-        paddingY: 1,
+        width: desiredOpen ? 500 : 0,
+        paddingX: desiredOpen ? 2 : 0,
+        paddingY: desiredOpen ? 1 : 0,
         boxShadow: "-5px 0 10px rgba(0, 0, 0, 0.2)",
         overflowY: "hidden",
+        transition: "width 0.3s, padding 0.3s",
+        willChange: "width, padding",
       }}
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
-      <Box>
-        <Typography variant="h5">詳細</Typography>
-        {selectedPref && (
-          <Typography variant="h6">選択中の都道府県：{selectedPref}</Typography>
-        )}
-        {selectedWord ? (
-          <>
-            <AsideDetailOnWord
-              selectedWord={selectedWord}
-              selectedPref={selectedPref}
-              setHoveredPref={setHoveredPref}
-            />
-            {selectedPref || (
-              <CoOccurrenceViewr
+      {desiredOpen && (
+        <Box>
+          <Typography variant="h5">詳細</Typography>
+          {selectedPref && (
+            <Typography variant="h6">
+              選択中の都道府県：{selectedPref}
+            </Typography>
+          )}
+          {selectedWord ? (
+            <>
+              <AsideDetailOnWord
                 selectedWord={selectedWord}
+                selectedPref={selectedPref}
                 setHoveredPref={setHoveredPref}
-                setCrossHighlightPrefs={setCrossHighlightPrefs}
               />
-            )}
-          </>
-        ) : (
-          selectedPref && (
-            <AsideDetailOnPrefecture
-              selectedPref={selectedPref}
-              setHoveredPref={setHoveredPref}
-            />
-          )
-        )}
-      </Box>
+              {selectedPref || (
+                <CoOccurrenceViewr
+                  selectedWord={selectedWord}
+                  setHoveredPref={setHoveredPref}
+                  setCrossHighlightPrefs={setCrossHighlightPrefs}
+                />
+              )}
+            </>
+          ) : (
+            selectedPref && (
+              <AsideDetailOnPrefecture
+                selectedPref={selectedPref}
+                setHoveredPref={setHoveredPref}
+              />
+            )
+          )}
+        </Box>
+      )}
     </Paper>
   );
 };
