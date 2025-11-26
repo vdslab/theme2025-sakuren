@@ -55,7 +55,7 @@ const WordCloudCanvas = ({
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
   const [geoFeatures, setGeoFeatures] = useState<
-    GeoJSON.Feature<GeoJSON.Geometry, { prefecture: string }>[]
+    GeoJSON.Feature<GeoJSON.Geometry, { pref_name: string }>[]
   >([]);
   const [weatherData, setWeatherData] = useState<WeatherData>({});
   const [temperatureScale, setTemperatureScale] = useState<
