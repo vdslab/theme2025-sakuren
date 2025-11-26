@@ -27,8 +27,8 @@ const angleMap: Record<string, number> = {
 
 const WordText = ({
   item,
-  iIdx,
-  useWordData,
+  // iIdx,
+  // useWordData,
   groupBounds,
   mode,
   selectedWord,

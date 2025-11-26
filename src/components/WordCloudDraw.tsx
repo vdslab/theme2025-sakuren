@@ -11,7 +11,7 @@ interface WordCloudDrawProps {
   bounds: WordBoundsData;
   useWordData: number;
   group: WordLayoutData | null;
-  geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { prefecture: string }>[];
+  geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { pref_name: string }>[];
   gIdx: number;
   selectedWord: string | null;
   hoveredPref: string | null;
@@ -45,7 +45,7 @@ const WordCloudDraw = ({
   if (!group) return null;
   const groupBounds = bounds[group.name];
   if (!groupBounds) return null;
-
+  console.log(geoFeatures);
   const geoFeature = geoFeatures.find(
     (f) => f["properties"]["pref_name"] === group.name
   );
