@@ -5,7 +5,7 @@ export const calcChartDataObject = (data: WordLayoutData[]) => {
   data.forEach((item) => {
     const { name, data: value } = item;
     obj[name] = value.reduce((acc, cur) => {
-      acc[cur.word] = cur.tfidf_score;
+      acc[cur.word] = cur.count;
       return acc;
     }, {} as Record<string, number>);
   });
