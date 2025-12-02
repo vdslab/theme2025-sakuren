@@ -35,7 +35,7 @@ def has_neighbor(i, gdf):
 # =========================
 # 1. GeoJSON 読み込み
 # =========================
-geojson_path = "./create_map/create_cartgram/N03_merged_city.geojson"
+geojson_path = "./create_map/create_cartgram/N03_merged_city_no_islands.geojson"
 with open(geojson_path, "r", encoding="utf-8") as f:
     geojson_data = json.load(f)
 # =========================

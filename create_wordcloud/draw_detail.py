@@ -1,6 +1,7 @@
 import os
 import glob
 import unicodedata
+import geopandas as gpd
 import re
 import numpy as np
 import ctypes
@@ -96,18 +97,20 @@ search_word = {
     "山口県": "yamaguchi",
     "山梨県": "yamanashi"
 }
-
+gdf = gpd.read_file("./public/pref_hex_merged_sikutyoson.geojson")
 output_base_dir = './wordcloud_map_layer'
 all_word_counts={}
 wordcloud_datas={}
 # 全都道府県ループ
-for pref_name_jp, pref_name_en in search_word.items():
-    wordcloud_datas[pref_name_jp]=[]
 
-    png_dir = f'./prefecture_layer/{pref_name_jp}'
-    for filepath in glob.glob(os.path.join(png_dir, '*.png')):
-        path_parts = os.path.splitext(os.path.basename(filepath))[0]
-        txt_dir = f'./create_wordcloud/tabelog_results/{pref_name_en}/'
+print(gdf)
+for idx, row in gdf.iterrows():
+    
+    png_dir = f'./prefecture_layer/{idx}.png'
+    texts = []
+    for N03_003 in row["N03_003"].split("_"):
+        path_parts = N03_003
+        txt_dir = f'./create_wordcloud/tabelog_results/{search_word[row["N03_001"]]}/'
         pattern = f'*{path_parts}*.txt'  # path_partsを含むファイル名のパターン
 
         matched_txt_files = glob.glob(os.path.join(txt_dir, pattern))
@@ -115,34 +118,39 @@ for pref_name_jp, pref_name_en in search_word.items():
             print(f"❌ 対応するテキストファイルがありません: {pattern}")
             continue
 
-        texts = []
+        
         for txt_file in matched_txt_files:
             with open(txt_file, encoding='utf-8') as f:
                 texts.append(mecab_tokenizer(f.read()))
             if texts[0]=="":
                 continue
             # TF-IDF 計算（+ stopwords 除去）
-            vectorizer = CountVectorizer(max_features=100)
-            print(txt_file)
-            X = vectorizer.fit_transform(texts)
-            words = vectorizer.get_feature_names_out()
-            counts = np.asarray(X.sum(axis=0)).ravel()
-            word_counts = {w: int(c) for w, c in zip(words, counts) if w not in stopwords and not w.isdigit()}
+        vectorizer = CountVectorizer(max_features=100)
+        X = vectorizer.fit_transform(texts)
+        words = vectorizer.get_feature_names_out()
+        counts = np.asarray(X.sum(axis=0)).ravel()
+        word_counts = {w: int(c) for w, c in zip(words, counts) if w not in stopwords and not w.isdigit()}
 
-            if not word_counts:
-                continue    
-            txt_name=txt_file.split("/")[-1].split(".txt")[0]
-            if txt_name[-1]!="区" and txt_name[-1]!="市" and txt_name[-1]!="郡":
-                txt_name=txt_name.split("郡")[0]+"郡"
-            search_txt=pref_name_jp+"_"+txt_name
-            all_word_counts[search_txt] = word_counts
+        if not word_counts:
+            continue
+        search_txt=str(idx)
         
+        key = row["N03_001"]+"/"+row["N03_003"]
 
+        # その市区町村のカウント辞書が無ければ初期化
+        if key not in all_word_counts:
+            all_word_counts[key] = {}
+
+        # word_counts 内の単語をマージする
+        for word, count in word_counts.items():
+            all_word_counts[key][word] = all_word_counts[key].get(word, 0) + count
+
+
+        
 global_max = max(c for wc in all_word_counts.values() for c in wc.values())
 for search_txt, word_counts in all_word_counts.items():
     normalized_word_counts = {w: c / global_max for w, c in word_counts.items()}
-    print(search_txt.split("_")[0],search_txt.split("_")[1].split("\\")[1])
-    mask_path = f'./prefecture_layer/{search_txt.split("_")[0]}/{search_txt.split("_")[1].split("\\")[1]}.png'
+    mask_path = f'./prefecture_layer/{search_txt.split("/")[1]}.png'
     if not os.path.exists(mask_path):
         print(f"❌ マスク画像がありません: {mask_path}")
         continue
@@ -150,7 +158,7 @@ for search_txt, word_counts in all_word_counts.items():
     mask_array = np.array(mask_image)
     mask_indices = np.where(mask_array < 128)
     if mask_indices[0].size == 0 or mask_indices[1].size == 0:
-        raise ValueError(f"マスク画像に有効な領域がありません: {pref_name_jp}")
+        raise ValueError(f"マスク画像に有効な領域がありません: ")
     min_y_offset = int(np.min(mask_indices[0]))
     max_y_offset = int(np.max(mask_indices[0]))
     min_x_offset = int(np.min(mask_indices[1]))
@@ -175,9 +183,8 @@ for search_txt, word_counts in all_word_counts.items():
     except ValueError:
         continue
 
-
     # JSON レイアウト
-    word_layout_data = {"name": search_txt.split("_")[1].split("\\")[1], "data": []}
+    word_layout_data = {"name": search_txt.split("/")[1], "data": []}
     for (word, font_size, position, orientation, color) in wordcloud.layout_:
         abs_x = float(position[1])
         abs_y = float(position[0])
@@ -198,8 +205,10 @@ for search_txt, word_counts in all_word_counts.items():
             "print_area_x": [0, mask_array.shape[1]],
             "print_area_y": [0, mask_array.shape[0]]
         })
-
-    wordcloud_datas[search_txt.split("_")[0]].append(word_layout_data)
+    key=search_txt.split("/")[0]
+    if key not in wordcloud_datas:
+        wordcloud_datas[key] = []
+    wordcloud_datas[key].append(word_layout_data)
 
 for pref_name_jp, datas in wordcloud_datas.items():
     # ① 保存先フォルダのパス
