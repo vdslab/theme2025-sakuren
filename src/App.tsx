@@ -25,7 +25,7 @@ export const App = () => {
       .then((res) => res.json())
       .then((data) => setWordData(data));
 
-    fetch("/data/prefecture_pixel_map_bounds.json")
+    fetch("/data/prefecture_pixel_map_bounds_all.json")
       .then((res) => res.json())
       .then((data) => setWordBounds(data));
   }, []);

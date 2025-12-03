@@ -5,13 +5,51 @@
       {
         "word": "牡蠣",
         "count": 16,
-        "font_size": 7,
-        "x": 2.0,
-        "y": 5.0,
-        "norm_x": 0.08,
-        "norm_y": 0.238095,
+        "font_size": 10,
+        "x": 1695.0,
+        "y": 1345.0,
+        "norm_x": 40.357143,
+        "norm_y": 43.387097,
         "orientation": null,
-        "color": "rgb(143, 177, 254)",
+        "color": "rgb(239, 207, 191)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "フライ",
+        "count": 13,
+        "font_size": 5,
+        "x": 1685.0,
+        "y": 1337.0,
+        "norm_x": 40.119048,
+        "norm_y": 43.129032,
+        "orientation": null,
+        "color": "rgb(227, 108, 85)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "たら",
+        "count": 11,
+        "font_size": 4,
+        "x": 1685.0,
+        "y": 1345.0,
+        "norm_x": 40.119048,
+        "norm_y": 43.387097,
+        "orientation": null,
+        "color": "rgb(239, 136, 107)",
         "print_area_x": [
           0,
           3000
@@ -25,21 +63,79 @@
   },
   {
     "name": "中新川郡",
-    "data": []
+    "data": [
+      {
+        "word": "デザート",
+        "count": 57,
+        "font_size": 4,
+        "x": 1687.0,
+        "y": 1384.0,
+        "norm_x": 70.291667,
+        "norm_y": 69.2,
+        "orientation": null,
+        "color": "rgb(130, 166, 251)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
   },
   {
-    "name": "南砺市",
+    "name": "南砺市_砺波市",
     "data": [
       {
         "word": "山菜",
-        "count": 12,
-        "font_size": 6,
-        "x": 10.0,
-        "y": 5.0,
-        "norm_x": 0.4,
-        "norm_y": 0.238095,
+        "count": 24,
+        "font_size": 9,
+        "x": 1647.0,
+        "y": 1405.0,
+        "norm_x": 71.608696,
+        "norm_y": 66.904762,
         "orientation": null,
-        "color": "rgb(123, 159, 249)",
+        "color": "rgb(216, 220, 226)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "五箇山",
+        "count": 20,
+        "font_size": 4,
+        "x": 1650.0,
+        "y": 1413.0,
+        "norm_x": 71.73913,
+        "norm_y": 67.285714,
+        "orientation": null,
+        "color": "rgb(245, 196, 172)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "豆腐",
+        "count": 18,
+        "font_size": 4,
+        "x": 1654.0,
+        "y": 1398.0,
+        "norm_x": 71.913043,
+        "norm_y": 66.571429,
+        "orientation": null,
+        "color": "rgb(221, 220, 220)",
         "print_area_x": [
           0,
           3000
@@ -57,13 +153,13 @@
       {
         "word": "ブリ",
         "count": 5,
-        "font_size": 6,
-        "x": 9.0,
-        "y": 4.0,
-        "norm_x": 0.225,
-        "norm_y": 0.129032,
+        "font_size": 9,
+        "x": 1665.0,
+        "y": 1393.0,
+        "norm_x": 72.391304,
+        "norm_y": 69.65,
         "orientation": null,
-        "color": "rgb(238, 132, 104)",
+        "color": "rgb(114, 149, 244)",
         "print_area_x": [
           0,
           3000
@@ -76,18 +172,56 @@
     ]
   },
   {
-    "name": "射水市",
+    "name": "射水市_小矢部市_高岡市",
     "data": [
       {
         "word": "エビ",
-        "count": 5,
-        "font_size": 6,
-        "x": 2.0,
-        "y": 7.0,
-        "norm_x": 0.117647,
-        "norm_y": 0.318182,
+        "count": 16,
+        "font_size": 9,
+        "x": 1647.0,
+        "y": 1384.0,
+        "norm_x": 71.608696,
+        "norm_y": 69.2,
         "orientation": null,
-        "color": "rgb(229, 216, 209)",
+        "color": "rgb(201, 215, 240)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "海鮮",
+        "count": 13,
+        "font_size": 4,
+        "x": 1650.0,
+        "y": 1377.0,
+        "norm_x": 71.73913,
+        "norm_y": 68.85,
+        "orientation": null,
+        "color": "rgb(247, 170, 140)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "トロ",
+        "count": 12,
+        "font_size": 4,
+        "x": 1650.0,
+        "y": 1392.0,
+        "norm_x": 71.73913,
+        "norm_y": 69.6,
+        "orientation": null,
+        "color": "rgb(241, 143, 113)",
         "print_area_x": [
           0,
           3000
@@ -100,12 +234,47 @@
     ]
   },
   {
-    "name": "小矢部市",
-    "data": []
-  },
-  {
     "name": "氷見市",
-    "data": []
+    "data": [
+      {
+        "word": "焼肉",
+        "count": 10,
+        "font_size": 9,
+        "x": 1647.0,
+        "y": 1361.0,
+        "norm_x": 71.608696,
+        "norm_y": 33.195122,
+        "orientation": null,
+        "color": "rgb(67, 88, 203)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "えび",
+        "count": 7,
+        "font_size": 6,
+        "x": 1655.0,
+        "y": 1341.0,
+        "norm_x": 71.956522,
+        "norm_y": 32.707317,
+        "orientation": 2,
+        "color": "rgb(128, 163, 250)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
   },
   {
     "name": "滑川市",
@@ -113,13 +282,13 @@
       {
         "word": "ポテト",
         "count": 8,
-        "font_size": 4,
-        "x": 3.0,
-        "y": 4.0,
-        "norm_x": 0.176471,
-        "norm_y": 0.181818,
+        "font_size": 5,
+        "x": 1669.0,
+        "y": 1374.0,
+        "norm_x": 72.565217,
+        "norm_y": 68.7,
         "orientation": null,
-        "color": "rgb(211, 219, 231)",
+        "color": "rgb(212, 78, 65)",
         "print_area_x": [
           0,
           3000
@@ -132,19 +301,46 @@
     ]
   },
   {
-    "name": "砺波市",
-    "data": []
-  },
-  {
-    "name": "高岡市",
-    "data": []
-  },
-  {
-    "name": "魚津市",
-    "data": []
-  },
-  {
-    "name": "黒部市",
-    "data": []
+    "name": "魚津市_黒部市",
+    "data": [
+      {
+        "word": "魚津",
+        "count": 14,
+        "font_size": 9,
+        "x": 1683.0,
+        "y": 1362.0,
+        "norm_x": 70.125,
+        "norm_y": 68.1,
+        "orientation": null,
+        "color": "rgb(63, 83, 198)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "海老",
+        "count": 12,
+        "font_size": 5,
+        "x": 1687.0,
+        "y": 1370.0,
+        "norm_x": 70.291667,
+        "norm_y": 68.5,
+        "orientation": null,
+        "color": "rgb(245, 157, 126)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
   }
 ]

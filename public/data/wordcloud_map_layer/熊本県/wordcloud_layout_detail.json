@@ -1,79 +1,36 @@
 [
   {
-    "name": "上天草市",
-    "data": [
-      {
-        "word": "フライ",
-        "count": 13,
-        "font_size": 6,
-        "x": 3.0,
-        "y": 24.0,
-        "norm_x": 0.12,
-        "norm_y": 0.666667,
-        "orientation": null,
-        "color": "rgb(91, 122, 229)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "海鮮",
-        "count": 13,
-        "font_size": 6,
-        "x": 3.0,
-        "y": 6.0,
-        "norm_x": 0.12,
-        "norm_y": 0.166667,
-        "orientation": null,
-        "color": "rgb(234, 123, 96)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "エビ",
-        "count": 8,
-        "font_size": 4,
-        "x": 12.0,
-        "y": 14.0,
-        "norm_x": 0.48,
-        "norm_y": 0.388889,
-        "orientation": null,
-        "color": "rgb(166, 196, 254)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      }
-    ]
-  },
-  {
-    "name": "上益城郡",
+    "name": "上益城郡_下益城郡",
     "data": [
       {
         "word": "空港",
-        "count": 24,
-        "font_size": 6,
-        "x": 3.0,
-        "y": 4.0,
-        "norm_x": 0.12,
-        "norm_y": 0.235294,
+        "count": 48,
+        "font_size": 9,
+        "x": 1059.0,
+        "y": 1912.0,
+        "norm_x": 44.125,
+        "norm_y": 95.6,
         "orientation": null,
-        "color": "rgb(231, 116, 91)",
+        "color": "rgb(143, 177, 254)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "あか",
+        "count": 35,
+        "font_size": 6,
+        "x": 1063.0,
+        "y": 1920.0,
+        "norm_x": 44.291667,
+        "norm_y": 96.0,
+        "orientation": null,
+        "color": "rgb(241, 141, 111)",
         "print_area_x": [
           0,
           3000
@@ -86,91 +43,18 @@
     ]
   },
   {
-    "name": "人吉市",
-    "data": []
-  },
-  {
-    "name": "八代市",
-    "data": []
-  },
-  {
-    "name": "八代郡",
-    "data": []
-  },
-  {
-    "name": "合志市",
-    "data": []
-  },
-  {
-    "name": "天草市",
+    "name": "人吉市_球磨郡",
     "data": [
       {
-        "word": "海鮮",
-        "count": 21,
-        "font_size": 11,
-        "x": 1.0,
-        "y": 18.0,
-        "norm_x": 0.02439,
-        "norm_y": 0.45,
+        "word": "馬刺し",
+        "count": 32,
+        "font_size": 5,
+        "x": 1043.0,
+        "y": 1943.0,
+        "norm_x": 45.347826,
+        "norm_y": 97.15,
         "orientation": null,
-        "color": "rgb(227, 217, 211)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "海老",
-        "count": 20,
-        "font_size": 8,
-        "x": 22.0,
-        "y": 4.0,
-        "norm_x": 0.536585,
-        "norm_y": 0.1,
-        "orientation": null,
-        "color": "rgb(163, 194, 254)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "フライ",
-        "count": 17,
-        "font_size": 4,
-        "x": 3.0,
-        "y": 29.0,
-        "norm_x": 0.073171,
-        "norm_y": 0.725,
-        "orientation": null,
-        "color": "rgb(134, 169, 252)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "車海老",
-        "count": 16,
-        "font_size": 4,
-        "x": 25.0,
-        "y": 13.0,
-        "norm_x": 0.609756,
-        "norm_y": 0.325,
-        "orientation": 2,
-        "color": "rgb(207, 218, 234)",
+        "color": "rgb(221, 95, 75)",
         "print_area_x": [
           0,
           3000
@@ -183,38 +67,66 @@
     ]
   },
   {
-    "name": "天草郡",
-    "data": []
+    "name": "八代市_八代郡",
+    "data": [
+      {
+        "word": "コーヒー",
+        "count": 17,
+        "font_size": 5,
+        "x": 1040.0,
+        "y": 1924.0,
+        "norm_x": 45.217391,
+        "norm_y": 96.2,
+        "orientation": null,
+        "color": "rgb(216, 86, 70)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
   },
   {
-    "name": "宇土市",
-    "data": []
+    "name": "合志市_菊池郡",
+    "data": [
+      {
+        "word": "ホルモン",
+        "count": 18,
+        "font_size": 5,
+        "x": 1059.0,
+        "y": 1893.0,
+        "norm_x": 44.125,
+        "norm_y": 94.65,
+        "orientation": null,
+        "color": "rgb(243, 151, 120)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
   },
   {
-    "name": "宇城市",
-    "data": []
-  },
-  {
-    "name": "山鹿市",
-    "data": []
-  },
-  {
-    "name": "水俣市",
-    "data": []
-  },
-  {
-    "name": "熊本市",
+    "name": "宇土市_熊本市",
     "data": [
       {
         "word": "馬刺し",
         "count": 17,
-        "font_size": 7,
-        "x": 1.0,
-        "y": 14.0,
-        "norm_x": 0.04,
-        "norm_y": 0.451613,
+        "font_size": 5,
+        "x": 1043.0,
+        "y": 1902.0,
+        "norm_x": 45.347826,
+        "norm_y": 90.571429,
         "orientation": null,
-        "color": "rgb(125, 160, 249)",
+        "color": "rgb(76, 102, 214)",
         "print_area_x": [
           0,
           3000
@@ -225,6 +137,134 @@
         ]
       }
     ]
+  },
+  {
+    "name": "宇城市",
+    "data": [
+      {
+        "word": "スタバ",
+        "count": 6,
+        "font_size": 6,
+        "x": 1024.0,
+        "y": 1914.0,
+        "norm_x": 44.521739,
+        "norm_y": 95.7,
+        "orientation": null,
+        "color": "rgb(242, 202, 181)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "茶漬け",
+        "count": 6,
+        "font_size": 4,
+        "x": 1026.0,
+        "y": 1921.0,
+        "norm_x": 44.608696,
+        "norm_y": 96.05,
+        "orientation": null,
+        "color": "rgb(247, 176, 147)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "豆腐",
+        "count": 6,
+        "font_size": 4,
+        "x": 1028.0,
+        "y": 1907.0,
+        "norm_x": 44.695652,
+        "norm_y": 95.35,
+        "orientation": null,
+        "color": "rgb(214, 82, 68)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
+  },
+  {
+    "name": "山鹿市_菊池市",
+    "data": [
+      {
+        "word": "ピザ",
+        "count": 16,
+        "font_size": 8,
+        "x": 1061.0,
+        "y": 1871.0,
+        "norm_x": 44.208333,
+        "norm_y": 93.55,
+        "orientation": null,
+        "color": "rgb(196, 213, 243)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "もち",
+        "count": 10,
+        "font_size": 5,
+        "x": 1064.0,
+        "y": 1878.0,
+        "norm_x": 44.333333,
+        "norm_y": 93.9,
+        "orientation": null,
+        "color": "rgb(162, 193, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "タイ",
+        "count": 10,
+        "font_size": 5,
+        "x": 1064.0,
+        "y": 1864.0,
+        "norm_x": 44.333333,
+        "norm_y": 93.2,
+        "orientation": null,
+        "color": "rgb(69, 92, 206)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
+  },
+  {
+    "name": "水俣市",
+    "data": []
   },
   {
     "name": "玉名市",
@@ -232,13 +272,13 @@
       {
         "word": "玉名",
         "count": 8,
-        "font_size": 6,
-        "x": 1.0,
-        "y": 8.0,
-        "norm_x": 0.058824,
-        "norm_y": 0.380952,
+        "font_size": 9,
+        "x": 1041.0,
+        "y": 1881.0,
+        "norm_x": 45.26087,
+        "norm_y": 94.05,
         "orientation": null,
-        "color": "rgb(206, 218, 235)",
+        "color": "rgb(103, 136, 238)",
         "print_area_x": [
           0,
           3000
@@ -252,29 +292,36 @@
   },
   {
     "name": "玉名郡",
-    "data": []
-  },
-  {
-    "name": "球磨郡",
-    "data": []
-  },
-  {
-    "name": "荒尾市",
-    "data": []
-  },
-  {
-    "name": "菊池市",
     "data": [
       {
-        "word": "ピザ",
-        "count": 8,
-        "font_size": 9,
-        "x": 4.0,
-        "y": 4.0,
-        "norm_x": 0.166667,
-        "norm_y": 0.235294,
+        "word": "大盛り",
+        "count": 9,
+        "font_size": 6,
+        "x": 1023.0,
+        "y": 1891.0,
+        "norm_x": 44.478261,
+        "norm_y": 94.55,
         "orientation": null,
-        "color": "rgb(115, 150, 245)",
+        "color": "rgb(183, 207, 249)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "焼きそば",
+        "count": 9,
+        "font_size": 4,
+        "x": 1024.0,
+        "y": 1897.0,
+        "norm_x": 44.521739,
+        "norm_y": 94.85,
+        "orientation": null,
+        "color": "rgb(234, 123, 96)",
         "print_area_x": [
           0,
           3000
@@ -287,8 +334,66 @@
     ]
   },
   {
-    "name": "菊池郡",
-    "data": []
+    "name": "荒尾市",
+    "data": [
+      {
+        "word": "コーヒー",
+        "count": 4,
+        "font_size": 5,
+        "x": 1003.0,
+        "y": 1884.0,
+        "norm_x": 43.608696,
+        "norm_y": 94.2,
+        "orientation": null,
+        "color": "rgb(150, 183, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ハラ",
+        "count": 4,
+        "font_size": 5,
+        "x": 1008.0,
+        "y": 1877.0,
+        "norm_x": 43.826087,
+        "norm_y": 93.85,
+        "orientation": null,
+        "color": "rgb(229, 112, 88)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "焼肉",
+        "count": 4,
+        "font_size": 5,
+        "x": 1009.0,
+        "y": 1889.0,
+        "norm_x": 43.869565,
+        "norm_y": 94.45,
+        "orientation": null,
+        "color": "rgb(167, 197, 254)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
   },
   {
     "name": "葦北郡",
@@ -296,13 +401,70 @@
       {
         "word": "ヒレ",
         "count": 8,
-        "font_size": 6,
-        "x": 2.0,
-        "y": 7.0,
-        "norm_x": 0.117647,
-        "norm_y": 0.388889,
+        "font_size": 9,
+        "x": 1023.0,
+        "y": 1937.0,
+        "norm_x": 44.478261,
+        "norm_y": 46.119048,
         "orientation": null,
+        "color": "rgb(121, 156, 248)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "タレ",
+        "count": 5,
+        "font_size": 6,
+        "x": 1032.0,
+        "y": 1951.0,
+        "norm_x": 44.869565,
+        "norm_y": 46.452381,
+        "orientation": 2,
+        "color": "rgb(232, 214, 204)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "海老",
+        "count": 4,
+        "font_size": 5,
+        "x": 1024.0,
+        "y": 1954.0,
+        "norm_x": 44.521739,
+        "norm_y": 46.52381,
+        "orientation": 2,
         "color": "rgb(242, 202, 181)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "えび",
+        "count": 3,
+        "font_size": 4,
+        "x": 1030.0,
+        "y": 1930.0,
+        "norm_x": 44.782609,
+        "norm_y": 45.952381,
+        "orientation": null,
+        "color": "rgb(212, 219, 230)",
         "print_area_x": [
           0,
           3000
@@ -320,13 +482,13 @@
       {
         "word": "阿蘇",
         "count": 20,
-        "font_size": 6,
-        "x": 1.0,
-        "y": 5.0,
-        "norm_x": 0.058824,
-        "norm_y": 0.227273,
+        "font_size": 8,
+        "x": 1080.0,
+        "y": 1881.0,
+        "norm_x": 46.956522,
+        "norm_y": 94.05,
         "orientation": null,
-        "color": "rgb(132, 167, 252)",
+        "color": "rgb(148, 182, 255)",
         "print_area_x": [
           0,
           3000
@@ -339,13 +501,13 @@
       {
         "word": "あか",
         "count": 19,
-        "font_size": 5,
-        "x": 4.0,
-        "y": 11.0,
-        "norm_x": 0.235294,
-        "norm_y": 0.5,
+        "font_size": 6,
+        "x": 1081.0,
+        "y": 1889.0,
+        "norm_x": 47.0,
+        "norm_y": 94.45,
         "orientation": null,
-        "color": "rgb(205, 66, 59)",
+        "color": "rgb(99, 132, 235)",
         "print_area_x": [
           0,
           3000
@@ -359,6 +521,45 @@
   },
   {
     "name": "阿蘇郡",
-    "data": []
+    "data": [
+      {
+        "word": "あか",
+        "count": 29,
+        "font_size": 9,
+        "x": 1077.0,
+        "y": 1860.0,
+        "norm_x": 46.826087,
+        "norm_y": 93.0,
+        "orientation": null,
+        "color": "rgb(99, 132, 235)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "阿蘇",
+        "count": 21,
+        "font_size": 6,
+        "x": 1081.0,
+        "y": 1868.0,
+        "norm_x": 47.0,
+        "norm_y": 93.4,
+        "orientation": null,
+        "color": "rgb(158, 190, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
   }
 ]

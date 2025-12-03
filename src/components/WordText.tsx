@@ -42,13 +42,9 @@ const WordText = ({
 }: WordTextProps) => {
   const angle = angleMap[item.orientation?.toString() ?? "0"] ?? 0;
 
-  const x =
-    groupBounds.xlim[0] +
-    (groupBounds.xlim[1] - groupBounds.xlim[0]) * item.norm_x;
+  const x = item.norm_x;
 
-  const y =
-    groupBounds.ylim[0] +
-    (groupBounds.ylim[1] - groupBounds.ylim[0]) * item.norm_y;
+  const y = item.norm_y;
 
   const onClick = (e: MouseEvent<SVGTextElement>) => {
     if (mode) {

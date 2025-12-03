@@ -59,6 +59,7 @@ const MunicipalityMap_detail = ({
     (item: WordLayoutDetailData) => item.word === selectedWord
   );
   const name = feature.properties.N03_004;
+  console.log(findword, selectedWord, name, targetParts);
   return (
     <g key={name + idx} opacity={findword || !selectedWord ? 1 : 0.25}>
       <path

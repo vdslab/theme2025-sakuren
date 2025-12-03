@@ -41,11 +41,10 @@ const MunicipalityMap_wordText = ({
           .range([0, 3000]);
 
         const angle = angleMap[word.orientation?.toString() ?? "0"] ?? 0;
-        const x = xScale(word.x + word.print_area_x[0]);
-        const y = yScale(word.y + word.print_area_y[0]);
+        const x = word.x;
+        const y = word.y;
 
-        const fontSize =
-          ((word.font_size / word.print_area_x[1]) * boundsWidth) / 1.1;
+        const fontSize = word.font_size;
 
         const onClick = (e: React.MouseEvent<SVGTextElement>) => {
           onWordClick(word.word);
