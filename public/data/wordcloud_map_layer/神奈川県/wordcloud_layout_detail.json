@@ -5,20 +5,39 @@
       {
         "word": "マグロ",
         "count": 44,
-        "font_size": 5,
-        "x": 1886.0,
-        "y": 1657.0,
-        "norm_x": 82.0,
-        "norm_y": 82.85,
+        "font_size": 14,
+        "x": 3765.0,
+        "y": 3309.0,
+        "norm_x": 80.106383,
+        "norm_y": 80.707317,
         "orientation": null,
-        "color": "rgb(106, 139, 239)",
+        "color": "rgb(195, 46, 49)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "まぐろ",
+        "count": 20,
+        "font_size": 6,
+        "x": 3778.0,
+        "y": 3329.0,
+        "norm_x": 80.382979,
+        "norm_y": 81.195122,
+        "orientation": null,
+        "color": "rgb(187, 209, 248)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -29,20 +48,58 @@
       {
         "word": "葉山",
         "count": 55,
-        "font_size": 9,
-        "x": 1902.0,
-        "y": 1621.0,
-        "norm_x": 82.695652,
-        "norm_y": 81.05,
+        "font_size": 18,
+        "x": 3803.0,
+        "y": 3245.0,
+        "norm_x": 80.914894,
+        "norm_y": 79.146341,
         "orientation": null,
-        "color": "rgb(235, 125, 98)",
+        "color": "rgb(63, 83, 198)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "コロッケ",
+        "count": 27,
+        "font_size": 8,
+        "x": 3809.0,
+        "y": 3237.0,
+        "norm_x": 81.042553,
+        "norm_y": 78.95122,
+        "orientation": null,
+        "color": "rgb(237, 131, 102)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "かき氷",
+        "count": 14,
+        "font_size": 4,
+        "x": 3809.0,
+        "y": 3230.0,
+        "norm_x": 81.042553,
+        "norm_y": 78.780488,
+        "orientation": null,
+        "color": "rgb(246, 163, 133)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -53,39 +110,96 @@
       {
         "word": "ネギ",
         "count": 17,
-        "font_size": 9,
-        "x": 1811.0,
-        "y": 1610.0,
-        "norm_x": 78.73913,
-        "norm_y": 80.5,
+        "font_size": 20,
+        "x": 3621.0,
+        "y": 3220.0,
+        "norm_x": 77.042553,
+        "norm_y": 76.666667,
         "orientation": null,
-        "color": "rgb(193, 212, 244)",
+        "color": "rgb(247, 180, 151)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "肉汁",
         "count": 14,
-        "font_size": 5,
-        "x": 1815.0,
-        "y": 1618.0,
-        "norm_x": 78.913043,
-        "norm_y": 80.9,
+        "font_size": 11,
+        "x": 3627.0,
+        "y": 3207.0,
+        "norm_x": 77.170213,
+        "norm_y": 76.357143,
         "orientation": null,
-        "color": "rgb(244, 198, 175)",
+        "color": "rgb(234, 212, 200)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "大磯",
+        "count": 11,
+        "font_size": 9,
+        "x": 3625.0,
+        "y": 3237.0,
+        "norm_x": 77.12766,
+        "norm_y": 77.071429,
+        "orientation": null,
+        "color": "rgb(173, 201, 253)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ワンタン",
+        "count": 10,
+        "font_size": 6,
+        "x": 3628.0,
+        "y": 3245.0,
+        "norm_x": 77.191489,
+        "norm_y": 77.261905,
+        "orientation": null,
+        "color": "rgb(165, 195, 254)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "素敵",
+        "count": 10,
+        "font_size": 6,
+        "x": 3646.0,
+        "y": 3236.0,
+        "norm_x": 77.574468,
+        "norm_y": 77.047619,
+        "orientation": null,
+        "color": "rgb(199, 215, 240)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -96,39 +210,58 @@
       {
         "word": "ネギ",
         "count": 9,
-        "font_size": 9,
-        "x": 1792.0,
-        "y": 1578.0,
-        "norm_x": 77.913043,
-        "norm_y": 78.9,
+        "font_size": 20,
+        "x": 3583.0,
+        "y": 3158.0,
+        "norm_x": 76.234043,
+        "norm_y": 77.02439,
         "orientation": null,
-        "color": "rgb(201, 215, 240)",
+        "color": "rgb(243, 149, 119)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "豆腐",
         "count": 5,
-        "font_size": 5,
-        "x": 1797.0,
-        "y": 1587.0,
-        "norm_x": 78.130435,
-        "norm_y": 79.35,
+        "font_size": 11,
+        "x": 3595.0,
+        "y": 3176.0,
+        "norm_x": 76.489362,
+        "norm_y": 77.463415,
         "orientation": null,
-        "color": "rgb(247, 177, 148)",
+        "color": "rgb(242, 144, 114)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "ケーキ",
+        "count": 4,
+        "font_size": 9,
+        "x": 3590.0,
+        "y": 3148.0,
+        "norm_x": 76.382979,
+        "norm_y": 76.780488,
+        "orientation": null,
+        "color": "rgb(198, 214, 241)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -139,58 +272,96 @@
       {
         "word": "ホルモン",
         "count": 9,
-        "font_size": 5,
-        "x": 1792.0,
-        "y": 1559.0,
-        "norm_x": 77.913043,
-        "norm_y": 77.95,
+        "font_size": 11,
+        "x": 3581.0,
+        "y": 3119.0,
+        "norm_x": 76.191489,
+        "norm_y": 76.073171,
         "orientation": null,
-        "color": "rgb(137, 172, 253)",
+        "color": "rgb(212, 78, 65)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "支払い",
         "count": 9,
-        "font_size": 5,
-        "x": 1794.0,
-        "y": 1563.0,
-        "norm_x": 78.0,
-        "norm_y": 78.15,
+        "font_size": 10,
+        "x": 3590.0,
+        "y": 3130.0,
+        "norm_x": 76.382979,
+        "norm_y": 76.341463,
         "orientation": null,
-        "color": "rgb(74, 99, 211)",
+        "color": "rgb(199, 54, 53)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "方法",
         "count": 9,
-        "font_size": 5,
-        "x": 1797.0,
-        "y": 1551.0,
-        "norm_x": 78.130435,
-        "norm_y": 77.55,
+        "font_size": 9,
+        "x": 3597.0,
+        "y": 3104.0,
+        "norm_x": 76.531915,
+        "norm_y": 75.707317,
         "orientation": null,
-        "color": "rgb(222, 220, 219)",
+        "color": "rgb(189, 31, 45)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "距離",
+        "count": 9,
+        "font_size": 5,
+        "x": 3602.0,
+        "y": 3139.0,
+        "norm_x": 76.638298,
+        "norm_y": 76.560976,
+        "orientation": null,
+        "color": "rgb(112, 147, 243)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ピザ",
+        "count": 8,
+        "font_size": 4,
+        "x": 3587.0,
+        "y": 3111.0,
+        "norm_x": 76.319149,
+        "norm_y": 75.878049,
+        "orientation": null,
+        "color": "rgb(242, 203, 183)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -201,20 +372,96 @@
       {
         "word": "チーズ",
         "count": 13,
-        "font_size": 6,
-        "x": 1848.0,
-        "y": 1568.0,
-        "norm_x": 80.347826,
-        "norm_y": 74.666667,
+        "font_size": 14,
+        "x": 3693.0,
+        "y": 3140.0,
+        "norm_x": 78.574468,
+        "norm_y": 76.585366,
         "orientation": null,
-        "color": "rgb(144, 178, 254)",
+        "color": "rgb(247, 185, 158)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "ハイボール",
+        "count": 8,
+        "font_size": 7,
+        "x": 3696.0,
+        "y": 3151.0,
+        "norm_x": 78.638298,
+        "norm_y": 76.853659,
+        "orientation": null,
+        "color": "rgb(128, 163, 250)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "大和",
+        "count": 8,
+        "font_size": 7,
+        "x": 3712.0,
+        "y": 3159.0,
+        "norm_x": 78.978723,
+        "norm_y": 77.04878,
+        "orientation": null,
+        "color": "rgb(246, 162, 131)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "パスタ",
+        "count": 6,
+        "font_size": 5,
+        "x": 3695.0,
+        "y": 3132.0,
+        "norm_x": 78.617021,
+        "norm_y": 76.390244,
+        "orientation": null,
+        "color": "rgb(195, 213, 244)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ホルモン",
+        "count": 6,
+        "font_size": 5,
+        "x": 3713.0,
+        "y": 3133.0,
+        "norm_x": 79.0,
+        "norm_y": 76.414634,
+        "orientation": null,
+        "color": "rgb(234, 123, 96)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -225,20 +472,96 @@
       {
         "word": "小田原",
         "count": 19,
-        "font_size": 6,
-        "x": 1792.0,
-        "y": 1601.0,
-        "norm_x": 77.913043,
-        "norm_y": 80.05,
+        "font_size": 14,
+        "x": 3583.0,
+        "y": 3201.0,
+        "norm_x": 76.234043,
+        "norm_y": 78.073171,
         "orientation": null,
-        "color": "rgb(202, 216, 239)",
+        "color": "rgb(196, 213, 243)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "おでん",
+        "count": 14,
+        "font_size": 10,
+        "x": 3591.0,
+        "y": 3214.0,
+        "norm_x": 76.404255,
+        "norm_y": 78.390244,
+        "orientation": null,
+        "color": "rgb(132, 167, 252)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "お通し",
+        "count": 12,
+        "font_size": 9,
+        "x": 3592.0,
+        "y": 3190.0,
+        "norm_x": 76.425532,
+        "norm_y": 77.804878,
+        "orientation": null,
+        "color": "rgb(233, 120, 93)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ビール",
+        "count": 10,
+        "font_size": 6,
+        "x": 3592.0,
+        "y": 3223.0,
+        "norm_x": 76.425532,
+        "norm_y": 78.609756,
+        "orientation": null,
+        "color": "rgb(233, 120, 93)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "駅前",
+        "count": 8,
+        "font_size": 4,
+        "x": 3611.0,
+        "y": 3222.0,
+        "norm_x": 76.829787,
+        "norm_y": 78.585366,
+        "orientation": null,
+        "color": "rgb(183, 13, 40)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -249,39 +572,96 @@
       {
         "word": "焼き鳥",
         "count": 19,
-        "font_size": 6,
-        "x": 1866.0,
-        "y": 1578.0,
-        "norm_x": 77.75,
-        "norm_y": 78.9,
+        "font_size": 14,
+        "x": 3729.0,
+        "y": 3162.0,
+        "norm_x": 79.340426,
+        "norm_y": 77.121951,
         "orientation": null,
-        "color": "rgb(197, 51, 52)",
+        "color": "rgb(229, 112, 88)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "おでん",
         "count": 12,
-        "font_size": 4,
-        "x": 1869.0,
-        "y": 1585.0,
-        "norm_x": 77.875,
-        "norm_y": 79.25,
+        "font_size": 9,
+        "x": 3737.0,
+        "y": 3177.0,
+        "norm_x": 79.510638,
+        "norm_y": 77.487805,
         "orientation": null,
-        "color": "rgb(155, 188, 255)",
+        "color": "rgb(211, 219, 231)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "川崎",
+        "count": 12,
+        "font_size": 9,
+        "x": 3736.0,
+        "y": 3147.0,
+        "norm_x": 79.489362,
+        "norm_y": 76.756098,
+        "orientation": null,
+        "color": "rgb(247, 169, 139)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ユッケ",
+        "count": 10,
+        "font_size": 5,
+        "x": 3751.0,
+        "y": 3155.0,
+        "norm_x": 79.808511,
+        "norm_y": 76.95122,
+        "orientation": null,
+        "color": "rgb(220, 221, 221)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "居酒屋",
+        "count": 8,
+        "font_size": 4,
+        "x": 3736.0,
+        "y": 3155.0,
+        "norm_x": 79.489362,
+        "norm_y": 76.95122,
+        "orientation": null,
+        "color": "rgb(118, 153, 246)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -292,39 +672,77 @@
       {
         "word": "カワハギ",
         "count": 5,
-        "font_size": 5,
-        "x": 1810.0,
-        "y": 1590.0,
-        "norm_x": 78.695652,
-        "norm_y": 79.5,
+        "font_size": 11,
+        "x": 3619.0,
+        "y": 3182.0,
+        "norm_x": 78.673913,
+        "norm_y": 75.761905,
         "orientation": null,
-        "color": "rgb(214, 220, 228)",
+        "color": "rgb(241, 204, 184)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "和食",
         "count": 5,
-        "font_size": 5,
-        "x": 1816.0,
-        "y": 1597.0,
-        "norm_x": 78.956522,
-        "norm_y": 79.85,
+        "font_size": 11,
+        "x": 3628.0,
+        "y": 3168.0,
+        "norm_x": 78.869565,
+        "norm_y": 75.428571,
         "orientation": null,
-        "color": "rgb(115, 150, 245)",
+        "color": "rgb(240, 138, 108)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "たくさん",
+        "count": 4,
+        "font_size": 9,
+        "x": 3623.0,
+        "y": 3192.0,
+        "norm_x": 78.76087,
+        "norm_y": 76.0,
+        "orientation": null,
+        "color": "rgb(134, 169, 252)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "お通し",
+        "count": 3,
+        "font_size": 7,
+        "x": 3634.0,
+        "y": 3199.0,
+        "norm_x": 79.0,
+        "norm_y": 76.166667,
+        "orientation": null,
+        "color": "rgb(237, 131, 102)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -335,39 +753,58 @@
       {
         "word": "手羽",
         "count": 6,
-        "font_size": 8,
-        "x": 1811.0,
-        "y": 1566.0,
-        "norm_x": 78.73913,
-        "norm_y": 74.571429,
+        "font_size": 19,
+        "x": 3621.0,
+        "y": 3134.0,
+        "norm_x": 78.717391,
+        "norm_y": 76.439024,
         "orientation": null,
-        "color": "rgb(217, 220, 225)",
+        "color": "rgb(247, 184, 156)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "ピザ",
         "count": 5,
-        "font_size": 7,
-        "x": 1813.0,
-        "y": 1573.0,
-        "norm_x": 78.826087,
-        "norm_y": 74.904762,
+        "font_size": 14,
+        "x": 3625.0,
+        "y": 3150.0,
+        "norm_x": 78.804348,
+        "norm_y": 76.829268,
         "orientation": null,
-        "color": "rgb(157, 189, 255)",
+        "color": "rgb(146, 180, 254)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "レバー",
+        "count": 5,
+        "font_size": 8,
+        "x": 3628.0,
+        "y": 3123.0,
+        "norm_x": 78.869565,
+        "norm_y": 76.170732,
+        "orientation": null,
+        "color": "rgb(61, 80, 195)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -378,58 +815,96 @@
       {
         "word": "パフェ",
         "count": 13,
-        "font_size": 6,
-        "x": 1774.0,
-        "y": 1548.0,
-        "norm_x": 77.130435,
-        "norm_y": 77.4,
+        "font_size": 14,
+        "x": 3547.0,
+        "y": 3100.0,
+        "norm_x": 75.468085,
+        "norm_y": 73.809524,
         "orientation": null,
-        "color": "rgb(107, 141, 240)",
+        "color": "rgb(64, 85, 200)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "清川",
         "count": 9,
-        "font_size": 4,
-        "x": 1781.0,
-        "y": 1542.0,
-        "norm_x": 77.434783,
-        "norm_y": 77.1,
+        "font_size": 10,
+        "x": 3560.0,
+        "y": 3111.0,
+        "norm_x": 75.744681,
+        "norm_y": 74.071429,
         "orientation": null,
-        "color": "rgb(191, 211, 246)",
+        "color": "rgb(118, 153, 246)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "カフェ",
         "count": 8,
-        "font_size": 4,
-        "x": 1777.0,
-        "y": 1555.0,
-        "norm_x": 77.26087,
-        "norm_y": 77.75,
+        "font_size": 8,
+        "x": 3557.0,
+        "y": 3089.0,
+        "norm_x": 75.680851,
+        "norm_y": 73.547619,
         "orientation": null,
-        "color": "rgb(225, 218, 214)",
+        "color": "rgb(228, 110, 86)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "テラス",
+        "count": 8,
+        "font_size": 6,
+        "x": 3559.0,
+        "y": 3081.0,
+        "norm_x": 75.723404,
+        "norm_y": 73.357143,
+        "orientation": null,
+        "color": "rgb(247, 184, 156)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ハンバーグ",
+        "count": 7,
+        "font_size": 4,
+        "x": 3557.0,
+        "y": 3120.0,
+        "norm_x": 75.680851,
+        "norm_y": 74.285714,
+        "orientation": null,
+        "color": "rgb(224, 219, 216)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -440,58 +915,229 @@
       {
         "word": "ビール",
         "count": 10,
-        "font_size": 9,
-        "x": 1872.0,
-        "y": 1594.0,
-        "norm_x": 44.571429,
-        "norm_y": 53.133333,
+        "font_size": 22,
+        "x": 3735.0,
+        "y": 3189.0,
+        "norm_x": 44.464286,
+        "norm_y": 51.435484,
         "orientation": null,
-        "color": "rgb(106, 139, 239)",
+        "color": "rgb(230, 114, 89)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "横浜",
         "count": 10,
-        "font_size": 7,
-        "x": 1885.0,
-        "y": 1587.0,
-        "norm_x": 44.880952,
-        "norm_y": 52.9,
+        "font_size": 18,
+        "x": 3733.0,
+        "y": 3205.0,
+        "norm_x": 44.440476,
+        "norm_y": 51.693548,
         "orientation": null,
-        "color": "rgb(242, 203, 183)",
+        "color": "rgb(226, 218, 213)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "マグロ",
         "count": 9,
-        "font_size": 5,
-        "x": 1868.0,
-        "y": 1604.0,
-        "norm_x": 44.47619,
-        "norm_y": 53.466667,
+        "font_size": 12,
+        "x": 3769.0,
+        "y": 3177.0,
+        "norm_x": 44.869048,
+        "norm_y": 51.241935,
         "orientation": null,
-        "color": "rgb(118, 153, 246)",
+        "color": "rgb(151, 184, 255)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "アワー",
+        "count": 7,
+        "font_size": 9,
+        "x": 3773.0,
+        "y": 3167.0,
+        "norm_x": 44.916667,
+        "norm_y": 51.080645,
+        "orientation": null,
+        "color": "rgb(238, 132, 104)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ハッピー",
+        "count": 6,
+        "font_size": 6,
+        "x": 3756.0,
+        "y": 3187.0,
+        "norm_x": 44.714286,
+        "norm_y": 51.403226,
+        "orientation": null,
+        "color": "rgb(231, 215, 206)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "飲み物",
+        "count": 6,
+        "font_size": 6,
+        "x": 3740.0,
+        "y": 3222.0,
+        "norm_x": 44.52381,
+        "norm_y": 51.967742,
+        "orientation": null,
+        "color": "rgb(245, 194, 170)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "カウンター",
+        "count": 5,
+        "font_size": 5,
+        "x": 3753.0,
+        "y": 3199.0,
+        "norm_x": 44.678571,
+        "norm_y": 51.596774,
+        "orientation": null,
+        "color": "rgb(141, 176, 254)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ドリンク",
+        "count": 5,
+        "font_size": 4,
+        "x": 3794.0,
+        "y": 3186.0,
+        "norm_x": 45.166667,
+        "norm_y": 51.387097,
+        "orientation": null,
+        "color": "rgb(245, 156, 125)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "清潔",
+        "count": 5,
+        "font_size": 4,
+        "x": 3767.0,
+        "y": 3204.0,
+        "norm_x": 44.845238,
+        "norm_y": 51.677419,
+        "orientation": null,
+        "color": "rgb(244, 198, 175)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "焼肉",
+        "count": 5,
+        "font_size": 4,
+        "x": 3727.0,
+        "y": 3205.0,
+        "norm_x": 44.369048,
+        "norm_y": 51.693548,
+        "orientation": 2,
+        "color": "rgb(147, 181, 254)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "盛り",
+        "count": 5,
+        "font_size": 4,
+        "x": 3758.0,
+        "y": 3220.0,
+        "norm_x": 44.738095,
+        "norm_y": 51.935484,
+        "orientation": 2,
+        "color": "rgb(85, 114, 223)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "野毛",
+        "count": 5,
+        "font_size": 4,
+        "x": 3777.0,
+        "y": 3191.0,
+        "norm_x": 44.964286,
+        "norm_y": 51.467742,
+        "orientation": 2,
+        "color": "rgb(242, 146, 116)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -502,58 +1148,286 @@
       {
         "word": "ナン",
         "count": 7,
-        "font_size": 12,
-        "x": 1906.0,
-        "y": 1636.0,
-        "norm_x": 46.487805,
-        "norm_y": 32.078431,
+        "font_size": 27,
+        "x": 3814.0,
+        "y": 3271.0,
+        "norm_x": 45.951807,
+        "norm_y": 31.152381,
         "orientation": null,
-        "color": "rgb(64, 85, 200)",
+        "color": "rgb(238, 134, 105)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "横須賀",
         "count": 7,
-        "font_size": 6,
-        "x": 1920.0,
-        "y": 1610.0,
-        "norm_x": 46.829268,
-        "norm_y": 31.568627,
+        "font_size": 13,
+        "x": 3840.0,
+        "y": 3225.0,
+        "norm_x": 46.26506,
+        "norm_y": 30.714286,
         "orientation": null,
-        "color": "rgb(86, 115, 224)",
+        "color": "rgb(88, 117, 225)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "チキン",
         "count": 6,
-        "font_size": 5,
-        "x": 1921.0,
-        "y": 1630.0,
-        "norm_x": 46.853659,
-        "norm_y": 31.960784,
-        "orientation": null,
-        "color": "rgb(130, 166, 251)",
+        "font_size": 11,
+        "x": 3861.0,
+        "y": 3241.0,
+        "norm_x": 46.518072,
+        "norm_y": 30.866667,
+        "orientation": 2,
+        "color": "rgb(102, 135, 237)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "テーブル",
+        "count": 4,
+        "font_size": 7,
+        "x": 3844.0,
+        "y": 3213.0,
+        "norm_x": 46.313253,
+        "norm_y": 30.6,
+        "orientation": null,
+        "color": "rgb(187, 27, 44)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "友達",
+        "count": 4,
+        "font_size": 7,
+        "x": 3802.0,
+        "y": 3289.0,
+        "norm_x": 45.807229,
+        "norm_y": 31.32381,
+        "orientation": null,
+        "color": "rgb(69, 92, 206)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "お客",
+        "count": 3,
+        "font_size": 5,
+        "x": 3815.0,
+        "y": 3300.0,
+        "norm_x": 45.963855,
+        "norm_y": 31.428571,
+        "orientation": null,
+        "color": "rgb(198, 214, 241)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ところ",
+        "count": 3,
+        "font_size": 5,
+        "x": 3868.0,
+        "y": 3271.0,
+        "norm_x": 46.60241,
+        "norm_y": 31.152381,
+        "orientation": null,
+        "color": "rgb(237, 209, 194)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "コーヒー",
+        "count": 3,
+        "font_size": 5,
+        "x": 3816.0,
+        "y": 3294.0,
+        "norm_x": 45.975904,
+        "norm_y": 31.371429,
+        "orientation": null,
+        "color": "rgb(207, 218, 234)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "パスタ",
+        "count": 3,
+        "font_size": 5,
+        "x": 3845.0,
+        "y": 3267.0,
+        "norm_x": 46.325301,
+        "norm_y": 31.114286,
+        "orientation": null,
+        "color": "rgb(184, 18, 42)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "便利",
+        "count": 3,
+        "font_size": 5,
+        "x": 3806.0,
+        "y": 3281.0,
+        "norm_x": 45.855422,
+        "norm_y": 31.247619,
+        "orientation": null,
+        "color": "rgb(241, 204, 184)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "喫煙",
+        "count": 3,
+        "font_size": 5,
+        "x": 3865.0,
+        "y": 3282.0,
+        "norm_x": 46.566265,
+        "norm_y": 31.257143,
+        "orientation": null,
+        "color": "rgb(218, 220, 224)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "外国",
+        "count": 3,
+        "font_size": 5,
+        "x": 3847.0,
+        "y": 3243.0,
+        "norm_x": 46.349398,
+        "norm_y": 30.885714,
+        "orientation": null,
+        "color": "rgb(225, 103, 81)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "子供",
+        "count": 3,
+        "font_size": 5,
+        "x": 3838.0,
+        "y": 3277.0,
+        "norm_x": 46.240964,
+        "norm_y": 31.209524,
+        "orientation": 2,
+        "color": "rgb(210, 219, 232)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "海軍",
+        "count": 3,
+        "font_size": 5,
+        "x": 3812.0,
+        "y": 3306.0,
+        "norm_x": 45.927711,
+        "norm_y": 31.485714,
+        "orientation": null,
+        "color": "rgb(140, 175, 254)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "飲み物",
+        "count": 3,
+        "font_size": 5,
+        "x": 3826.0,
+        "y": 3301.0,
+        "norm_x": 46.096386,
+        "norm_y": 31.438095,
+        "orientation": null,
+        "color": "rgb(199, 54, 53)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -564,39 +1438,115 @@
       {
         "word": "パスタ",
         "count": 14,
-        "font_size": 6,
-        "x": 1830.0,
-        "y": 1579.0,
-        "norm_x": 79.565217,
-        "norm_y": 78.95,
+        "font_size": 14,
+        "x": 3656.0,
+        "y": 3161.0,
+        "norm_x": 77.787234,
+        "norm_y": 77.097561,
         "orientation": null,
-        "color": "rgb(205, 217, 236)",
+        "color": "rgb(246, 165, 134)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "海老名",
         "count": 12,
-        "font_size": 4,
-        "x": 1832.0,
-        "y": 1585.0,
-        "norm_x": 79.652174,
-        "norm_y": 79.25,
+        "font_size": 10,
+        "x": 3661.0,
+        "y": 3172.0,
+        "norm_x": 77.893617,
+        "norm_y": 77.365854,
         "orientation": null,
-        "color": "rgb(244, 152, 122)",
+        "color": "rgb(222, 97, 77)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "土鍋",
+        "count": 8,
+        "font_size": 7,
+        "x": 3671.0,
+        "y": 3181.0,
+        "norm_x": 78.106383,
+        "norm_y": 77.585366,
+        "orientation": null,
+        "color": "rgb(243, 148, 117)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "デザート",
+        "count": 7,
+        "font_size": 6,
+        "x": 3667.0,
+        "y": 3146.0,
+        "norm_x": 78.021277,
+        "norm_y": 76.731707,
+        "orientation": null,
+        "color": "rgb(123, 159, 249)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ビーフ",
+        "count": 7,
+        "font_size": 6,
+        "x": 3659.0,
+        "y": 3154.0,
+        "norm_x": 77.851064,
+        "norm_y": 76.926829,
+        "orientation": null,
+        "color": "rgb(225, 218, 214)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ロースト",
+        "count": 7,
+        "font_size": 4,
+        "x": 3677.0,
+        "y": 3153.0,
+        "norm_x": 78.234043,
+        "norm_y": 76.902439,
+        "orientation": null,
+        "color": "rgb(236, 129, 101)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -607,39 +1557,58 @@
       {
         "word": "タン",
         "count": 19,
-        "font_size": 9,
-        "x": 1774.0,
-        "y": 1567.0,
-        "norm_x": 77.130435,
-        "norm_y": 74.619048,
+        "font_size": 19,
+        "x": 3550.0,
+        "y": 3137.0,
+        "norm_x": 75.531915,
+        "norm_y": 76.512195,
         "orientation": null,
-        "color": "rgb(245, 194, 170)",
+        "color": "rgb(86, 115, 224)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "豆腐",
         "count": 18,
-        "font_size": 6,
-        "x": 1777.0,
-        "y": 1575.0,
-        "norm_x": 77.26087,
-        "norm_y": 75.0,
+        "font_size": 12,
+        "x": 3557.0,
+        "y": 3123.0,
+        "norm_x": 75.680851,
+        "norm_y": 76.170732,
         "orientation": null,
-        "color": "rgb(243, 200, 178)",
+        "color": "rgb(183, 13, 40)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "カルビ",
+        "count": 12,
+        "font_size": 8,
+        "x": 3554.0,
+        "y": 3154.0,
+        "norm_x": 75.617021,
+        "norm_y": 76.926829,
+        "orientation": null,
+        "color": "rgb(133, 168, 252)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -650,20 +1619,39 @@
       {
         "word": "コーヒー",
         "count": 13,
-        "font_size": 4,
-        "x": 1849.0,
-        "y": 1591.0,
-        "norm_x": 80.391304,
-        "norm_y": 79.55,
+        "font_size": 11,
+        "x": 3691.0,
+        "y": 3183.0,
+        "norm_x": 78.531915,
+        "norm_y": 75.785714,
         "orientation": null,
-        "color": "rgb(228, 110, 86)",
+        "color": "rgb(236, 127, 99)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "ソース",
+        "count": 5,
+        "font_size": 4,
+        "x": 3712.0,
+        "y": 3196.0,
+        "norm_x": 78.978723,
+        "norm_y": 76.095238,
+        "orientation": null,
+        "color": "rgb(166, 196, 254)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -674,20 +1662,115 @@
       {
         "word": "エリア",
         "count": 8,
-        "font_size": 6,
-        "x": 1829.0,
-        "y": 1621.0,
-        "norm_x": 79.521739,
-        "norm_y": 81.05,
+        "font_size": 14,
+        "x": 3655.0,
+        "y": 3246.0,
+        "norm_x": 77.765957,
+        "norm_y": 79.170732,
         "orientation": null,
-        "color": "rgb(243, 149, 119)",
+        "color": "rgb(247, 185, 158)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "デザート",
+        "count": 8,
+        "font_size": 8,
+        "x": 3660.0,
+        "y": 3258.0,
+        "norm_x": 77.87234,
+        "norm_y": 79.463415,
+        "orientation": null,
+        "color": "rgb(232, 214, 204)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "アジ",
+        "count": 7,
+        "font_size": 7,
+        "x": 3668.0,
+        "y": 3265.0,
+        "norm_x": 78.042553,
+        "norm_y": 79.634146,
+        "orientation": null,
+        "color": "rgb(190, 36, 46)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "握り",
+        "count": 7,
+        "font_size": 7,
+        "x": 3665.0,
+        "y": 3234.0,
+        "norm_x": 77.978723,
+        "norm_y": 78.878049,
+        "orientation": null,
+        "color": "rgb(104, 138, 239)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "茅ヶ崎",
+        "count": 7,
+        "font_size": 6,
+        "x": 3677.0,
+        "y": 3237.0,
+        "norm_x": 78.234043,
+        "norm_y": 78.95122,
+        "orientation": null,
+        "color": "rgb(237, 131, 102)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "飲み物",
+        "count": 6,
+        "font_size": 4,
+        "x": 3678.0,
+        "y": 3229.0,
+        "norm_x": 78.255319,
+        "norm_y": 78.756098,
+        "orientation": null,
+        "color": "rgb(143, 177, 254)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -698,39 +1781,77 @@
       {
         "word": "藤沢",
         "count": 18,
-        "font_size": 8,
-        "x": 1849.0,
-        "y": 1613.0,
-        "norm_x": 80.391304,
-        "norm_y": 80.65,
+        "font_size": 20,
+        "x": 3693.0,
+        "y": 3220.0,
+        "norm_x": 78.574468,
+        "norm_y": 76.666667,
         "orientation": null,
-        "color": "rgb(234, 123, 96)",
+        "color": "rgb(67, 88, 203)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "おでん",
         "count": 10,
-        "font_size": 4,
-        "x": 1850.0,
-        "y": 1605.0,
-        "norm_x": 80.434783,
-        "norm_y": 80.25,
+        "font_size": 10,
+        "x": 3698.0,
+        "y": 3238.0,
+        "norm_x": 78.680851,
+        "norm_y": 77.095238,
         "orientation": null,
-        "color": "rgb(107, 141, 240)",
+        "color": "rgb(115, 150, 245)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "居酒屋",
+        "count": 9,
+        "font_size": 8,
+        "x": 3703.0,
+        "y": 3208.0,
+        "norm_x": 78.787234,
+        "norm_y": 76.380952,
+        "orientation": null,
+        "color": "rgb(243, 149, 119)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "佐藤",
+        "count": 6,
+        "font_size": 4,
+        "x": 3717.0,
+        "y": 3246.0,
+        "norm_x": 79.085106,
+        "norm_y": 77.285714,
+        "orientation": null,
+        "color": "rgb(241, 143, 113)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -741,39 +1862,77 @@
       {
         "word": "大盛り",
         "count": 49,
-        "font_size": 6,
-        "x": 1756.0,
-        "y": 1538.0,
-        "norm_x": 76.347826,
-        "norm_y": 76.9,
+        "font_size": 13,
+        "x": 3511.0,
+        "y": 3077.0,
+        "norm_x": 74.702128,
+        "norm_y": 75.04878,
         "orientation": null,
-        "color": "rgb(76, 102, 214)",
+        "color": "rgb(245, 193, 169)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "ネギ",
         "count": 40,
-        "font_size": 5,
-        "x": 1760.0,
-        "y": 1530.0,
-        "norm_x": 76.521739,
-        "norm_y": 76.5,
+        "font_size": 11,
+        "x": 3522.0,
+        "y": 3063.0,
+        "norm_x": 74.93617,
+        "norm_y": 74.707317,
         "orientation": null,
-        "color": "rgb(240, 139, 110)",
+        "color": "rgb(94, 125, 231)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "コーヒー",
+        "count": 38,
+        "font_size": 8,
+        "x": 3515.0,
+        "y": 3092.0,
+        "norm_x": 74.787234,
+        "norm_y": 75.414634,
+        "orientation": null,
+        "color": "rgb(203, 62, 56)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "帰り",
+        "count": 38,
+        "font_size": 4,
+        "x": 3532.0,
+        "y": 3098.0,
+        "norm_x": 75.148936,
+        "norm_y": 75.560976,
+        "orientation": null,
+        "color": "rgb(67, 88, 203)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -784,58 +1943,286 @@
       {
         "word": "湯河原",
         "count": 20,
-        "font_size": 6,
-        "x": 1792.0,
-        "y": 1622.0,
-        "norm_x": 43.707317,
-        "norm_y": 31.803922,
+        "font_size": 13,
+        "x": 3584.0,
+        "y": 3242.0,
+        "norm_x": 42.666667,
+        "norm_y": 31.173077,
         "orientation": null,
-        "color": "rgb(222, 97, 77)",
+        "color": "rgb(245, 159, 128)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "箱根",
         "count": 17,
-        "font_size": 5,
-        "x": 1777.0,
-        "y": 1584.0,
-        "norm_x": 43.341463,
-        "norm_y": 31.058824,
-        "orientation": 2,
-        "color": "rgb(206, 218, 235)",
+        "font_size": 11,
+        "x": 3555.0,
+        "y": 3176.0,
+        "norm_x": 42.321429,
+        "norm_y": 30.538462,
+        "orientation": null,
+        "color": "rgb(181, 9, 39)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "真鶴",
         "count": 15,
-        "font_size": 4,
-        "x": 1799.0,
-        "y": 1615.0,
-        "norm_x": 43.878049,
-        "norm_y": 31.666667,
+        "font_size": 10,
+        "x": 3586.0,
+        "y": 3254.0,
+        "norm_x": 42.690476,
+        "norm_y": 31.288462,
         "orientation": null,
-        "color": "rgb(174, 201, 252)",
+        "color": "rgb(132, 167, 252)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "パスタ",
+        "count": 13,
+        "font_size": 9,
+        "x": 3547.0,
+        "y": 3188.0,
+        "norm_x": 42.22619,
+        "norm_y": 30.653846,
+        "orientation": null,
+        "color": "rgb(201, 215, 240)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "素敵",
+        "count": 13,
+        "font_size": 9,
+        "x": 3577.0,
+        "y": 3178.0,
+        "norm_x": 42.583333,
+        "norm_y": 30.557692,
+        "orientation": 2,
+        "color": "rgb(245, 159, 128)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "近く",
+        "count": 12,
+        "font_size": 8,
+        "x": 3560.0,
+        "y": 3198.0,
+        "norm_x": 42.380952,
+        "norm_y": 30.75,
+        "orientation": null,
+        "color": "rgb(152, 185, 255)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "こちら",
+        "count": 11,
+        "font_size": 7,
+        "x": 3592.0,
+        "y": 3264.0,
+        "norm_x": 42.761905,
+        "norm_y": 31.384615,
+        "orientation": null,
+        "color": "rgb(238, 134, 105)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ピザ",
+        "count": 11,
+        "font_size": 7,
+        "x": 3608.0,
+        "y": 3254.0,
+        "norm_x": 42.952381,
+        "norm_y": 31.288462,
+        "orientation": null,
+        "color": "rgb(196, 48, 50)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "全て",
+        "count": 9,
+        "font_size": 6,
+        "x": 3597.0,
+        "y": 3230.0,
+        "norm_x": 42.821429,
+        "norm_y": 31.057692,
+        "orientation": null,
+        "color": "rgb(228, 217, 210)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "建物",
+        "count": 8,
+        "font_size": 5,
+        "x": 3555.0,
+        "y": 3166.0,
+        "norm_x": 42.321429,
+        "norm_y": 30.442308,
+        "orientation": null,
+        "color": "rgb(245, 159, 128)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "景色",
+        "count": 8,
+        "font_size": 5,
+        "x": 3566.0,
+        "y": 3167.0,
+        "norm_x": 42.452381,
+        "norm_y": 30.451923,
+        "orientation": null,
+        "color": "rgb(238, 208, 192)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "バーガー",
+        "count": 7,
+        "font_size": 4,
+        "x": 3590.0,
+        "y": 3237.0,
+        "norm_x": 42.738095,
+        "norm_y": 31.125,
+        "orientation": null,
+        "color": "rgb(246, 189, 162)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "地元",
+        "count": 7,
+        "font_size": 4,
+        "x": 3574.0,
+        "y": 3198.0,
+        "norm_x": 42.547619,
+        "norm_y": 30.75,
+        "orientation": null,
+        "color": "rgb(214, 82, 68)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "宿泊",
+        "count": 7,
+        "font_size": 4,
+        "x": 3545.0,
+        "y": 3181.0,
+        "norm_x": 42.202381,
+        "norm_y": 30.586538,
+        "orientation": null,
+        "color": "rgb(247, 179, 150)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "邪魔",
+        "count": 7,
+        "font_size": 4,
+        "x": 3609.0,
+        "y": 3229.0,
+        "norm_x": 42.964286,
+        "norm_y": 31.048077,
+        "orientation": null,
+        "color": "rgb(240, 138, 108)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -846,96 +2233,343 @@
       {
         "word": "パスタ",
         "count": 11,
-        "font_size": 10,
-        "x": 1869.0,
-        "y": 1637.0,
-        "norm_x": 31.677966,
-        "norm_y": 26.403226,
+        "font_size": 22,
+        "x": 3735.0,
+        "y": 3273.0,
+        "norm_x": 31.125,
+        "norm_y": 25.97619,
         "orientation": null,
-        "color": "rgb(181, 9, 39)",
+        "color": "rgb(180, 4, 38)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "逗子",
         "count": 11,
-        "font_size": 10,
-        "x": 1893.0,
-        "y": 1604.0,
-        "norm_x": 32.084746,
-        "norm_y": 25.870968,
+        "font_size": 22,
+        "x": 3783.0,
+        "y": 3209.0,
+        "norm_x": 31.525,
+        "norm_y": 25.468254,
         "orientation": null,
-        "color": "rgb(62, 81, 197)",
+        "color": "rgb(169, 198, 253)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "ピザ",
         "count": 7,
-        "font_size": 6,
-        "x": 1886.0,
-        "y": 1627.0,
-        "norm_x": 31.966102,
-        "norm_y": 26.241935,
+        "font_size": 14,
+        "x": 3770.0,
+        "y": 3233.0,
+        "norm_x": 31.416667,
+        "norm_y": 25.65873,
         "orientation": null,
-        "color": "rgb(242, 144, 114)",
+        "color": "rgb(239, 136, 107)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "フライ",
         "count": 7,
-        "font_size": 5,
-        "x": 1866.0,
-        "y": 1645.0,
-        "norm_x": 31.627119,
-        "norm_y": 26.532258,
-        "orientation": null,
-        "color": "rgb(72, 95, 209)",
+        "font_size": 14,
+        "x": 3826.0,
+        "y": 3187.0,
+        "norm_x": 31.883333,
+        "norm_y": 25.293651,
+        "orientation": 2,
+        "color": "rgb(188, 210, 247)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "前菜",
         "count": 6,
-        "font_size": 4,
-        "x": 1908.0,
-        "y": 1597.0,
-        "norm_x": 32.338983,
-        "norm_y": 25.758065,
+        "font_size": 12,
+        "x": 3774.0,
+        "y": 3257.0,
+        "norm_x": 31.45,
+        "norm_y": 25.849206,
         "orientation": null,
-        "color": "rgb(204, 64, 58)",
+        "color": "rgb(66, 87, 201)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "バーガー",
+        "count": 5,
+        "font_size": 10,
+        "x": 3729.0,
+        "y": 3289.0,
+        "norm_x": 31.075,
+        "norm_y": 26.103175,
+        "orientation": null,
+        "color": "rgb(59, 76, 192)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ポテト",
+        "count": 5,
+        "font_size": 10,
+        "x": 3735.0,
+        "y": 3300.0,
+        "norm_x": 31.125,
+        "norm_y": 26.190476,
+        "orientation": null,
+        "color": "rgb(177, 203, 252)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "景色",
+        "count": 5,
+        "font_size": 10,
+        "x": 3778.0,
+        "y": 3245.0,
+        "norm_x": 31.483333,
+        "norm_y": 25.753968,
+        "orientation": null,
+        "color": "rgb(106, 139, 239)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ところ",
+        "count": 4,
+        "font_size": 8,
+        "x": 3774.0,
+        "y": 3208.0,
+        "norm_x": 31.45,
+        "norm_y": 25.460317,
+        "orientation": 2,
+        "color": "rgb(247, 172, 142)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "イタリアン",
+        "count": 4,
+        "font_size": 4,
+        "x": 3803.0,
+        "y": 3200.0,
+        "norm_x": 31.691667,
+        "norm_y": 25.396825,
+        "orientation": null,
+        "color": "rgb(192, 212, 245)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "コーヒー",
+        "count": 4,
+        "font_size": 4,
+        "x": 3794.0,
+        "y": 3228.0,
+        "norm_x": 31.616667,
+        "norm_y": 25.619048,
+        "orientation": null,
+        "color": "rgb(245, 194, 170)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "テラス",
+        "count": 4,
+        "font_size": 4,
+        "x": 3738.0,
+        "y": 3311.0,
+        "norm_x": 31.15,
+        "norm_y": 26.277778,
+        "orientation": null,
+        "color": "rgb(240, 205, 187)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "写真",
+        "count": 4,
+        "font_size": 4,
+        "x": 3817.0,
+        "y": 3220.0,
+        "norm_x": 31.808333,
+        "norm_y": 25.555556,
+        "orientation": null,
+        "color": "rgb(137, 172, 253)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "女子",
+        "count": 4,
+        "font_size": 4,
+        "x": 3796.0,
+        "y": 3268.0,
+        "norm_x": 31.633333,
+        "norm_y": 25.936508,
+        "orientation": null,
+        "color": "rgb(203, 62, 56)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "素敵",
+        "count": 4,
+        "font_size": 4,
+        "x": 3833.0,
+        "y": 3211.0,
+        "norm_x": 31.941667,
+        "norm_y": 25.484127,
+        "orientation": null,
+        "color": "rgb(178, 204, 251)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "葉山",
+        "count": 4,
+        "font_size": 4,
+        "x": 3799.0,
+        "y": 3275.0,
+        "norm_x": 31.658333,
+        "norm_y": 25.992063,
+        "orientation": null,
+        "color": "rgb(245, 193, 169)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "都内",
+        "count": 4,
+        "font_size": 4,
+        "x": 3837.0,
+        "y": 3203.0,
+        "norm_x": 31.975,
+        "norm_y": 25.420635,
+        "orientation": null,
+        "color": "rgb(177, 203, 252)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "鳥刺し",
+        "count": 4,
+        "font_size": 4,
+        "x": 3812.0,
+        "y": 3190.0,
+        "norm_x": 31.766667,
+        "norm_y": 25.31746,
+        "orientation": null,
+        "color": "rgb(129, 164, 251)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -946,58 +2580,172 @@
       {
         "word": "ハンバーグ",
         "count": 21,
-        "font_size": 6,
-        "x": 1852.0,
-        "y": 1625.0,
-        "norm_x": 45.170732,
-        "norm_y": 52.419355,
+        "font_size": 14,
+        "x": 3699.0,
+        "y": 3251.0,
+        "norm_x": 44.035714,
+        "norm_y": 51.603175,
         "orientation": null,
-        "color": "rgb(211, 219, 231)",
+        "color": "rgb(195, 213, 244)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "鎌倉",
         "count": 20,
-        "font_size": 6,
-        "x": 1848.0,
-        "y": 1631.0,
-        "norm_x": 45.073171,
-        "norm_y": 52.612903,
+        "font_size": 13,
+        "x": 3702.0,
+        "y": 3270.0,
+        "norm_x": 44.071429,
+        "norm_y": 51.904762,
         "orientation": null,
-        "color": "rgb(205, 66, 59)",
+        "color": "rgb(123, 159, 249)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
         ]
       },
       {
         "word": "ピザ",
         "count": 12,
-        "font_size": 4,
-        "x": 1855.0,
-        "y": 1639.0,
-        "norm_x": 45.243902,
-        "norm_y": 52.870968,
+        "font_size": 8,
+        "x": 3735.0,
+        "y": 3242.0,
+        "norm_x": 44.464286,
+        "norm_y": 51.460317,
         "orientation": null,
-        "color": "rgb(228, 217, 210)",
+        "color": "rgb(247, 179, 150)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "パスタ",
+        "count": 10,
+        "font_size": 7,
+        "x": 3706.0,
+        "y": 3282.0,
+        "norm_x": 44.119048,
+        "norm_y": 52.095238,
+        "orientation": null,
+        "color": "rgb(247, 176, 147)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ビール",
+        "count": 10,
+        "font_size": 7,
+        "x": 3739.0,
+        "y": 3234.0,
+        "norm_x": 44.511905,
+        "norm_y": 51.333333,
+        "orientation": null,
+        "color": "rgb(102, 135, 237)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "しらす",
+        "count": 7,
+        "font_size": 5,
+        "x": 3747.0,
+        "y": 3266.0,
+        "norm_x": 44.607143,
+        "norm_y": 51.84127,
+        "orientation": null,
+        "color": "rgb(247, 186, 159)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "エビ",
+        "count": 7,
+        "font_size": 5,
+        "x": 3734.0,
+        "y": 3262.0,
+        "norm_x": 44.452381,
+        "norm_y": 51.777778,
+        "orientation": null,
+        "color": "rgb(166, 196, 254)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "チーズ",
+        "count": 6,
+        "font_size": 4,
+        "x": 3710.0,
+        "y": 3263.0,
+        "norm_x": 44.166667,
+        "norm_y": 51.793651,
+        "orientation": null,
+        "color": "rgb(209, 73, 63)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "江ノ島",
+        "count": 6,
+        "font_size": 4,
+        "x": 3758.0,
+        "y": 3241.0,
+        "norm_x": 44.738095,
+        "norm_y": 51.444444,
+        "orientation": null,
+        "color": "rgb(177, 203, 252)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
@@ -1008,20 +2756,115 @@
       {
         "word": "焼きそば",
         "count": 6,
-        "font_size": 4,
-        "x": 1829.0,
-        "y": 1603.0,
-        "norm_x": 79.521739,
-        "norm_y": 80.15,
+        "font_size": 11,
+        "x": 3655.0,
+        "y": 3201.0,
+        "norm_x": 77.765957,
+        "norm_y": 78.073171,
         "orientation": null,
-        "color": "rgb(219, 220, 222)",
+        "color": "rgb(220, 93, 74)",
         "print_area_x": [
           0,
-          3000
+          6000
         ],
         "print_area_y": [
           0,
-          3000
+          6000
+        ]
+      },
+      {
+        "word": "ケーキ",
+        "count": 5,
+        "font_size": 9,
+        "x": 3663.0,
+        "y": 3221.0,
+        "norm_x": 77.93617,
+        "norm_y": 78.560976,
+        "orientation": null,
+        "color": "rgb(73, 97, 210)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "チャーハン",
+        "count": 5,
+        "font_size": 8,
+        "x": 3657.0,
+        "y": 3212.0,
+        "norm_x": 77.808511,
+        "norm_y": 78.341463,
+        "orientation": null,
+        "color": "rgb(246, 189, 162)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "パスタ",
+        "count": 5,
+        "font_size": 7,
+        "x": 3668.0,
+        "y": 3189.0,
+        "norm_x": 78.042553,
+        "norm_y": 77.780488,
+        "orientation": null,
+        "color": "rgb(237, 209, 194)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "ライス",
+        "count": 5,
+        "font_size": 5,
+        "x": 3660.0,
+        "y": 3195.0,
+        "norm_x": 77.87234,
+        "norm_y": 77.926829,
+        "orientation": null,
+        "color": "rgb(236, 129, 101)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
+        ]
+      },
+      {
+        "word": "家系",
+        "count": 5,
+        "font_size": 4,
+        "x": 3686.0,
+        "y": 3196.0,
+        "norm_x": 78.425532,
+        "norm_y": 77.95122,
+        "orientation": null,
+        "color": "rgb(203, 62, 56)",
+        "print_area_x": [
+          0,
+          6000
+        ],
+        "print_area_y": [
+          0,
+          6000
         ]
       }
     ]
