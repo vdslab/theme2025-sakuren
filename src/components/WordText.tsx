@@ -65,11 +65,7 @@ const WordText = ({
       x={x}
       y={item.orientation == 2 ? y - (item.font_size / 2) * 1.6 : y}
       fontSize={item.font_size}
-      fill={
-        precipitationScale != null
-          ? precipitationScale(precipitationValue ?? 0)
-          : "#ffffff"
-      }
+      fill={"#000000"}
       opacity={findword || !selectedWord ? 1 : 0.25}
       textAnchor="start"
       dominantBaseline="hanging"

@@ -8,6 +8,7 @@ import MunicipalityMap_wordText from "./MunicipalityMap_wordText";
 type MunicipalityMapDetailProps = {
   idx: number | string;
   feature: GeoJSON.Feature<GeoJSON.Geometry, GeoProperty>;
+  group: string;
   pathGenerator: d3.GeoPath<void, d3.GeoPermissibleObjects>;
   hoverdPref: string | null;
   onHover: (word: string | null) => void;
@@ -18,6 +19,7 @@ type MunicipalityMapDetailProps = {
 const MunicipalityMap_detail = ({
   idx,
   feature,
+  group,
   pathGenerator,
   hoverdPref,
   onHover,
@@ -58,20 +60,15 @@ const MunicipalityMap_detail = ({
   const findword = targetParts.some(
     (item: WordLayoutDetailData) => item.word === selectedWord
   );
-  const name = feature.properties.N03_004;
-  console.log(findword, selectedWord, name, targetParts);
+  const name = feature.properties.N03_003;
+
   return (
     <g key={name + idx} opacity={findword || !selectedWord ? 1 : 0.25}>
       <path
         d={pathGenerator(feature) || ""}
         fill="#fff"
         stroke="#444"
-        strokeWidth={feature.properties.N03_001 != "東京都" ? 0.5 : 0.05}
-        filter={
-          hoverdPref === name && feature.properties.N03_001 != "東京都"
-            ? "url(#shadow)"
-            : undefined
-        }
+        strokeWidth={feature.properties.N03_001 === group ? 0.5 : 0.05}
         onMouseEnter={() => {
           onHover(name);
         }}
@@ -80,14 +77,16 @@ const MunicipalityMap_detail = ({
         }}
         style={{ zIndex: hoverdPref === name ? 1 : 0 }}
       />
-      <MunicipalityMap_wordText
-        selectedWord={selectedWord}
-        groupName={name}
-        boundsArray={boundsArray}
-        onHover={onHover}
-        onWordClick={onWordClick}
-        targetParts={targetParts}
-      />
+      {group == feature.properties?.N03_001 && (
+        <MunicipalityMap_wordText
+          selectedWord={selectedWord}
+          groupName={name}
+          boundsArray={boundsArray}
+          onHover={onHover}
+          onWordClick={onWordClick}
+          targetParts={targetParts}
+        />
+      )}
     </g>
   );
 };

@@ -49,11 +49,13 @@ gdf = gdf.sjoin(pref_gdf[["N03_001", "geometry"]], how="inner", predicate="withi
 gdf = gdf.drop(columns="index_right")
 
 # === 6. 市・郡単位で dissolve ===
-merged = gdf.dissolve(by="N03_003", as_index=False)
+merged = gdf.dissolve(by=["N03_001_left", "N03_003"], as_index=False)
 
 # === 7. 緯度経度に戻す ===
 merged = merged.to_crs(epsg=4326)
 
+merged = merged.reset_index(drop=True)
+merged["N03_007"] = merged.index
 # === 8. 描画・保存 ===
 merged.plot(figsize=(10, 8), edgecolor="black")
 output_path = "./create_map/create_cartgram/N03_merged_city_no_islands.geojson"

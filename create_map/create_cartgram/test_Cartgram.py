@@ -52,11 +52,15 @@ gdf = gpd.GeoDataFrame.from_features(geojson_data["features"], crs="EPSG:4326").
 mask = [has_neighbor(i, gdf) for i in range(len(gdf))]
 gdf = gdf[mask]
 
+print(gdf["N03_007"])
 # --- population をセット ---
-gdf["population"] = gdf["N03_003"].map(population_data).fillna(0)
+# population_data を int キーに変換
+population_data = {int(k): v for k, v in population_data.items()}
 
+gdf["population"] = gdf["N03_007"].map(population_data).fillna(0)
 # --- population = 0 を削除 ---
 gdf = gdf[gdf["population"] > 0].copy()
+print(gdf)
 
 # --- index が飛ぶので振り直す ---
 gdf = gdf.reset_index(drop=True)

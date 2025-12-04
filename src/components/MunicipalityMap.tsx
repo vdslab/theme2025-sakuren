@@ -76,11 +76,12 @@ const MunicipalityMap = ({
 
   return (
     <g key={gIdx} className="municipality-map">
-      {filteredFeatures.map((feature, idx) => (
+      {geoFeatureParts.map((feature, idx) => (
         <MunicipalityMap_detail
           idx={idx}
           key={idx}
           feature={feature}
+          group={group}
           pathGenerator={pathGenerator}
           hoverdPref={hoverdPref}
           onHover={onHover}

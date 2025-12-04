@@ -100,7 +100,7 @@ const WordCloudDraw = ({
       <path
         opacity={!selectedWord || findword ? 1 : 0.25}
         d={pathGenerator(geoFeature) || ""}
-        fill={tempColor}
+        fill="#99cc99"
         stroke="#333"
         strokeWidth={isCrossHighlight ? 5 : 1}
         pointerEvents="visibleFill"

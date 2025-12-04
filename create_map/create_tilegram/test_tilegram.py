@@ -13,23 +13,27 @@ gdf = gpd.read_file("./create_map/create_tilegram/jp_cartogram.geojson")
 gdf = gdf.to_crs("EPSG:3857")
 
 # === 3. MultiPolygonをPolygon単位に分解 ===
-polygons, names01, names03 = [], [], []
+polygons, names01, names03, names07 = [], [], [], []
 for _, row in gdf.iterrows():
     geom = row.geometry
     name01 = row["N03_001_left"]
     name03 = row["N03_003"]
+    name07=row["N03_007"]
     if isinstance(geom, Polygon):
         polygons.append(geom)
         names01.append(name01)
         names03.append(name03)
+        names07.append(name07)
+        
     elif isinstance(geom, MultiPolygon):
         for poly in geom.geoms:
             polygons.append(poly)
             names01.append(name01)
             names03.append(name03)
+            names07.append(name07)
 
 gdf_polygons = gpd.GeoDataFrame(
-    {"N03_001": names01, "N03_003": names03}, geometry=polygons, crs=gdf.crs
+    {"N03_001": names01, "N03_003": names03, "N03_007": names07}, geometry=polygons, crs=gdf.crs
 )
 
 # === 4. 六角形タイル設定 ===
@@ -68,6 +72,7 @@ for cx, cy in centers:
             place["area"].append({
                 "best_pref01": gdf_polygons.iloc[idx]["N03_001"],
                 "best_pref03": gdf_polygons.iloc[idx]["N03_003"],
+                "best_pref07":gdf_polygons.iloc[idx]["N03_007"],
                 "best_overlap_area": overlap_area
             })
 
@@ -103,7 +108,7 @@ for i, h1 in enumerate(hexes_copy):
                 continue
             to_remove_h2 = []
             for area2 in h2["area"]:
-                if area1["best_pref03"] == area2["best_pref03"]:
+                if area1["best_pref07"] == area2["best_pref07"]:
                     
                     if area1["best_overlap_area"] >= area2["best_overlap_area"]:
                         if len(h2["area"])-len(to_remove_h2)>1:
@@ -141,7 +146,7 @@ hexes = [h for h in hexes_copy]
 hex_geoms = []
 hex_pref01 = []
 hex_pref03 = []
-
+hex_pref07 = []
 for h in hexes:
     hex_geoms.append(h["hex"])
     # area は1つだけ残っているはず
@@ -149,15 +154,21 @@ for h in hexes:
     city=[]
     for a in area:
         city.append(a["best_pref03"])
+    city=list(set(city))
     hex_pref01.append(h["area"][0]["best_pref01"])
     hex_pref03.append("_".join(city))
-
+    hex_pref07.append(area[0]["best_pref07"])
 
 hex_gdf = gpd.GeoDataFrame(
-    {"N03_001": hex_pref01, "N03_003": hex_pref03},
+    {
+        "N03_001": hex_pref01,
+        "N03_003": hex_pref03,
+        "N03_007": hex_pref07,
+    },
     geometry=hex_geoms,
     crs="EPSG:3857"
 )
+
 
 
 # === 11. 市区町村・都道府県ごとに結合 ===
@@ -169,10 +180,18 @@ fixed2["geometry"] = fixed2.buffer(0.5)
 todouhuken_gdf = fixed1.groupby("N03_001")["geometry"].apply(unary_union)
 todouhuken_gdf = gpd.GeoDataFrame(todouhuken_gdf, geometry="geometry").reset_index()
 
-sikutyoson_gdf = fixed2.groupby("N03_003")["geometry"].apply(unary_union)
+sikutyoson_gdf = fixed2.groupby(["N03_001","N03_003"])["geometry"].apply(unary_union)
+
 sikutyoson_gdf = gpd.GeoDataFrame(sikutyoson_gdf, geometry="geometry").reset_index()
-pref_map = hex_gdf.groupby("N03_003")["N03_001"].first().to_dict()
-sikutyoson_gdf["N03_001"] = sikutyoson_gdf["N03_003"].map(pref_map)
+print(hex_gdf)
+pref_map = hex_gdf.set_index("N03_007")["N03_001"].to_dict()
+hex_key = hex_gdf[["N03_003","N03_007"]].drop_duplicates()
+
+sikutyoson_gdf = sikutyoson_gdf.merge(hex_key, on="N03_003", how="left")
+
+sikutyoson_gdf["N03_001"] = sikutyoson_gdf["N03_007"].map(pref_map)
+
+
 
 # === 12. GeoJSON 出力 ===
 os.makedirs("./public", exist_ok=True)

@@ -26,6 +26,8 @@ for f in data["features"]:
         "N03_003": name03,
         "geometry": geom
     })
+    if(name03 in "伊達"):
+        print(name03)
 
 # === 2. GeoDataFrame を作る ===
 gdf = gpd.GeoDataFrame(records, crs="EPSG:4326")

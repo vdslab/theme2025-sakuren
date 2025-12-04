@@ -11,7 +11,7 @@ axes = [axes] if len(files) == 1 else axes
 for i, path in enumerate(files):
     gdf = gpd.read_file(path)
     print(gdf.columns)
-    gdf_hokkaido = gdf[gdf["N03_001_left"] == "北海道"]
+    gdf_hokkaido = gdf[gdf["N03_003"] == "北海道"]
 
     gdf_hokkaido.plot(ax=axes[i], color="lightblue", edgecolor="black")
     axes[i].axis("off")

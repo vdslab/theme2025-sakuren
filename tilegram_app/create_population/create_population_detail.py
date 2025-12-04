@@ -34,7 +34,7 @@ prefectureMapRoma = {
 # ================================
 # 元の GeoJSON 読み込み
 # ================================
-json_path = "./public/municipality_largest_polygon.geojson.geojson"
+json_path = "./create_map/create_cartgram/N03_merged_city_no_islands.geojson"
 
 with open(json_path, "r", encoding="utf-8") as f:
     existing_data = json.load(f)
@@ -75,13 +75,14 @@ for i in range(1, 48):
 
         # ファイル名と一致する feature を探す
         feature = get_feature_by_name(features, filename_name)
+        print(feature)
 
         if feature is None:
             print(f"[WARN] No GeoJSON match for: {filename_name}")
             continue
 
         # JISコード
-        jis_code = feature["properties"]["N03_003"]
+        jis_code = feature["properties"]["N03_007"]
         population_data[jis_code] = 0
 
         try:
