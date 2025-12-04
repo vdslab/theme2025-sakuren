@@ -199,7 +199,7 @@ const WordCloudCanvas = ({
           d3.zoomIdentity.translate(100, -100).scale(0.5)
         );
     }
-  }, [selectedWord]);
+  }, [selectedWord, selectedMap]);
 
   const handleZoomToPrefecture = (prefName: string | null) => {
     const svg = d3.select(svgRef.current);
@@ -368,9 +368,10 @@ const WordCloudCanvas = ({
           selected={selectedWord}
           onChange={(opt) => setSelectedWord(opt)}
           mode={mode}
-          onMode={() => setMode(!mode ? true : false)}
+          setMode={setMode}
           handleWordClick={(opt) => handleWordClick(opt)}
           selectedMap={selectedMap}
+          setSelectedMap={setSelectedMap}
         />
       </div>
       {tooltipValue && (
