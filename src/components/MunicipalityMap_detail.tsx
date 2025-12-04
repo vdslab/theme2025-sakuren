@@ -45,8 +45,7 @@ const MunicipalityMap_detail = ({
     if (!feature || wordcloud.length === 0) return;
 
     const { N03_003, N03_004 } = feature.properties;
-    const partsNameRaw =
-      N03_003?.endsWith("市") || N03_003?.endsWith("郡") ? N03_003 : N03_004;
+    const partsNameRaw = N03_003;
     const partsName = partsNameRaw?.trim();
     const matched = wordcloud.find((item) => item.name.trim() === partsName);
     if (matched) {
