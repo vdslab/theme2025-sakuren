@@ -5,7 +5,7 @@ export type WordLayoutData = {
 
 export type WordLayoutDetailData = {
   word: string;
-  tfidf_score: number;
+  count: number;
   font_size: number;
   print_area_x: [number, number];
   print_area_y: [number, number];

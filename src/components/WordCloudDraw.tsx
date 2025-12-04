@@ -11,11 +11,11 @@ interface WordCloudDrawProps {
   bounds: WordBoundsData;
   useWordData: number;
   group: WordLayoutData | null;
-  geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { prefecture: string }>[];
+  geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { N03_001: string }>[];
   gIdx: number;
   selectedWord: string | null;
   hoveredPref: string | null;
-  mode: boolean;
+  isWordSelectMode: boolean;
   onWordClick: (word: string) => void;
   onHover: (value: string | null) => void;
   handleWordClick: (value: string | null) => void;
@@ -33,11 +33,11 @@ const WordCloudDraw = ({
   gIdx,
   selectedWord,
   hoveredPref,
-  mode,
+  isWordSelectMode,
   onWordClick,
   onHover,
   handleWordClick,
-  temperatureScale,
+  // temperatureScale,
   precipitationScale,
   weatherData,
   isCrossHighlight,
@@ -73,13 +73,13 @@ const WordCloudDraw = ({
 
   // 天気データ取得
   const weather = weatherData[group.name];
-  const tempColor =
-    weather && temperatureScale != null
-      ? temperatureScale(weather.temperature)
-      : "#ffffff";
+  // const tempColor =
+  //   weather && temperatureScale != null
+  //     ? temperatureScale(weather.temperature)
+  //     : "#ffffff";
 
   const onClick = (e: MouseEvent<SVGTextElement>) => {
-    if (!mode) {
+    if (!isWordSelectMode) {
       handleWordClick(hoveredPref ?? null);
       e.stopPropagation();
     }
@@ -89,7 +89,7 @@ const WordCloudDraw = ({
     <g
       key={gIdx}
       transform={
-        hoveredPref === group.name && !mode
+        hoveredPref === group.name && !isWordSelectMode
           ? `translate(${centerX}, ${centerY}) scale(1.1) translate(${-centerX}, ${-centerY})`
           : `translate(0, 0) scale(1)`
       }
@@ -114,7 +114,7 @@ const WordCloudDraw = ({
           useWordData={useWordData}
           item={item}
           groupBounds={groupBounds}
-          mode={mode}
+          isWordSelectMode={isWordSelectMode}
           selectedWord={selectedWord}
           findword={findword}
           onWordClick={onWordClick}

@@ -1,4 +1,3 @@
-import * as d3 from "d3";
 import "../css/WordCloudCanvas.css";
 import type { WordLayoutDetailData } from "../types/wordLayoutData";
 
@@ -22,23 +21,23 @@ const angleMap: Record<string, number> = {
 const MunicipalityMap_wordText = ({
   selectedWord,
   groupName,
-  boundsArray,
+  // boundsArray,
   onHover,
   onWordClick,
   targetParts,
 }: MunicipalityMapWordTextProps) => {
-  const boundsWidth = boundsArray[1][0] - boundsArray[0][0];
+  // const boundsWidth = boundsArray[1][0] - boundsArray[0][0];
   return (
     <>
       {targetParts.map((word, idx) => {
-        const xScale = d3
-          .scaleLinear<number>()
-          .domain([0, 3000])
-          .range([0, 3000]);
-        const yScale = d3
-          .scaleLinear<number>()
-          .domain([0, 3000])
-          .range([0, 3000]);
+        // const xScale = d3
+        //   .scaleLinear<number>()
+        //   .domain([0, 3000])
+        //   .range([0, 3000]);
+        // const yScale = d3
+        //   .scaleLinear<number>()
+        //   .domain([0, 3000])
+        //   .range([0, 3000]);
 
         const angle = angleMap[word.orientation?.toString() ?? "0"] ?? 0;
         const x = word.x;

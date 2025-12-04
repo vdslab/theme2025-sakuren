@@ -1,10 +1,9 @@
 import {
   Autocomplete,
   Box,
-  FormControl,
-  FormControlLabel,
-  Switch,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { prefectures } from "../constant/prefectures";
@@ -19,8 +18,8 @@ interface WordSearchProps {
   uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
   selected: string | null;
   onChange: (value: string | null) => void;
-  mode: boolean;
-  setMode: (boo: boolean) => void;
+  isWordSelectMode: boolean;
+  setIsWordSelectMode: (boo: boolean) => void;
   handleWordClick: (opt: string | null) => void;
   selectedMap: string | null;
   setSelectedMap: (opt: string | null) => void;
@@ -30,8 +29,8 @@ const WordSearch = ({
   uniqueWords,
   selected,
   onChange,
-  mode,
-  setMode,
+  isWordSelectMode,
+  setIsWordSelectMode,
   handleWordClick,
   selectedMap,
   setSelectedMap,
@@ -45,10 +44,6 @@ const WordSearch = ({
       setSelectedMunicipalities(null);
     }
   }, [selectedMap]);
-
-  const handleModeChange = () => {
-    setMode(!mode);
-  };
 
   const selectedOption = useMemo(
     () => uniqueWords.find((opt) => opt.value === selected) ?? null,
@@ -100,23 +95,49 @@ const WordSearch = ({
         )}
       />
       <Box>
-        <FormControl>
-          <FormControlLabel
-            control={
-              <Switch
-                onChange={(_, checked: boolean) => {
-                  handleModeChange();
-                  if (!checked) {
-                    handleWordClick(null);
-                  }
-                }}
-                color="primary"
-                checked={!mode}
-              />
+        <ToggleButtonGroup
+          color="primary"
+          value={isWordSelectMode ? "word" : "prefecture"}
+          exclusive
+          onChange={(_, newValue) => {
+            if (newValue === null) return;
+
+            setIsWordSelectMode(newValue === "word");
+            if (newValue === "word") {
+              handleWordClick(null);
             }
-            label="都道府県選択モード"
-          />
-        </FormControl>
+          }}
+          size="small"
+        >
+          <ToggleButton
+            value="word"
+            style={
+              isWordSelectMode
+                ? {
+                    backgroundColor: "#1976d2",
+                    color: "#fff",
+                    transition: "0.2s",
+                  }
+                : {}
+            }
+          >
+            単語選択モード
+          </ToggleButton>
+          <ToggleButton
+            value="prefecture"
+            style={
+              !isWordSelectMode
+                ? {
+                    backgroundColor: "#1976d2",
+                    color: "#fff",
+                    transition: "0.2s",
+                  }
+                : {}
+            }
+          >
+            都道府県選択モード
+          </ToggleButton>
+        </ToggleButtonGroup>
         <Autocomplete
           options={prefectures}
           getOptionLabel={(option) => option}
@@ -133,8 +154,8 @@ const WordSearch = ({
               size="small"
             />
           )}
-          disabled={mode}
-          style={mode ? { opacity: 0.5 } : { opacity: 1 }}
+          disabled={isWordSelectMode}
+          style={isWordSelectMode ? { opacity: 0.5 } : { opacity: 1 }}
           isOptionEqualToValue={(option, value) => option === value}
           renderOption={(props, option) => <li {...props}>{option}</li>}
         />
@@ -148,11 +169,11 @@ const WordSearch = ({
               const pref = newValue.split("_")[0];
               setSelectedMap(pref);
               handleWordClick(pref);
-              setMode(false);
+              setIsWordSelectMode(false);
             } else {
               setSelectedMap(null);
               handleWordClick(null);
-              setMode(true);
+              setIsWordSelectMode(true);
             }
           }}
           renderInput={(params) => (
