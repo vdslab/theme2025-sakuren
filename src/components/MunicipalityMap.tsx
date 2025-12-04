@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import type { GeoProperty } from "../types/geoProperty";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import MunicipalityMap_detail from "./MunicipalityMap_detail";
-
+interface Option {
+  value: string;
+  label: string;
+}
 interface MunicipalityMapProps {
   selectedWord: string | null;
+  onChange: (value: string | null) => void;
   bounds: WordBoundsData;
   group: string;
   gIdx: number;
@@ -17,6 +21,7 @@ interface MunicipalityMapProps {
 
 const MunicipalityMap = ({
   selectedWord,
+  onChange,
   bounds,
   group,
   gIdx,
@@ -82,6 +87,7 @@ const MunicipalityMap = ({
           key={idx}
           feature={feature}
           group={group}
+          onChange={onChange}
           pathGenerator={pathGenerator}
           hoverdPref={hoverdPref}
           onHover={onHover}

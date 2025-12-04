@@ -355,6 +355,9 @@ const WordCloudCanvas = ({
                 selectedWord={selectedWord}
                 bounds={bounds}
                 group={selectedMap}
+                onChange={(opt) => {
+                  setSelectedMap(opt);
+                }}
                 gIdx={48}
                 hoverdPref={hoveredPref}
                 onHover={onHover}

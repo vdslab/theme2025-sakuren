@@ -7,6 +7,7 @@ import type {
 import MunicipalityMap_wordText from "./MunicipalityMap_wordText";
 type MunicipalityMapDetailProps = {
   idx: number | string;
+  onChange: (value: string | null) => void;
   feature: GeoJSON.Feature<GeoJSON.Geometry, GeoProperty>;
   group: string;
   pathGenerator: d3.GeoPath<void, d3.GeoPermissibleObjects>;
@@ -20,6 +21,7 @@ const MunicipalityMap_detail = ({
   idx,
   feature,
   group,
+  onChange,
   pathGenerator,
   hoverdPref,
   onHover,
@@ -62,7 +64,17 @@ const MunicipalityMap_detail = ({
   const name = feature.properties.N03_003;
 
   return (
-    <g key={name + idx} opacity={findword || !selectedWord ? 1 : 0.25}>
+    <g
+      key={name + idx}
+      opacity={findword || !selectedWord ? 1 : 0.25}
+      onClick={() => {
+        if (group !== feature.properties?.N03_001) {
+          console.log(group);
+          onChange(feature.properties?.N03_001);
+        }
+      }}
+      style={group !== feature.properties?.N03_001 ? { cursor: "pointer" } : {}}
+    >
       <path
         d={pathGenerator(feature) || ""}
         fill="#fff"
