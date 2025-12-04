@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import * as d3 from "d3";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { WeatherDataRaw } from "../types/weatherData";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import type { WordLayoutData } from "../types/wordLayoutData";
@@ -22,8 +22,8 @@ interface CanvasWordCloudProps {
   hoveredPref: string | null;
   setHoveredPref: (value: string | null) => void;
   onWordClick: (word: string) => void;
-  mode: boolean;
-  setMode: (boo: boolean) => void;
+  isWordSelectMode: boolean;
+  setIsWordSelectMode: (boo: boolean) => void;
   setSelectedWord: (value: string | null) => void;
   uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
   crossHighlightPrefs: Set<string>;
@@ -43,8 +43,8 @@ const WordCloudCanvas = ({
   setHoveredPref,
   selectedWord,
   onWordClick,
-  mode,
-  setMode,
+  isWordSelectMode,
+  setIsWordSelectMode,
   setSelectedWord,
   uniqueWords,
   crossHighlightPrefs,
@@ -55,7 +55,7 @@ const WordCloudCanvas = ({
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
   const [geoFeatures, setGeoFeatures] = useState<
-    GeoJSON.Feature<GeoJSON.Geometry, { prefecture: string }>[]
+    GeoJSON.Feature<GeoJSON.Geometry, { N03_001: string }>[]
   >([]);
   const [weatherData, setWeatherData] = useState<WeatherData>({});
   const [temperatureScale, setTemperatureScale] = useState<
@@ -145,6 +145,11 @@ const WordCloudCanvas = ({
       .then((data) => setGeoFeatures(data.features));
   }, []);
 
+  const initialTransform = useMemo(
+    () => d3.zoomIdentity.translate(-300, -100).scale(0.5),
+    []
+  );
+
   // --- 初期ズーム設定 ---
   useEffect(() => {
     if (!svgRef.current || !gRef.current) return;
@@ -170,14 +175,13 @@ const WordCloudCanvas = ({
     zoomRef.current = zoom;
 
     // 初期位置とスケール設定
-    const initialTransform = d3.zoomIdentity.translate(100, -100).scale(0.5);
     svg.call(zoom.transform, initialTransform);
 
     // cleanup
     return () => {
       svg.on(".zoom", null);
     };
-  }, [wordData]);
+  }, [wordData, initialTransform]);
 
   useEffect(() => {
     if (selectedWord != null && selectedMap == null) {
@@ -194,12 +198,12 @@ const WordCloudCanvas = ({
                 null,
                 undefined
               >,
-              d3.zoomIdentity.translate(100, -100).scale(0.5)
+              initialTransform
             ),
-          d3.zoomIdentity.translate(100, -100).scale(0.5)
+          initialTransform
         );
     }
-  }, [selectedWord, selectedMap]);
+  }, [selectedWord, selectedMap, initialTransform]);
 
   const handleZoomToPrefecture = (prefName: string | null) => {
     const svg = d3.select(svgRef.current);
@@ -221,9 +225,9 @@ const WordCloudCanvas = ({
                   null,
                   undefined
                 >,
-                d3.zoomIdentity.translate(100, -100).scale(0.5)
+                initialTransform
               ),
-            d3.zoomIdentity.translate(100, -100).scale(0.5)
+            initialTransform
           );
       }
 
@@ -243,9 +247,15 @@ const WordCloudCanvas = ({
     const prefWidth = x1 - x0;
     const prefHeight = y1 - y0;
 
-    const scale = Math.min(width / prefWidth, height / prefHeight);
-    const tx = width - scale * x1;
-    const ty = height - scale * y1;
+    const paddingFactor = 0.8;
+    const scale =
+      Math.min(width / prefWidth, height / prefHeight) * paddingFactor;
+    const cx = (x0 + x1) / 2;
+    const cy = (y0 + y1) / 2;
+    const tx = width / 2 - scale * cx - 200;
+    const ty = height / 2 - scale * cy;
+
+    const transform = d3.zoomIdentity.translate(tx, ty).scale(scale);
 
     svg
       .transition()
@@ -259,9 +269,9 @@ const WordCloudCanvas = ({
               null,
               undefined
             >,
-            d3.zoomIdentity.translate(tx, ty).scale(scale)
+            transform
           ),
-        d3.zoomIdentity.translate(tx, ty).scale(scale)
+        transform
       );
   };
 
@@ -328,7 +338,7 @@ const WordCloudCanvas = ({
                   gIdx,
                   selectedWord,
                   hoveredPref,
-                  mode,
+                  isWordSelectMode,
                   onHover,
                   onWordClick,
                   handleWordClick,
@@ -367,8 +377,8 @@ const WordCloudCanvas = ({
           uniqueWords={uniqueWords}
           selected={selectedWord}
           onChange={(opt) => setSelectedWord(opt)}
-          mode={mode}
-          setMode={setMode}
+          isWordSelectMode={isWordSelectMode}
+          setIsWordSelectMode={setIsWordSelectMode}
           handleWordClick={(opt) => handleWordClick(opt)}
           selectedMap={selectedMap}
           setSelectedMap={setSelectedMap}

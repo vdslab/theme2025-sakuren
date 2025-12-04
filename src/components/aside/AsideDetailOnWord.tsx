@@ -61,7 +61,7 @@ export const AsideDetailOnWord: FC<Props> = ({
         <BarChart
           data={chartData}
           width={375}
-          unit={"TF-IDF\nScore"}
+          unit="出現回数"
           onHover={(label) => setHoveredPref(label)}
         />
       </Box>

@@ -9,7 +9,7 @@ import type { WordLayoutData } from "./types/wordLayoutData";
 
 export const App = () => {
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
-  const [mode, setMode] = useToggle(true);
+  const [isWordSelectMode, setIsWordSelectMode] = useToggle(true);
   const [selectedMap, setSelectedMap] = useState<string | null>(null);
   const [hoveredPref, setHoveredPref] = useState<string | null>(null);
   const [wordData, setWordData] = useState<WordLayoutData[] | undefined>(
@@ -73,8 +73,8 @@ export const App = () => {
           bounds={wordBounds}
           selectedWord={selectedWord}
           onWordClick={onWordClick}
-          mode={mode}
-          setMode={(boo) => setMode(boo)}
+          isWordSelectMode={isWordSelectMode}
+          setIsWordSelectMode={setIsWordSelectMode}
           setSelectedWord={(opt) => setSelectedWord(opt)}
           uniqueWords={uniqueWords}
           crossHighlightPrefs={crossHighlightPrefs}

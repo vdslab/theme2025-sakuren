@@ -6,7 +6,7 @@ interface WordTextProps {
   iIdx: number;
   useWordData: number;
   groupBounds: { xlim: [number, number]; ylim: [number, number] };
-  mode: boolean;
+  isWordSelectMode: boolean;
   selectedWord: string | null;
   findword: boolean;
   onWordClick: (word: string) => void;
@@ -27,19 +27,19 @@ const angleMap: Record<string, number> = {
 
 const WordText = ({
   item,
-  iIdx,
-  useWordData,
-  groupBounds,
-  mode,
+  // iIdx,
+  // useWordData,
+  // groupBounds,
+  isWordSelectMode,
   selectedWord,
   findword,
   onWordClick,
   hoveredPref,
   onHover,
   groupName,
-  precipitationScale,
-  precipitationValue,
-}: WordTextProps) => {
+}: // precipitationScale,
+// precipitationValue,
+WordTextProps) => {
   const angle = angleMap[item.orientation?.toString() ?? "0"] ?? 0;
 
   const x = item.norm_x;
@@ -47,7 +47,7 @@ const WordText = ({
   const y = item.norm_y;
 
   const onClick = (e: MouseEvent<SVGTextElement>) => {
-    if (mode) {
+    if (isWordSelectMode) {
       onWordClick(item.word);
       e.stopPropagation();
     }
@@ -60,12 +60,16 @@ const WordText = ({
   return (
     <text
       className={
-        mode ? "word-text" : hoveredPref == groupName ? "word-texts" : ""
+        isWordSelectMode
+          ? "word-text"
+          : hoveredPref == groupName
+          ? "word-texts"
+          : ""
       }
       x={x}
       y={item.orientation == 2 ? y - (item.font_size / 2) * 1.6 : y}
       fontSize={item.font_size}
-      fill={"#000000"}
+      fill="#000000"
       opacity={findword || !selectedWord ? 1 : 0.25}
       textAnchor="start"
       dominantBaseline="hanging"
