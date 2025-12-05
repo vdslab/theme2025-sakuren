@@ -337,7 +337,7 @@ def main() -> None:
         "鶴岡市": "https://tabelog.com/yamagata/C6203/rstLst/",
     }
 
-    for page in range(1, 3):
+    for page in range(1, 10):
         print(f"\n=== 非同期実行を開始: ページ {page} ===\n")
         asyncio.run(run_async(tabelog_urls, page))
         print(f"\n=== 非同期実行が完了しました: ページ {page} ===\n")
