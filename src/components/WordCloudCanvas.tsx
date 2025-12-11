@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import * as d3 from "d3";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { WeatherDataRaw } from "../types/weatherData";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import type { WordLayoutData } from "../types/wordLayoutData";
@@ -8,6 +8,7 @@ import { HoveredTooltip } from "./HoveredTooltip";
 import MunicipalityMap from "./MunicipalityMap";
 import wordcloudDraw from "./WordCloudDraw";
 import WordSearch from "./WordSearch";
+import { Aside } from "./aside/Aside";
 
 interface Option {
   value: string;
@@ -26,7 +27,6 @@ interface CanvasWordCloudProps {
   setIsWordSelectMode: (boo: boolean) => void;
   setSelectedWord: (value: string | null) => void;
   uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
-  crossHighlightPrefs: Set<string>;
 }
 
 type WeatherData = Record<
@@ -47,7 +47,6 @@ const WordCloudCanvas = ({
   setIsWordSelectMode,
   setSelectedWord,
   uniqueWords,
-  crossHighlightPrefs,
 }: CanvasWordCloudProps) => {
   const [useWordData, setUseWordData] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -145,9 +144,41 @@ const WordCloudCanvas = ({
       .then((data) => setGeoFeatures(data.features));
   }, []);
 
+  // --- 初期描画位置 ---
   const initialTransform = useMemo(
     () => d3.zoomIdentity.translate(-300, -100).scale(0.5),
     []
+  );
+
+  // 共通のズームリセット（デフォルト倍率へ戻す）
+  const resetZoom = useCallback(
+    (animate: boolean = true) => {
+      if (!svgRef.current || !zoomRef.current) return;
+
+      const svg = d3.select(svgRef.current);
+
+      if (animate) {
+        svg
+          .transition()
+          .duration(750)
+          .call(
+            (transition) =>
+              zoomRef.current?.transform(
+                transition as d3.Transition<
+                  SVGSVGElement,
+                  unknown,
+                  null,
+                  undefined
+                >,
+                initialTransform
+              ),
+            initialTransform
+          );
+      } else {
+        zoomRef.current.transform(svg, initialTransform);
+      }
+    },
+    [initialTransform]
   );
 
   // --- 初期ズーム設定 ---
@@ -175,35 +206,19 @@ const WordCloudCanvas = ({
     zoomRef.current = zoom;
 
     // 初期位置とスケール設定
-    svg.call(zoom.transform, initialTransform);
+    resetZoom(false);
 
     // cleanup
     return () => {
       svg.on(".zoom", null);
     };
-  }, [wordData, initialTransform]);
+  }, [wordData, resetZoom]);
 
   useEffect(() => {
     if (selectedWord != null && selectedMap == null) {
-      const svg = d3.select(svgRef.current);
-      svg
-        .transition()
-        .duration(750)
-        .call(
-          (transition) =>
-            zoomRef.current?.transform(
-              transition as d3.Transition<
-                SVGSVGElement,
-                unknown,
-                null,
-                undefined
-              >,
-              initialTransform
-            ),
-          initialTransform
-        );
+      resetZoom(true);
     }
-  }, [selectedWord, selectedMap, initialTransform]);
+  }, [selectedWord, selectedMap, resetZoom]);
 
   const handleZoomToPrefecture = (prefName: string | null) => {
     const svg = d3.select(svgRef.current);
@@ -211,24 +226,7 @@ const WordCloudCanvas = ({
 
     if (!prefName) {
       if (selectedMap != null) {
-        // 👇 初期位置に戻す（全体ビュー）
-        zoomRef.current.transform(d3.select(svgRef.current), d3.zoomIdentity);
-        svg
-          .transition()
-          .duration(750)
-          .call(
-            (transition) =>
-              zoomRef.current?.transform(
-                transition as d3.Transition<
-                  SVGSVGElement,
-                  unknown,
-                  null,
-                  undefined
-                >,
-                initialTransform
-              ),
-            initialTransform
-          );
+        resetZoom(true);
       }
 
       return;
@@ -247,13 +245,13 @@ const WordCloudCanvas = ({
     const prefWidth = x1 - x0;
     const prefHeight = y1 - y0;
 
-    const paddingFactor = 0.8;
+    const paddingFactor = 0.55;
     const scale =
       Math.min(width / prefWidth, height / prefHeight) * paddingFactor;
     const cx = (x0 + x1) / 2;
     const cy = (y0 + y1) / 2;
     const tx = width / 2 - scale * cx - 200;
-    const ty = height / 2 - scale * cy;
+    const ty = height / 2 - scale * cy + 200;
 
     const transform = d3.zoomIdentity.translate(tx, ty).scale(scale);
 
@@ -283,114 +281,128 @@ const WordCloudCanvas = ({
     handleZoomToPrefecture(name);
   };
 
+  const resetSelect = () => {
+    setSelectedWord(null);
+    setSelectedMap(null);
+    resetZoom(true);
+  };
+
   if (!commonBounds) return <div>Loading...</div>;
 
   return (
-    <Box
-      onMouseMove={(e) => {
-        setMousePos({ x: e.clientX + 10, y: e.clientY + 10 });
-      }}
-    >
-      <svg
-        ref={svgRef}
-        width={3000}
-        height={3000}
-        style={{
-          border: "1px solid #ccc",
-          width: "calc(100vw)",
-          height: "calc(100vh)",
-          display: "block",
+    <>
+      <Box
+        onMouseMove={(e) => {
+          setMousePos({ x: e.clientX + 10, y: e.clientY + 10 });
         }}
       >
-        <defs>
-          <filter id="shadow">
-            {hoveredPref?.endsWith("都") ||
-            hoveredPref?.endsWith("県") ||
-            hoveredPref?.endsWith("府") ||
-            hoveredPref?.endsWith("道") ? (
-              <feDropShadow
-                dx="2"
-                dy="2"
-                stdDeviation="5"
-                floodColor="#000"
-                floodOpacity="0.7"
-              />
-            ) : (
-              <feDropShadow
-                dx="0.1"
-                dy="0.1"
-                stdDeviation="1"
-                floodColor="#000"
-                floodOpacity="1"
-              />
-            )}
-          </filter>
-        </defs>
-        <g>
-          {selectedMap == null ? (
-            <g ref={gRef}>
-              {wordData.map((group, gIdx) =>
-                wordcloudDraw({
-                  bounds,
-                  useWordData,
-                  group,
-                  geoFeatures,
-                  gIdx,
-                  selectedWord,
-                  hoveredPref,
-                  isWordSelectMode,
-                  onHover,
-                  onWordClick,
-                  handleWordClick,
-                  temperatureScale,
-                  precipitationScale,
-                  weatherData,
-                  isCrossHighlight: crossHighlightPrefs.has(group.name),
-                })
+        <svg
+          ref={svgRef}
+          width={3000}
+          height={3000}
+          style={{
+            border: "1px solid #ccc",
+            width: "calc(100vw)",
+            height: "calc(100vh)",
+            display: "block",
+          }}
+        >
+          <defs>
+            <filter id="shadow">
+              {hoveredPref?.endsWith("都") ||
+              hoveredPref?.endsWith("県") ||
+              hoveredPref?.endsWith("府") ||
+              hoveredPref?.endsWith("道") ? (
+                <feDropShadow
+                  dx="2"
+                  dy="2"
+                  stdDeviation="5"
+                  floodColor="#000"
+                  floodOpacity="0.7"
+                />
+              ) : (
+                <feDropShadow
+                  dx="0.1"
+                  dy="0.1"
+                  stdDeviation="1"
+                  floodColor="#000"
+                  floodOpacity="1"
+                />
               )}
-            </g>
-          ) : (
-            <g ref={gRef}>
-              <MunicipalityMap
-                selectedWord={selectedWord}
-                bounds={bounds}
-                group={selectedMap}
-                onChange={(opt) => {
-                  setSelectedMap(opt);
-                }}
-                gIdx={48}
-                hoverdPref={hoveredPref}
-                onHover={onHover}
-                onWordClick={onWordClick}
-              />
-            </g>
-          )}
-        </g>
-      </svg>
-      <div
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          zIndex: 10,
-          width: 300,
-        }}
-      >
-        <WordSearch
-          uniqueWords={uniqueWords}
-          selected={selectedWord}
-          onChange={(opt) => setSelectedWord(opt)}
-          isWordSelectMode={isWordSelectMode}
-          setIsWordSelectMode={setIsWordSelectMode}
-          handleWordClick={(opt) => handleWordClick(opt)}
-          selectedMap={selectedMap}
-          setSelectedMap={setSelectedMap}
-        />
-      </div>
-      {tooltipValue && (
-        <HoveredTooltip value={tooltipValue} mousePos={mousePos} />
-      )}
-    </Box>
+            </filter>
+          </defs>
+          <g>
+            {selectedMap == null ? (
+              <g ref={gRef}>
+                {wordData.map((group, gIdx) =>
+                  wordcloudDraw({
+                    bounds,
+                    useWordData,
+                    group,
+                    geoFeatures,
+                    gIdx,
+                    selectedWord,
+                    hoveredPref,
+                    isWordSelectMode,
+                    onHover,
+                    onWordClick,
+                    handleWordClick,
+                    temperatureScale,
+                    precipitationScale,
+                    weatherData,
+                  })
+                )}
+              </g>
+            ) : (
+              <g ref={gRef}>
+                <MunicipalityMap
+                  selectedWord={selectedWord}
+                  bounds={bounds}
+                  group={selectedMap}
+                  onChange={(opt) => {
+                    setSelectedMap(opt);
+                  }}
+                  gIdx={48}
+                  hoverdPref={hoveredPref}
+                  onHover={onHover}
+                  onWordClick={onWordClick}
+                />
+              </g>
+            )}
+          </g>
+        </svg>
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            left: 10,
+            zIndex: 10,
+            width: 300,
+          }}
+        >
+          <WordSearch
+            uniqueWords={uniqueWords}
+            selected={selectedWord}
+            onChange={(opt) => setSelectedWord(opt)}
+            isWordSelectMode={isWordSelectMode}
+            setIsWordSelectMode={setIsWordSelectMode}
+            handleWordClick={(opt) => handleWordClick(opt)}
+            selectedMap={selectedMap}
+            setSelectedMap={setSelectedMap}
+            resetZoom={resetZoom}
+          />
+        </div>
+        {tooltipValue && (
+          <HoveredTooltip value={tooltipValue} mousePos={mousePos} />
+        )}
+      </Box>
+      <Aside
+        selectedWord={selectedWord}
+        selectedPref={selectedMap ?? ""}
+        setHoveredPref={setHoveredPref}
+        resetSelect={resetSelect}
+      />
+    </>
   );
 };
 

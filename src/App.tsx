@@ -1,24 +1,23 @@
 import { Box } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useToggle } from "react-use";
-import { Aside } from "./components/aside/Aside";
 import { Header } from "./components/Header/Header";
 import CanvasWordCloud from "./components/WordCloudCanvas";
 import type { WordBoundsData } from "./types/wordBoundsData";
 import type { WordLayoutData } from "./types/wordLayoutData";
 
 export const App = () => {
-  const [selectedWord, setSelectedWord] = useState<string | null>(null);
+  // 選択モード
   const [isWordSelectMode, setIsWordSelectMode] = useToggle(true);
+
+  // 選択情報
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<string | null>(null);
   const [hoveredPref, setHoveredPref] = useState<string | null>(null);
-  const [wordData, setWordData] = useState<WordLayoutData[] | undefined>(
-    undefined
-  );
+
+  // データ保持
+  const [wordData, setWordData] = useState<WordLayoutData[]>([]);
   const [wordBounds, setWordBounds] = useState<WordBoundsData>({});
-  const [crossHighlightPrefs, setCrossHighlightPrefs] = useState<Set<string>>(
-    new Set()
-  );
 
   useEffect(() => {
     fetch("/data/wordcloud_layout.json")
@@ -43,27 +42,16 @@ export const App = () => {
     } else {
       setSelectedWord(word);
     }
-    setCrossHighlightPrefs(new Set());
   };
 
   return (
     <Box
       onClick={() => {
         setSelectedWord(null);
-        setCrossHighlightPrefs(new Set());
       }}
     >
       <Header />
-      <Box
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          zIndex: 10,
-          width: 300,
-        }}
-      ></Box>
-      {wordData && wordBounds && (
+      {wordData.length !== 0 && Object.keys(wordBounds).length !== 0 && (
         <CanvasWordCloud
           wordData={wordData}
           selectedMap={selectedMap}
@@ -77,15 +65,8 @@ export const App = () => {
           setIsWordSelectMode={setIsWordSelectMode}
           setSelectedWord={(opt) => setSelectedWord(opt)}
           uniqueWords={uniqueWords}
-          crossHighlightPrefs={crossHighlightPrefs}
         />
       )}
-      <Aside
-        selectedWord={selectedWord}
-        selectedPref={selectedMap ?? ""}
-        setHoveredPref={setHoveredPref}
-        setCrossHighlightPrefs={setCrossHighlightPrefs}
-      />
     </Box>
   );
 };

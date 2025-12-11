@@ -1,9 +1,13 @@
+import { ZoomOut } from "@mui/icons-material";
 import {
   Autocomplete,
   Box,
+  Button,
+  Paper,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { prefectures } from "../constant/prefectures";
@@ -23,6 +27,7 @@ interface WordSearchProps {
   handleWordClick: (opt: string | null) => void;
   selectedMap: string | null;
   setSelectedMap: (opt: string | null) => void;
+  resetZoom: () => void;
 }
 
 const WordSearch = ({
@@ -34,6 +39,7 @@ const WordSearch = ({
   handleWordClick,
   selectedMap,
   setSelectedMap,
+  resetZoom,
 }: WordSearchProps) => {
   const [selectedMunicipalities, setSelectedMunicipalities] = useState<
     string | null
@@ -61,40 +67,26 @@ const WordSearch = ({
   }, []);
 
   return (
-    <Box
+    <Paper
       sx={{
         zIndex: 10,
-        paddingX: "5px",
-        paddingY: "65px",
+        position: "absolute",
+        top: 70,
+        left: 10,
+        padding: 2,
+        display: "flex",
+        flexDirection: "column",
+        gap: 1,
+        boxShadow: "0px 6px 20px rgba(0,0,0,0.2)",
       }}
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
-      <Autocomplete
-        options={uniqueWords}
-        getOptionLabel={(option) => option.label}
-        value={selectedOption ?? null}
-        onChange={(_, newValue) => {
-          onChange(newValue ? newValue.value : null);
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="単語を選択..."
-            variant="outlined"
-            style={{ width: 300 }}
-            size="small"
-          />
-        )}
-        isOptionEqualToValue={(option, value) => option.value === value.value}
-        renderOption={(props, option) => (
-          <li {...props} key={props.key}>
-            {option.label}
-          </li>
-        )}
-      />
       <Box>
+        <Typography variant="caption" color="textSecondary">
+          モード選択
+        </Typography>
         <ToggleButtonGroup
           color="primary"
           value={isWordSelectMode ? "word" : "prefecture"}
@@ -107,6 +99,7 @@ const WordSearch = ({
               handleWordClick(null);
             }
           }}
+          fullWidth
           size="small"
         >
           <ToggleButton
@@ -138,6 +131,39 @@ const WordSearch = ({
             都道府県選択モード
           </ToggleButton>
         </ToggleButtonGroup>
+      </Box>
+      <Box>
+        <Typography variant="caption" color="textSecondary">
+          単語を選択
+        </Typography>
+        <Autocomplete
+          options={uniqueWords}
+          getOptionLabel={(option) => option.label}
+          value={selectedOption}
+          onChange={(_, newValue) => {
+            onChange(newValue ? newValue.value : null);
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="単語を選択..."
+              variant="outlined"
+              style={{ width: 300 }}
+              size="small"
+            />
+          )}
+          isOptionEqualToValue={(option, value) => option.value === value.value}
+          renderOption={(props, option) => (
+            <li {...props} key={props.key}>
+              {option.label}
+            </li>
+          )}
+        />
+      </Box>
+      <Box>
+        <Typography variant="caption" color="textSecondary">
+          都道府県を選択
+        </Typography>
         <Autocomplete
           options={prefectures}
           getOptionLabel={(option) => option}
@@ -148,17 +174,20 @@ const WordSearch = ({
           renderInput={(params) => (
             <TextField
               {...params}
-              label="都道府県を選択..."
+              placeholder="都道府県を選択..."
               variant="outlined"
               style={{ width: 300 }}
               size="small"
             />
           )}
-          disabled={isWordSelectMode}
-          style={isWordSelectMode ? { opacity: 0.5 } : { opacity: 1 }}
           isOptionEqualToValue={(option, value) => option === value}
           renderOption={(props, option) => <li {...props}>{option}</li>}
         />
+      </Box>
+      <Box>
+        <Typography variant="caption" color="textSecondary">
+          市区町村から都道府県を選択
+        </Typography>
         <Autocomplete
           options={municipalityOptions}
           getOptionLabel={(option) => option.split("_")[1]}
@@ -179,7 +208,7 @@ const WordSearch = ({
           renderInput={(params) => (
             <TextField
               {...params}
-              label="市区町村から都道府県を選択..."
+              placeholder="市区町村から都道府県を選択..."
               variant="outlined"
               style={{ width: 300 }}
               size="small"
@@ -199,7 +228,11 @@ const WordSearch = ({
           )}
         />
       </Box>
-    </Box>
+      <Button onClick={resetZoom} variant="contained" sx={{ marginTop: 2 }}>
+        ズームリセット
+        <ZoomOut />
+      </Button>
+    </Paper>
   );
 };
 

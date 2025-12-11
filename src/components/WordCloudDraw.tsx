@@ -22,7 +22,6 @@ interface WordCloudDrawProps {
   temperatureScale: d3.ScaleLinear<string, string, never> | undefined;
   precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
   weatherData: Record<string, { temperature: number; precipitation: number }>;
-  isCrossHighlight: boolean;
 }
 
 const WordCloudDraw = ({
@@ -40,7 +39,6 @@ const WordCloudDraw = ({
   // temperatureScale,
   precipitationScale,
   weatherData,
-  isCrossHighlight,
 }: WordCloudDrawProps) => {
   if (!group) return null;
   const groupBounds = bounds[group.name];
@@ -102,7 +100,7 @@ const WordCloudDraw = ({
         d={pathGenerator(geoFeature) || ""}
         fill="#99cc99"
         stroke="#333"
-        strokeWidth={isCrossHighlight ? 5 : 1}
+        strokeWidth={1}
         pointerEvents="visibleFill"
         filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />
