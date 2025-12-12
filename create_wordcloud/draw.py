@@ -95,11 +95,8 @@ stopwords = set(
         "味",
         "料理",
         "さん",
-        "ラーメン",
-        "肉",
         "ランチ",
         "最高",
-        "そば",
         "麺",
         "雰囲気",
         "丼",
@@ -108,7 +105,6 @@ stopwords = set(
         "満足",
         "注文",
         "人",
-        "蕎麦",
         "感じ",
         "店員",
         "普通",
@@ -118,12 +114,10 @@ stopwords = set(
         "酒",
         "方",
         "利用",
-        "うどん",
         "値段",
         "ご飯",
         "的",
         "時間",
-        "カレー",
         "スープ",
         "ボリューム",
         "量",
@@ -149,11 +143,9 @@ stopwords = set(
         "野菜",
         "種類",
         "パ",
-        "天ぷら",
         "何",
         "感",
         "予約",
-        "カツ",
         "コス",
         "よう",
         "食事",
@@ -161,11 +153,8 @@ stopwords = set(
         "揚げ",
         "対応",
         "目",
-        "餃子",
-        "寿司",
         "3",
         "気",
-        "豚",
         "個室",
         "そう",
         "席",
@@ -175,7 +164,6 @@ stopwords = set(
         "もの",
         "魚",
         "唐",
-        "チャーシュー",
         "おすすめ",
         "パン",
         "駅",
@@ -189,7 +177,6 @@ stopwords = set(
         "サービス",
         "今回",
         "コスパ",
-        "サラダ",
         "日本",
         "温泉",
         "お昼",
@@ -256,7 +243,6 @@ stopwords = set(
         "リーズナブル",
         "親切",
         "オススメ",
-        "韓国",
         "価格",
         "居心地",
         "全部",
@@ -395,7 +381,7 @@ for i, search_word in enumerate(search_words):
     if not documents:
         continue
 
-    vectorizer = CountVectorizer(max_features=100)
+    vectorizer = CountVectorizer(max_features=10000)
     X = vectorizer.fit_transform(documents)
     words = vectorizer.get_feature_names_out()
     counts = np.asarray(X.sum(axis=0)).ravel()
@@ -404,12 +390,12 @@ for i, search_word in enumerate(search_words):
         for w, c in zip(words, counts)
         if w not in stopwords and not w.isdigit()
     }
-
     if not word_counts:
         continue
 
     all_word_counts[search_word] = word_counts
-
+with open("./tilegram_app/public/wordcloud_layout_norm.json", "w", encoding="utf-8") as f:
+    json.dump(all_word_counts, f, ensure_ascii=False, indent=2)
 # --- 全体での最大出現頻度を求める ---
 global_max = max(c for wc in all_word_counts.values() for c in wc.values())
 print(f"全体の最大頻度: {global_max}")
@@ -441,6 +427,7 @@ for search_word, word_counts in all_word_counts.items():
         include_numbers=False,
         mask=mask_array,
         relative_scaling=1,
+        min_font_size=0
     )
 
     try:

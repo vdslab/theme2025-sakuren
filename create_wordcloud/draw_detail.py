@@ -90,17 +90,15 @@ prefectures = [
 ]
 # stopwords 定義
 stopwords = set(
-    [
+     [
+        "ーー",
         "店",
         "円",
         "味",
         "料理",
         "さん",
-        "ラーメン",
-        "肉",
         "ランチ",
         "最高",
-        "そば",
         "麺",
         "雰囲気",
         "丼",
@@ -109,7 +107,6 @@ stopwords = set(
         "満足",
         "注文",
         "人",
-        "蕎麦",
         "感じ",
         "店員",
         "普通",
@@ -119,12 +116,10 @@ stopwords = set(
         "酒",
         "方",
         "利用",
-        "うどん",
         "値段",
         "ご飯",
         "的",
         "時間",
-        "カレー",
         "スープ",
         "ボリューム",
         "量",
@@ -150,11 +145,9 @@ stopwords = set(
         "野菜",
         "種類",
         "パ",
-        "天ぷら",
         "何",
         "感",
         "予約",
-        "カツ",
         "コス",
         "よう",
         "食事",
@@ -162,11 +155,8 @@ stopwords = set(
         "揚げ",
         "対応",
         "目",
-        "餃子",
-        "寿司",
         "3",
         "気",
-        "豚",
         "個室",
         "そう",
         "席",
@@ -176,7 +166,6 @@ stopwords = set(
         "もの",
         "魚",
         "唐",
-        "チャーシュー",
         "おすすめ",
         "パン",
         "駅",
@@ -190,7 +179,6 @@ stopwords = set(
         "サービス",
         "今回",
         "コスパ",
-        "サラダ",
         "日本",
         "温泉",
         "お昼",
@@ -257,7 +245,6 @@ stopwords = set(
         "リーズナブル",
         "親切",
         "オススメ",
-        "韓国",
         "価格",
         "居心地",
         "全部",
@@ -343,7 +330,7 @@ for idx, row in gdf.iterrows():
             if texts[0] == "":
                 continue
             # TF-IDF 計算（+ stopwords 除去）
-        vectorizer = CountVectorizer(max_features=100)
+        vectorizer = CountVectorizer(max_features=1000)
         X = vectorizer.fit_transform(texts)
         words = vectorizer.get_feature_names_out()
         counts = np.asarray(X.sum(axis=0)).ravel()
@@ -378,7 +365,7 @@ for search_txt, word_counts in all_word_counts.items():
     if not os.path.exists(mask_path):
         print(f"❌ マスク画像がありません: {mask_path}")
         continue
-    mask_image = Image.open(mask_path).convert("L").resize((6000, 6000))
+    mask_image = Image.open(mask_path).convert("L")
     mask_array = np.array(mask_image)
     mask_indices = np.where(mask_array < 128)
     if mask_indices[0].size == 0 or mask_indices[1].size == 0:
@@ -400,8 +387,9 @@ for search_txt, word_counts in all_word_counts.items():
         include_numbers=False,
         mask=mask_array,
         relative_scaling=1,
+        min_font_size=0
     )
-
+    print(search_txt)
     try:
         wordcloud.generate_from_frequencies(normalized_word_counts)
         debag[search_txt.split("/")[1]]=normalized_word_counts
