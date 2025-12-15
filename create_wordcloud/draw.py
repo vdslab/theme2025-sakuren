@@ -394,7 +394,9 @@ for i, search_word in enumerate(search_words):
         continue
 
     all_word_counts[search_word] = word_counts
-with open("./tilegram_app/public/wordcloud_layout_norm.json", "w", encoding="utf-8") as f:
+with open(
+    "./tilegram_app/public/wordcloud_layout_norm.json", "w", encoding="utf-8"
+) as f:
     json.dump(all_word_counts, f, ensure_ascii=False, indent=2)
 # --- 全体での最大出現頻度を求める ---
 global_max = max(c for wc in all_word_counts.values() for c in wc.values())
@@ -422,12 +424,12 @@ for search_word, word_counts in all_word_counts.items():
         height=mask_array.shape[0],
         font_path=font_path,
         colormap="coolwarm",
-        max_words=min(50, len(normalized_word_counts)),
+        max_words=len(normalized_word_counts),
         max_font_size=200,
         include_numbers=False,
         mask=mask_array,
-        relative_scaling=1,
-        min_font_size=0
+        relative_scaling=0.8,
+        min_font_size=0.1,
     )
 
     try:
