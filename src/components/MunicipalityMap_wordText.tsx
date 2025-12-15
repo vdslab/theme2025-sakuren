@@ -54,10 +54,10 @@ const MunicipalityMap_wordText = ({
           <text
             className="word-text"
             key={`${word.word}-${idx}`}
-            x={word.orientation == 2 ? x / 2 + fontSize / 2.6 : x / 2}
-            y={word.orientation == 2 ? y / 2 - fontSize / 2.6 : y / 2}
-            fontSize={fontSize / 2.6}
-            transform={`rotate(${angle}, ${x / 2}, ${y / 2})`}
+            x={word.orientation == 2 ? x + fontSize / 2.6 : x}
+            y={word.orientation == 2 ? y - fontSize / 2.6 : y}
+            fontSize={fontSize * 0.9}
+            transform={`rotate(${angle}, ${x}, ${y})`}
             fill="#3a6fa1"
             textAnchor="start"
             alignmentBaseline="text-before-edge"

@@ -146,7 +146,7 @@ prefectures = [
 ]
 # stopwords 定義
 stopwords = set(
-     [
+    [
         "ーー",
         "店",
         "円",
@@ -419,10 +419,10 @@ for idx, row in gdf.iterrows():
 
 global_max = max(c for wc in all_word_counts.values() for c in wc.values())
 count = 0
-debag={}
+debag = {}
 for search_txt, word_counts in all_word_counts.items():
     count += 1
-    normalized_word_counts = {w: c  for w, c in word_counts.items()}
+    normalized_word_counts = {w: c for w, c in word_counts.items()}
     mask_path = f'./prefecture_layer/{search_txt.split("/")[1]}.png'
     if not os.path.exists(mask_path):
         print(f"❌ マスク画像がありません: {mask_path}")
@@ -444,7 +444,7 @@ for search_txt, word_counts in all_word_counts.items():
         height=mask_array.shape[0],
         font_path=font_path,
         colormap="coolwarm",
-        max_words=min(50, len(normalized_word_counts)),
+        max_words=len(normalized_word_counts),
         max_font_size=300,
         include_numbers=False,
         mask=mask_array,
@@ -454,7 +454,7 @@ for search_txt, word_counts in all_word_counts.items():
     print(search_txt)
     try:
         wordcloud.generate_from_frequencies(normalized_word_counts)
-        debag[search_txt.split("/")[1]]=normalized_word_counts
+        debag[search_txt.split("/")[1]] = normalized_word_counts
     except ValueError:
         continue
 
@@ -486,10 +486,10 @@ for search_txt, word_counts in all_word_counts.items():
     if key not in wordcloud_datas:
         wordcloud_datas[key] = []
     wordcloud_datas[key].append(word_layout_data)
-    if(len(word_layout_data["data"])==0):
+    if len(word_layout_data["data"]) == 0:
         print(debag[search_txt.split("/")[1]])
     print(count, "/", len(all_word_counts), "✅ レイアウトデータ生成完了:", search_txt)
-    if(count==1):
+    if count == 1:
         print(word_layout_data)
 for pref_name_jp, datas in wordcloud_datas.items():
     # ① 保存先フォルダのパス
