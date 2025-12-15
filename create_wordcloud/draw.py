@@ -4,8 +4,6 @@ import unicodedata
 import re
 import numpy as np
 import ctypes
-
-ctypes.cdll.LoadLibrary(r"C:\Program Files\MeCab\bin\libmecab.dll")
 import MeCab
 import ipadic
 from collections import Counter
@@ -14,26 +12,82 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from PIL import Image
 import json
+import subprocess
 
-# MeCabの設定
-mecab = MeCab.Tagger(ipadic.MECAB_ARGS)
+# -----------------------------
+# MeCab DLL 読み込み（Windows向け）
+# -----------------------------
+LIBMECAB_PATH = r"C:\Program Files\MeCab\bin\libmecab.dll"
+ctypes.cdll.LoadLibrary(LIBMECAB_PATH)
+
+import MeCab
+import ipadic
+
+# -----------------------------
+# ユーザー辞書作成（food_dict.csv）
+# -----------------------------
+USER_DIC_CSV = "./create_wordcloud/filtered_food.csv"
+USER_DIC_BIN = "./food_user.dic"
+
+if os.path.exists(USER_DIC_CSV):
+    try:
+        subprocess.run(
+            [
+                r"C:\Program Files\MeCab\bin\mecab-dict-index.exe",
+                "-d",
+                ipadic.DICDIR,
+                "-u",
+                USER_DIC_BIN,
+                "-f",
+                "utf-8",
+                "-t",
+                "utf-8",
+                USER_DIC_CSV,
+            ],
+            check=True,
+        )
+        print("✅ ユーザー辞書を作成しました")
+    except subprocess.CalledProcessError as e:
+        print("❌ ユーザー辞書作成に失敗:", e)
+else:
+    print(f"❌ {USER_DIC_CSV} が見つかりません")
+
+# -----------------------------
+# ユーザー辞書単語セット
+# -----------------------------
+user_words = set()
+if os.path.exists(USER_DIC_CSV):
+    with open(USER_DIC_CSV, encoding="utf-8") as f:
+        for line in f:
+            word = line.strip().split(",")[0]
+            if word:
+                user_words.add(word)
+
+# -----------------------------
+# MeCab タグ設定（ユーザー辞書付き）
+# -----------------------------
+mecab_args = f'-d "{ipadic.DICDIR}" -u "{USER_DIC_BIN}"'
+mecab = MeCab.Tagger(mecab_args)
 
 
-# 形態素解析＋前処理関数
-def mecab_tokenizer(text):
-    replaced_text = unicodedata.normalize("NFKC", text)
-    replaced_text = replaced_text.upper()
-    replaced_text = re.sub(r"[【】 ()（）『』　「」]", "", replaced_text)
-    replaced_text = re.sub(r"[[［］]]", " ", replaced_text)
-    replaced_text = re.sub(r"[@＠]\w+", "", replaced_text)
-    replaced_text = re.sub(r"\d+\.\d+", "", replaced_text)
+# -----------------------------
+# 形態素解析＋ユーザー辞書フィルター関数
+# -----------------------------
+def mecab_tokenizer_user_only(text):
+    text = unicodedata.normalize("NFKC", text)
+    text = text.upper()
+    text = re.sub(r"[【】 ()（）『』　「」]", "", text)
+    text = re.sub(r"[[［］]]", " ", text)
+    text = re.sub(r"[@＠]\w+", "", text)
+    text = re.sub(r"\d+\.\d+", "", text)
 
-    parsed_lines = mecab.parse(replaced_text).split("\n")[:-2]
+    parsed = mecab.parse(text)
+    if parsed is None:
+        return ""
+    parsed_lines = parsed.split("\n")[:-2]
     surfaces = [l.split("\t")[0] for l in parsed_lines]
-    pos = [l.split("\t")[1].split(",")[0] for l in parsed_lines]
-    target_pos = ["名詞"]
-    token_list = [t for t, p in zip(surfaces, pos) if p in target_pos]
-
+    # ユーザー辞書にある単語のみ残す
+    token_list = [t for t in surfaces if t in user_words]
     return " ".join(token_list)
 
 
@@ -376,7 +430,7 @@ for i, search_word in enumerate(search_words):
     documents = []
     for filepath in glob.glob(os.path.join(txt_dir, "*.txt")):
         with open(filepath, encoding="utf-8") as f:
-            documents.append(mecab_tokenizer(f.read()))
+            documents.append(mecab_tokenizer_user_only(f.read()))
 
     if not documents:
         continue
@@ -404,7 +458,7 @@ print(f"全体の最大頻度: {global_max}")
 
 # --- 正規化してWordCloud生成 ---
 for search_word, word_counts in all_word_counts.items():
-    normalized_word_counts = {w: c / global_max for w, c in word_counts.items()}
+    normalized_word_counts = {w: c for w, c in word_counts.items()}
 
     mask_path = f"./prefecture_layer/{search_word}/{search_word}.png"
     mask_image = Image.open(mask_path).convert("L")
