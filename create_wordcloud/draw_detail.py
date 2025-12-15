@@ -6,7 +6,6 @@ import re
 import numpy as np
 import ctypes
 
-ctypes.cdll.LoadLibrary(r"C:\Program Files\MeCab\bin\libmecab.dll")
 import MeCab
 import ipadic
 from sklearn.feature_extraction.text import CountVectorizer
@@ -14,30 +13,87 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from PIL import Image
 import json
-
+import subprocess
 # MeCabの設定
 mecab = MeCab.Tagger(ipadic.MECAB_ARGS)
 # JSON保存先
 json_path = "wordcloud_layout_detail.json"
 
 
-# 形態素解析＋前処理関数
-def mecab_tokenizer(text):
-    replaced_text = unicodedata.normalize("NFKC", text)
-    replaced_text = replaced_text.upper()
-    replaced_text = re.sub(r"[【】 ()（）『』　「」]", "", replaced_text)
-    replaced_text = re.sub(r"[[［］]]", " ", replaced_text)
-    replaced_text = re.sub(r"[@＠]\w+", "", replaced_text)
-    replaced_text = re.sub(r"\d+\.\d+", "", replaced_text)
+# -----------------------------
+# MeCab DLL 読み込み（Windows向け）
+# -----------------------------
+LIBMECAB_PATH = r"C:\Program Files\MeCab\bin\libmecab.dll"
+ctypes.cdll.LoadLibrary(LIBMECAB_PATH)
 
-    parsed_lines = mecab.parse(replaced_text).split("\n")[:-2]
+import MeCab
+import ipadic
+
+# -----------------------------
+# ユーザー辞書作成（food_dict.csv）
+# -----------------------------
+USER_DIC_CSV = "./create_wordcloud/filtered_food.csv"
+USER_DIC_BIN = "./food_user.dic"
+
+if os.path.exists(USER_DIC_CSV):
+    try:
+        subprocess.run(
+            [
+                r"C:\Program Files\MeCab\bin\mecab-dict-index.exe",
+                "-d",
+                ipadic.DICDIR,
+                "-u",
+                USER_DIC_BIN,
+                "-f",
+                "utf-8",
+                "-t",
+                "utf-8",
+                USER_DIC_CSV,
+            ],
+            check=True,
+        )
+        print("✅ ユーザー辞書を作成しました")
+    except subprocess.CalledProcessError as e:
+        print("❌ ユーザー辞書作成に失敗:", e)
+else:
+    print(f"❌ {USER_DIC_CSV} が見つかりません")
+
+# -----------------------------
+# ユーザー辞書単語セット
+# -----------------------------
+user_words = set()
+if os.path.exists(USER_DIC_CSV):
+    with open(USER_DIC_CSV, encoding="utf-8") as f:
+        for line in f:
+            word = line.strip().split(",")[0]
+            if word:
+                user_words.add(word)
+
+# -----------------------------
+# MeCab タグ設定（ユーザー辞書付き）
+# -----------------------------
+mecab_args = f'-d "{ipadic.DICDIR}" -u "{USER_DIC_BIN}"'
+mecab = MeCab.Tagger(mecab_args)
+
+# -----------------------------
+# 形態素解析＋ユーザー辞書フィルター関数
+# -----------------------------
+def mecab_tokenizer_user_only(text):
+    text = unicodedata.normalize("NFKC", text)
+    text = text.upper()
+    text = re.sub(r"[【】 ()（）『』　「」]", "", text)
+    text = re.sub(r"[[［］]]", " ", text)
+    text = re.sub(r"[@＠]\w+", "", text)
+    text = re.sub(r"\d+\.\d+", "", text)
+
+    parsed = mecab.parse(text)
+    if parsed is None:
+        return ""
+    parsed_lines = parsed.split("\n")[:-2]
     surfaces = [l.split("\t")[0] for l in parsed_lines]
-    pos = [l.split("\t")[1].split(",")[0] for l in parsed_lines]
-    target_pos = ["名詞"]
-    token_list = [t for t, p in zip(surfaces, pos) if p in target_pos]
-
+    # ユーザー辞書にある単語のみ残す
+    token_list = [t for t in surfaces if t in user_words]
     return " ".join(token_list)
-
 
 prefectures = [
     "北海道",
@@ -324,13 +380,19 @@ for idx, row in gdf.iterrows():
             print(f"❌ 対応するテキストファイルがありません: {pattern}")
             continue
 
-        for txt_file in matched_txt_files:
-            with open(txt_file, encoding="utf-8") as f:
-                texts.append(mecab_tokenizer(f.read()))
-            if texts[0] == "":
-                continue
+        for filepath in glob.glob(os.path.join(txt_dir, "*.txt")):
+            with open(filepath, encoding="utf-8") as f:
+                t = mecab_tokenizer_user_only(f.read())
+                if t.strip():        # ← 空は入れない
+                    texts.append(t)
+
+        if not texts:
+            print(f"⚠ {search_word}: texts が空。スキップ")
+            continue
             # TF-IDF 計算（+ stopwords 除去）
-        vectorizer = CountVectorizer(max_features=1000)
+        vectorizer = CountVectorizer(max_features=1000000)
+        if texts==['']:
+            continue
         X = vectorizer.fit_transform(texts)
         words = vectorizer.get_feature_names_out()
         counts = np.asarray(X.sum(axis=0)).ravel()
@@ -386,8 +448,8 @@ for search_txt, word_counts in all_word_counts.items():
         max_font_size=300,
         include_numbers=False,
         mask=mask_array,
-        relative_scaling=1,
-        min_font_size=0
+        relative_scaling=0.5,
+        min_font_size=0.1
     )
     print(search_txt)
     try:

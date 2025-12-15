@@ -478,7 +478,7 @@ for search_word, word_counts in all_word_counts.items():
         include_numbers=False,
         mask=mask_array,
         relative_scaling=0.5,
-        min_font_size=0
+        min_font_size=0.1
     )
 
     try:
