@@ -22,6 +22,7 @@ interface WordCloudDrawProps {
   temperatureScale: d3.ScaleLinear<string, string, never> | undefined;
   precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
   weatherData: Record<string, { temperature: number; precipitation: number }>;
+  markerPref: Array<string>;
 }
 
 const WordCloudDraw = ({
@@ -39,6 +40,7 @@ const WordCloudDraw = ({
   // temperatureScale,
   precipitationScale,
   weatherData,
+  markerPref,
 }: WordCloudDrawProps) => {
   if (!group) return null;
   const groupBounds = bounds[group.name];
@@ -96,11 +98,11 @@ const WordCloudDraw = ({
       onMouseLeave={() => onHover(null)}
     >
       <path
-        opacity={!selectedWord || findword ? 1 : 0.25}
+        opacity={!selectedWord || findword ? 0.75 : 0.25}
         d={pathGenerator(geoFeature) || ""}
-        fill="#99cc99"
-        stroke="#333"
-        strokeWidth={1}
+        fill="#d8f2d8ff"
+        stroke={markerPref.includes(group.name) ? "#ff0000" : "#333"}
+        strokeWidth={markerPref.includes(group.name) ? 4 : 1}
         pointerEvents="visibleFill"
         filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />
