@@ -1,74 +1,14 @@
-import { Box } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import { useToggle } from "react-use";
-import { Header } from "./components/Header/Header";
-import CanvasWordCloud from "./components/WordCloudCanvas";
-import type { WordBoundsData } from "./types/wordBoundsData";
-import type { WordLayoutData } from "./types/wordLayoutData";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { ImageGallery } from "./components/ImageGallery";
+import { Main } from "./components/Main";
 
 export const App = () => {
-  // 選択モード
-  const [isWordSelectMode, setIsWordSelectMode] = useToggle(true);
-
-  // 選択情報
-  const [selectedWord, setSelectedWord] = useState<string | null>(null);
-  const [selectedMap, setSelectedMap] = useState<string | null>(null);
-  const [hoveredPref, setHoveredPref] = useState<string | null>(null);
-
-  // データ保持
-  const [wordData, setWordData] = useState<WordLayoutData[]>([]);
-  const [wordBounds, setWordBounds] = useState<WordBoundsData>({});
-
-  useEffect(() => {
-    fetch("/data/wordcloud_layout.json")
-      .then((res) => res.json())
-      .then((data) => setWordData(data));
-
-    fetch("/data/prefecture_pixel_map_bounds_all.json")
-      .then((res) => res.json())
-      .then((data) => setWordBounds(data));
-  }, []);
-
-  const uniqueWords = useMemo(() => {
-    if (!wordData) return [];
-    return Array.from(
-      new Set(wordData.map((d) => d.data.map((item) => item.word)).flat())
-    ).map((w) => ({ value: w, label: w }));
-  }, [wordData]);
-
-  const onWordClick = (word: string) => {
-    if (word === selectedWord) {
-      setSelectedWord(null);
-    } else {
-      setSelectedWord(word);
-    }
-  };
-
   return (
-    <Box
-      onClick={() => {
-        setSelectedWord(null);
-      }}
-    >
-      <Header />
-      {wordData.length !== 0 && Object.keys(wordBounds).length !== 0 && (
-        <CanvasWordCloud
-          wordData={wordData}
-          selectedMap={selectedMap}
-          setSelectedMap={setSelectedMap}
-          hoveredPref={hoveredPref}
-          setHoveredPref={setHoveredPref}
-          bounds={wordBounds}
-          selectedWord={selectedWord}
-          onWordClick={onWordClick}
-          isWordSelectMode={isWordSelectMode}
-          setIsWordSelectMode={setIsWordSelectMode}
-          setSelectedWord={(opt) => setSelectedWord(opt)}
-          uniqueWords={uniqueWords}
-        />
-      )}
-    </Box>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/image-gallery" element={<ImageGallery />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
-
-export default App;

@@ -27,6 +27,7 @@ interface CanvasWordCloudProps {
   setIsWordSelectMode: (boo: boolean) => void;
   setSelectedWord: (value: string | null) => void;
   uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
+  markerPref: Array<string>;
 }
 
 type WeatherData = Record<
@@ -47,6 +48,7 @@ const WordCloudCanvas = ({
   setIsWordSelectMode,
   setSelectedWord,
   uniqueWords,
+  markerPref,
 }: CanvasWordCloudProps) => {
   const [useWordData, setUseWordData] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -350,6 +352,7 @@ const WordCloudCanvas = ({
                     temperatureScale,
                     precipitationScale,
                     weatherData,
+                    markerPref,
                   })
                 )}
               </g>
