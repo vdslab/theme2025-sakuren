@@ -221,19 +221,23 @@ def main():
     url_dict = read_json_file(f"{base_url}/tabelog_urls.json")
 
     for pref_key, pref_cities in sorted(url_dict.items()):
+        if pref_key=="akita" or pref_key=="aichi":
+            continue
         for city_name, city_url in pref_cities.items():
+            if city_name=="青森市":
+                continue
 
             # 9. 口コミのスクレイピング結果を保持する変数（市区町村ごとに初期化）
             city_reviews = []
 
             # 市区町村ページを取得
-            city_html = get_html(city_url)
+            city_html = get_html(city_url+"ramen/")
 
             if not city_html:
                 print(
                     f"{city_name}のページ取得に失敗しました。次の市区町村に進みます。"
                 )
-                city_html = get_html(city_url)
+                city_html = get_html(city_url+"ramen/")
                 if not city_html:
                     print(
                         f"{city_name}のページ取得に失敗しました。次の市区町村に進みます。"
@@ -247,7 +251,7 @@ def main():
                 print(
                     f"{city_name}から飲食店URLの抽出に失敗しました。次の市区町村に進みます。"
                 )
-                city_html = get_html(city_url)
+                city_html = get_html(city_url+"ramen/")
                 restaurant_urls = extract_restaurant_urls(f"{city_html}?SrtT=rvcn")
                 if not restaurant_urls:
                     print(

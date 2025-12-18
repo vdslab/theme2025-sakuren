@@ -67,13 +67,13 @@ WordTextProps) => {
           : ""
       }
       x={x}
-      y={item.orientation == 2 ? y - (item.font_size / 2) * 1.6 : y}
+      y={y}
       fontSize={item.font_size}
       fill="#000000"
       opacity={findword || !selectedWord ? 1 : 0.25}
-      textAnchor="start"
-      dominantBaseline="hanging"
-      transform={`rotate(${angle}, ${x}, ${y})`}
+      textAnchor={angle == 0 ? "start" : "end"}
+      dominantBaseline={"hanging"}
+      transform={`rotate(${angle * 3}, ${x}, ${y})`}
       onClick={onClick}
       onMouseEnter={() => {
         onHover(groupName);
@@ -82,7 +82,7 @@ WordTextProps) => {
         onHover(null);
       }}
       style={{
-        fontFamily: '"游ゴシック", YuGothic, sans-serif',
+        fontFamily: '"游ゴシック"',
         cursor: "pointer",
         textShadow: selectedWord == item.word ? "1px 1px 2px black" : "none",
         userSelect: "none",

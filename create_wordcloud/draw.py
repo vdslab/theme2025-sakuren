@@ -83,11 +83,28 @@ def mecab_tokenizer_user_only(text):
     parsed = mecab.parse(text)
     if parsed is None:
         return ""
-    parsed_lines = parsed.split("\n")[:-2]
-    surfaces = [l.split("\t")[0] for l in parsed_lines]
-    # ユーザー辞書にある単語のみ残す
-    token_list = [t for t in surfaces if t in user_words]
-    return " ".join(token_list)
+
+    tokens = []
+
+    for line in parsed.split("\n"):
+        if line == "EOS" or line.strip() == "":
+            continue
+
+        surface, feature = line.split("\t")
+        features = feature.split(",")
+
+        pos = features[0]      # 品詞
+        pos_detail = features[1]
+
+        # ✅ 名詞・形容詞のみ
+        if pos == "名詞" or pos == "形容詞":
+            # 記号・数値っぽいもの除外
+            if surface.isdigit():
+                continue
+            tokens.append(surface)
+
+    return " ".join(tokens)
+
 prefectures = [
     "北海道",
     "青森",
@@ -190,7 +207,6 @@ stopwords = set(
         "日",
         "好き",
         "焼き",
-        "味噌",
         "野菜",
         "種類",
         "パ",
@@ -201,7 +217,6 @@ stopwords = set(
         "よう",
         "食事",
         "残念",
-        "揚げ",
         "対応",
         "目",
         "3",
@@ -209,7 +224,6 @@ stopwords = set(
         "個室",
         "そう",
         "席",
-        "塩",
         "前",
         "豊富",
         "もの",
@@ -219,15 +233,12 @@ stopwords = set(
         "パン",
         "駅",
         "今日",
-        "醤油",
-        "中華",
         "提供",
         "笑",
         "これ",
         "丁寧",
         "サービス",
         "今回",
-        "コスパ",
         "日本",
         "温泉",
         "お昼",
@@ -241,13 +252,11 @@ stopwords = set(
         "ゴルフ",
         "会津",
         "白河",
-        "限定",
         "仕事",
         "新鮮",
         "お腹",
         "来店",
         "久しぶり",
-        "台湾",
         "いっぱい",
         "ごちそうさま",
         "食堂",
@@ -279,8 +288,6 @@ stopwords = set(
         "五島",
         "佐世保",
         "島原",
-        "替玉",
-        "無料",
         "中津",
         "別府",
         "スタッフ",
@@ -291,14 +298,62 @@ stopwords = set(
         "阿波",
         "鳴門",
         "素材",
-        "リーズナブル",
         "親切",
         "オススメ",
-        "価格",
-        "居心地",
         "全部",
         "大山",
         "氷見",
+        "美味しい",
+        "美味しかっ",
+        "美味し",
+        "ない",
+        "ところ",
+        "それ",
+        "こちら",
+        "営業",
+        "美味い",
+        "なく",
+        "美味しく",
+        "良く",
+        "近く",
+        "自分",
+        "ため",
+        "到着",
+        "それ",
+        "カウンター",
+        "テーブル",
+        "お客",
+        "カツ",
+        "良かっ",
+        "多い",
+        "店舗",
+        "嬉しい",
+        "限定",
+        "いい",
+        "キヤ",
+        "ラーメン",
+        "次回",
+        "途中",
+        "追加",
+        "写真",
+        "コート",
+        "フード",
+        "見た目",
+        "税込み",
+        "なし",
+        "最後",
+        "ベース",
+        "良い",
+        "おいしかっ",
+        "個人",
+        "邪魔",
+        "税込",
+        "価格",
+        "あと",
+        "スガ",
+        "通り",
+        "以前",
+        "印象"
     ]
     + prefectures
 )
@@ -477,7 +532,7 @@ for search_word, word_counts in all_word_counts.items():
         max_font_size=200,
         include_numbers=False,
         mask=mask_array,
-        relative_scaling=0.5,
+        relative_scaling=0.7,
         min_font_size=0.1
     )
 

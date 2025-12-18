@@ -27,7 +27,7 @@ maxy += y_margin
 # --- 縦横比調整（日本は縦長）---
 width = maxx - minx
 height = maxy - miny
-target_aspect = 1.3
+target_aspect = 1
 desired_height = width * target_aspect
 height_diff = desired_height - height
 if height_diff > 0:
