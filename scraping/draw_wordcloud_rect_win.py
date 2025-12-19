@@ -2,9 +2,7 @@ import ctypes
 import glob
 import os
 import re
-import shutil
 import subprocess
-import sys
 import unicodedata
 
 import ipadic
@@ -15,14 +13,12 @@ from wordcloud import WordCloud
 
 # -----------------------------
 # MeCab DLL 読み込み（Windows向け）
-# mac/linux ではシステムの MeCab を使うためロード不要
 # -----------------------------
-if sys.platform.startswith("win"):
-    LIBMECAB_PATH = r"C:\Program Files\MeCab\bin\libmecab.dll"
-    try:
-        ctypes.cdll.LoadLibrary(LIBMECAB_PATH)
-    except Exception as e:
-        print(f"⚠️ libmecab の読み込みに失敗しました: {e}")
+LIBMECAB_PATH = r"C:\Program Files\MeCab\bin\libmecab.dll"
+ctypes.cdll.LoadLibrary(LIBMECAB_PATH)
+
+import ipadic
+import MeCab
 
 # -----------------------------
 # ユーザー辞書作成（food_dict.csv）
@@ -30,61 +26,26 @@ if sys.platform.startswith("win"):
 USER_DIC_CSV = "./create_wordcloud/filtered_food.csv"
 USER_DIC_BIN = "./food_user.dic"
 
-
-def _find_mecab_dict_index():
-    # try PATH first, then common Homebrew locations
-    candidates = [
-        shutil.which("mecab-dict-index"),
-        shutil.which("mecab-dict-index.exe"),
-        "/opt/homebrew/bin/mecab-dict-index",
-        "/usr/local/bin/mecab-dict-index",
-    ]
-    for c in candidates:
-        if c and os.path.exists(c):
-            return c
-    return None
-
-
-def _find_mecabrc():
-    candidates = [
-        os.environ.get("MECABRC"),
-        "/opt/homebrew/etc/mecabrc",
-        "/usr/local/etc/mecabrc",
-        "/etc/mecabrc",
-    ]
-    for p in candidates:
-        if p and os.path.exists(p):
-            return p
-    return None
-
-
 if os.path.exists(USER_DIC_CSV):
-    # mecab-dict-index を自動検出して実行する (Windows/mac/linux 共通)
-    mecab_dict_index = _find_mecab_dict_index()
-    if mecab_dict_index is None:
-        print(
-            "⚠️ mecab-dict-index が見つかりません。辞書を作成できませんでした。Homebrewで MeCab を入れるか、mecab-dict-index のパスを指定してください。"
+    try:
+        subprocess.run(
+            [
+                r"C:\Program Files\MeCab\bin\mecab-dict-index.exe",
+                "-d",
+                ipadic.DICDIR,
+                "-u",
+                USER_DIC_BIN,
+                "-f",
+                "utf-8",
+                "-t",
+                "utf-8",
+                USER_DIC_CSV,
+            ],
+            check=True,
         )
-    else:
-        try:
-            subprocess.run(
-                [
-                    mecab_dict_index,
-                    "-d",
-                    ipadic.DICDIR,
-                    "-u",
-                    USER_DIC_BIN,
-                    "-f",
-                    "utf-8",
-                    "-t",
-                    "utf-8",
-                    USER_DIC_CSV,
-                ],
-                check=True,
-            )
-            print("✅ ユーザー辞書を作成しました")
-        except subprocess.CalledProcessError as e:
-            print("❌ ユーザー辞書作成に失敗:", e)
+        print("✅ ユーザー辞書を作成しました")
+    except subprocess.CalledProcessError as e:
+        print("❌ ユーザー辞書作成に失敗:", e)
 else:
     print(f"❌ {USER_DIC_CSV} が見つかりません")
 
@@ -102,51 +63,8 @@ if os.path.exists(USER_DIC_CSV):
 # -----------------------------
 # MeCab タグ設定（ユーザー辞書付き）
 # -----------------------------
-# MeCab 初期化: mecabrc とユーザー辞書の有無を考慮して段階的に試す
-mecabrc_path = _find_mecabrc()
-mecab_args_parts = []
-if mecabrc_path:
-    mecab_args_parts += [f'-r "{mecabrc_path}"']
-if os.path.exists(ipadic.DICDIR):
-    mecab_args_parts += [f'-d "{ipadic.DICDIR}"']
-if os.path.exists(USER_DIC_BIN):
-    mecab_args_parts += [f'-u "{USER_DIC_BIN}"']
-
-
-def _try_init(args_str: str):
-    try:
-        t = MeCab.Tagger(args_str)
-        print(f"MeCab initialized with args: {args_str}")
-        return t
-    except Exception as e:
-        print(f"MeCab init failed with args ({args_str}): {e}")
-        return None
-
-
-mecab = None
-if mecab_args_parts:
-    # try full set first
-    mecab = _try_init(" ".join(mecab_args_parts))
-
-if mecab is None:
-    # try without user dic
-    parts_no_user = [p for p in mecab_args_parts if not p.startswith("-u")]
-    if parts_no_user:
-        mecab = _try_init(" ".join(parts_no_user))
-
-if mecab is None:
-    # try only with mecabrc
-    if mecabrc_path:
-        mecab = _try_init(f'-r "{mecabrc_path}"')
-
-if mecab is None:
-    # last resort: no args
-    mecab = _try_init("")
-
-if mecab is None:
-    raise RuntimeError(
-        "Failed initializing MeCab with any fallback options. See error messages above."
-    )
+mecab_args = f'-d "{ipadic.DICDIR}" -u "{USER_DIC_BIN}"'
+mecab = MeCab.Tagger(mecab_args)
 
 
 # -----------------------------
@@ -582,8 +500,8 @@ print(f"全体の最大頻度: {global_max}")
 for search_word, word_counts in all_word_counts.items():
     normalized_word_counts = {w: c for w, c in word_counts.items()}
 
-    # font_path = "C:/Windows/Fonts/YuGothR.ttc"
-    font_path = "/Library/Fonts/YuGothR.ttc"
+    font_path = "C:/Windows/Fonts/YuGothR.ttc"
+    # font_path = "/Library/Fonts/YuGothR.ttc"
     wordcloud = WordCloud(
         background_color="white",
         font_path=font_path,
