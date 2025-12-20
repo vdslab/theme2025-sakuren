@@ -23,7 +23,7 @@ export const ImageGallery = () => {
 
     Promise.all(
       prefectures.map((pref) =>
-        fetch(`/rect-wordclouds/${pref}.png`)
+        fetch(`/rect_wordclouds/${pref}.png`)
           .then((res) => {
             if (!res.ok)
               throw new Error(`Failed to fetch /rect-wordclouds/${pref}.png`);

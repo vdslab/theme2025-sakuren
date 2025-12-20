@@ -156,9 +156,7 @@ const WordCloudCanvas = ({
   const resetZoom = useCallback(
     (animate: boolean = true) => {
       if (!svgRef.current || !zoomRef.current) return;
-
       const svg = d3.select(svgRef.current);
-
       if (animate) {
         svg
           .transition()
