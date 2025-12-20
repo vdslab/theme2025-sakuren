@@ -4,7 +4,6 @@ import unicodedata
 import re
 import numpy as np
 import ctypes
-import MeCab
 import ipadic
 from collections import Counter
 from sklearn.feature_extraction.text import CountVectorizer
@@ -69,6 +68,7 @@ if os.path.exists(USER_DIC_CSV):
 mecab_args = f'-d "{ipadic.DICDIR}" -u "{USER_DIC_BIN}"'
 mecab = MeCab.Tagger(mecab_args)
 
+
 # -----------------------------
 # 形態素解析＋ユーザー辞書フィルター関数
 # -----------------------------
@@ -85,6 +85,7 @@ def mecab_tokenizer_user_only(text):
         return ""
 
     tokens = []
+    noun_buffer = []  # 名詞連結用バッファ
 
     for line in parsed.split("\n"):
         if line == "EOS" or line.strip() == "":
@@ -93,17 +94,23 @@ def mecab_tokenizer_user_only(text):
         surface, feature = line.split("\t")
         features = feature.split(",")
 
-        pos = features[0]      # 品詞
-        pos_detail = features[1]
+        pos = features[0]
 
-        # ✅ 名詞・形容詞のみ
-        if pos == "名詞" or pos == "形容詞":
-            # 記号・数値っぽいもの除外
-            if surface.isdigit():
-                continue
-            tokens.append(surface)
+        # --- 名詞の場合 ---
+        if pos == "名詞" and not surface.isdigit():
+            noun_buffer.append(surface)
+            continue
 
+        # --- 名詞以外が来たら、名詞バッファを確定 ---
+        if noun_buffer:
+            tokens.append("".join(noun_buffer))
+            noun_buffer = []
+
+    # 文末が名詞で終わった場合
+    if noun_buffer:
+        tokens.append("".join(noun_buffer))
     return " ".join(tokens)
+
 
 prefectures = [
     "北海道",
@@ -153,6 +160,58 @@ prefectures = [
     "宮崎",
     "鹿児島",
     "沖縄",
+]
+
+# 画像保存ディレクトリ
+# 都道府県リスト
+search_words = [
+    "愛知県",
+    "秋田県",
+    "青森県",
+    "千葉県",
+    "愛媛県",
+    "福井県",
+    "福岡県",
+    "福島県",
+    "岐阜県",
+    "群馬県",
+    "広島県",
+    "北海道",
+    "兵庫県",
+    "茨城県",
+    "石川県",
+    "岩手県",
+    "香川県",
+    "鹿児島県",
+    "神奈川県",
+    "高知県",
+    "熊本県",
+    "京都府",
+    "三重県",
+    "宮城県",
+    "宮崎県",
+    "長野県",
+    "長崎県",
+    "奈良県",
+    "新潟県",
+    "大分県",
+    "岡山県",
+    "沖縄県",
+    "大阪府",
+    "佐賀県",
+    "埼玉県",
+    "滋賀県",
+    "島根県",
+    "静岡県",
+    "栃木県",
+    "徳島県",
+    "東京都",
+    "鳥取県",
+    "富山県",
+    "和歌山県",
+    "山形県",
+    "山口県",
+    "山梨県",
 ]
 # stopwords 定義
 stopwords = set(
@@ -353,62 +412,223 @@ stopwords = set(
         "スガ",
         "通り",
         "以前",
-        "印象"
+        "印象",
+        "店員さん",
+        "コスパ",
+        "ネタ",
+        "味付け",
+        "大好き",
+        "お腹いっぱい",
+        "非常",
+        "朝食",
+        "堪能",
+        "場所",
+        "回目",
+        "景色",
+        "香り",
+        "あん",
+        "たくさん",
+        "そこ",
+        "テーブル席",
+        "mmf",
+        "大盛り",
+        "相性",
+        "シンプル",
+        "完食",
+        "先客",
+        "風味",
+        "券売機",
+        "お客さん",
+        "カウンター席",
+        "お願い",
+        "一口",
+        "味わい",
+        "地元",
+        "八戸",
+        "食感",
+        "無料",
+        "パンチ",
+        "味変",
+        "タイプ",
+        "シンプル",
+        "具材",
+        "駐車場",
+        "風味",
+        "卓上",
+        "個人的",
+        "どちら",
+        "久々",
+        "期待",
+        "ボリューム満点",
+        "贅沢",
+        "今度",
+        "満席",
+        "感動",
+        "美味",
+        "高め",
+        "土産",
+        "全て",
+        "人気店",
+        "旨味",
+        "開店",
+        "食券",
+        "rf",
+        "eos",
+        "中太",
+        "期間限定",
+        "本日",
+        "セルフ",
+        "一緒",
+        "うち",
+        "青森県",
+        "熱々",
+        "一緒",
+        "上がり",
+        "厨房",
+        "最近",
+        "何度",
+        "オシャレ",
+        "どこ",
+        "こき",
+        "季節",
+        "全体的",
+        "ミニ",
+        "美味",
+        "ブログ",
+        "うま",
+        "安心",
+        "https",
+        "ぺよ",
+        "びっくり",
+        "com",
+        "飲み物",
+        "説明",
+        "メイン",
+        "高め",
+        "静か",
+        "素敵",
+        "充実",
+        "居酒屋",
+        "帰り",
+        "めちゃくちゃ",
+        "内装",
+        "おしゃれ",
+        "全て",
+        "一番",
+        "一杯",
+        "時頃",
+        "前回",
+        "子供",
+        "二人",
+        "季節",
+        "再訪",
+        "とき",
+        "大将",
+        "居酒屋さん",
+        "一品",
+        "友達",
+        "全体的",
+        "友人",
+        "一品",
+        "レベル",
+        "本格的",
+        "民家",
+        "モーニング",
+        "選択",
+        "旨み",
+        "一人",
+        "ランチタイム",
+        "お通し",
+        "不可",
+        "スタッフさん",
+        "絶妙",
+        "ソラニワさん",
+        "会社",
+        "販売",
+        "バランス",
+        "スガキヤ",
+        "内容",
+        "喫茶店",
+        "空間",
+        "時期",
+        "まままま",
+        "名物",
+        "たま",
+        "絶対",
+        "せい",
+        "正解",
+        "手頃",
+        "食べ物",
+        "かわり自由",
+        "定番",
+        "ネット作業",
+        "クオリティ",
+        "機会",
+        "お洒落",
+        "昼食",
+        "なみ",
+        "着丼",
+        "最初",
+        "食材",
+        "チョイス",
+        "応え",
+        "ーめん",
+        "その後",
+        "国道",
+        "アクセント",
+        "店主",
+        "有名",
+        "確認",
+        "ホテル",
+        "苦手",
+        "あれ",
+        "案内",
+        "気さく",
+        "気持ち",
+        "お気に入り",
+        "元気",
+        "居心地",
+        "抜群",
+        "楽しみ",
+        "日曜日",
+        "待ち時間",
+        "注意",
+        "間違い",
+        "部屋",
+        "価値",
+        "かなり",
+        "うま",
+        "独特",
+        "宿泊",
+        "旅行",
+        "上品",
+        "行列",
+        "間違い",
+        "着席",
+        "使用",
+        "幸せ",
+        "数分",
+        "女性",
+        "営業時間",
+        "子ども",
+        "気分",
+        "看板",
+        "人数",
+        "こだわり",
+        "みんな",
+        "いつ",
+        "チェーン店",
+        "わけ",
+        "名前",
+        "完成",
+        "なべ市",
+        "鶴岡",
+        "床内",
     ]
     + prefectures
+    + search_words
 )
 
-# 画像保存ディレクトリ
-# 都道府県リスト
-search_words = [
-    "愛知県",
-    "秋田県",
-    "青森県",
-    "千葉県",
-    "愛媛県",
-    "福井県",
-    "福岡県",
-    "福島県",
-    "岐阜県",
-    "群馬県",
-    "広島県",
-    "北海道",
-    "兵庫県",
-    "茨城県",
-    "石川県",
-    "岩手県",
-    "香川県",
-    "鹿児島県",
-    "神奈川県",
-    "高知県",
-    "熊本県",
-    "京都府",
-    "三重県",
-    "宮城県",
-    "宮崎県",
-    "長野県",
-    "長崎県",
-    "奈良県",
-    "新潟県",
-    "大分県",
-    "岡山県",
-    "沖縄県",
-    "大阪府",
-    "佐賀県",
-    "埼玉県",
-    "滋賀県",
-    "島根県",
-    "静岡県",
-    "栃木県",
-    "徳島県",
-    "東京都",
-    "鳥取県",
-    "富山県",
-    "和歌山県",
-    "山形県",
-    "山口県",
-    "山梨県",
-]
 search_words_roma = [
     "aichi",
     "akita",
@@ -474,7 +694,7 @@ else:
 
 # --- 追加: まず全県の word_counts を一時保存 ---
 all_word_counts = {}
-
+wordList = set()
 for i, search_word in enumerate(search_words):
     search_word_roma = search_words_roma[i]
     txt_dir = f"./create_wordcloud/tabelog_results/{search_word_roma}"
@@ -491,6 +711,8 @@ for i, search_word in enumerate(search_words):
     X = vectorizer.fit_transform(documents)
     words = vectorizer.get_feature_names_out()
     counts = np.asarray(X.sum(axis=0)).ravel()
+    for w in words:
+        wordList.add(w)
     word_counts = {
         w: int(c)
         for w, c in zip(words, counts)
@@ -500,7 +722,25 @@ for i, search_word in enumerate(search_words):
         continue
 
     all_word_counts[search_word] = word_counts
-with open("./tilegram_app/public/wordcloud_layout_norm.json", "w", encoding="utf-8") as f:
+with open(
+    "./tilegram_app/public/wordcloud_layout_wordList.json", "w", encoding="utf-8"
+) as f:
+    f.write("[\n")
+
+    word_list = list(wordList)
+    chunk_size = 1000
+
+    for i in range(0, len(word_list), chunk_size):
+        chunk = word_list[i : i + chunk_size]
+        json.dump(chunk, f, ensure_ascii=False)
+        if i + chunk_size < len(word_list):
+            f.write(",\n")  # ← 1000語ごとに改行
+
+    f.write("\n]")
+
+with open(
+    "./tilegram_app/public/wordcloud_layout_norm.json", "w", encoding="utf-8"
+) as f:
     json.dump(all_word_counts, f, ensure_ascii=False, indent=2)
 # --- 全体での最大出現頻度を求める ---
 global_max = max(c for wc in all_word_counts.values() for c in wc.values())
@@ -532,8 +772,8 @@ for search_word, word_counts in all_word_counts.items():
         max_font_size=200,
         include_numbers=False,
         mask=mask_array,
-        relative_scaling=0.7,
-        min_font_size=0.1
+        relative_scaling=0.5,
+        min_font_size=0.1,
     )
 
     try:
