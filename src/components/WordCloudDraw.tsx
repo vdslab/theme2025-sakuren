@@ -56,7 +56,7 @@ const WordCloudDraw = ({
     .reflectY(true)
     .fitExtent(
       [
-        [groupBounds.xlim[0], groupBounds.ylim[0]],
+        [groupBounds.xlim[0] - 2, groupBounds.ylim[0] - 2],
         [groupBounds.xlim[1], groupBounds.ylim[1]],
       ],
       geoFeature
@@ -98,11 +98,11 @@ const WordCloudDraw = ({
       onMouseLeave={() => onHover(null)}
     >
       <path
-        opacity={!selectedWord || findword ? 0.75 : 0.25}
+        opacity={!selectedWord || findword ? 1 : 0.25}
         d={pathGenerator(geoFeature) || ""}
         fill="#d8f2d8ff"
         stroke={markerPref.includes(group.name) ? "#ff0000" : "#333"}
-        strokeWidth={markerPref.includes(group.name) ? 4 : 1}
+        strokeWidth={markerPref.includes(group.name) ? 1 : 0.5}
         pointerEvents="visibleFill"
         filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />

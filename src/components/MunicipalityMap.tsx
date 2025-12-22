@@ -63,7 +63,7 @@ const MunicipalityMap = ({
         .reflectY(true)
         .fitExtent(
           [
-            [groupBounds.xlim[0], groupBounds.ylim[0]],
+            [groupBounds.xlim[0] - 1, groupBounds.ylim[0] - 1],
             [groupBounds.xlim[1], groupBounds.ylim[1]],
           ],
           {
