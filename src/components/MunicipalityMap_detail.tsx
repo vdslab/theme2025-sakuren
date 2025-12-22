@@ -46,7 +46,7 @@ const MunicipalityMap_detail = ({
   useEffect(() => {
     if (!feature || wordcloud.length === 0) return;
 
-    const { N03_003, N03_004 } = feature.properties;
+    const { N03_003 } = feature.properties;
     const partsNameRaw = N03_003;
     const partsName = partsNameRaw?.trim();
     const matched = wordcloud.find((item) => item.name.trim() === partsName);

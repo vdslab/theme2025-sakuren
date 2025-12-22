@@ -4,10 +4,7 @@ import { useEffect, useState } from "react";
 import type { GeoProperty } from "../types/geoProperty";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import MunicipalityMap_detail from "./MunicipalityMap_detail";
-interface Option {
-  value: string;
-  label: string;
-}
+
 interface MunicipalityMapProps {
   selectedWord: string | null;
   onChange: (value: string | null) => void;
