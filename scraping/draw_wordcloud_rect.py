@@ -1,6 +1,8 @@
 import glob
 import os
 import re
+import shutil
+import subprocess
 import unicodedata
 
 import ipadic
@@ -9,26 +11,142 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from wordcloud import WordCloud
 
-# MeCabの設定
-mecab = MeCab.Tagger(ipadic.MECAB_ARGS)
+# -----------------------------
+# ユーザー辞書作成（filtered_food.csv）
+# - draw.py に合わせて MeCab に -u で読み込ませる
+# - macOS 前提（Windows分岐はしない）
+# -----------------------------
+USER_DIC_CSV = "./create_wordcloud/filtered_food.csv"
+USER_DIC_BIN = "./food_user.dic"
 
 
-# 形態素解析＋前処理関数
-def mecab_tokenizer(text):
-    replaced_text = unicodedata.normalize("NFKC", text)
-    replaced_text = replaced_text.upper()
-    replaced_text = re.sub(r"[【】 ()（）『』　「」]", "", replaced_text)
-    replaced_text = re.sub(r"[[［］]]", " ", replaced_text)
-    replaced_text = re.sub(r"[@＠]\w+", "", replaced_text)
-    replaced_text = re.sub(r"\d+\.\d+", "", replaced_text)
+def ensure_user_dic() -> bool:
+    if not os.path.exists(USER_DIC_CSV):
+        print(f"❌ {USER_DIC_CSV} が見つかりません")
+        return False
 
-    parsed_lines = mecab.parse(replaced_text).split("\n")[:-2]
-    surfaces = [l.split("\t")[0] for l in parsed_lines]
-    pos = [l.split("\t")[1].split(",")[0] for l in parsed_lines]
-    target_pos = ["名詞"]
-    token_list = [t for t, p in zip(surfaces, pos) if p in target_pos]
+    # 既に辞書があり、CSVより新しければそのまま使う
+    if os.path.exists(USER_DIC_BIN):
+        try:
+            if os.path.getmtime(USER_DIC_BIN) >= os.path.getmtime(USER_DIC_CSV):
+                return True
+        except OSError:
+            pass
 
-    return " ".join(token_list)
+    mecab_dict_index = shutil.which("mecab-dict-index")
+    if mecab_dict_index is None:
+        print(
+            "❌ mecab-dict-index が見つかりません（MeCabの辞書コンパイルができません）"
+        )
+        print(
+            "   例: Homebrewなら `brew install mecab mecab-ipadic` を確認してください"
+        )
+        return False
+
+    try:
+        subprocess.run(
+            [
+                mecab_dict_index,
+                "-d",
+                ipadic.DICDIR,
+                "-u",
+                USER_DIC_BIN,
+                "-f",
+                "utf-8",
+                "-t",
+                "utf-8",
+                USER_DIC_CSV,
+            ],
+            check=True,
+        )
+        print("✅ ユーザー辞書を作成しました")
+        return True
+    except subprocess.CalledProcessError as e:
+        print("❌ ユーザー辞書作成に失敗:", e)
+        return False
+
+
+_has_user_dic = ensure_user_dic()
+
+
+def resolve_mecabrc_path() -> str:
+    env_path = os.environ.get("MECABRC")
+    candidates = [
+        env_path,
+        "/opt/homebrew/etc/mecabrc",  # Apple Silicon Homebrew
+        "/usr/local/etc/mecabrc",  # Intel Homebrew
+        "/etc/mecabrc",
+    ]
+    for candidate in candidates:
+        if candidate and os.path.exists(candidate):
+            return candidate
+
+    # 見つからない場合は、最小の mecabrc を生成して使う
+    generated_path = os.path.abspath("./.mecabrc")
+    try:
+        with open(generated_path, "w", encoding="utf-8") as f:
+            f.write(f"dicdir = {ipadic.DICDIR}\n")
+        return generated_path
+    except OSError as e:
+        raise RuntimeError(f"mecabrc が見つからず、生成にも失敗しました: {e}")
+
+
+# -----------------------------
+# MeCab タグ設定（ユーザー辞書付き）
+# -----------------------------
+mecabrc_path = resolve_mecabrc_path()
+
+if _has_user_dic and os.path.exists(USER_DIC_BIN):
+    mecab_args = f'-r "{mecabrc_path}" -d "{ipadic.DICDIR}" -u "{USER_DIC_BIN}"'
+else:
+    mecab_args = f'-r "{mecabrc_path}" -d "{ipadic.DICDIR}"'
+    print("⚠️ ユーザー辞書なしで実行します（結果がdraw.pyと一致しない可能性があります）")
+
+try:
+    mecab = MeCab.Tagger(mecab_args)
+except RuntimeError as e:
+    print("❌ MeCab の初期化に失敗しました")
+    print(f"   mecabrc: {mecabrc_path}")
+    print(f"   dicdir : {ipadic.DICDIR}")
+    print("   ※ Homebrew の MeCab 設定ファイルが必要な場合があります")
+    raise
+
+
+# -----------------------------
+# 形態素解析＋前処理関数（draw.py に合わせる）
+# -----------------------------
+def mecab_tokenizer_user_only(text: str) -> str:
+    text = unicodedata.normalize("NFKC", text)
+    text = text.upper()
+    text = re.sub(r"[【】 ()（）『』　「」]", "", text)
+    text = re.sub(r"[[［］]]", " ", text)
+    text = re.sub(r"[@＠]\w+", "", text)
+    text = re.sub(r"\d+\.\d+", "", text)
+
+    parsed = mecab.parse(text)
+    if parsed is None:
+        return ""
+
+    tokens: list[str] = []
+    for line in parsed.split("\n"):
+        if line == "EOS" or line.strip() == "":
+            continue
+        if "\t" not in line:
+            continue
+
+        surface, feature = line.split("\t", 1)
+        features = feature.split(",")
+        if not features:
+            continue
+
+        pos = features[0]
+        # ✅ 名詞・形容詞のみ
+        if pos == "名詞" or pos == "形容詞":
+            if surface.isdigit():
+                continue
+            tokens.append(surface)
+
+    return " ".join(tokens)
 
 
 prefectures = [
@@ -89,11 +207,8 @@ stopwords = set(
         "味",
         "料理",
         "さん",
-        "ラーメン",
-        "肉",
         "ランチ",
         "最高",
-        "そば",
         "麺",
         "雰囲気",
         "丼",
@@ -102,7 +217,6 @@ stopwords = set(
         "満足",
         "注文",
         "人",
-        "蕎麦",
         "感じ",
         "店員",
         "普通",
@@ -112,12 +226,10 @@ stopwords = set(
         "酒",
         "方",
         "利用",
-        "うどん",
         "値段",
         "ご飯",
         "的",
         "時間",
-        "カレー",
         "スープ",
         "ボリューム",
         "量",
@@ -139,51 +251,38 @@ stopwords = set(
         "日",
         "好き",
         "焼き",
-        "味噌",
         "野菜",
         "種類",
         "パ",
-        "天ぷら",
         "何",
         "感",
         "予約",
-        "カツ",
         "コス",
         "よう",
         "食事",
         "残念",
-        "揚げ",
         "対応",
         "目",
-        "餃子",
-        "寿司",
         "3",
         "気",
-        "豚",
         "個室",
         "そう",
         "席",
-        "塩",
         "前",
         "豊富",
         "もの",
         "魚",
         "唐",
-        "チャーシュー",
         "おすすめ",
         "パン",
         "駅",
         "今日",
-        "醤油",
-        "中華",
         "提供",
         "笑",
         "これ",
         "丁寧",
         "サービス",
         "今回",
-        "コスパ",
-        "サラダ",
         "日本",
         "温泉",
         "お昼",
@@ -197,13 +296,11 @@ stopwords = set(
         "ゴルフ",
         "会津",
         "白河",
-        "限定",
         "仕事",
         "新鮮",
         "お腹",
         "来店",
         "久しぶり",
-        "台湾",
         "いっぱい",
         "ごちそうさま",
         "食堂",
@@ -235,8 +332,6 @@ stopwords = set(
         "五島",
         "佐世保",
         "島原",
-        "替玉",
-        "無料",
         "中津",
         "別府",
         "スタッフ",
@@ -247,15 +342,62 @@ stopwords = set(
         "阿波",
         "鳴門",
         "素材",
-        "リーズナブル",
         "親切",
         "オススメ",
-        "韓国",
-        "価格",
-        "居心地",
         "全部",
         "大山",
         "氷見",
+        "美味しい",
+        "美味しかっ",
+        "美味し",
+        "ない",
+        "ところ",
+        "それ",
+        "こちら",
+        "営業",
+        "美味い",
+        "なく",
+        "美味しく",
+        "良く",
+        "近く",
+        "自分",
+        "ため",
+        "到着",
+        "それ",
+        "カウンター",
+        "テーブル",
+        "お客",
+        "カツ",
+        "良かっ",
+        "多い",
+        "店舗",
+        "嬉しい",
+        "限定",
+        "いい",
+        "キヤ",
+        "ラーメン",
+        "次回",
+        "途中",
+        "追加",
+        "写真",
+        "コート",
+        "フード",
+        "見た目",
+        "税込み",
+        "なし",
+        "最後",
+        "ベース",
+        "良い",
+        "おいしかっ",
+        "個人",
+        "邪魔",
+        "税込",
+        "価格",
+        "あと",
+        "スガ",
+        "通り",
+        "以前",
+        "印象",
     ]
     + prefectures
 )
@@ -376,12 +518,13 @@ for i, search_word in enumerate(search_words):
     documents = []
     for filepath in glob.glob(os.path.join(txt_dir, "*.txt")):
         with open(filepath, encoding="utf-8") as f:
-            documents.append(mecab_tokenizer(f.read()))
+            documents.append(mecab_tokenizer_user_only(f.read()))
 
     if not documents:
         continue
 
-    vectorizer = CountVectorizer(max_features=100)
+    # draw.py に合わせる
+    vectorizer = CountVectorizer(max_features=10000)
     X = vectorizer.fit_transform(documents)
     words = vectorizer.get_feature_names_out()
     counts = np.asarray(X.sum(axis=0)).ravel()
@@ -397,12 +540,18 @@ for i, search_word in enumerate(search_words):
     all_word_counts[search_word] = word_counts
 
 # --- 全体での最大出現頻度を求める ---
-global_max = max(c for wc in all_word_counts.values() for c in wc.values())
-print(f"全体の最大頻度: {global_max}")
+# draw.py に合わせて以降では使わないが、ログとして残す
+if all_word_counts:
+    global_max = max(c for wc in all_word_counts.values() for c in wc.values())
+    print(f"全体の最大頻度: {global_max}")
+else:
+    print("⚠️ 入力テキストが見つからず、処理対象がありません")
+    raise SystemExit(0)
 
 # --- 正規化してWordCloud生成 ---
 for search_word, word_counts in all_word_counts.items():
-    normalized_word_counts = {w: c / global_max for w, c in word_counts.items()}
+    # draw.py に合わせて正規化しない（マスク無し・json無しは本スクリプトの仕様）
+    normalized_word_counts = {w: c for w, c in word_counts.items()}
 
     # font_path = "C:/Windows/Fonts/YuGothR.ttc"
     font_path = "/Library/Fonts/YuGothR.ttc"
@@ -413,7 +562,8 @@ for search_word, word_counts in all_word_counts.items():
         max_words=min(50, len(normalized_word_counts)),
         max_font_size=200,
         include_numbers=False,
-        relative_scaling=1,
+        relative_scaling=0.7,
+        min_font_size=0.1,
         color_func=lambda *args, **kwargs: "#000000",
     )
 
