@@ -4,11 +4,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { WeatherDataRaw } from "../types/weatherData";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import type { WordLayoutData } from "../types/wordLayoutData";
+import { Aside } from "./aside/Aside";
 import { HoveredTooltip } from "./HoveredTooltip";
 import MunicipalityMap from "./MunicipalityMap";
 import wordcloudDraw from "./WordCloudDraw";
 import WordSearch from "./WordSearch";
-import { Aside } from "./aside/Aside";
 
 interface Option {
   value: string;
@@ -27,6 +27,7 @@ interface CanvasWordCloudProps {
   setIsWordSelectMode: (boo: boolean) => void;
   setSelectedWord: (value: string | null) => void;
   uniqueWords: Option[]; // [{ value: "東京", label: "東京" }, ...]
+  isUserTest?: boolean;
 }
 
 type WeatherData = Record<
@@ -47,6 +48,7 @@ const WordCloudCanvas = ({
   setIsWordSelectMode,
   setSelectedWord,
   uniqueWords,
+  isUserTest = false,
 }: CanvasWordCloudProps) => {
   const [useWordData, setUseWordData] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -371,27 +373,29 @@ const WordCloudCanvas = ({
             )}
           </g>
         </svg>
-        <div
-          style={{
-            position: "absolute",
-            top: 10,
-            left: 10,
-            zIndex: 10,
-            width: 300,
-          }}
-        >
-          <WordSearch
-            uniqueWords={uniqueWords}
-            selected={selectedWord}
-            onChange={(opt) => setSelectedWord(opt)}
-            isWordSelectMode={isWordSelectMode}
-            setIsWordSelectMode={setIsWordSelectMode}
-            handleWordClick={(opt) => handleWordClick(opt)}
-            selectedMap={selectedMap}
-            setSelectedMap={setSelectedMap}
-            resetZoom={resetZoom}
-          />
-        </div>
+        {!isUserTest && (
+          <div
+            style={{
+              position: "absolute",
+              top: 10,
+              left: 10,
+              zIndex: 10,
+              width: 300,
+            }}
+          >
+            <WordSearch
+              uniqueWords={uniqueWords}
+              selected={selectedWord}
+              onChange={(opt) => setSelectedWord(opt)}
+              isWordSelectMode={isWordSelectMode}
+              setIsWordSelectMode={setIsWordSelectMode}
+              handleWordClick={(opt) => handleWordClick(opt)}
+              selectedMap={selectedMap}
+              setSelectedMap={setSelectedMap}
+              resetZoom={resetZoom}
+            />
+          </div>
+        )}
         {tooltipValue && (
           <HoveredTooltip value={tooltipValue} mousePos={mousePos} />
         )}
