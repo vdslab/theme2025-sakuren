@@ -72,7 +72,7 @@ WordTextProps) => {
       fill="#000000"
       opacity={findword || !selectedWord ? 1 : 0.25}
       textAnchor={angle == 0 ? "start" : "end"}
-      dominantBaseline={"hanging"}
+      dominantBaseline="hanging"
       transform={`rotate(${angle * 3}, ${x}, ${y})`}
       onClick={onClick}
       onMouseEnter={() => {
