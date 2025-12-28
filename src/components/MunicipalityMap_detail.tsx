@@ -7,7 +7,9 @@ import type {
 import MunicipalityMap_wordText from "./MunicipalityMap_wordText";
 type MunicipalityMapDetailProps = {
   idx: number | string;
+  onChange: (value: string | null) => void;
   feature: GeoJSON.Feature<GeoJSON.Geometry, GeoProperty>;
+  group: string;
   pathGenerator: d3.GeoPath<void, d3.GeoPermissibleObjects>;
   hoverdPref: string | null;
   onHover: (word: string | null) => void;
@@ -18,6 +20,8 @@ type MunicipalityMapDetailProps = {
 const MunicipalityMap_detail = ({
   idx,
   feature,
+  group,
+  onChange,
   pathGenerator,
   hoverdPref,
   onHover,
@@ -42,11 +46,9 @@ const MunicipalityMap_detail = ({
   useEffect(() => {
     if (!feature || wordcloud.length === 0) return;
 
-    const { N03_003, N03_004 } = feature.properties;
-    const partsNameRaw =
-      N03_003?.endsWith("市") || N03_003?.endsWith("郡") ? N03_003 : N03_004;
+    const { N03_003 } = feature.properties;
+    const partsNameRaw = N03_003;
     const partsName = partsNameRaw?.trim();
-
     const matched = wordcloud.find((item) => item.name.trim() === partsName);
     if (matched) {
       setTargetParts(matched.data);
@@ -59,19 +61,24 @@ const MunicipalityMap_detail = ({
   const findword = targetParts.some(
     (item: WordLayoutDetailData) => item.word === selectedWord
   );
-  const name = feature.properties.N03_004;
+  const name = feature.properties.N03_003;
+
   return (
-    <g key={name + idx} opacity={findword || !selectedWord ? 1 : 0.25}>
+    <g
+      key={name + idx}
+      opacity={findword || !selectedWord ? 1 : 0.25}
+      onClick={() => {
+        if (group !== feature.properties?.N03_001) {
+          onChange(feature.properties?.N03_001);
+        }
+      }}
+      style={group !== feature.properties?.N03_001 ? { cursor: "pointer" } : {}}
+    >
       <path
         d={pathGenerator(feature) || ""}
         fill="#fff"
         stroke="#444"
-        strokeWidth={feature.properties.N03_001 != "東京都" ? 0.5 : 0.05}
-        filter={
-          hoverdPref === name && feature.properties.N03_001 != "東京都"
-            ? "url(#shadow)"
-            : undefined
-        }
+        strokeWidth={feature.properties.N03_001 === group ? 0.5 : 0.05}
         onMouseEnter={() => {
           onHover(name);
         }}
@@ -80,14 +87,16 @@ const MunicipalityMap_detail = ({
         }}
         style={{ zIndex: hoverdPref === name ? 1 : 0 }}
       />
-      <MunicipalityMap_wordText
-        selectedWord={selectedWord}
-        groupName={name}
-        boundsArray={boundsArray}
-        onHover={onHover}
-        onWordClick={onWordClick}
-        targetParts={targetParts}
-      />
+      {group == feature.properties?.N03_001 && (
+        <MunicipalityMap_wordText
+          selectedWord={selectedWord}
+          groupName={name}
+          boundsArray={boundsArray}
+          onHover={onHover}
+          onWordClick={onWordClick}
+          targetParts={targetParts}
+        />
+      )}
     </g>
   );
 };

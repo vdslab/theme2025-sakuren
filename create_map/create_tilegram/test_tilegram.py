@@ -3,37 +3,46 @@ from shapely.geometry import Polygon, MultiPolygon, Point
 import numpy as np
 import math
 import os
-import json
 import matplotlib.pyplot as plt
+from shapely.ops import unary_union
 
 # === 1. GeoJSONを読み込む ===
-gdf = gpd.read_file("./public/cartogram_lonlat2.geojson")
-pref_col = "name"  # 都道府県名の列名
+gdf = gpd.read_file("./create_map/create_tilegram/jp_cartogram.geojson")
 
 # === 2. 投影座標系に変換（緯度経度を平面座標に） ===
 gdf = gdf.to_crs("EPSG:3857")
+
 # === 3. MultiPolygonをPolygon単位に分解 ===
-polygons, names = [], []
+polygons, names01, names03, names07 = [], [], [], []
 for _, row in gdf.iterrows():
     geom = row.geometry
-    name = row[pref_col]
+    name01 = row["N03_001_left"]
+    name03 = row["N03_003"]
+    name07=row["N03_007"]
     if isinstance(geom, Polygon):
         polygons.append(geom)
-        names.append(name)
+        names01.append(name01)
+        names03.append(name03)
+        names07.append(name07)
+        
     elif isinstance(geom, MultiPolygon):
         for poly in geom.geoms:
             polygons.append(poly)
-            names.append(name)
+            names01.append(name01)
+            names03.append(name03)
+            names07.append(name07)
 
-gdf_polygons = gpd.GeoDataFrame({"pref_name": names}, geometry=polygons, crs=gdf.crs)
+gdf_polygons = gpd.GeoDataFrame(
+    {"N03_001": names01, "N03_003": names03, "N03_007": names07}, geometry=polygons, crs=gdf.crs
+)
 
 # === 4. 六角形タイル設定 ===
-tile_area = 5e7  # タイル1枚あたりの面積
-a = math.sqrt(2 * tile_area / (3 * math.sqrt(3)))  # 六角形の1辺の長さ
+tile_area = 5e8
+a = math.sqrt(2 * tile_area / (3 * math.sqrt(3)))  # 六角形1辺
 tile_spacingX = 3 * a / 2
 tile_spacingY = math.sqrt(3) * a
 
-# === 5. 六角形中心点のグリッドを作成 ===
+# === 5. 六角形中心点のグリッド作成 ===
 minx, miny, maxx, maxy = gdf_polygons.total_bounds
 centers = []
 for ix, x in enumerate(np.arange(minx, maxx, tile_spacingX)):
@@ -41,55 +50,158 @@ for ix, x in enumerate(np.arange(minx, maxx, tile_spacingX)):
         y_offset = tile_spacingY / 2 if ix % 2 == 1 else 0
         centers.append((x, y + y_offset))
 
-
 # === 6. 六角形生成関数 ===
 def hexagon_coords(cx, cy, a):
     angles = [0, 60, 120, 180, 240, 300]
-    pts = [
-        (cx + a * math.cos(math.radians(t)), cy + a * math.sin(math.radians(t)))
-        for t in angles
-    ]
+    pts = [(cx + a * math.cos(math.radians(t)), cy + a * math.sin(math.radians(t))) for t in angles]
     pts.append(pts[0])
     return pts
 
+# === 7. 各六角形がどの都道府県・市区町村に属するか判定 ===
+hexes = []
+radius = a * 0.8
 
-# === 7. 各六角形がどの都道府県に属するか判定 ===
-hexes, owners = [], []
 for cx, cy in centers:
     p = Point(cx, cy)
+    circle = p.buffer(radius)
+    place = {"area": [], "hex": None}
+
     for idx, geom in enumerate(gdf_polygons.geometry):
-        if geom.contains(p):
-            coords = hexagon_coords(cx, cy, a)
-            hexes.append(Polygon(coords))
-            owners.append(gdf_polygons.iloc[idx]["pref_name"])
-            break
+        overlap_area = geom.intersection(circle).area
+        if overlap_area>0:
+            place["area"].append({
+                "best_pref01": gdf_polygons.iloc[idx]["N03_001"],
+                "best_pref03": gdf_polygons.iloc[idx]["N03_003"],
+                "best_pref07":gdf_polygons.iloc[idx]["N03_007"],
+                "best_overlap_area": overlap_area
+            })
 
-hex_gdf = gpd.GeoDataFrame({"pref_name": owners}, geometry=hexes, crs="EPSG:3857")
+    # 六角形のポリゴンを作成
+    coords = hexagon_coords(cx, cy, a)
+    place["hex"] = Polygon(coords)
+    if len(place["area"])>0:
+        hexes.append(place)
+hexes_before = [h.copy() for h in hexes]
+# === 8. pref01 内で overlap 最大の area のみ残す ===
+filtered_hexes_pref01 = []
+for h in hexes:
+    # pref01ごとに合計 overlap を計算
+    places = {}
+    for area in h["area"]:
+        places[area["best_pref01"]] = places.get(area["best_pref01"], 0) + area["best_overlap_area"]
 
-# === 8. 都道府県ごとに六角形を結合 ===
-merged_gdf = hex_gdf.dissolve(by="pref_name").reset_index()
+    # 最大 overlap の pref01 を選択
+    max_place = max(places.items(), key=lambda x: x[1])[0]
+    h["area"] = [area for area in h["area"] if area["best_pref01"] == max_place]
+    filtered_hexes_pref01.append(h)
 
-# === 9. GeoJSONとして出力 ===
+hexes = filtered_hexes_pref01
+
+# === 9. pref03 内で overlap 最大の hex のみ残す ===
+# pref03 内で overlap 最大の hex のみ残す
+hexes_copy = hexes.copy()
+for i, h1 in enumerate(hexes_copy):
+    to_remove_h1 = []
+    for area1 in h1["area"]:
+        for j, h2 in enumerate(hexes_copy):
+            if i == j:
+                continue
+            to_remove_h2 = []
+            for area2 in h2["area"]:
+                if area1["best_pref07"] == area2["best_pref07"]:
+                    
+                    if area1["best_overlap_area"] >= area2["best_overlap_area"]:
+                        if len(h2["area"])-len(to_remove_h2)>1:
+                            to_remove_h2.append(area2)
+                        else:
+                            if len(h1["area"])-len(to_remove_h1)>1:
+                                to_remove_h1.append(area1)
+                    else:
+                        if len(h1["area"])-len(to_remove_h1)>1:
+                            to_remove_h1.append(area2)
+                        else:
+                            if len(h2["area"])-len(to_remove_h2)>1:
+                                to_remove_h2.append(area1)
+            
+            # h2 から削除
+            lens2=len(h2["area"])
+            for a in to_remove_h2:
+                if a in h2["area"]:
+                    h2["area"].remove(a)
+            if len(h2["area"])==0:
+                print("おかしい2",lens2,len(to_remove_h2))
+                
+    # h1 から削除
+    lens1=len(h1["area"])
+    for a in to_remove_h1:
+        if a in h1["area"]:
+            h1["area"].remove(a)
+    if len(h1["area"])==0:
+        print("おかしい1",lens1,len(to_remove_h1))
+
+# 最終 hexes に area が残っているものだけ残す
+hexes = [h for h in hexes_copy]
+
+# === 10. GeoDataFrame に変換 ===
+hex_geoms = []
+hex_pref01 = []
+hex_pref03 = []
+hex_pref07 = []
+for h in hexes:
+    hex_geoms.append(h["hex"])
+    # area は1つだけ残っているはず
+    area = h["area"]
+    city=[]
+    for a in area:
+        city.append(a["best_pref03"])
+    city=list(set(city))
+    hex_pref01.append(h["area"][0]["best_pref01"])
+    hex_pref03.append("_".join(city))
+    hex_pref07.append(area[0]["best_pref07"])
+
+hex_gdf = gpd.GeoDataFrame(
+    {
+        "N03_001": hex_pref01,
+        "N03_003": hex_pref03,
+        "N03_007": hex_pref07,
+    },
+    geometry=hex_geoms,
+    crs="EPSG:3857"
+)
+
+
+
+# === 11. 市区町村・都道府県ごとに結合 ===
+fixed1 = hex_gdf.copy()
+fixed2 = hex_gdf.copy()
+fixed1["geometry"] = fixed1.buffer(0.5)
+fixed2["geometry"] = fixed2.buffer(0.5)
+
+todouhuken_gdf = fixed1.groupby("N03_001")["geometry"].apply(unary_union)
+todouhuken_gdf = gpd.GeoDataFrame(todouhuken_gdf, geometry="geometry").reset_index()
+
+sikutyoson_gdf = fixed2.groupby(["N03_001","N03_003"])["geometry"].apply(unary_union)
+
+sikutyoson_gdf = gpd.GeoDataFrame(sikutyoson_gdf, geometry="geometry").reset_index()
+print(hex_gdf)
+pref_map = hex_gdf.set_index("N03_007")["N03_001"].to_dict()
+hex_key = hex_gdf[["N03_003","N03_007"]].drop_duplicates()
+
+sikutyoson_gdf = sikutyoson_gdf.merge(hex_key, on="N03_003", how="left")
+
+sikutyoson_gdf["N03_001"] = sikutyoson_gdf["N03_007"].map(pref_map)
+
+
+
+# === 12. GeoJSON 出力 ===
 os.makedirs("./public", exist_ok=True)
-output_path = "./public/pref_hex_merged.geojson"
-merged_gdf.to_file(output_path, driver="GeoJSON", encoding="utf-8")
+sikutyoson_gdf.to_file("./public/pref_hex_merged_sikutyoson.geojson", driver="GeoJSON", encoding="utf-8")
+todouhuken_gdf.to_file("./public/pref_hex_merged_todouhuken.geojson", driver="GeoJSON", encoding="utf-8")
 
-# === 10. idを都道府県名に設定 ===
-with open(output_path, encoding="utf-8") as f:
-    data = json.load(f)
-
-for feature in data["features"]:
-    pref_name = feature["properties"]["pref_name"]
-    feature["id"] = pref_name
-
-with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
-
-print(f"✅ 出力完了: {output_path}")
-
-# === 11. 描画 ===
+# === 13. 描画 ===
 fig, ax = plt.subplots(figsize=(10, 10))
-merged_gdf.plot(column="pref_name", ax=ax, edgecolor="black", linewidth=0.8, alpha=0.7)
+todouhuken_gdf.plot(column="N03_001", ax=ax, edgecolor="black", linewidth=0.8, alpha=0.7)
+sikutyoson_gdf.plot(column="N03_003", ax=ax, edgecolor="black", linewidth=0.8, alpha=0.7)
 plt.title("都道府県ごとに結合された六角形タイル図", fontsize=14)
 plt.axis("off")
 plt.show()

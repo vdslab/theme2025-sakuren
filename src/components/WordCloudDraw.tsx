@@ -11,18 +11,17 @@ interface WordCloudDrawProps {
   bounds: WordBoundsData;
   useWordData: number;
   group: WordLayoutData | null;
-  geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { pref_name: string }>[];
+  geoFeatures: GeoJSON.Feature<GeoJSON.Geometry, { N03_001: string }>[];
   gIdx: number;
   selectedWord: string | null;
   hoveredPref: string | null;
-  mode: boolean;
+  isWordSelectMode: boolean;
   onWordClick: (word: string) => void;
   onHover: (value: string | null) => void;
   handleWordClick: (value: string | null) => void;
   temperatureScale: d3.ScaleLinear<string, string, never> | undefined;
   precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
   weatherData: Record<string, { temperature: number; precipitation: number }>;
-  isCrossHighlight: boolean;
 }
 
 const WordCloudDraw = ({
@@ -33,21 +32,19 @@ const WordCloudDraw = ({
   gIdx,
   selectedWord,
   hoveredPref,
-  mode,
+  isWordSelectMode,
   onWordClick,
   onHover,
   handleWordClick,
-  temperatureScale,
+  // temperatureScale,
   precipitationScale,
   weatherData,
-  isCrossHighlight,
 }: WordCloudDrawProps) => {
   if (!group) return null;
   const groupBounds = bounds[group.name];
   if (!groupBounds) return null;
-  console.log(geoFeatures);
   const geoFeature = geoFeatures.find(
-    (f) => f["properties"]["pref_name"] === group.name
+    (f) => f["properties"]["N03_001"] === group.name
   );
   if (!geoFeature) return null;
 
@@ -73,13 +70,13 @@ const WordCloudDraw = ({
 
   // 天気データ取得
   const weather = weatherData[group.name];
-  const tempColor =
-    weather && temperatureScale != null
-      ? temperatureScale(weather.temperature)
-      : "#ffffff";
+  // const tempColor =
+  //   weather && temperatureScale != null
+  //     ? temperatureScale(weather.temperature)
+  //     : "#ffffff";
 
   const onClick = (e: MouseEvent<SVGTextElement>) => {
-    if (!mode) {
+    if (!isWordSelectMode) {
       handleWordClick(hoveredPref ?? null);
       e.stopPropagation();
     }
@@ -89,7 +86,7 @@ const WordCloudDraw = ({
     <g
       key={gIdx}
       transform={
-        hoveredPref === group.name && !mode
+        hoveredPref === group.name && !isWordSelectMode
           ? `translate(${centerX}, ${centerY}) scale(1.1) translate(${-centerX}, ${-centerY})`
           : `translate(0, 0) scale(1)`
       }
@@ -100,9 +97,9 @@ const WordCloudDraw = ({
       <path
         opacity={!selectedWord || findword ? 1 : 0.25}
         d={pathGenerator(geoFeature) || ""}
-        fill={tempColor}
+        fill="#d8f2d8ff"
         stroke="#333"
-        strokeWidth={isCrossHighlight ? 5 : 1}
+        strokeWidth={1}
         pointerEvents="visibleFill"
         filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />
@@ -114,7 +111,7 @@ const WordCloudDraw = ({
           useWordData={useWordData}
           item={item}
           groupBounds={groupBounds}
-          mode={mode}
+          isWordSelectMode={isWordSelectMode}
           selectedWord={selectedWord}
           findword={findword}
           onWordClick={onWordClick}

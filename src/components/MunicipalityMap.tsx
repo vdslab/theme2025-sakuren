@@ -7,6 +7,7 @@ import MunicipalityMap_detail from "./MunicipalityMap_detail";
 
 interface MunicipalityMapProps {
   selectedWord: string | null;
+  onChange: (value: string | null) => void;
   bounds: WordBoundsData;
   group: string;
   gIdx: number;
@@ -17,6 +18,7 @@ interface MunicipalityMapProps {
 
 const MunicipalityMap = ({
   selectedWord,
+  onChange,
   bounds,
   group,
   gIdx,
@@ -33,7 +35,7 @@ const MunicipalityMap = ({
 
   // GeoJSON読み込み
   useEffect(() => {
-    fetch("/municipalities_full.geojson")
+    fetch("/pref_hex_merged_sikutyoson.geojson")
       .then((res) => res.json())
       .then((data) => setGeoFeatureParts(data.features));
   }, []);
@@ -76,11 +78,13 @@ const MunicipalityMap = ({
 
   return (
     <g key={gIdx} className="municipality-map">
-      {filteredFeatures.map((feature, idx) => (
+      {geoFeatureParts.map((feature, idx) => (
         <MunicipalityMap_detail
           idx={idx}
           key={idx}
           feature={feature}
+          group={group}
+          onChange={onChange}
           pathGenerator={pathGenerator}
           hoverdPref={hoverdPref}
           onHover={onHover}

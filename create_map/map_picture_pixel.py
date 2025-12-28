@@ -6,7 +6,8 @@ from PIL import Image
 import numpy as np
 
 # GeoJSON読み込み
-gdf = gpd.read_file("./public/municipalities_full.geojson")
+gdf = gpd.read_file("./public/pref_hex_merged_sikutyoson.geojson")
+print(gdf.columns.tolist())
 
 # 出力ベースディレクトリ
 base_output_dir = "./prefecture_layer/"
@@ -23,7 +24,7 @@ print(f"日本全体bounds: minx={minx}, maxx={maxx}, miny={miny}, maxy={maxy}")
 # 縦横比補正（必要なら）
 width = maxx - minx
 height = maxy - miny
-target_aspect = 1.3
+target_aspect = 1
 desired_height = width * target_aspect
 height_diff = desired_height - height
 if height_diff > 0:
@@ -33,12 +34,14 @@ print(f"補正後bounds: minx={minx}, maxx={maxx}, miny={miny}, maxy={maxy}")
 
 # 都道府県ごとに処理
 pixel_bounds_dict = {}
-
-for pref_name, gdf_group in gdf.groupby("N03_001"):
+print(gdf)
+count=0
+for pref_name, gdf_group in gdf.groupby("N03_003"):
     print(f"Processing {pref_name} ...")
+    print(gdf_group.iloc[-1])
 
     # 保存先フォルダ作成
-    pref_dir = os.path.join(base_output_dir, pref_name)
+    pref_dir = os.path.join(base_output_dir)
     os.makedirs(pref_dir, exist_ok=True)
 
     # プロット作成
@@ -46,7 +49,7 @@ for pref_name, gdf_group in gdf.groupby("N03_001"):
     ax.axis('off')
 
     # 都道府県全体を黒塗り
-    gdf_group.plot(ax=ax, color='black', edgecolor='none')
+    gdf_group.plot(ax=ax, color='black', edgecolor='none', aspect='equal')
 
     # 共通座標範囲設定（ズームなし）
     ax.set_xlim(minx, maxx)
@@ -57,7 +60,7 @@ for pref_name, gdf_group in gdf.groupby("N03_001"):
     # plt.tight_layout()
 
     # 画像保存
-    filename = os.path.join(pref_dir, f"{pref_name}.png")
+    filename = os.path.join(pref_dir, f"{str(pref_name)}.png")
     plt.savefig(filename, format='png', dpi=dpi, bbox_inches=None, pad_inches=0, transparent=False)
     plt.close(fig)
     print(f"  Saved image: {filename}")

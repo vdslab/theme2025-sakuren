@@ -1,0 +1,100 @@
+import json
+import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Polygon, MultiPolygon
+from cartogram import Cartogram
+
+
+# =========================
+# MultiPolygon → 最大 Polygon に変換（離島を全部消す）
+# =========================
+def drop_islands_keep_largest(geom):
+    """
+    MultiPolygon のうち最大面積の Polygon のみ残す（離島は消す）
+    """
+    if isinstance(geom, Polygon):
+        return geom
+
+    if isinstance(geom, MultiPolygon):
+        # 最大面積の Polygon を選ぶ → 他は自動で消える
+        largest = max(geom.geoms, key=lambda p: p.area)
+        return largest
+
+    return None  # 変なジオメトリは削除
+
+# 隣接しているかどうかを判定
+def has_neighbor(i, gdf):
+    geom = gdf.geometry.iloc[i]
+    return any(
+        geom.touches(other) or geom.intersects(other)
+        for j, other in enumerate(gdf.geometry)
+        if i != j
+    )
+
+
+# =========================
+# 1. GeoJSON 読み込み
+# =========================
+geojson_path = "./create_map/create_cartgram/N03_merged_city_no_islands.geojson"
+with open(geojson_path, "r", encoding="utf-8") as f:
+    geojson_data = json.load(f)
+# =========================
+# 2. 人口データ読み込み
+# =========================
+population_path = "./create_map/create_cartgram/population_detail.json"
+with open(population_path, "r", encoding="utf-8") as f:
+    population_data = json.load(f)
+
+
+# カルトグラム用に平面座標系へ
+gdf = gpd.GeoDataFrame.from_features(geojson_data["features"], crs="EPSG:4326").to_crs(3857)
+# 隣接のない市区町村を削除
+mask = [has_neighbor(i, gdf) for i in range(len(gdf))]
+gdf = gdf[mask]
+
+print(gdf["N03_007"])
+# --- population をセット ---
+# population_data を int キーに変換
+population_data = {int(k): v for k, v in population_data.items()}
+
+gdf["population"] = gdf["N03_007"].map(population_data).fillna(0)
+# --- population = 0 を削除 ---
+gdf = gdf[gdf["population"] > 0].copy()
+print(gdf)
+
+# --- index が飛ぶので振り直す ---
+gdf = gdf.reset_index(drop=True)
+
+gdf["population"]=gdf["population"]
+
+
+# =========================
+# 3. カルトグラム作成
+# =========================
+c = Cartogram(gdf, cartogram_attribute="population", verbose=True)
+carto_gdf = c
+
+
+# =========================
+# 4. GeoJSON 保存
+# =========================
+carto_gdf.to_crs(epsg=4326).to_file("./jp_cartogram.geojson", driver="GeoJSON", encoding="utf-8")
+
+print(gdf["population"].describe())
+
+print(gdf["population"].nlargest(10))
+print(gdf["population"].nsmallest(10))
+
+# =========================
+# 5. 描画
+# =========================
+fig, ax = plt.subplots(1, 2, figsize=(15, 8))
+
+gdf.plot(ax=ax[0], color="lightgray", edgecolor="black")
+ax[0].set_title("Original Map (No Islands)")
+
+carto_gdf.plot(ax=ax[1], color="lightblue", edgecolor="black")
+ax[1].set_title("Cartogram (Population)")
+
+plt.tight_layout()
+plt.show()

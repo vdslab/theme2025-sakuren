@@ -66,7 +66,7 @@ export const AsideDetailOnPrefecture: FC<Props> = ({
         <BarChart
           data={chartData}
           width={400}
-          unit={"TF-IDF\nScore"}
+          unit="出現回数"
           onHover={(label) => setHoveredPref(label)}
         />
       </Box>

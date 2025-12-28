@@ -6,7 +6,7 @@ interface WordTextProps {
   iIdx: number;
   useWordData: number;
   groupBounds: { xlim: [number, number]; ylim: [number, number] };
-  mode: boolean;
+  isWordSelectMode: boolean;
   selectedWord: string | null;
   findword: boolean;
   onWordClick: (word: string) => void;
@@ -29,29 +29,25 @@ const WordText = ({
   item,
   // iIdx,
   // useWordData,
-  groupBounds,
-  mode,
+  // groupBounds,
+  isWordSelectMode,
   selectedWord,
   findword,
   onWordClick,
   hoveredPref,
   onHover,
   groupName,
-  precipitationScale,
-  precipitationValue,
-}: WordTextProps) => {
+}: // precipitationScale,
+// precipitationValue,
+WordTextProps) => {
   const angle = angleMap[item.orientation?.toString() ?? "0"] ?? 0;
 
-  const x =
-    groupBounds.xlim[0] +
-    (groupBounds.xlim[1] - groupBounds.xlim[0]) * item.norm_x;
+  const x = item.norm_x;
 
-  const y =
-    groupBounds.ylim[0] +
-    (groupBounds.ylim[1] - groupBounds.ylim[0]) * item.norm_y;
+  const y = item.norm_y;
 
   const onClick = (e: MouseEvent<SVGTextElement>) => {
-    if (mode) {
+    if (isWordSelectMode) {
       onWordClick(item.word);
       e.stopPropagation();
     }
@@ -64,20 +60,20 @@ const WordText = ({
   return (
     <text
       className={
-        mode ? "word-text" : hoveredPref == groupName ? "word-texts" : ""
+        isWordSelectMode
+          ? "word-text"
+          : hoveredPref == groupName
+          ? "word-texts"
+          : ""
       }
       x={x}
-      y={item.orientation == 2 ? y - (item.font_size / 2) * 1.6 : y}
+      y={y}
       fontSize={item.font_size}
-      fill={
-        precipitationScale != null
-          ? precipitationScale(precipitationValue ?? 0)
-          : "#ffffff"
-      }
+      fill="#000000"
       opacity={findword || !selectedWord ? 1 : 0.25}
-      textAnchor="start"
+      textAnchor={angle == 0 ? "start" : "end"}
       dominantBaseline="hanging"
-      transform={`rotate(${angle}, ${x}, ${y})`}
+      transform={`rotate(${angle * 3}, ${x}, ${y})`}
       onClick={onClick}
       onMouseEnter={() => {
         onHover(groupName);
@@ -86,7 +82,7 @@ const WordText = ({
         onHover(null);
       }}
       style={{
-        fontFamily: '"游ゴシック", YuGothic, sans-serif',
+        fontFamily: '"游ゴシック"',
         cursor: "pointer",
         textShadow: selectedWord == item.word ? "1px 1px 2px black" : "none",
         userSelect: "none",
