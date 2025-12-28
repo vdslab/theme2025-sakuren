@@ -69,7 +69,6 @@ const MunicipalityMap_detail = ({
       opacity={findword || !selectedWord ? 1 : 0.25}
       onClick={() => {
         if (group !== feature.properties?.N03_001) {
-          console.log(group);
           onChange(feature.properties?.N03_001);
         }
       }}

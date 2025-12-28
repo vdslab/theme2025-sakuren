@@ -43,7 +43,6 @@ const WordCloudDraw = ({
   if (!group) return null;
   const groupBounds = bounds[group.name];
   if (!groupBounds) return null;
-  console.log(geoFeatures);
   const geoFeature = geoFeatures.find(
     (f) => f["properties"]["N03_001"] === group.name
   );
