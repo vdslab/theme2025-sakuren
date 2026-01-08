@@ -1,136 +1,17 @@
 [
   {
-    "name": "下新川郡_黒部市",
-    "data": [
-      {
-        "word": "いちご",
-        "count": 45,
-        "font_size": 6,
-        "x": 1683.0,
-        "y": 1369.0,
-        "norm_x": 73.173913,
-        "norm_y": 68.45,
-        "orientation": null,
-        "color": "rgb(245, 157, 126)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "抹茶",
-        "count": 45,
-        "font_size": 6,
-        "x": 1686.0,
-        "y": 1362.0,
-        "norm_x": 73.304348,
-        "norm_y": 68.1,
-        "orientation": null,
-        "color": "rgb(148, 182, 255)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ソフトクリーム",
-        "count": 36,
-        "font_size": 2,
-        "x": 1684.0,
-        "y": 1376.0,
-        "norm_x": 73.217391,
-        "norm_y": 68.8,
-        "orientation": null,
-        "color": "rgb(169, 198, 253)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いわな",
-        "count": 30,
-        "font_size": 2,
-        "x": 1688.0,
-        "y": 1379.0,
-        "norm_x": 73.391304,
-        "norm_y": 68.95,
-        "orientation": null,
-        "color": "rgb(75, 100, 213)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 21,
-        "font_size": 1,
-        "x": 1697.0,
-        "y": 1367.0,
-        "norm_x": 73.782609,
-        "norm_y": 68.35,
-        "orientation": null,
-        "color": "rgb(211, 219, 231)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      }
-    ]
-  },
-  {
     "name": "中新川郡_魚津市",
     "data": [
       {
-        "word": "いちご",
+        "word": "抹茶",
         "count": 45,
-        "font_size": 6,
+        "font_size": 9,
         "x": 1683.0,
         "y": 1388.0,
         "norm_x": 73.173913,
         "norm_y": 69.4,
         "orientation": null,
-        "color": "rgb(81, 109, 219)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "抹茶",
-        "count": 45,
-        "font_size": 6,
-        "x": 1685.0,
-        "y": 1396.0,
-        "norm_x": 73.26087,
-        "norm_y": 69.8,
-        "orientation": null,
-        "color": "rgb(99, 132, 235)",
+        "color": "rgb(63, 83, 198)",
         "print_area_x": [
           0,
           3000
@@ -143,32 +24,13 @@
       {
         "word": "ソフトクリーム",
         "count": 36,
-        "font_size": 1,
-        "x": 1689.0,
-        "y": 1383.0,
-        "norm_x": 73.434783,
-        "norm_y": 69.15,
-        "orientation": null,
-        "color": "rgb(123, 159, 249)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いわな",
-        "count": 30,
-        "font_size": 1,
+        "font_size": 2,
         "x": 1685.0,
-        "y": 1386.0,
+        "y": 1397.0,
         "norm_x": 73.26087,
-        "norm_y": 69.3,
+        "norm_y": 69.85,
         "orientation": null,
-        "color": "rgb(244, 198, 175)",
+        "color": "rgb(173, 201, 253)",
         "print_area_x": [
           0,
           3000
@@ -179,15 +41,34 @@
         ]
       },
       {
-        "word": "とんかつ",
-        "count": 21,
+        "word": "レアチーズケーキ",
+        "count": 18,
         "font_size": 1,
-        "x": 1696.0,
-        "y": 1386.0,
-        "norm_x": 73.73913,
-        "norm_y": 69.3,
+        "x": 1686.0,
+        "y": 1384.0,
+        "norm_x": 73.304348,
+        "norm_y": 69.2,
         "orientation": null,
-        "color": "rgb(232, 214, 204)",
+        "color": "rgb(89, 119, 227)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "焼きおにぎり",
+        "count": 9,
+        "font_size": 1,
+        "x": 1692.0,
+        "y": 1400.0,
+        "norm_x": 73.565217,
+        "norm_y": 70.0,
+        "orientation": null,
+        "color": "rgb(216, 86, 70)",
         "print_area_x": [
           0,
           3000
@@ -203,34 +84,15 @@
     "name": "富山市",
     "data": [
       {
-        "word": "いちご",
-        "count": 15,
-        "font_size": 5,
-        "x": 1665.0,
-        "y": 1400.0,
-        "norm_x": 72.391304,
-        "norm_y": 70.0,
-        "orientation": null,
-        "color": "rgb(226, 105, 82)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "抹茶",
         "count": 15,
-        "font_size": 4,
-        "x": 1671.0,
-        "y": 1408.0,
-        "norm_x": 72.652174,
-        "norm_y": 70.4,
+        "font_size": 9,
+        "x": 1664.0,
+        "y": 1399.0,
+        "norm_x": 72.347826,
+        "norm_y": 69.95,
         "orientation": null,
-        "color": "rgb(187, 27, 44)",
+        "color": "rgb(167, 197, 254)",
         "print_area_x": [
           0,
           3000
@@ -243,51 +105,13 @@
       {
         "word": "ソフトクリーム",
         "count": 12,
-        "font_size": 1,
-        "x": 1668.0,
-        "y": 1395.0,
-        "norm_x": 72.521739,
-        "norm_y": 69.75,
-        "orientation": null,
-        "color": "rgb(155, 188, 255)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いわな",
-        "count": 10,
-        "font_size": 1,
-        "x": 1666.0,
-        "y": 1406.0,
-        "norm_x": 72.434783,
-        "norm_y": 70.3,
-        "orientation": null,
-        "color": "rgb(240, 205, 187)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 7,
-        "font_size": 1,
-        "x": 1665.0,
+        "font_size": 2,
+        "x": 1667.0,
         "y": 1408.0,
-        "norm_x": 72.391304,
+        "norm_x": 72.478261,
         "norm_y": 70.4,
         "orientation": null,
-        "color": "rgb(235, 125, 98)",
+        "color": "rgb(247, 180, 151)",
         "print_area_x": [
           0,
           3000
@@ -301,12 +125,12 @@
         "word": "レアチーズケーキ",
         "count": 6,
         "font_size": 1,
-        "x": 1673.0,
-        "y": 1396.0,
-        "norm_x": 72.73913,
-        "norm_y": 69.8,
+        "x": 1669.0,
+        "y": 1411.0,
+        "norm_x": 72.565217,
+        "norm_y": 70.55,
         "orientation": null,
-        "color": "rgb(158, 190, 255)",
+        "color": "rgb(209, 218, 233)",
         "print_area_x": [
           0,
           3000
@@ -317,15 +141,115 @@
         ]
       },
       {
-        "word": "ローストビーフ",
-        "count": 6,
+        "word": "焼きおにぎり",
+        "count": 3,
         "font_size": 1,
-        "x": 1665.0,
+        "x": 1667.0,
+        "y": 1394.0,
+        "norm_x": 72.478261,
+        "norm_y": 69.7,
+        "orientation": null,
+        "color": "rgb(132, 167, 252)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "チキンカレー",
+        "count": 2,
+        "font_size": 1,
+        "x": 1674.0,
+        "y": 1395.0,
+        "norm_x": 72.782609,
+        "norm_y": 69.75,
+        "orientation": null,
+        "color": "rgb(88, 117, 225)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ぎんなん",
+        "count": 1,
+        "font_size": 1,
+        "x": 1668.0,
+        "y": 1395.0,
+        "norm_x": 72.521739,
+        "norm_y": 69.75,
+        "orientation": null,
+        "color": "rgb(247, 169, 139)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "さくらます",
+        "count": 1,
+        "font_size": 1,
+        "x": 1682.0,
+        "y": 1401.0,
+        "norm_x": 73.130435,
+        "norm_y": 70.05,
+        "orientation": 2,
+        "color": "rgb(69, 92, 206)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
+  },
+  {
+    "name": "射水市_高岡市",
+    "data": [
+      {
+        "word": "抹茶",
+        "count": 45,
+        "font_size": 9,
+        "x": 1646.0,
+        "y": 1389.0,
+        "norm_x": 71.565217,
+        "norm_y": 69.45,
+        "orientation": null,
+        "color": "rgb(151, 184, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ソフトクリーム",
+        "count": 36,
+        "font_size": 2,
+        "x": 1648.0,
         "y": 1397.0,
-        "norm_x": 72.391304,
+        "norm_x": 71.652174,
         "norm_y": 69.85,
         "orientation": null,
-        "color": "rgb(63, 83, 198)",
+        "color": "rgb(213, 219, 229)",
         "print_area_x": [
           0,
           3000
@@ -336,15 +260,15 @@
         ]
       },
       {
-        "word": "トマトソース",
-        "count": 5,
+        "word": "レアチーズケーキ",
+        "count": 18,
         "font_size": 1,
-        "x": 1679.0,
-        "y": 1404.0,
-        "norm_x": 73.0,
-        "norm_y": 70.2,
-        "orientation": 2,
-        "color": "rgb(181, 205, 250)",
+        "x": 1650.0,
+        "y": 1383.0,
+        "norm_x": 71.73913,
+        "norm_y": 69.15,
+        "orientation": null,
+        "color": "rgb(80, 107, 218)",
         "print_area_x": [
           0,
           3000
@@ -355,13 +279,113 @@
         ]
       },
       {
-        "word": "ヒレ",
-        "count": 4,
+        "word": "焼きおにぎり",
+        "count": 9,
         "font_size": 1,
-        "x": 1681.0,
-        "y": 1403.0,
-        "norm_x": 73.086957,
-        "norm_y": 70.15,
+        "x": 1652.0,
+        "y": 1385.0,
+        "norm_x": 71.826087,
+        "norm_y": 69.25,
+        "orientation": null,
+        "color": "rgb(179, 205, 251)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "チキンカレー",
+        "count": 6,
+        "font_size": 1,
+        "x": 1656.0,
+        "y": 1400.0,
+        "norm_x": 72.0,
+        "norm_y": 70.0,
+        "orientation": null,
+        "color": "rgb(114, 149, 244)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ぎんなん",
+        "count": 3,
+        "font_size": 1,
+        "x": 1657.0,
+        "y": 1401.0,
+        "norm_x": 72.043478,
+        "norm_y": 70.05,
+        "orientation": null,
+        "color": "rgb(224, 219, 216)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
+  },
+  {
+    "name": "小矢部市_砺波市_南砺市",
+    "data": [
+      {
+        "word": "抹茶",
+        "count": 90,
+        "font_size": 9,
+        "x": 1646.0,
+        "y": 1409.0,
+        "norm_x": 71.565217,
+        "norm_y": 70.45,
+        "orientation": null,
+        "color": "rgb(245, 156, 125)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ソフトクリーム",
+        "count": 72,
+        "font_size": 2,
+        "x": 1647.0,
+        "y": 1417.0,
+        "norm_x": 71.608696,
+        "norm_y": 70.85,
+        "orientation": null,
+        "color": "rgb(200, 56, 54)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "レアチーズケーキ",
+        "count": 36,
+        "font_size": 1,
+        "x": 1652.0,
+        "y": 1422.0,
+        "norm_x": 71.826087,
+        "norm_y": 71.1,
         "orientation": null,
         "color": "rgb(240, 205, 187)",
         "print_area_x": [
@@ -374,15 +398,15 @@
         ]
       },
       {
-        "word": "天然",
-        "count": 4,
+        "word": "焼きおにぎり",
+        "count": 18,
         "font_size": 1,
-        "x": 1680.0,
-        "y": 1405.0,
-        "norm_x": 73.043478,
-        "norm_y": 70.25,
+        "x": 1649.0,
+        "y": 1404.0,
+        "norm_x": 71.695652,
+        "norm_y": 70.2,
         "orientation": null,
-        "color": "rgb(247, 186, 159)",
+        "color": "rgb(198, 214, 241)",
         "print_area_x": [
           0,
           3000
@@ -393,15 +417,34 @@
         ]
       },
       {
-        "word": "ばい",
-        "count": 3,
+        "word": "チキンカレー",
+        "count": 12,
         "font_size": 1,
-        "x": 1672.0,
-        "y": 1397.0,
-        "norm_x": 72.695652,
-        "norm_y": 69.85,
+        "x": 1651.0,
+        "y": 1405.0,
+        "norm_x": 71.782609,
+        "norm_y": 70.25,
         "orientation": null,
-        "color": "rgb(245, 192, 167)",
+        "color": "rgb(202, 59, 55)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ぎんなん",
+        "count": 6,
+        "font_size": 1,
+        "x": 1658.0,
+        "y": 1405.0,
+        "norm_x": 72.086957,
+        "norm_y": 70.25,
+        "orientation": null,
+        "color": "rgb(137, 172, 253)",
         "print_area_x": [
           0,
           3000
@@ -417,34 +460,15 @@
     "name": "氷見市",
     "data": [
       {
-        "word": "いちご",
-        "count": 15,
-        "font_size": 5,
-        "x": 1647.0,
-        "y": 1372.0,
-        "norm_x": 71.608696,
-        "norm_y": 68.6,
-        "orientation": null,
-        "color": "rgb(62, 81, 197)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "抹茶",
         "count": 15,
-        "font_size": 4,
-        "x": 1649.0,
-        "y": 1366.0,
-        "norm_x": 71.695652,
-        "norm_y": 68.3,
+        "font_size": 9,
+        "x": 1646.0,
+        "y": 1368.0,
+        "norm_x": 71.565217,
+        "norm_y": 68.4,
         "orientation": null,
-        "color": "rgb(79, 105, 217)",
+        "color": "rgb(115, 150, 245)",
         "print_area_x": [
           0,
           3000
@@ -458,50 +482,12 @@
         "word": "ソフトクリーム",
         "count": 12,
         "font_size": 1,
-        "x": 1656.0,
-        "y": 1377.0,
-        "norm_x": 72.0,
-        "norm_y": 68.85,
+        "x": 1648.0,
+        "y": 1376.0,
+        "norm_x": 71.652174,
+        "norm_y": 68.8,
         "orientation": null,
-        "color": "rgb(190, 36, 46)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いわな",
-        "count": 10,
-        "font_size": 1,
-        "x": 1658.0,
-        "y": 1378.0,
-        "norm_x": 72.086957,
-        "norm_y": 68.9,
-        "orientation": null,
-        "color": "rgb(158, 190, 255)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 7,
-        "font_size": 1,
-        "x": 1649.0,
-        "y": 1380.0,
-        "norm_x": 71.695652,
-        "norm_y": 69.0,
-        "orientation": null,
-        "color": "rgb(187, 209, 248)",
+        "color": "rgb(247, 176, 147)",
         "print_area_x": [
           0,
           3000
@@ -516,11 +502,11 @@
         "count": 6,
         "font_size": 1,
         "x": 1653.0,
-        "y": 1362.0,
+        "y": 1363.0,
         "norm_x": 71.869565,
-        "norm_y": 68.1,
+        "norm_y": 68.15,
         "orientation": null,
-        "color": "rgb(204, 64, 58)",
+        "color": "rgb(66, 87, 201)",
         "print_area_x": [
           0,
           3000
@@ -531,34 +517,15 @@
         ]
       },
       {
-        "word": "ローストビーフ",
-        "count": 6,
+        "word": "焼きおにぎり",
+        "count": 3,
         "font_size": 1,
-        "x": 1662.0,
-        "y": 1367.0,
-        "norm_x": 72.26087,
-        "norm_y": 68.35,
-        "orientation": 2,
-        "color": "rgb(232, 214, 204)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "トマトソース",
-        "count": 5,
-        "font_size": 1,
-        "x": 1654.0,
+        "x": 1651.0,
         "y": 1380.0,
-        "norm_x": 71.913043,
+        "norm_x": 71.782609,
         "norm_y": 69.0,
         "orientation": null,
-        "color": "rgb(236, 211, 197)",
+        "color": "rgb(188, 210, 247)",
         "print_area_x": [
           0,
           3000
@@ -569,34 +536,15 @@
         ]
       },
       {
-        "word": "ヒレ",
-        "count": 4,
+        "word": "チキンカレー",
+        "count": 2,
         "font_size": 1,
-        "x": 1664.0,
-        "y": 1369.0,
-        "norm_x": 72.347826,
-        "norm_y": 68.45,
-        "orientation": 2,
-        "color": "rgb(151, 184, 255)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "天然",
-        "count": 4,
-        "font_size": 1,
-        "x": 1658.0,
-        "y": 1368.0,
-        "norm_x": 72.086957,
-        "norm_y": 68.4,
+        "x": 1657.0,
+        "y": 1377.0,
+        "norm_x": 72.043478,
+        "norm_y": 68.85,
         "orientation": null,
-        "color": "rgb(228, 110, 86)",
+        "color": "rgb(245, 157, 126)",
         "print_area_x": [
           0,
           3000
@@ -607,15 +555,53 @@
         ]
       },
       {
-        "word": "ばい",
-        "count": 3,
+        "word": "ぎんなん",
+        "count": 1,
+        "font_size": 1,
+        "x": 1652.0,
+        "y": 1364.0,
+        "norm_x": 71.826087,
+        "norm_y": 68.2,
+        "orientation": null,
+        "color": "rgb(245, 156, 125)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "さくらます",
+        "count": 1,
+        "font_size": 1,
+        "x": 1657.0,
+        "y": 1378.0,
+        "norm_x": 72.043478,
+        "norm_y": 68.9,
+        "orientation": null,
+        "color": "rgb(232, 118, 92)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 1,
         "font_size": 1,
         "x": 1657.0,
         "y": 1364.0,
         "norm_x": 72.043478,
         "norm_y": 68.2,
         "orientation": null,
-        "color": "rgb(220, 93, 74)",
+        "color": "rgb(246, 165, 134)",
         "print_area_x": [
           0,
           3000
@@ -631,34 +617,15 @@
     "name": "滑川市",
     "data": [
       {
-        "word": "いちご",
+        "word": "抹茶",
         "count": 15,
-        "font_size": 6,
+        "font_size": 9,
         "x": 1664.0,
         "y": 1378.0,
         "norm_x": 75.636364,
         "norm_y": 68.9,
         "orientation": null,
-        "color": "rgb(83, 110, 221)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "抹茶",
-        "count": 15,
-        "font_size": 6,
-        "x": 1668.0,
-        "y": 1385.0,
-        "norm_x": 75.818182,
-        "norm_y": 69.25,
-        "orientation": null,
-        "color": "rgb(219, 220, 222)",
+        "color": "rgb(110, 144, 242)",
         "print_area_x": [
           0,
           3000
@@ -671,113 +638,13 @@
       {
         "word": "ソフトクリーム",
         "count": 12,
-        "font_size": 1,
-        "x": 1670.0,
-        "y": 1372.0,
-        "norm_x": 75.909091,
-        "norm_y": 68.6,
-        "orientation": null,
-        "color": "rgb(247, 169, 139)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いわな",
-        "count": 10,
-        "font_size": 1,
-        "x": 1677.0,
-        "y": 1374.0,
-        "norm_x": 76.227273,
-        "norm_y": 68.7,
-        "orientation": 2,
-        "color": "rgb(163, 194, 254)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 7,
-        "font_size": 1,
-        "x": 1665.0,
-        "y": 1376.0,
-        "norm_x": 75.681818,
-        "norm_y": 68.8,
-        "orientation": null,
-        "color": "rgb(196, 213, 243)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      }
-    ]
-  },
-  {
-    "name": "砺波市_南砺市_小矢部市",
-    "data": [
-      {
-        "word": "いちご",
-        "count": 90,
-        "font_size": 6,
-        "x": 1647.0,
-        "y": 1410.0,
-        "norm_x": 71.608696,
-        "norm_y": 70.5,
-        "orientation": null,
-        "color": "rgb(184, 18, 42)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "抹茶",
-        "count": 90,
-        "font_size": 6,
-        "x": 1649.0,
-        "y": 1417.0,
-        "norm_x": 71.695652,
-        "norm_y": 70.85,
-        "orientation": null,
-        "color": "rgb(227, 108, 85)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ソフトクリーム",
-        "count": 72,
         "font_size": 2,
-        "x": 1648.0,
-        "y": 1406.0,
-        "norm_x": 71.652174,
-        "norm_y": 70.3,
+        "x": 1667.0,
+        "y": 1387.0,
+        "norm_x": 75.772727,
+        "norm_y": 69.35,
         "orientation": null,
-        "color": "rgb(187, 209, 248)",
+        "color": "rgb(209, 218, 233)",
         "print_area_x": [
           0,
           3000
@@ -788,15 +655,15 @@
         ]
       },
       {
-        "word": "いわな",
-        "count": 60,
+        "word": "レアチーズケーキ",
+        "count": 6,
         "font_size": 1,
-        "x": 1658.0,
-        "y": 1408.0,
-        "norm_x": 72.086957,
-        "norm_y": 70.4,
+        "x": 1672.0,
+        "y": 1374.0,
+        "norm_x": 76.0,
+        "norm_y": 68.7,
         "orientation": null,
-        "color": "rgb(80, 107, 218)",
+        "color": "rgb(246, 189, 162)",
         "print_area_x": [
           0,
           3000
@@ -807,15 +674,15 @@
         ]
       },
       {
-        "word": "とんかつ",
-        "count": 42,
+        "word": "焼きおにぎり",
+        "count": 3,
         "font_size": 1,
-        "x": 1649.0,
-        "y": 1409.0,
-        "norm_x": 71.695652,
-        "norm_y": 70.45,
+        "x": 1669.0,
+        "y": 1390.0,
+        "norm_x": 75.863636,
+        "norm_y": 69.5,
         "orientation": null,
-        "color": "rgb(237, 209, 194)",
+        "color": "rgb(161, 192, 255)",
         "print_area_x": [
           0,
           3000
@@ -828,37 +695,18 @@
     ]
   },
   {
-    "name": "高岡市_射水市",
+    "name": "黒部市_下新川郡",
     "data": [
-      {
-        "word": "いちご",
-        "count": 45,
-        "font_size": 6,
-        "x": 1647.0,
-        "y": 1389.0,
-        "norm_x": 71.608696,
-        "norm_y": 69.45,
-        "orientation": null,
-        "color": "rgb(115, 150, 245)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
       {
         "word": "抹茶",
         "count": 45,
-        "font_size": 6,
-        "x": 1649.0,
-        "y": 1396.0,
-        "norm_x": 71.695652,
-        "norm_y": 69.8,
+        "font_size": 8,
+        "x": 1683.0,
+        "y": 1369.0,
+        "norm_x": 73.173913,
+        "norm_y": 68.45,
         "orientation": null,
-        "color": "rgb(118, 153, 246)",
+        "color": "rgb(132, 167, 252)",
         "print_area_x": [
           0,
           3000
@@ -872,12 +720,12 @@
         "word": "ソフトクリーム",
         "count": 36,
         "font_size": 2,
-        "x": 1648.0,
-        "y": 1385.0,
-        "norm_x": 71.652174,
-        "norm_y": 69.25,
+        "x": 1685.0,
+        "y": 1377.0,
+        "norm_x": 73.26087,
+        "norm_y": 68.85,
         "orientation": null,
-        "color": "rgb(59, 76, 192)",
+        "color": "rgb(233, 122, 95)",
         "print_area_x": [
           0,
           3000
@@ -888,13 +736,13 @@
         ]
       },
       {
-        "word": "いわな",
-        "count": 30,
+        "word": "レアチーズケーキ",
+        "count": 18,
         "font_size": 1,
-        "x": 1657.0,
-        "y": 1387.0,
-        "norm_x": 72.043478,
-        "norm_y": 69.35,
+        "x": 1686.0,
+        "y": 1365.0,
+        "norm_x": 73.304348,
+        "norm_y": 68.25,
         "orientation": null,
         "color": "rgb(104, 138, 239)",
         "print_area_x": [
@@ -907,15 +755,72 @@
         ]
       },
       {
-        "word": "とんかつ",
-        "count": 21,
+        "word": "焼きおにぎり",
+        "count": 9,
         "font_size": 1,
-        "x": 1654.0,
-        "y": 1402.0,
-        "norm_x": 71.913043,
-        "norm_y": 70.1,
+        "x": 1686.0,
+        "y": 1380.0,
+        "norm_x": 73.304348,
+        "norm_y": 69.0,
         "orientation": null,
-        "color": "rgb(187, 209, 248)",
+        "color": "rgb(189, 31, 45)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "チキンカレー",
+        "count": 6,
+        "font_size": 1,
+        "x": 1694.0,
+        "y": 1365.0,
+        "norm_x": 73.652174,
+        "norm_y": 68.25,
+        "orientation": null,
+        "color": "rgb(151, 184, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ぎんなん",
+        "count": 3,
+        "font_size": 1,
+        "x": 1692.0,
+        "y": 1380.0,
+        "norm_x": 73.565217,
+        "norm_y": 69.0,
+        "orientation": null,
+        "color": "rgb(233, 122, 95)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "さくらます",
+        "count": 3,
+        "font_size": 1,
+        "x": 1700.0,
+        "y": 1369.0,
+        "norm_x": 73.913043,
+        "norm_y": 68.45,
+        "orientation": 2,
+        "color": "rgb(166, 196, 254)",
         "print_area_x": [
           0,
           3000
