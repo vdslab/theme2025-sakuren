@@ -22,7 +22,6 @@ interface WordCloudDrawProps {
   temperatureScale: d3.ScaleLinear<string, string, never> | undefined;
   precipitationScale: d3.ScaleLinear<string, string, never> | undefined;
   weatherData: Record<string, { temperature: number; precipitation: number }>;
-  markerPref: Array<string>;
 }
 
 const WordCloudDraw = ({
@@ -40,12 +39,10 @@ const WordCloudDraw = ({
   // temperatureScale,
   precipitationScale,
   weatherData,
-  markerPref,
 }: WordCloudDrawProps) => {
   if (!group) return null;
   const groupBounds = bounds[group.name];
   if (!groupBounds) return null;
-
   const geoFeature = geoFeatures.find(
     (f) => f["properties"]["N03_001"] === group.name
   );
@@ -56,7 +53,7 @@ const WordCloudDraw = ({
     .reflectY(true)
     .fitExtent(
       [
-        [groupBounds.xlim[0] - 2, groupBounds.ylim[0] - 2],
+        [groupBounds.xlim[0], groupBounds.ylim[0]],
         [groupBounds.xlim[1], groupBounds.ylim[1]],
       ],
       geoFeature
@@ -101,8 +98,8 @@ const WordCloudDraw = ({
         opacity={!selectedWord || findword ? 1 : 0.25}
         d={pathGenerator(geoFeature) || ""}
         fill="#d8f2d8ff"
-        stroke={markerPref.includes(group.name) ? "#ff0000" : "#333"}
-        strokeWidth={markerPref.includes(group.name) ? 1 : 0.5}
+        stroke="#333"
+        strokeWidth={1}
         pointerEvents="visibleFill"
         filter={hoveredPref === group.name ? "url(#shadow)" : undefined}
       />
