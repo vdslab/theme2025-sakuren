@@ -15,10 +15,19 @@ export const Main = () => {
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<string | null>(null);
   const [hoveredPref, setHoveredPref] = useState<string | null>(null);
+  // const [markerPref, setMarkerPref] = useState<Array<string>>([]);
 
   // データ保持
   const [wordData, setWordData] = useState<WordLayoutData[]>([]);
   const [wordBounds, setWordBounds] = useState<WordBoundsData>({});
+
+  // const { search } = useLocation();
+
+  // useEffect(() => {
+  //   const params = new URLSearchParams(search);
+  //   const pref = params.getAll("prefecture").map(Number);
+  //   setMarkerPref(pref.map(getPref).filter((p) => p !== null));
+  // }, [search]);
 
   useEffect(() => {
     fetch("/data/wordcloud_layout.json")

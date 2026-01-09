@@ -216,15 +216,21 @@ def read_json_file(filepath):
 
 
 def main():
+    count=0
+    countdetail=0   
     page = int(input("処理するページ番号を入力してください（例: 1）: ")) or 1
 
     url_dict = read_json_file(f"{base_url}/tabelog_urls.json")
 
     for pref_key, pref_cities in sorted(url_dict.items()):
-        if pref_key=="akita" or pref_key=="aichi":
+        if pref_key=="gifu":
+            count+=1
+        if count==0:
             continue
         for city_name, city_url in pref_cities.items():
-            if city_name=="青森市":
+            if city_name=="岐阜市":
+                countdetail+=1
+            if countdetail==0:
                 continue
 
             # 9. 口コミのスクレイピング結果を保持する変数（市区町村ごとに初期化）

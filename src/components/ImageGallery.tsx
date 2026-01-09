@@ -1,9 +1,21 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { prefectures } from "../constant/prefectures";
+import { useLocation } from "react-router";
+import { getPref, prefectures } from "../constant/prefectures";
 
 export const ImageGallery = () => {
   const [images, setImages] = useState<Record<string, string>>({});
+  const [selectedPrefecture, setSelectedPrefecture] = useState<Array<string>>(
+    []
+  );
+
+  const { search } = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const pref = params.getAll("prefecture").map(Number);
+    setSelectedPrefecture(pref.map(getPref).filter((p) => p !== null));
+  }, [search]);
 
   useEffect(() => {
     let mounted = true;
@@ -14,7 +26,7 @@ export const ImageGallery = () => {
         fetch(`/rect_wordclouds/${pref}.png`)
           .then((res) => {
             if (!res.ok)
-              throw new Error(`Failed to fetch /rect_wordclouds/${pref}.png`);
+              throw new Error(`Failed to fetch /rect-wordclouds/${pref}.png`);
             return res.blob();
           })
           .then((blob) => {
@@ -52,7 +64,14 @@ export const ImageGallery = () => {
           {Object.entries(images).map(([pref, src], i) => (
             <Box key={src + i} display="flex" flexDirection="column">
               <label>{pref}</label>
-              <Box mt={1} border="1px solid #ccc">
+              <Box
+                mt={1}
+                border={
+                  selectedPrefecture.includes(pref)
+                    ? "2px solid #ff0000"
+                    : "1px solid #ccc"
+                }
+              >
                 <img src={src} alt={`pref-${pref}`} />
               </Box>
             </Box>

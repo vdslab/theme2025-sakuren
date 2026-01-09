@@ -104,7 +104,6 @@ for _, row in gdf.iterrows():
     min_x_offset = int(np.min(mask_indices[1]))
     max_y_offset = int(np.max(mask_indices[0]))
     max_x_offset = int(np.max(mask_indices[1]))
-
     pixel_bounds_dict[pref_name] = {
         "xlim": [min_x_offset, max_x_offset],
         "ylim": [min_y_offset, max_y_offset],

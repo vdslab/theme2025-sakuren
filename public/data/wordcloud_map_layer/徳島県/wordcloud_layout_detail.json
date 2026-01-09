@@ -1,36 +1,17 @@
 [
   {
-    "name": "三好郡_三好市",
+    "name": "三好市_三好郡",
     "data": [
       {
-        "word": "すだち",
-        "count": 48,
-        "font_size": 6,
+        "word": "ソフトクリーム",
+        "count": 30,
+        "font_size": 2,
         "x": 1299.0,
         "y": 1757.0,
         "norm_x": 56.478261,
         "norm_y": 87.85,
         "orientation": null,
-        "color": "rgb(239, 206, 189)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ソフトクリーム",
-        "count": 30,
-        "font_size": 2,
-        "x": 1300.0,
-        "y": 1764.0,
-        "norm_x": 56.521739,
-        "norm_y": 88.2,
-        "orientation": null,
-        "color": "rgb(229, 216, 209)",
+        "color": "rgb(205, 217, 236)",
         "print_area_x": [
           0,
           3000
@@ -44,12 +25,12 @@
         "word": "塩味",
         "count": 24,
         "font_size": 2,
-        "x": 1309.0,
+        "x": 1303.0,
         "y": 1768.0,
-        "norm_x": 56.913043,
+        "norm_x": 56.652174,
         "norm_y": 88.4,
         "orientation": null,
-        "color": "rgb(211, 219, 231)",
+        "color": "rgb(247, 170, 140)",
         "print_area_x": [
           0,
           3000
@@ -63,12 +44,12 @@
         "word": "チキンカレー",
         "count": 18,
         "font_size": 2,
-        "x": 1302.0,
-        "y": 1752.0,
-        "norm_x": 56.608696,
-        "norm_y": 87.6,
-        "orientation": null,
-        "color": "rgb(173, 201, 253)",
+        "x": 1309.0,
+        "y": 1760.0,
+        "norm_x": 56.913043,
+        "norm_y": 88.0,
+        "orientation": 2,
+        "color": "rgb(230, 114, 89)",
         "print_area_x": [
           0,
           3000
@@ -82,69 +63,12 @@
         "word": "そば米",
         "count": 12,
         "font_size": 2,
-        "x": 1301.0,
-        "y": 1767.0,
-        "norm_x": 56.565217,
-        "norm_y": 88.35,
+        "x": 1311.0,
+        "y": 1764.0,
+        "norm_x": 57.0,
+        "norm_y": 88.2,
         "orientation": null,
-        "color": "rgb(192, 40, 47)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 12,
-        "font_size": 1,
-        "x": 1304.0,
-        "y": 1771.0,
-        "norm_x": 56.695652,
-        "norm_y": 88.55,
-        "orientation": null,
-        "color": "rgb(158, 190, 255)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 12,
-        "font_size": 1,
-        "x": 1316.0,
-        "y": 1762.0,
-        "norm_x": 57.217391,
-        "norm_y": 88.1,
-        "orientation": null,
-        "color": "rgb(115, 150, 245)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 12,
-        "font_size": 1,
-        "x": 1303.0,
-        "y": 1755.0,
-        "norm_x": 56.652174,
-        "norm_y": 87.75,
-        "orientation": null,
-        "color": "rgb(200, 56, 54)",
+        "color": "rgb(163, 194, 254)",
         "print_area_x": [
           0,
           3000
@@ -157,13 +81,51 @@
       {
         "word": "酢豚",
         "count": 12,
-        "font_size": 1,
+        "font_size": 2,
+        "x": 1306.0,
+        "y": 1752.0,
+        "norm_x": 56.782609,
+        "norm_y": 87.6,
+        "orientation": null,
+        "color": "rgb(148, 182, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "カレーパン",
+        "count": 6,
+        "font_size": 2,
+        "x": 1297.0,
+        "y": 1761.0,
+        "norm_x": 56.391304,
+        "norm_y": 88.05,
+        "orientation": null,
+        "color": "rgb(212, 219, 230)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "抹茶",
+        "count": 6,
+        "font_size": 2,
         "x": 1313.0,
-        "y": 1766.0,
+        "y": 1757.0,
         "norm_x": 57.086957,
-        "norm_y": 88.3,
+        "norm_y": 87.85,
         "orientation": null,
-        "color": "rgb(246, 163, 133)",
+        "color": "rgb(72, 95, 209)",
         "print_area_x": [
           0,
           3000
@@ -174,94 +136,13 @@
         ]
       },
       {
-        "word": "はまち",
-        "count": 9,
-        "font_size": 1,
-        "x": 1315.0,
-        "y": 1764.0,
-        "norm_x": 57.173913,
-        "norm_y": 88.2,
-        "orientation": 2,
-        "color": "rgb(225, 218, 214)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      }
-    ]
-  },
-  {
-    "name": "名西郡_名東郡_勝浦郡",
-    "data": [
-      {
-        "word": "すだち",
-        "count": 96,
-        "font_size": 6,
-        "x": 1336.0,
-        "y": 1758.0,
-        "norm_x": 58.086957,
-        "norm_y": 87.9,
-        "orientation": null,
-        "color": "rgb(221, 220, 220)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ソフトクリーム",
-        "count": 60,
+        "word": "麦茶",
+        "count": 6,
         "font_size": 2,
-        "x": 1337.0,
-        "y": 1764.0,
-        "norm_x": 58.130435,
-        "norm_y": 88.2,
-        "orientation": null,
-        "color": "rgb(76, 102, 214)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "塩味",
-        "count": 48,
-        "font_size": 2,
-        "x": 1346.0,
-        "y": 1769.0,
-        "norm_x": 58.521739,
-        "norm_y": 88.45,
-        "orientation": null,
-        "color": "rgb(203, 216, 238)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "チキンカレー",
-        "count": 36,
-        "font_size": 1,
-        "x": 1345.0,
-        "y": 1753.0,
-        "norm_x": 58.478261,
-        "norm_y": 87.65,
+        "x": 1299.0,
+        "y": 1763.0,
+        "norm_x": 56.478261,
+        "norm_y": 88.15,
         "orientation": null,
         "color": "rgb(247, 183, 155)",
         "print_area_x": [
@@ -274,72 +155,115 @@
         ]
       },
       {
-        "word": "そば米",
-        "count": 24,
+        "word": "ほうじ茶",
+        "count": 3,
         "font_size": 1,
-        "x": 1341.0,
-        "y": 1754.0,
-        "norm_x": 58.304348,
-        "norm_y": 87.7,
-        "orientation": null,
-        "color": "rgb(234, 212, 200)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 24,
-        "font_size": 1,
-        "x": 1341.0,
-        "y": 1755.0,
-        "norm_x": 58.304348,
-        "norm_y": 87.75,
-        "orientation": null,
-        "color": "rgb(234, 212, 200)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 24,
-        "font_size": 1,
-        "x": 1347.0,
-        "y": 1754.0,
-        "norm_x": 58.565217,
-        "norm_y": 87.7,
-        "orientation": null,
-        "color": "rgb(242, 201, 180)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 24,
-        "font_size": 1,
-        "x": 1339.0,
+        "x": 1311.0,
         "y": 1768.0,
-        "norm_x": 58.217391,
+        "norm_x": 57.0,
         "norm_y": 88.4,
         "orientation": null,
-        "color": "rgb(246, 190, 164)",
+        "color": "rgb(203, 216, 238)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "クリームパン",
+        "count": 3,
+        "font_size": 1,
+        "x": 1313.0,
+        "y": 1760.0,
+        "norm_x": 57.086957,
+        "norm_y": 88.0,
+        "orientation": null,
+        "color": "rgb(86, 115, 224)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      }
+    ]
+  },
+  {
+    "name": "名東郡_勝浦郡_名西郡",
+    "data": [
+      {
+        "word": "ソフトクリーム",
+        "count": 60,
+        "font_size": 3,
+        "x": 1334.0,
+        "y": 1760.0,
+        "norm_x": 58.0,
+        "norm_y": 88.0,
+        "orientation": null,
+        "color": "rgb(246, 191, 166)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "塩味",
+        "count": 48,
+        "font_size": 3,
+        "x": 1344.0,
+        "y": 1765.0,
+        "norm_x": 58.434783,
+        "norm_y": 88.25,
+        "orientation": null,
+        "color": "rgb(158, 190, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "チキンカレー",
+        "count": 36,
+        "font_size": 2,
+        "x": 1340.0,
+        "y": 1754.0,
+        "norm_x": 58.26087,
+        "norm_y": 87.7,
+        "orientation": null,
+        "color": "rgb(143, 177, 254)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "そば米",
+        "count": 24,
+        "font_size": 2,
+        "x": 1336.0,
+        "y": 1764.0,
+        "norm_x": 58.086957,
+        "norm_y": 88.2,
+        "orientation": null,
+        "color": "rgb(137, 172, 253)",
         "print_area_x": [
           0,
           3000
@@ -352,13 +276,13 @@
       {
         "word": "酢豚",
         "count": 24,
-        "font_size": 1,
-        "x": 1350.0,
-        "y": 1767.0,
-        "norm_x": 58.695652,
-        "norm_y": 88.35,
+        "font_size": 2,
+        "x": 1339.0,
+        "y": 1769.0,
+        "norm_x": 58.217391,
+        "norm_y": 88.45,
         "orientation": null,
-        "color": "rgb(181, 9, 39)",
+        "color": "rgb(236, 127, 99)",
         "print_area_x": [
           0,
           3000
@@ -369,15 +293,72 @@
         ]
       },
       {
-        "word": "はまち",
-        "count": 18,
-        "font_size": 1,
-        "x": 1341.0,
+        "word": "カレーパン",
+        "count": 12,
+        "font_size": 2,
+        "x": 1343.0,
+        "y": 1756.0,
+        "norm_x": 58.391304,
+        "norm_y": 87.8,
+        "orientation": null,
+        "color": "rgb(103, 136, 238)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "抹茶",
+        "count": 12,
+        "font_size": 2,
+        "x": 1343.0,
         "y": 1769.0,
-        "norm_x": 58.304348,
+        "norm_x": 58.391304,
         "norm_y": 88.45,
         "orientation": null,
-        "color": "rgb(214, 82, 68)",
+        "color": "rgb(103, 136, 238)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 12,
+        "font_size": 2,
+        "x": 1350.0,
+        "y": 1764.0,
+        "norm_x": 58.695652,
+        "norm_y": 88.2,
+        "orientation": 2,
+        "color": "rgb(85, 114, 223)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 6,
+        "font_size": 1,
+        "x": 1336.0,
+        "y": 1756.0,
+        "norm_x": 58.086957,
+        "norm_y": 87.8,
+        "orientation": null,
+        "color": "rgb(184, 18, 42)",
         "print_area_x": [
           0,
           3000
@@ -393,13 +374,13 @@
     "name": "小松島市",
     "data": [
       {
-        "word": "すだち",
-        "count": 16,
-        "font_size": 6,
-        "x": 1354.0,
-        "y": 1768.0,
-        "norm_x": 58.869565,
-        "norm_y": 88.4,
+        "word": "ソフトクリーム",
+        "count": 10,
+        "font_size": 2,
+        "x": 1353.0,
+        "y": 1772.0,
+        "norm_x": 58.826087,
+        "norm_y": 88.6,
         "orientation": null,
         "color": "rgb(246, 162, 131)",
         "print_area_x": [
@@ -412,34 +393,15 @@
         ]
       },
       {
-        "word": "ソフトクリーム",
-        "count": 10,
-        "font_size": 1,
-        "x": 1362.0,
-        "y": 1775.0,
-        "norm_x": 59.217391,
-        "norm_y": 88.75,
-        "orientation": null,
-        "color": "rgb(246, 189, 162)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "塩味",
         "count": 8,
-        "font_size": 1,
-        "x": 1356.0,
-        "y": 1775.0,
-        "norm_x": 58.956522,
-        "norm_y": 88.75,
+        "font_size": 2,
+        "x": 1364.0,
+        "y": 1777.0,
+        "norm_x": 59.304348,
+        "norm_y": 88.85,
         "orientation": null,
-        "color": "rgb(67, 88, 203)",
+        "color": "rgb(226, 218, 213)",
         "print_area_x": [
           0,
           3000
@@ -452,13 +414,13 @@
       {
         "word": "チキンカレー",
         "count": 6,
-        "font_size": 1,
-        "x": 1363.0,
-        "y": 1764.0,
-        "norm_x": 59.26087,
-        "norm_y": 88.2,
+        "font_size": 2,
+        "x": 1355.0,
+        "y": 1767.0,
+        "norm_x": 58.913043,
+        "norm_y": 88.35,
         "orientation": null,
-        "color": "rgb(245, 196, 172)",
+        "color": "rgb(60, 78, 194)",
         "print_area_x": [
           0,
           3000
@@ -471,70 +433,13 @@
       {
         "word": "そば米",
         "count": 4,
-        "font_size": 1,
-        "x": 1357.0,
+        "font_size": 2,
+        "x": 1362.0,
         "y": 1762.0,
-        "norm_x": 59.0,
+        "norm_x": 59.217391,
         "norm_y": 88.1,
         "orientation": null,
-        "color": "rgb(197, 51, 52)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 4,
-        "font_size": 1,
-        "x": 1369.0,
-        "y": 1774.0,
-        "norm_x": 59.521739,
-        "norm_y": 88.7,
-        "orientation": null,
-        "color": "rgb(247, 169, 139)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 4,
-        "font_size": 1,
-        "x": 1364.0,
-        "y": 1778.0,
-        "norm_x": 59.304348,
-        "norm_y": 88.9,
-        "orientation": null,
-        "color": "rgb(119, 154, 247)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 4,
-        "font_size": 1,
-        "x": 1356.0,
-        "y": 1777.0,
-        "norm_x": 58.956522,
-        "norm_y": 88.85,
-        "orientation": null,
-        "color": "rgb(193, 212, 244)",
+        "color": "rgb(245, 194, 170)",
         "print_area_x": [
           0,
           3000
@@ -547,89 +452,13 @@
       {
         "word": "酢豚",
         "count": 4,
-        "font_size": 1,
-        "x": 1358.0,
-        "y": 1777.0,
-        "norm_x": 59.043478,
-        "norm_y": 88.85,
-        "orientation": null,
-        "color": "rgb(163, 194, 254)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "はまち",
-        "count": 3,
-        "font_size": 1,
-        "x": 1368.0,
-        "y": 1777.0,
-        "norm_x": 59.478261,
-        "norm_y": 88.85,
-        "orientation": null,
-        "color": "rgb(111, 146, 243)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "メンチカツ",
-        "count": 3,
-        "font_size": 1,
-        "x": 1359.0,
-        "y": 1780.0,
-        "norm_x": 59.086957,
-        "norm_y": 89.0,
-        "orientation": null,
-        "color": "rgb(223, 219, 217)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "漬物",
-        "count": 3,
-        "font_size": 1,
-        "x": 1364.0,
-        "y": 1779.0,
-        "norm_x": 59.304348,
-        "norm_y": 88.95,
-        "orientation": null,
-        "color": "rgb(85, 114, 223)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いちご",
-        "count": 2,
-        "font_size": 1,
+        "font_size": 2,
         "x": 1356.0,
-        "y": 1764.0,
+        "y": 1776.0,
         "norm_x": 58.956522,
-        "norm_y": 88.2,
+        "norm_y": 88.8,
         "orientation": null,
-        "color": "rgb(102, 135, 237)",
+        "color": "rgb(123, 159, 249)",
         "print_area_x": [
           0,
           3000
@@ -640,34 +469,53 @@
         ]
       },
       {
-        "word": "ういろう",
+        "word": "カレーパン",
         "count": 2,
-        "font_size": 1,
-        "x": 1366.0,
-        "y": 1779.0,
-        "norm_x": 59.391304,
-        "norm_y": 88.95,
-        "orientation": null,
-        "color": "rgb(90, 120, 228)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "かぼす",
-        "count": 2,
-        "font_size": 1,
-        "x": 1366.0,
+        "font_size": 2,
+        "x": 1358.0,
         "y": 1780.0,
-        "norm_x": 59.391304,
+        "norm_x": 59.043478,
         "norm_y": 89.0,
         "orientation": null,
-        "color": "rgb(241, 143, 113)",
+        "color": "rgb(182, 206, 250)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "抹茶",
+        "count": 2,
+        "font_size": 2,
+        "x": 1368.0,
+        "y": 1769.0,
+        "norm_x": 59.478261,
+        "norm_y": 88.45,
+        "orientation": 2,
+        "color": "rgb(74, 99, 211)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 2,
+        "font_size": 2,
+        "x": 1368.0,
+        "y": 1773.0,
+        "norm_x": 59.478261,
+        "norm_y": 88.65,
+        "orientation": 2,
+        "color": "rgb(193, 43, 48)",
         "print_area_x": [
           0,
           3000
@@ -683,34 +531,15 @@
     "name": "徳島市",
     "data": [
       {
-        "word": "すだち",
-        "count": 16,
-        "font_size": 6,
-        "x": 1355.0,
-        "y": 1748.0,
-        "norm_x": 58.913043,
-        "norm_y": 87.4,
-        "orientation": null,
-        "color": "rgb(236, 127, 99)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "ソフトクリーム",
         "count": 10,
         "font_size": 2,
-        "x": 1356.0,
-        "y": 1756.0,
-        "norm_x": 58.956522,
-        "norm_y": 87.8,
+        "x": 1353.0,
+        "y": 1749.0,
+        "norm_x": 58.826087,
+        "norm_y": 87.45,
         "orientation": null,
-        "color": "rgb(74, 99, 211)",
+        "color": "rgb(222, 220, 219)",
         "print_area_x": [
           0,
           3000
@@ -724,12 +553,12 @@
         "word": "塩味",
         "count": 8,
         "font_size": 2,
-        "x": 1366.0,
-        "y": 1743.0,
-        "norm_x": 59.391304,
-        "norm_y": 87.15,
+        "x": 1358.0,
+        "y": 1756.0,
+        "norm_x": 59.043478,
+        "norm_y": 87.8,
         "orientation": null,
-        "color": "rgb(73, 97, 210)",
+        "color": "rgb(125, 160, 249)",
         "print_area_x": [
           0,
           3000
@@ -742,13 +571,13 @@
       {
         "word": "チキンカレー",
         "count": 6,
-        "font_size": 1,
-        "x": 1357.0,
+        "font_size": 2,
+        "x": 1358.0,
         "y": 1743.0,
-        "norm_x": 59.0,
+        "norm_x": 59.043478,
         "norm_y": 87.15,
         "orientation": null,
-        "color": "rgb(245, 196, 172)",
+        "color": "rgb(84, 112, 222)",
         "print_area_x": [
           0,
           3000
@@ -761,70 +590,13 @@
       {
         "word": "そば米",
         "count": 4,
-        "font_size": 1,
-        "x": 1358.0,
-        "y": 1759.0,
-        "norm_x": 59.043478,
-        "norm_y": 87.95,
-        "orientation": null,
-        "color": "rgb(122, 157, 248)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 4,
-        "font_size": 1,
+        "font_size": 2,
         "x": 1363.0,
-        "y": 1741.0,
+        "y": 1757.0,
         "norm_x": 59.26087,
-        "norm_y": 87.05,
-        "orientation": 2,
-        "color": "rgb(204, 217, 237)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 4,
-        "font_size": 1,
-        "x": 1355.0,
-        "y": 1744.0,
-        "norm_x": 58.913043,
-        "norm_y": 87.2,
+        "norm_y": 87.85,
         "orientation": null,
-        "color": "rgb(181, 205, 250)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 4,
-        "font_size": 1,
-        "x": 1360.0,
-        "y": 1753.0,
-        "norm_x": 59.130435,
-        "norm_y": 87.65,
-        "orientation": null,
-        "color": "rgb(98, 130, 234)",
+        "color": "rgb(218, 90, 73)",
         "print_area_x": [
           0,
           3000
@@ -837,13 +609,127 @@
       {
         "word": "酢豚",
         "count": 4,
-        "font_size": 1,
+        "font_size": 2,
         "x": 1368.0,
-        "y": 1758.0,
+        "y": 1750.0,
         "norm_x": 59.478261,
-        "norm_y": 87.9,
+        "norm_y": 87.5,
         "orientation": null,
-        "color": "rgb(204, 64, 58)",
+        "color": "rgb(155, 188, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "カレーパン",
+        "count": 2,
+        "font_size": 1,
+        "x": 1356.0,
+        "y": 1759.0,
+        "norm_x": 58.956522,
+        "norm_y": 87.95,
+        "orientation": null,
+        "color": "rgb(215, 220, 227)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "抹茶",
+        "count": 2,
+        "font_size": 1,
+        "x": 1364.0,
+        "y": 1751.0,
+        "norm_x": 59.304348,
+        "norm_y": 87.55,
+        "orientation": null,
+        "color": "rgb(243, 199, 177)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 2,
+        "font_size": 1,
+        "x": 1357.0,
+        "y": 1752.0,
+        "norm_x": 59.0,
+        "norm_y": 87.6,
+        "orientation": null,
+        "color": "rgb(238, 134, 105)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 1,
+        "font_size": 1,
+        "x": 1366.0,
+        "y": 1745.0,
+        "norm_x": 59.391304,
+        "norm_y": 87.25,
+        "orientation": null,
+        "color": "rgb(190, 36, 46)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "クリームパン",
+        "count": 1,
+        "font_size": 1,
+        "x": 1356.0,
+        "y": 1745.0,
+        "norm_x": 58.956522,
+        "norm_y": 87.25,
+        "orientation": null,
+        "color": "rgb(185, 208, 249)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ビーフカレー",
+        "count": 1,
+        "font_size": 1,
+        "x": 1366.0,
+        "y": 1753.0,
+        "norm_x": 59.391304,
+        "norm_y": 87.65,
+        "orientation": null,
+        "color": "rgb(110, 144, 242)",
         "print_area_x": [
           0,
           3000
@@ -859,34 +745,15 @@
     "name": "板野郡",
     "data": [
       {
-        "word": "すだち",
-        "count": 16,
-        "font_size": 10,
-        "x": 1357.0,
-        "y": 1732.0,
-        "norm_x": 33.097561,
-        "norm_y": 57.733333,
-        "orientation": null,
-        "color": "rgb(181, 9, 39)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "ソフトクリーム",
         "count": 10,
-        "font_size": 2,
-        "x": 1374.0,
-        "y": 1742.0,
-        "norm_x": 33.512195,
-        "norm_y": 58.066667,
+        "font_size": 4,
+        "x": 1362.0,
+        "y": 1735.0,
+        "norm_x": 33.219512,
+        "norm_y": 57.833333,
         "orientation": null,
-        "color": "rgb(205, 66, 59)",
+        "color": "rgb(247, 173, 144)",
         "print_area_x": [
           0,
           3000
@@ -899,13 +766,13 @@
       {
         "word": "塩味",
         "count": 8,
-        "font_size": 2,
+        "font_size": 4,
         "x": 1360.0,
-        "y": 1724.0,
+        "y": 1722.0,
         "norm_x": 33.170732,
-        "norm_y": 57.466667,
-        "orientation": null,
-        "color": "rgb(167, 197, 254)",
+        "norm_y": 57.4,
+        "orientation": 2,
+        "color": "rgb(245, 156, 125)",
         "print_area_x": [
           0,
           3000
@@ -918,13 +785,13 @@
       {
         "word": "チキンカレー",
         "count": 6,
-        "font_size": 2,
-        "x": 1353.0,
-        "y": 1727.0,
-        "norm_x": 33.0,
-        "norm_y": 57.566667,
+        "font_size": 3,
+        "x": 1371.0,
+        "y": 1740.0,
+        "norm_x": 33.439024,
+        "norm_y": 58.0,
         "orientation": null,
-        "color": "rgb(199, 54, 53)",
+        "color": "rgb(195, 213, 244)",
         "print_area_x": [
           0,
           3000
@@ -938,69 +805,12 @@
         "word": "そば米",
         "count": 4,
         "font_size": 2,
-        "x": 1366.0,
-        "y": 1721.0,
-        "norm_x": 33.317073,
-        "norm_y": 57.366667,
-        "orientation": 2,
-        "color": "rgb(247, 177, 148)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 4,
-        "font_size": 2,
-        "x": 1375.0,
-        "y": 1747.0,
-        "norm_x": 33.536585,
-        "norm_y": 58.233333,
+        "x": 1376.0,
+        "y": 1748.0,
+        "norm_x": 33.560976,
+        "norm_y": 58.266667,
         "orientation": null,
-        "color": "rgb(206, 218, 235)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 4,
-        "font_size": 2,
-        "x": 1385.0,
-        "y": 1744.0,
-        "norm_x": 33.780488,
-        "norm_y": 58.133333,
-        "orientation": 2,
-        "color": "rgb(245, 160, 129)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 4,
-        "font_size": 2,
-        "x": 1388.0,
-        "y": 1738.0,
-        "norm_x": 33.853659,
-        "norm_y": 57.933333,
-        "orientation": 2,
-        "color": "rgb(247, 168, 137)",
+        "color": "rgb(225, 218, 214)",
         "print_area_x": [
           0,
           3000
@@ -1014,183 +824,12 @@
         "word": "酢豚",
         "count": 4,
         "font_size": 2,
-        "x": 1369.0,
-        "y": 1725.0,
-        "norm_x": 33.390244,
-        "norm_y": 57.5,
-        "orientation": 2,
-        "color": "rgb(244, 197, 173)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "はまち",
-        "count": 3,
-        "font_size": 1,
-        "x": 1377.0,
-        "y": 1749.0,
-        "norm_x": 33.585366,
-        "norm_y": 58.3,
+        "x": 1361.0,
+        "y": 1730.0,
+        "norm_x": 33.195122,
+        "norm_y": 57.666667,
         "orientation": null,
-        "color": "rgb(66, 87, 201)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "メンチカツ",
-        "count": 3,
-        "font_size": 1,
-        "x": 1353.0,
-        "y": 1729.0,
-        "norm_x": 33.0,
-        "norm_y": 57.633333,
-        "orientation": 2,
-        "color": "rgb(243, 149, 119)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "漬物",
-        "count": 3,
-        "font_size": 1,
-        "x": 1356.0,
-        "y": 1729.0,
-        "norm_x": 33.073171,
-        "norm_y": 57.633333,
-        "orientation": 2,
-        "color": "rgb(202, 59, 55)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いちご",
-        "count": 2,
-        "font_size": 1,
-        "x": 1360.0,
-        "y": 1720.0,
-        "norm_x": 33.170732,
-        "norm_y": 57.333333,
-        "orientation": null,
-        "color": "rgb(202, 216, 239)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ういろう",
-        "count": 2,
-        "font_size": 1,
-        "x": 1388.0,
-        "y": 1742.0,
-        "norm_x": 33.853659,
-        "norm_y": 58.066667,
-        "orientation": 2,
-        "color": "rgb(154, 187, 255)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "かぼす",
-        "count": 2,
-        "font_size": 1,
-        "x": 1363.0,
-        "y": 1737.0,
-        "norm_x": 33.243902,
-        "norm_y": 57.9,
-        "orientation": null,
-        "color": "rgb(83, 110, 221)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "つくね",
-        "count": 2,
-        "font_size": 1,
-        "x": 1363.0,
-        "y": 1729.0,
-        "norm_x": 33.243902,
-        "norm_y": 57.633333,
-        "orientation": null,
-        "color": "rgb(246, 190, 164)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "むつ",
-        "count": 2,
-        "font_size": 1,
-        "x": 1390.0,
-        "y": 1741.0,
-        "norm_x": 33.902439,
-        "norm_y": 58.033333,
-        "orientation": null,
-        "color": "rgb(207, 69, 60)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "イクラ",
-        "count": 2,
-        "font_size": 1,
-        "x": 1355.0,
-        "y": 1723.0,
-        "norm_x": 33.04878,
-        "norm_y": 57.433333,
-        "orientation": null,
-        "color": "rgb(114, 149, 244)",
+        "color": "rgb(144, 178, 254)",
         "print_area_x": [
           0,
           3000
@@ -1203,13 +842,241 @@
       {
         "word": "カレーパン",
         "count": 2,
+        "font_size": 2,
+        "x": 1376.0,
+        "y": 1731.0,
+        "norm_x": 33.560976,
+        "norm_y": 57.7,
+        "orientation": null,
+        "color": "rgb(215, 84, 69)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "抹茶",
+        "count": 2,
+        "font_size": 2,
+        "x": 1355.0,
+        "y": 1731.0,
+        "norm_x": 33.04878,
+        "norm_y": 57.7,
+        "orientation": null,
+        "color": "rgb(130, 166, 251)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 2,
+        "font_size": 2,
+        "x": 1366.0,
+        "y": 1726.0,
+        "norm_x": 33.317073,
+        "norm_y": 57.533333,
+        "orientation": null,
+        "color": "rgb(204, 64, 58)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 1,
+        "font_size": 2,
+        "x": 1380.0,
+        "y": 1743.0,
+        "norm_x": 33.658537,
+        "norm_y": 58.1,
+        "orientation": null,
+        "color": "rgb(75, 100, 213)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "クリームパン",
+        "count": 1,
+        "font_size": 1,
+        "x": 1366.0,
+        "y": 1731.0,
+        "norm_x": 33.317073,
+        "norm_y": 57.7,
+        "orientation": null,
+        "color": "rgb(126, 161, 250)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ビーフカレー",
+        "count": 1,
+        "font_size": 1,
+        "x": 1382.0,
+        "y": 1748.0,
+        "norm_x": 33.707317,
+        "norm_y": 58.266667,
+        "orientation": null,
+        "color": "rgb(76, 102, 214)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "フランスパン",
+        "count": 1,
+        "font_size": 1,
+        "x": 1372.0,
+        "y": 1743.0,
+        "norm_x": 33.463415,
+        "norm_y": 58.1,
+        "orientation": null,
+        "color": "rgb(80, 107, 218)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ポークカレー",
+        "count": 1,
+        "font_size": 1,
+        "x": 1356.0,
+        "y": 1723.0,
+        "norm_x": 33.073171,
+        "norm_y": 57.433333,
+        "orientation": 2,
+        "color": "rgb(205, 217, 236)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "塩辛",
+        "count": 1,
+        "font_size": 1,
+        "x": 1372.0,
+        "y": 1730.0,
+        "norm_x": 33.463415,
+        "norm_y": 57.666667,
+        "orientation": null,
+        "color": "rgb(247, 186, 159)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "揚げパン",
+        "count": 1,
+        "font_size": 1,
+        "x": 1356.0,
+        "y": 1737.0,
+        "norm_x": 33.073171,
+        "norm_y": 57.9,
+        "orientation": null,
+        "color": "rgb(188, 210, 247)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "無塩",
+        "count": 1,
         "font_size": 1,
         "x": 1358.0,
-        "y": 1721.0,
+        "y": 1738.0,
         "norm_x": 33.121951,
-        "norm_y": 57.366667,
+        "norm_y": 57.933333,
         "orientation": null,
-        "color": "rgb(151, 184, 255)",
+        "color": "rgb(147, 181, 254)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "紅茶",
+        "count": 1,
+        "font_size": 1,
+        "x": 1385.0,
+        "y": 1749.0,
+        "norm_x": 33.780488,
+        "norm_y": 58.3,
+        "orientation": null,
+        "color": "rgb(163, 194, 254)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "肉まん",
+        "count": 1,
+        "font_size": 1,
+        "x": 1388.0,
+        "y": 1743.0,
+        "norm_x": 33.853659,
+        "norm_y": 58.1,
+        "orientation": 2,
+        "color": "rgb(230, 114, 89)",
         "print_area_x": [
           0,
           3000
@@ -1225,34 +1092,15 @@
     "name": "海部郡_那賀郡",
     "data": [
       {
-        "word": "すだち",
-        "count": 48,
-        "font_size": 6,
-        "x": 1335.0,
-        "y": 1780.0,
-        "norm_x": 58.043478,
-        "norm_y": 84.761905,
-        "orientation": null,
-        "color": "rgb(185, 208, 249)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "ソフトクリーム",
         "count": 30,
-        "font_size": 2,
-        "x": 1338.0,
-        "y": 1775.0,
-        "norm_x": 58.173913,
-        "norm_y": 84.52381,
+        "font_size": 3,
+        "x": 1334.0,
+        "y": 1781.0,
+        "norm_x": 58.0,
+        "norm_y": 84.809524,
         "orientation": null,
-        "color": "rgb(211, 219, 231)",
+        "color": "rgb(215, 84, 69)",
         "print_area_x": [
           0,
           3000
@@ -1265,13 +1113,13 @@
       {
         "word": "塩味",
         "count": 24,
-        "font_size": 2,
-        "x": 1338.0,
-        "y": 1789.0,
-        "norm_x": 58.173913,
-        "norm_y": 85.190476,
+        "font_size": 3,
+        "x": 1339.0,
+        "y": 1775.0,
+        "norm_x": 58.217391,
+        "norm_y": 84.52381,
         "orientation": null,
-        "color": "rgb(166, 196, 254)",
+        "color": "rgb(223, 99, 78)",
         "print_area_x": [
           0,
           3000
@@ -1284,13 +1132,13 @@
       {
         "word": "チキンカレー",
         "count": 18,
-        "font_size": 1,
-        "x": 1343.0,
-        "y": 1788.0,
-        "norm_x": 58.391304,
-        "norm_y": 85.142857,
+        "font_size": 2,
+        "x": 1338.0,
+        "y": 1787.0,
+        "norm_x": 58.173913,
+        "norm_y": 85.095238,
         "orientation": null,
-        "color": "rgb(222, 97, 77)",
+        "color": "rgb(100, 133, 236)",
         "print_area_x": [
           0,
           3000
@@ -1303,70 +1151,13 @@
       {
         "word": "そば米",
         "count": 12,
-        "font_size": 1,
-        "x": 1351.0,
-        "y": 1785.0,
-        "norm_x": 58.73913,
-        "norm_y": 85.0,
-        "orientation": null,
-        "color": "rgb(67, 88, 203)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 12,
-        "font_size": 1,
-        "x": 1349.0,
-        "y": 1786.0,
-        "norm_x": 58.652174,
-        "norm_y": 85.047619,
-        "orientation": null,
-        "color": "rgb(247, 176, 147)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 12,
-        "font_size": 1,
+        "font_size": 2,
         "x": 1347.0,
-        "y": 1789.0,
+        "y": 1773.0,
         "norm_x": 58.565217,
-        "norm_y": 85.190476,
-        "orientation": null,
-        "color": "rgb(233, 122, 95)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 12,
-        "font_size": 1,
-        "x": 1347.0,
-        "y": 1777.0,
-        "norm_x": 58.565217,
-        "norm_y": 84.619048,
-        "orientation": null,
-        "color": "rgb(197, 51, 52)",
+        "norm_y": 84.428571,
+        "orientation": 2,
+        "color": "rgb(239, 206, 189)",
         "print_area_x": [
           0,
           3000
@@ -1379,13 +1170,13 @@
       {
         "word": "酢豚",
         "count": 12,
-        "font_size": 1,
-        "x": 1343.0,
-        "y": 1789.0,
-        "norm_x": 58.391304,
-        "norm_y": 85.190476,
+        "font_size": 2,
+        "x": 1350.0,
+        "y": 1784.0,
+        "norm_x": 58.695652,
+        "norm_y": 84.952381,
         "orientation": null,
-        "color": "rgb(220, 93, 74)",
+        "color": "rgb(238, 132, 104)",
         "print_area_x": [
           0,
           3000
@@ -1396,15 +1187,72 @@
         ]
       },
       {
-        "word": "はまち",
-        "count": 9,
-        "font_size": 1,
-        "x": 1338.0,
-        "y": 1785.0,
-        "norm_x": 58.173913,
-        "norm_y": 85.0,
+        "word": "カレーパン",
+        "count": 6,
+        "font_size": 2,
+        "x": 1339.0,
+        "y": 1790.0,
+        "norm_x": 58.217391,
+        "norm_y": 85.238095,
         "orientation": null,
-        "color": "rgb(80, 107, 218)",
+        "color": "rgb(84, 112, 222)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "抹茶",
+        "count": 6,
+        "font_size": 1,
+        "x": 1349.0,
+        "y": 1778.0,
+        "norm_x": 58.652174,
+        "norm_y": 84.666667,
+        "orientation": null,
+        "color": "rgb(245, 192, 167)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 6,
+        "font_size": 1,
+        "x": 1350.0,
+        "y": 1787.0,
+        "norm_x": 58.695652,
+        "norm_y": 85.095238,
+        "orientation": null,
+        "color": "rgb(234, 123, 96)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 3,
+        "font_size": 1,
+        "x": 1349.0,
+        "y": 1789.0,
+        "norm_x": 58.652174,
+        "norm_y": 85.190476,
+        "orientation": 2,
+        "color": "rgb(238, 132, 104)",
         "print_area_x": [
           0,
           3000
@@ -1417,37 +1265,18 @@
     ]
   },
   {
-    "name": "美馬郡_吉野川市_美馬市",
+    "name": "美馬市_美馬郡_吉野川市",
     "data": [
-      {
-        "word": "すだち",
-        "count": 96,
-        "font_size": 6,
-        "x": 1318.0,
-        "y": 1748.0,
-        "norm_x": 57.304348,
-        "norm_y": 87.4,
-        "orientation": null,
-        "color": "rgb(217, 88, 71)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
       {
         "word": "ソフトクリーム",
         "count": 60,
-        "font_size": 2,
-        "x": 1321.0,
-        "y": 1754.0,
-        "norm_x": 57.434783,
-        "norm_y": 87.7,
+        "font_size": 3,
+        "x": 1316.0,
+        "y": 1750.0,
+        "norm_x": 57.217391,
+        "norm_y": 87.5,
         "orientation": null,
-        "color": "rgb(240, 205, 187)",
+        "color": "rgb(147, 181, 254)",
         "print_area_x": [
           0,
           3000
@@ -1460,13 +1289,13 @@
       {
         "word": "塩味",
         "count": 48,
-        "font_size": 2,
-        "x": 1329.0,
-        "y": 1743.0,
-        "norm_x": 57.782609,
-        "norm_y": 87.15,
+        "font_size": 3,
+        "x": 1323.0,
+        "y": 1756.0,
+        "norm_x": 57.521739,
+        "norm_y": 87.8,
         "orientation": null,
-        "color": "rgb(70, 94, 207)",
+        "color": "rgb(244, 154, 123)",
         "print_area_x": [
           0,
           3000
@@ -1479,13 +1308,13 @@
       {
         "word": "チキンカレー",
         "count": 36,
-        "font_size": 2,
+        "font_size": 1,
         "x": 1321.0,
-        "y": 1757.0,
+        "y": 1741.0,
         "norm_x": 57.434783,
-        "norm_y": 87.85,
+        "norm_y": 87.05,
         "orientation": null,
-        "color": "rgb(63, 83, 198)",
+        "color": "rgb(247, 186, 159)",
         "print_area_x": [
           0,
           3000
@@ -1498,11 +1327,49 @@
       {
         "word": "そば米",
         "count": 24,
-        "font_size": 2,
-        "x": 1321.0,
-        "y": 1743.0,
-        "norm_x": 57.434783,
-        "norm_y": 87.15,
+        "font_size": 1,
+        "x": 1319.0,
+        "y": 1746.0,
+        "norm_x": 57.347826,
+        "norm_y": 87.3,
+        "orientation": null,
+        "color": "rgb(231, 116, 91)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "酢豚",
+        "count": 24,
+        "font_size": 1,
+        "x": 1319.0,
+        "y": 1757.0,
+        "norm_x": 57.347826,
+        "norm_y": 87.85,
+        "orientation": null,
+        "color": "rgb(104, 138, 239)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "カレーパン",
+        "count": 12,
+        "font_size": 1,
+        "x": 1327.0,
+        "y": 1760.0,
+        "norm_x": 57.695652,
+        "norm_y": 88.0,
         "orientation": null,
         "color": "rgb(224, 101, 79)",
         "print_area_x": [
@@ -1515,15 +1382,72 @@
         ]
       },
       {
-        "word": "とんかつ",
-        "count": 24,
+        "word": "抹茶",
+        "count": 12,
         "font_size": 1,
-        "x": 1321.0,
-        "y": 1760.0,
-        "norm_x": 57.434783,
-        "norm_y": 88.0,
+        "x": 1331.0,
+        "y": 1753.0,
+        "norm_x": 57.869565,
+        "norm_y": 87.65,
         "orientation": null,
-        "color": "rgb(213, 219, 229)",
+        "color": "rgb(215, 84, 69)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 12,
+        "font_size": 1,
+        "x": 1319.0,
+        "y": 1747.0,
+        "norm_x": 57.347826,
+        "norm_y": 87.35,
+        "orientation": null,
+        "color": "rgb(212, 219, 230)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 6,
+        "font_size": 1,
+        "x": 1323.0,
+        "y": 1744.0,
+        "norm_x": 57.521739,
+        "norm_y": 87.2,
+        "orientation": null,
+        "color": "rgb(239, 136, 107)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "クリームパン",
+        "count": 6,
+        "font_size": 1,
+        "x": 1329.0,
+        "y": 1741.0,
+        "norm_x": 57.782609,
+        "norm_y": 87.05,
+        "orientation": 2,
+        "color": "rgb(197, 51, 52)",
         "print_area_x": [
           0,
           3000
@@ -1539,34 +1463,15 @@
     "name": "阿南市",
     "data": [
       {
-        "word": "すだち",
-        "count": 16,
-        "font_size": 6,
-        "x": 1371.0,
-        "y": 1759.0,
-        "norm_x": 59.608696,
-        "norm_y": 41.880952,
-        "orientation": null,
-        "color": "rgb(224, 219, 216)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "ソフトクリーム",
         "count": 10,
-        "font_size": 2,
-        "x": 1374.0,
-        "y": 1765.0,
-        "norm_x": 59.73913,
-        "norm_y": 42.02381,
+        "font_size": 3,
+        "x": 1371.0,
+        "y": 1781.0,
+        "norm_x": 59.608696,
+        "norm_y": 42.404762,
         "orientation": null,
-        "color": "rgb(219, 220, 222)",
+        "color": "rgb(190, 210, 246)",
         "print_area_x": [
           0,
           3000
@@ -1579,13 +1484,13 @@
       {
         "word": "塩味",
         "count": 8,
-        "font_size": 2,
-        "x": 1381.0,
-        "y": 1783.0,
-        "norm_x": 60.043478,
-        "norm_y": 42.452381,
-        "orientation": null,
-        "color": "rgb(205, 217, 236)",
+        "font_size": 3,
+        "x": 1375.0,
+        "y": 1786.0,
+        "norm_x": 59.782609,
+        "norm_y": 42.52381,
+        "orientation": 2,
+        "color": "rgb(187, 27, 44)",
         "print_area_x": [
           0,
           3000
@@ -1598,13 +1503,13 @@
       {
         "word": "チキンカレー",
         "count": 6,
-        "font_size": 2,
-        "x": 1386.0,
-        "y": 1776.0,
-        "norm_x": 60.26087,
-        "norm_y": 42.285714,
-        "orientation": 2,
-        "color": "rgb(240, 139, 110)",
+        "font_size": 3,
+        "x": 1372.0,
+        "y": 1761.0,
+        "norm_x": 59.652174,
+        "norm_y": 41.928571,
+        "orientation": null,
+        "color": "rgb(239, 136, 107)",
         "print_area_x": [
           0,
           3000
@@ -1618,69 +1523,12 @@
         "word": "そば米",
         "count": 4,
         "font_size": 2,
-        "x": 1378.0,
-        "y": 1774.0,
-        "norm_x": 59.913043,
-        "norm_y": 42.238095,
+        "x": 1383.0,
+        "y": 1766.0,
+        "norm_x": 60.130435,
+        "norm_y": 42.047619,
         "orientation": null,
-        "color": "rgb(187, 209, 248)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 4,
-        "font_size": 2,
-        "x": 1378.0,
-        "y": 1769.0,
-        "norm_x": 59.913043,
-        "norm_y": 42.119048,
-        "orientation": null,
-        "color": "rgb(229, 216, 209)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 4,
-        "font_size": 2,
-        "x": 1375.0,
-        "y": 1787.0,
-        "norm_x": 59.782609,
-        "norm_y": 42.547619,
-        "orientation": null,
-        "color": "rgb(247, 185, 158)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 4,
-        "font_size": 2,
-        "x": 1379.0,
-        "y": 1753.0,
-        "norm_x": 59.956522,
-        "norm_y": 41.738095,
-        "orientation": null,
-        "color": "rgb(66, 87, 201)",
+        "color": "rgb(126, 161, 250)",
         "print_area_x": [
           0,
           3000
@@ -1694,183 +1542,12 @@
         "word": "酢豚",
         "count": 4,
         "font_size": 2,
-        "x": 1371.0,
-        "y": 1781.0,
-        "norm_x": 59.608696,
-        "norm_y": 42.404762,
+        "x": 1383.0,
+        "y": 1752.0,
+        "norm_x": 60.130435,
+        "norm_y": 41.714286,
         "orientation": null,
-        "color": "rgb(226, 105, 82)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "はまち",
-        "count": 3,
-        "font_size": 2,
-        "x": 1375.0,
-        "y": 1790.0,
-        "norm_x": 59.782609,
-        "norm_y": 42.619048,
-        "orientation": null,
-        "color": "rgb(108, 143, 241)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "メンチカツ",
-        "count": 3,
-        "font_size": 1,
-        "x": 1382.0,
-        "y": 1788.0,
-        "norm_x": 60.086957,
-        "norm_y": 42.571429,
-        "orientation": null,
-        "color": "rgb(242, 201, 180)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "漬物",
-        "count": 3,
-        "font_size": 1,
-        "x": 1382.0,
-        "y": 1778.0,
-        "norm_x": 60.086957,
-        "norm_y": 42.333333,
-        "orientation": null,
-        "color": "rgb(115, 150, 245)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "いちご",
-        "count": 2,
-        "font_size": 1,
-        "x": 1382.0,
-        "y": 1790.0,
-        "norm_x": 60.086957,
-        "norm_y": 42.619048,
-        "orientation": null,
-        "color": "rgb(117, 151, 246)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ういろう",
-        "count": 2,
-        "font_size": 1,
-        "x": 1377.0,
-        "y": 1779.0,
-        "norm_x": 59.869565,
-        "norm_y": 42.357143,
-        "orientation": 2,
-        "color": "rgb(107, 141, 240)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "かぼす",
-        "count": 2,
-        "font_size": 1,
-        "x": 1389.0,
-        "y": 1783.0,
-        "norm_x": 60.391304,
-        "norm_y": 42.452381,
-        "orientation": null,
-        "color": "rgb(244, 197, 173)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "つくね",
-        "count": 2,
-        "font_size": 1,
-        "x": 1377.0,
-        "y": 1755.0,
-        "norm_x": 59.869565,
-        "norm_y": 41.785714,
-        "orientation": null,
-        "color": "rgb(159, 191, 255)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "むつ",
-        "count": 2,
-        "font_size": 1,
-        "x": 1381.0,
-        "y": 1791.0,
-        "norm_x": 60.043478,
-        "norm_y": 42.642857,
-        "orientation": null,
-        "color": "rgb(214, 82, 68)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "イクラ",
-        "count": 2,
-        "font_size": 1,
-        "x": 1384.0,
-        "y": 1771.0,
-        "norm_x": 60.173913,
-        "norm_y": 42.166667,
-        "orientation": null,
-        "color": "rgb(147, 181, 254)",
+        "color": "rgb(136, 171, 253)",
         "print_area_x": [
           0,
           3000
@@ -1883,13 +1560,13 @@
       {
         "word": "カレーパン",
         "count": 2,
-        "font_size": 1,
-        "x": 1384.0,
-        "y": 1752.0,
-        "norm_x": 60.173913,
-        "norm_y": 41.714286,
-        "orientation": 2,
-        "color": "rgb(198, 214, 241)",
+        "font_size": 2,
+        "x": 1378.0,
+        "y": 1775.0,
+        "norm_x": 59.913043,
+        "norm_y": 42.261905,
+        "orientation": null,
+        "color": "rgb(76, 102, 214)",
         "print_area_x": [
           0,
           3000
@@ -1900,15 +1577,224 @@
         ]
       },
       {
-        "word": "シュークリーム",
+        "word": "抹茶",
         "count": 2,
+        "font_size": 2,
+        "x": 1375.0,
+        "y": 1770.0,
+        "norm_x": 59.782609,
+        "norm_y": 42.142857,
+        "orientation": null,
+        "color": "rgb(246, 162, 131)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 2,
+        "font_size": 2,
+        "x": 1385.0,
+        "y": 1757.0,
+        "norm_x": 60.217391,
+        "norm_y": 41.833333,
+        "orientation": null,
+        "color": "rgb(196, 213, 243)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 1,
+        "font_size": 2,
+        "x": 1380.0,
+        "y": 1786.0,
+        "norm_x": 60.0,
+        "norm_y": 42.52381,
+        "orientation": null,
+        "color": "rgb(199, 215, 240)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "クリームパン",
+        "count": 1,
         "font_size": 1,
-        "x": 1389.0,
-        "y": 1758.0,
-        "norm_x": 60.391304,
-        "norm_y": 41.857143,
-        "orientation": 2,
-        "color": "rgb(193, 212, 244)",
+        "x": 1375.0,
+        "y": 1755.0,
+        "norm_x": 59.782609,
+        "norm_y": 41.785714,
+        "orientation": null,
+        "color": "rgb(226, 218, 213)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ビーフカレー",
+        "count": 1,
+        "font_size": 1,
+        "x": 1379.0,
+        "y": 1777.0,
+        "norm_x": 59.956522,
+        "norm_y": 42.309524,
+        "orientation": null,
+        "color": "rgb(114, 149, 244)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "フランスパン",
+        "count": 1,
+        "font_size": 1,
+        "x": 1379.0,
+        "y": 1790.0,
+        "norm_x": 59.956522,
+        "norm_y": 42.619048,
+        "orientation": null,
+        "color": "rgb(232, 118, 92)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ポークカレー",
+        "count": 1,
+        "font_size": 1,
+        "x": 1372.0,
+        "y": 1757.0,
+        "norm_x": 59.652174,
+        "norm_y": 41.833333,
+        "orientation": null,
+        "color": "rgb(247, 176, 147)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "塩辛",
+        "count": 1,
+        "font_size": 1,
+        "x": 1375.0,
+        "y": 1766.0,
+        "norm_x": 59.782609,
+        "norm_y": 42.047619,
+        "orientation": null,
+        "color": "rgb(170, 199, 253)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "揚げパン",
+        "count": 1,
+        "font_size": 1,
+        "x": 1383.0,
+        "y": 1791.0,
+        "norm_x": 60.130435,
+        "norm_y": 42.642857,
+        "orientation": null,
+        "color": "rgb(89, 119, 227)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "無塩",
+        "count": 1,
+        "font_size": 1,
+        "x": 1379.0,
+        "y": 1766.0,
+        "norm_x": 59.956522,
+        "norm_y": 42.047619,
+        "orientation": null,
+        "color": "rgb(246, 165, 134)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "紅茶",
+        "count": 1,
+        "font_size": 1,
+        "x": 1386.0,
+        "y": 1769.0,
+        "norm_x": 60.26087,
+        "norm_y": 42.119048,
+        "orientation": null,
+        "color": "rgb(240, 205, 187)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "肉まん",
+        "count": 1,
+        "font_size": 1,
+        "x": 1381.0,
+        "y": 1771.0,
+        "norm_x": 60.043478,
+        "norm_y": 42.166667,
+        "orientation": null,
+        "color": "rgb(237, 209, 194)",
         "print_area_x": [
           0,
           3000
@@ -1924,34 +1810,15 @@
     "name": "阿波市",
     "data": [
       {
-        "word": "すだち",
-        "count": 16,
-        "font_size": 6,
-        "x": 1336.0,
-        "y": 1738.0,
-        "norm_x": 58.086957,
-        "norm_y": 86.9,
-        "orientation": null,
-        "color": "rgb(195, 46, 49)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
         "word": "ソフトクリーム",
         "count": 10,
-        "font_size": 2,
-        "x": 1338.0,
-        "y": 1746.0,
-        "norm_x": 58.173913,
-        "norm_y": 87.3,
+        "font_size": 3,
+        "x": 1334.0,
+        "y": 1739.0,
+        "norm_x": 58.0,
+        "norm_y": 86.95,
         "orientation": null,
-        "color": "rgb(223, 219, 217)",
+        "color": "rgb(66, 87, 201)",
         "print_area_x": [
           0,
           3000
@@ -1964,13 +1831,13 @@
       {
         "word": "塩味",
         "count": 8,
-        "font_size": 2,
-        "x": 1339.0,
-        "y": 1732.0,
-        "norm_x": 58.217391,
-        "norm_y": 86.6,
-        "orientation": 2,
-        "color": "rgb(112, 147, 243)",
+        "font_size": 3,
+        "x": 1342.0,
+        "y": 1733.0,
+        "norm_x": 58.347826,
+        "norm_y": 86.65,
+        "orientation": null,
+        "color": "rgb(121, 156, 248)",
         "print_area_x": [
           0,
           3000
@@ -1983,13 +1850,13 @@
       {
         "word": "チキンカレー",
         "count": 6,
-        "font_size": 1,
-        "x": 1346.0,
-        "y": 1734.0,
-        "norm_x": 58.521739,
-        "norm_y": 86.7,
+        "font_size": 2,
+        "x": 1338.0,
+        "y": 1745.0,
+        "norm_x": 58.173913,
+        "norm_y": 87.25,
         "orientation": null,
-        "color": "rgb(147, 181, 254)",
+        "color": "rgb(209, 218, 233)",
         "print_area_x": [
           0,
           3000
@@ -2002,70 +1869,13 @@
       {
         "word": "そば米",
         "count": 4,
-        "font_size": 1,
-        "x": 1348.0,
+        "font_size": 2,
+        "x": 1342.0,
         "y": 1748.0,
-        "norm_x": 58.608696,
+        "norm_x": 58.347826,
         "norm_y": 87.4,
         "orientation": null,
-        "color": "rgb(184, 18, 42)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "とんかつ",
-        "count": 4,
-        "font_size": 1,
-        "x": 1348.0,
-        "y": 1735.0,
-        "norm_x": 58.608696,
-        "norm_y": 86.75,
-        "orientation": null,
-        "color": "rgb(187, 27, 44)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "タルト",
-        "count": 4,
-        "font_size": 1,
-        "x": 1341.0,
-        "y": 1749.0,
-        "norm_x": 58.304348,
-        "norm_y": 87.45,
-        "orientation": null,
-        "color": "rgb(215, 220, 227)",
-        "print_area_x": [
-          0,
-          3000
-        ],
-        "print_area_y": [
-          0,
-          3000
-        ]
-      },
-      {
-        "word": "ヒレ",
-        "count": 4,
-        "font_size": 1,
-        "x": 1341.0,
-        "y": 1750.0,
-        "norm_x": 58.304348,
-        "norm_y": 87.5,
-        "orientation": null,
-        "color": "rgb(240, 205, 187)",
+        "color": "rgb(245, 157, 126)",
         "print_area_x": [
           0,
           3000
@@ -2078,13 +1888,89 @@
       {
         "word": "酢豚",
         "count": 4,
-        "font_size": 1,
-        "x": 1342.0,
+        "font_size": 2,
+        "x": 1348.0,
         "y": 1734.0,
-        "norm_x": 58.347826,
+        "norm_x": 58.608696,
         "norm_y": 86.7,
         "orientation": null,
-        "color": "rgb(228, 110, 86)",
+        "color": "rgb(230, 215, 207)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "カレーパン",
+        "count": 2,
+        "font_size": 1,
+        "x": 1350.0,
+        "y": 1742.0,
+        "norm_x": 58.695652,
+        "norm_y": 87.1,
+        "orientation": null,
+        "color": "rgb(148, 182, 255)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "抹茶",
+        "count": 2,
+        "font_size": 1,
+        "x": 1350.0,
+        "y": 1743.0,
+        "norm_x": 58.695652,
+        "norm_y": 87.15,
+        "orientation": null,
+        "color": "rgb(190, 36, 46)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "麦茶",
+        "count": 2,
+        "font_size": 1,
+        "x": 1349.0,
+        "y": 1748.0,
+        "norm_x": 58.652174,
+        "norm_y": 87.4,
+        "orientation": null,
+        "color": "rgb(234, 123, 96)",
+        "print_area_x": [
+          0,
+          3000
+        ],
+        "print_area_y": [
+          0,
+          3000
+        ]
+      },
+      {
+        "word": "ほうじ茶",
+        "count": 1,
+        "font_size": 1,
+        "x": 1337.0,
+        "y": 1733.0,
+        "norm_x": 58.130435,
+        "norm_y": 86.65,
+        "orientation": 2,
+        "color": "rgb(203, 62, 56)",
         "print_area_x": [
           0,
           3000

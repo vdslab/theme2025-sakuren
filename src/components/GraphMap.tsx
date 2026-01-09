@@ -37,7 +37,12 @@ const hashToUnit = (s: string) => {
   return (h >>> 0) / 4294967295;
 };
 
-const getWordColor = (word: string) => d3.interpolateTurbo(hashToUnit(word));
+const getWordColor = (word: string) => {
+  // HSL色空間でhueをハッシュ値から均等分散（0-360度）
+  // saturation/lightnessを固定して鮮やかさを保つ
+  const hue = hashToUnit(word) * 360;
+  return `hsl(${hue}, 70%, 50%)`;
+};
 
 const keepLargestPolygon = <P,>(
   feature: GeoJSON.Feature<GeoJSON.Geometry, P>

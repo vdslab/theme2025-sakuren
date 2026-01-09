@@ -4,7 +4,6 @@ import unicodedata
 import re
 import numpy as np
 import ctypes
-import MeCab
 import ipadic
 from collections import Counter
 from sklearn.feature_extraction.text import CountVectorizer
@@ -69,6 +68,7 @@ if os.path.exists(USER_DIC_CSV):
 mecab_args = f'-d "{ipadic.DICDIR}" -u "{USER_DIC_BIN}"'
 mecab = MeCab.Tagger(mecab_args)
 
+
 # -----------------------------
 # 形態素解析＋ユーザー辞書フィルター関数
 # -----------------------------
@@ -85,6 +85,7 @@ def mecab_tokenizer_user_only(text):
         return ""
 
     tokens = []
+    noun_buffer = []  # 名詞連結用バッファ
 
     for line in parsed.split("\n"):
         if line == "EOS" or line.strip() == "":
@@ -93,17 +94,26 @@ def mecab_tokenizer_user_only(text):
         surface, feature = line.split("\t")
         features = feature.split(",")
 
-        pos = features[0]      # 品詞
-        pos_detail = features[1]
+        pos = features[0]
 
-        # ✅ 名詞・形容詞のみ
-        if pos == "名詞" or pos == "形容詞":
-            # 記号・数値っぽいもの除外
-            if surface.isdigit():
-                continue
-            tokens.append(surface)
+        # --- 名詞の場合 ---
+        if pos == "名詞" and not surface.isdigit():
+            noun_buffer.append(surface)
+            continue
 
+        # --- 名詞以外が来たら、名詞バッファを確定 ---
+        if noun_buffer:
+            tokens.append("".join(noun_buffer))
+            noun_buffer = []
+
+    # 文末が名詞で終わった場合
+    if noun_buffer:
+        tokens.append("".join(noun_buffer))
     return " ".join(tokens)
+
+
+with open("./create_wordcloud/non_food_words.json", "r", encoding="utf-8") as f:
+    stoper = json.load(f)
 
 prefectures = [
     "北海道",
@@ -154,209 +164,6 @@ prefectures = [
     "鹿児島",
     "沖縄",
 ]
-# stopwords 定義
-stopwords = set(
-    [
-        "ーー",
-        "店",
-        "円",
-        "味",
-        "料理",
-        "さん",
-        "ランチ",
-        "最高",
-        "麺",
-        "雰囲気",
-        "丼",
-        "定食",
-        "メニュー",
-        "満足",
-        "注文",
-        "人",
-        "感じ",
-        "店員",
-        "普通",
-        "セット",
-        "2",
-        "時",
-        "酒",
-        "方",
-        "利用",
-        "値段",
-        "ご飯",
-        "的",
-        "時間",
-        "スープ",
-        "ボリューム",
-        "量",
-        "中",
-        "屋",
-        "こと",
-        "訪問",
-        "1",
-        "コース",
-        "放題",
-        "店内",
-        "牛",
-        "一",
-        "刺身",
-        "ー",
-        "接客",
-        "ここ",
-        "どれ",
-        "日",
-        "好き",
-        "焼き",
-        "野菜",
-        "種類",
-        "パ",
-        "何",
-        "感",
-        "予約",
-        "コス",
-        "よう",
-        "食事",
-        "残念",
-        "対応",
-        "目",
-        "3",
-        "気",
-        "個室",
-        "そう",
-        "席",
-        "前",
-        "豊富",
-        "もの",
-        "魚",
-        "唐",
-        "おすすめ",
-        "パン",
-        "駅",
-        "今日",
-        "提供",
-        "笑",
-        "これ",
-        "丁寧",
-        "サービス",
-        "今回",
-        "日本",
-        "温泉",
-        "お昼",
-        "ごちそうさま",
-        "隠岐",
-        "来店",
-        "近江",
-        "琵琶湖",
-        "購入",
-        "綺麗",
-        "ゴルフ",
-        "会津",
-        "白河",
-        "仕事",
-        "新鮮",
-        "お腹",
-        "来店",
-        "久しぶり",
-        "いっぱい",
-        "ごちそうさま",
-        "食堂",
-        "購入",
-        "家族",
-        "絶品",
-        "オーダー",
-        "越前",
-        "駐車",
-        "300",
-        "郡山",
-        "飛騨",
-        "500",
-        "みたい",
-        "好み",
-        "100",
-        "人気",
-        "レストラン",
-        "淡路島",
-        "直島",
-        "三盆",
-        "奄美",
-        "天草",
-        "伊勢",
-        "信州",
-        "軽井沢",
-        "大変",
-        "平日",
-        "五島",
-        "佐世保",
-        "島原",
-        "中津",
-        "別府",
-        "スタッフ",
-        "安定",
-        "一一",
-        "佐野",
-        "伊豆",
-        "阿波",
-        "鳴門",
-        "素材",
-        "親切",
-        "オススメ",
-        "全部",
-        "大山",
-        "氷見",
-        "美味しい",
-        "美味しかっ",
-        "美味し",
-        "ない",
-        "ところ",
-        "それ",
-        "こちら",
-        "営業",
-        "美味い",
-        "なく",
-        "美味しく",
-        "良く",
-        "近く",
-        "自分",
-        "ため",
-        "到着",
-        "それ",
-        "カウンター",
-        "テーブル",
-        "お客",
-        "カツ",
-        "良かっ",
-        "多い",
-        "店舗",
-        "嬉しい",
-        "限定",
-        "いい",
-        "キヤ",
-        "ラーメン",
-        "次回",
-        "途中",
-        "追加",
-        "写真",
-        "コート",
-        "フード",
-        "見た目",
-        "税込み",
-        "なし",
-        "最後",
-        "ベース",
-        "良い",
-        "おいしかっ",
-        "個人",
-        "邪魔",
-        "税込",
-        "価格",
-        "あと",
-        "スガ",
-        "通り",
-        "以前",
-        "印象"
-    ]
-    + prefectures
-)
 
 # 画像保存ディレクトリ
 # 都道府県リスト
@@ -409,6 +216,13 @@ search_words = [
     "山口県",
     "山梨県",
 ]
+# stopwords 定義
+stopwords = set(
+    stoper
+    + prefectures
+    + search_words
+)
+
 search_words_roma = [
     "aichi",
     "akita",
@@ -474,7 +288,7 @@ else:
 
 # --- 追加: まず全県の word_counts を一時保存 ---
 all_word_counts = {}
-
+wordList = set()
 for i, search_word in enumerate(search_words):
     search_word_roma = search_words_roma[i]
     txt_dir = f"./create_wordcloud/tabelog_results/{search_word_roma}"
@@ -491,6 +305,8 @@ for i, search_word in enumerate(search_words):
     X = vectorizer.fit_transform(documents)
     words = vectorizer.get_feature_names_out()
     counts = np.asarray(X.sum(axis=0)).ravel()
+    for w in words:
+        wordList.add(w)
     word_counts = {
         w: int(c)
         for w, c in zip(words, counts)
@@ -500,7 +316,25 @@ for i, search_word in enumerate(search_words):
         continue
 
     all_word_counts[search_word] = word_counts
-with open("./tilegram_app/public/wordcloud_layout_norm.json", "w", encoding="utf-8") as f:
+with open(
+    "./tilegram_app/public/wordcloud_layout_wordList.json", "w", encoding="utf-8"
+) as f:
+    f.write("[\n")
+
+    word_list = list(wordList)
+    chunk_size = 1000
+
+    for i in range(0, len(word_list), chunk_size):
+        chunk = word_list[i : i + chunk_size]
+        json.dump(chunk, f, ensure_ascii=False)
+        if i + chunk_size < len(word_list):
+            f.write(",\n")  # ← 1000語ごとに改行
+
+    f.write("\n]")
+
+with open(
+    "./tilegram_app/public/wordcloud_layout_norm.json", "w", encoding="utf-8"
+) as f:
     json.dump(all_word_counts, f, ensure_ascii=False, indent=2)
 # --- 全体での最大出現頻度を求める ---
 global_max = max(c for wc in all_word_counts.values() for c in wc.values())
@@ -532,8 +366,8 @@ for search_word, word_counts in all_word_counts.items():
         max_font_size=200,
         include_numbers=False,
         mask=mask_array,
-        relative_scaling=0.7,
-        min_font_size=0.1
+        relative_scaling=0.5,
+        min_font_size=0.1,
     )
 
     try:
