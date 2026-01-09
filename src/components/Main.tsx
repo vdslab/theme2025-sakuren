@@ -2,8 +2,6 @@ import { Box } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useToggle } from "react-use";
 
-import { useLocation } from "react-router";
-import { getPref } from "../constant/prefectures";
 import type { WordBoundsData } from "../types/wordBoundsData";
 import type { WordLayoutData } from "../types/wordLayoutData";
 import { Header } from "./Header/Header";
@@ -17,19 +15,19 @@ export const Main = () => {
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<string | null>(null);
   const [hoveredPref, setHoveredPref] = useState<string | null>(null);
-  const [markerPref, setMarkerPref] = useState<Array<string>>([]);
+  // const [markerPref, setMarkerPref] = useState<Array<string>>([]);
 
   // データ保持
   const [wordData, setWordData] = useState<WordLayoutData[]>([]);
   const [wordBounds, setWordBounds] = useState<WordBoundsData>({});
 
-  const { search } = useLocation();
+  // const { search } = useLocation();
 
-  useEffect(() => {
-    const params = new URLSearchParams(search);
-    const pref = params.getAll("prefecture").map(Number);
-    setMarkerPref(pref.map(getPref).filter((p) => p !== null));
-  }, [search]);
+  // useEffect(() => {
+  //   const params = new URLSearchParams(search);
+  //   const pref = params.getAll("prefecture").map(Number);
+  //   setMarkerPref(pref.map(getPref).filter((p) => p !== null));
+  // }, [search]);
 
   useEffect(() => {
     fetch("/data/wordcloud_layout.json")
@@ -77,7 +75,6 @@ export const Main = () => {
           setIsWordSelectMode={setIsWordSelectMode}
           setSelectedWord={(opt) => setSelectedWord(opt)}
           uniqueWords={uniqueWords}
-          markerPref={markerPref}
         />
       )}
     </Box>

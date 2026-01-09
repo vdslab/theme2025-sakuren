@@ -46,7 +46,7 @@ const MunicipalityMap_detail = ({
   useEffect(() => {
     if (!feature || wordcloud.length === 0) return;
 
-    const { N03_003, N03_004 } = feature.properties;
+    const { N03_003 } = feature.properties;
     const partsNameRaw = N03_003;
     const partsName = partsNameRaw?.trim();
     const matched = wordcloud.find((item) => item.name.trim() === partsName);
@@ -69,7 +69,6 @@ const MunicipalityMap_detail = ({
       opacity={findword || !selectedWord ? 1 : 0.25}
       onClick={() => {
         if (group !== feature.properties?.N03_001) {
-          console.log(group);
           onChange(feature.properties?.N03_001);
         }
       }}
